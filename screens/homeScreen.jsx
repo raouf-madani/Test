@@ -3,6 +3,7 @@ import { StyleSheet, ImageBackground, View, ScrollView} from 'react-native';
 import { PricingCard } from 'react-native-elements';
 
 const HomeScreen = props =>{
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/images/backgroundFoot.jpg')} style={styles.bigBackgroundImage}>
@@ -12,7 +13,7 @@ const HomeScreen = props =>{
             title="Free"
             price="$0"
             info={['1 User', 'Basic Support', 'All Core Features']}
-            button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
+            button={{ title: 'GET STARTED', icon: 'flight-takeoff'}}
           />
           <PricingCard
             color="#4f9deb"
