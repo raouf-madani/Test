@@ -4,6 +4,7 @@ import { PricingCard } from 'react-native-elements';
 import Colors from "../constants/Colors";
 
 const HomeScreen = props =>{
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/images/night.jpg')} style={styles.bigBackgroundImage}>
@@ -18,11 +19,9 @@ const HomeScreen = props =>{
             title="مباراة واحدة"
             price="$0"
             info={['1 User', 'Basic Support', 'All Core Features']}
-            button={{ title: 'إختر الآن' , buttonStyle:"width:100%  " }}
+            button={{ title: 'إختر الآن'}}
             containerStyle = {styles.card}
             onButtonPress={() => props.navigation.navigate('TypeMatch')}
-
-
           />
           <PricingCard
             color= {Colors.primary}
@@ -48,20 +47,16 @@ const styles= StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    
-    
   },
-textContainer : {
-alignSelf : "center",
-marginTop : 20
-},
-
-text : {
-color : "white" ,
-fontSize : 25 ,
-fontFamily : "poppins-bold"
-},
-
+  textContainer : {
+    alignSelf : "center",
+    marginTop : 20
+  },
+  text : {
+    color : "white" ,
+    fontSize : 25 ,
+    fontFamily : "poppins-bold"
+  },
   bigBackgroundImage:{
     flex:1,
     resizeMode:'cover',
