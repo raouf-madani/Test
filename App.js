@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import BookingNavigator from "./navigation/BookingNavigator";
+import {enableScreens} from 'react-native-screens';
+import FootNavigation from './navigation/footNavigation';
+
+enableScreens();
 
 export default function App() {
   return (
-    <BookingNavigator />
+    <FootNavigation />
   );
 }
-
 
