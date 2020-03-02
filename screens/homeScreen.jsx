@@ -18,7 +18,7 @@ const HomeScreen = props =>{
             title="مباراة واحدة"
             price="$0"
             info={['1 User', 'Basic Support', 'All Core Features']}
-            button={{ title: 'إختر الآن' , buttonStyle:"width:100%  " }}
+            button={{ title: 'إختر الآن' , buttonStyle:"width:100%" }}
             containerStyle = {styles.card}
             onButtonPress={() => props.navigation.navigate('TypeMatch')}
 
