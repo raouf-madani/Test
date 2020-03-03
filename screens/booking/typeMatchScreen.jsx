@@ -18,6 +18,7 @@ const TypeMatchScreen = props =>{
             price="300 دج"
             info={['ساعة واحدة', 'دش', 'حجرة تغيير الملابس']}
             button={{ title: 'إحجز الآن'}}
+            onButtonPress={()=>props.navigation.navigate('BookingMatch')}
             containerStyle = {styles.card}
           />
           <PricingCard
@@ -26,6 +27,7 @@ const TypeMatchScreen = props =>{
             price="350 دج"
             info={['ساعة و نصف', 'دش', 'حجرة تغيير الملابس']}
             button={{ title: 'إحجز الآن'}}
+            onButtonPress={()=>props.navigation.navigate('BookingMatch')}
             containerStyle = {styles.card}
           />
         </ScrollView>
@@ -45,7 +47,9 @@ const styles= StyleSheet.create({
   },
   textContainer : {
     alignSelf : "center",
-    marginTop : 20
+    marginTop : 20,
+    borderBottomWidth:1,
+    borderBottomColor:'white'
   },
   text : {
     color : "white" ,
