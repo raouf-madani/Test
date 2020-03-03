@@ -8,12 +8,13 @@ import HomeScreen from '../screens/homeScreen';
 import MyBookingsScreen from '../screens/myBookingsScreen';
 import BookingMatchScreen from '../screens/booking/bookingMatchScreen';
 import TypeMatchScreen from '../screens/booking/typeMatchScreen'; 
-import BookingMembershipScreen from '../screens/membership/bookingMembershipScreen';
+
 import TypeMembershipScreen from '../screens/membership/typeMembershipScreen';
 import LoginScreen from '../screens/user/loginScreen';
 import SignupScreen from '../screens/user/signupScreen';
 
 const defaultNavigation = {
+  headerTransparent : true ,
     headerStyle:{
         backgroundColor: 'white'
     },
@@ -25,7 +26,7 @@ const defaultNavigation = {
         height:40,
         resizeMode:'contain',
         alignSelf: 'center'}}
-      source={require('../assets/logo/world_football.png')}
+      
       />
     )
 }
@@ -34,8 +35,7 @@ const FootNavigation = createStackNavigator({
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
-   BookingMatch: BookingMatchScreen,
-   BookingMembership: BookingMembershipScreen,
+   BookingMatch: BookingMatchScreen
 },
 {
     defaultNavigationOptions: defaultNavigation
