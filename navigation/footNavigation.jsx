@@ -8,7 +8,6 @@ import HomeScreen from '../screens/homeScreen';
 import MyBookingsScreen from '../screens/myBookingsScreen';
 import BookingMatchScreen from '../screens/booking/bookingMatchScreen';
 import TypeMatchScreen from '../screens/booking/typeMatchScreen'; 
-
 import TypeMembershipScreen from '../screens/membership/typeMembershipScreen';
 import LoginScreen from '../screens/user/loginScreen';
 import SignupScreen from '../screens/user/signupScreen';
