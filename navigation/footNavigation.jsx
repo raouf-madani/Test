@@ -13,6 +13,7 @@ import LoginScreen from '../screens/user/loginScreen';
 import SignupScreen from '../screens/user/signupScreen';
 
 const defaultNavigation = {
+  headerTransparent : true ,
     headerStyle:{
         backgroundColor: 'white'
     },
@@ -24,7 +25,7 @@ const defaultNavigation = {
         height:40,
         resizeMode:'contain',
         alignSelf: 'center'}}
-      source={require('../assets/logo/world_football.png')}
+      
       />
     )
 }
@@ -32,8 +33,8 @@ const defaultNavigation = {
 const FootNavigation = createStackNavigator({
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
-   BookingMatch: BookingMatchScreen,
-   TypeMembership: TypeMembershipScreen
+   TypeMembership: TypeMembershipScreen,
+   BookingMatch: BookingMatchScreen
 },
 {
     defaultNavigationOptions: defaultNavigation
