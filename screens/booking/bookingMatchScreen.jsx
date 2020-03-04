@@ -10,15 +10,16 @@ const BookingMatchScreen = props =>{
    const [lastName,setLastName] = useState('');
    const [firstName,setFirstName] = useState('');
    const [phone,setPhone] = useState('');
+   const [matchTime,setMatchTime] = useState('');
    const [isDatePickerVisible,setIsDatePickerVisible] = useState(false);
 
    const hideDatePicker = ()=>{
      setIsDatePickerVisible(false);
    };
 
-   const handleConfirm = () =>{
-     console.log('A date has been picked');
+   const handleConfirm = Date =>{
      hideDatePicker();
+     setMatchTime(Date.toString());   
    };
    
 
@@ -64,15 +65,25 @@ const BookingMatchScreen = props =>{
                       
                     />
                   </View>
-                  <View>
-                    <Button title="Show Date Picker" onPress={()=>setIsDatePickerVisible(true)} />
-                    <DateTimePickerModal 
+                  <View style={styles.inputContainer}>
+                    <TextInput
+                      mode='outlined'
+                      label='موعد المباراة'
+                      placeholder='إختر اليوم و التوقيت'
+                      value={matchTime}
+                      onChangeText={prevMatchTime=>setMatchTime(prevMatchTime)}
+                      theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
+                      onFocus={()=>setIsDatePickerVisible(true)}
+                    />
+                  </View>  
+                  
+                  <DateTimePickerModal 
                     isVisible={isDatePickerVisible}
-                    mode="date"
+                    mode="datetime"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
-                    />
-                  </View>
+                  />
+
                   <View style={styles.buttonContainer}>
                   <Button 
                   theme={{colors: {primary:Colors.primary}}} 
