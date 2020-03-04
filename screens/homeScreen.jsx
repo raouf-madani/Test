@@ -28,11 +28,12 @@ const HomeScreen = props =>{
             color={Colors.primary}
             title="مباراة واحدة"
             price="3000 دج- 3500 دج"
-            pricingStyle = {{fontSize : 25 }}
+            pricingStyle = {{fontSize : 25 , color : "white" }}
             info={['10 لاعبين','3000 دج / ساعة', '3500 دج / ساعة و نصف']}
             button={{ title: 'إختر الآن' , buttonStyle :styles.buttons}}
             containerStyle = {styles.card}
             onButtonPress={() => props.navigation.navigate('TypeMatch')}
+            infoStyle = {{color : "white"}}
           />
          
 
@@ -40,12 +41,13 @@ const HomeScreen = props =>{
             color= {Colors.orange}
             title="إشتراك شهري"
             price="12000 دج- 14000 دج"
-            pricingStyle = {{fontSize : 25 }}
+            pricingStyle = {{fontSize : 25 , color : "white" }}
             info={[ '10 لاعبين','4 مباريات / شهر', '12000 دج / ساعة', '14000 دج / ساعة و نصف']}
             button={{ title: 'إشترك الآن' , buttonStyle : styles.buttons}}
             containerStyle = {styles.card}
             onButtonPress={() => props.navigation.navigate('TypeMembership')}
             
+            infoStyle = {{color : "white"}}
           />
           
 
@@ -100,7 +102,7 @@ const styles= StyleSheet.create({
   card : {
     borderRadius : 15,
     elevation : 25,
-    backgroundColor :  Colors.grey,
+    backgroundColor :  "rgba(52, 52, 52, 0.6)",
     alignItems :"center"
     
    
