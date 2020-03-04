@@ -104,10 +104,18 @@ const MainNavigator = createDrawerNavigator({
 
 );
 
+const AuthNavigation = createStackNavigator({
+    Main: MainNavigator,
+    Signup: SignupScreen 
+},
+{
+  defaultNavigationOptions: defaultNavigation
+});
 
 const styles= StyleSheet.create({
   
 
 });
 
-export default createAppContainer(MainNavigator);
+
+export default createAppContainer(AuthNavigation);
