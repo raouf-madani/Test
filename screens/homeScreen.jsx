@@ -8,21 +8,16 @@ const HomeScreen = props =>{
   return (
     <View style={styles.container}>
 
-      <ImageBackground source={require('../assets/images/night.jpg')} style={styles.bigBackgroundImage}>
+      <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
 
         <ScrollView > 
 
         <View style = {styles.iconContainer} >
 
-        <Image style ={{height : "100%" , width : "100%"}} source = {require('../assets/images/55.png')}/>
+        <Image style ={{height : "100%" , width : "100%"}} source = {require('../assets/images/5.png')}/>
 
         </View>
-        <View style= {styles.textContainer}>
-
-        <Text style= {styles.text}>اختر خانة من فضلك
-        </Text>
-
-        </View>
+        
         
           <PricingCard
             color={Colors.primary}
@@ -68,8 +63,8 @@ const styles= StyleSheet.create({
   },
   iconContainer : {  
     overflow : "hidden" ,
-    width : 50 , 
-    height : 50 , 
+    width : 150 , 
+    height : 150 , 
     marginTop : 45 , 
     alignSelf : "center" }
     ,

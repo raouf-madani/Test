@@ -6,7 +6,7 @@ import Colors from '../../constants/Colors';
 const TypeMatchScreen = props =>{
     return(
       <View style={styles.container}>
-       <ImageBackground source={require('../../assets/images/night.jpg')} style={styles.bigBackgroundImage}>
+       <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <ScrollView>
           <View style= {styles.textContainer}>
           <Text style= {styles.text}>اختر نوع المباراة</Text>
@@ -16,19 +16,25 @@ const TypeMatchScreen = props =>{
             color={Colors.primary}
             title="مباراة واحدة"
             price="300 دج"
+            pricingStyle = {{fontSize : 25 , color : "white" }}
             info={['ساعة واحدة', 'دش', 'حجرة تغيير الملابس']}
-            button={{ title: 'إحجز الآن'}}
+            button={{ title: 'إحجز الآن' , buttonStyle :styles.buttons}}
+
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
+
             containerStyle = {styles.card}
+            infoStyle = {{color : "white"}}
           />
           <PricingCard
             color= {Colors.primary}
             title="مباراة واحدة"
             price="350 دج"
+            pricingStyle = {{fontSize : 25 , color : "white" }}
             info={['ساعة و نصف', 'دش', 'حجرة تغيير الملابس']}
-            button={{ title: 'إحجز الآن'}}
+            button={{ title: 'إحجز الآن'  , buttonStyle :styles.buttons}}
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
             containerStyle = {styles.card}
+            infoStyle = {{color : "white"}}
           />
         </ScrollView>
       </ImageBackground>
@@ -49,7 +55,8 @@ const styles= StyleSheet.create({
     alignSelf : "center",
     marginTop : 20,
     borderBottomWidth:1,
-    borderBottomColor:'white'
+    borderBottomColor:'white',
+    marginTop : 50
   },
   text : {
     color : "white" ,
@@ -67,6 +74,10 @@ const styles= StyleSheet.create({
     elevation : 25,
     backgroundColor :  "rgba(52, 52, 52, 0.6)",
     alignItems :"center"
+  },
+
+  buttons : {
+    borderRadius : 20 ,  width : 200 , alignSelf : "center"
   }
  
   
