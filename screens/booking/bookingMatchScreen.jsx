@@ -5,6 +5,7 @@ import Colors from '../../constants/Colors';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
+
 const BookingMatchScreen = props =>{
 
    const [lastName,setLastName] = useState('');
@@ -91,7 +92,7 @@ const BookingMatchScreen = props =>{
                   labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
                   contentStyle={{width:'100%'}}
                   style={{borderRadius:20, borderColor:'white'}}
-                  onPress={() =>console.log('Pressed')}
+                  onPress={() =>props.navigation.navigate('Signup')}
                   >
                   إرسل الآن
                   </Button>

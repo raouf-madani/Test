@@ -40,9 +40,17 @@ const FootNavigation = createStackNavigator({
     defaultNavigationOptions: defaultNavigation
 });
 
+const AuthNavigation = createStackNavigator({
+    Main: FootNavigation,
+    Signup: SignupScreen 
+},
+{
+  defaultNavigationOptions: defaultNavigation
+});
+
 const styles= StyleSheet.create({
   
 
 });
 
-export default createAppContainer(FootNavigation);
+export default createAppContainer(AuthNavigation);
