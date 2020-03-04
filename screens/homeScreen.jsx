@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, ImageBackground, View, ScrollView , Text ,Image} from 'react-native';
-import { PricingCard } from 'react-native-elements';
+import { PricingCard ,Overlay } from 'react-native-elements';
 import Colors from "../constants/Colors";
 
+import {HeaderButtons,Item} from "react-navigation-header-buttons";
+import HeaderButton from "../components/HeaderButton";
+import InfoOverlay from '../components/InfoOverlay';
+
 const HomeScreen = props =>{
+const [infoState , setInfoState] = useState(false);
+
+const infoHandler = ()=>{
+
+  setInfoState(currentIsOpen => !currentIsOpen);
+
+
+};
+
+useEffect(()=>{
+  props.navigation.setParams({showInfo : infoHandler});
+
+} , [infoState]);
 
   return (
     <View style={styles.container}>
+
+      {   infoState && <InfoOverlay infoHandler = {infoHandler} isVisible = {infoState}/>
+
+      }
 
       <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
 
@@ -51,6 +72,32 @@ const HomeScreen = props =>{
       </ImageBackground>
     </View>
   );  
+};
+
+HomeScreen.navigationOptions = (navData) => {
+  const showInfo = navData.navigation.getParam("showInfo");
+  return  {
+  
+        headerLeft : ()=> ( <HeaderButtons HeaderButtonComponent = {HeaderButton} > 
+              <Item title = "Menu" 
+              iconName = "ios-menu"  
+              onPress = {()=> {navData.navigation.toggleDrawer();}}
+              />
+
+              </HeaderButtons>
+      ) ,
+
+
+      headerRight : ()=>  <HeaderButtons HeaderButtonComponent =   {HeaderButton} > 
+              <Item title = "Menu" 
+              iconName = "md-information-circle"  
+              onPress = {showInfo}
+              />
+
+              </HeaderButtons>
+        
+        
+      };
 };
 
 
