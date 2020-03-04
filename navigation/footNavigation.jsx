@@ -36,7 +36,8 @@ const FootNavigation = createStackNavigator({
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
-   BookingMatch: BookingMatchScreen
+   BookingMatch: BookingMatchScreen , 
+   Signup: SignupScreen 
 },
 {
     defaultNavigationOptions: defaultNavigation
@@ -104,13 +105,7 @@ const MainNavigator = createDrawerNavigator({
 
 );
 
-const AuthNavigation = createStackNavigator({
-    Main: MainNavigator,
-    Signup: SignupScreen 
-},
-{
-  defaultNavigationOptions: defaultNavigation
-});
+
 
 const styles= StyleSheet.create({
   
@@ -118,4 +113,4 @@ const styles= StyleSheet.create({
 });
 
 
-export default createAppContainer(AuthNavigation);
+export default createAppContainer(MainNavigator);
