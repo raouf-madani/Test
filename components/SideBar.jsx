@@ -33,6 +33,7 @@ style = {styles.profile}
 </ImageBackground>
 
 <View style = {styles.container}>
+
 <DrawerNavigatorItems {...props}/>
 
 </View>
