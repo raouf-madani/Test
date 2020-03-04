@@ -65,7 +65,7 @@ const styles= StyleSheet.create({
   card : {
     borderRadius : 15,
     elevation : 25,
-    backgroundColor : Colors.grey,
+    backgroundColor :  "rgba(52, 52, 52, 0.6)",
     alignItems :"center"
   }
  

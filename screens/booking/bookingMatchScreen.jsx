@@ -2,12 +2,24 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, KeyboardAvoidingView, View,ScrollView,ImageBackground,Platform} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 
 const BookingMatchScreen = props =>{
 
    const [lastName,setLastName] = useState('');
    const [firstName,setFirstName] = useState('');
    const [phone,setPhone] = useState('');
+   const [isDatePickerVisible,setIsDatePickerVisible] = useState(false);
+
+   const hideDatePicker = ()=>{
+     setIsDatePickerVisible(false);
+   };
+
+   const handleConfirm = () =>{
+     console.log('A date has been picked');
+     hideDatePicker();
+   };
    
 
 
@@ -50,6 +62,15 @@ const BookingMatchScreen = props =>{
                       onChangeText={prevText=>setPhone(prevText)}
                       theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
                       
+                    />
+                  </View>
+                  <View>
+                    <Button title="Show Date Picker" onPress={()=>setIsDatePickerVisible(true)} />
+                    <DateTimePickerModal 
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
                     />
                   </View>
                   <View style={styles.buttonContainer}>
