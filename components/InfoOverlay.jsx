@@ -16,9 +16,8 @@ const InfoOverlay = props =>{
         <Button 
         title = "Close" 
         
-        onPress = {()=>{
-                props.infoHandler();
-        }} />
+        onPress = {props.infoHandler}
+         />
 
         </View>
       </Overlay>

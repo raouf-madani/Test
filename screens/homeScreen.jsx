@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, ImageBackground, View, ScrollView , Text ,Image} from 'react-native';
 import { PricingCard ,Overlay } from 'react-native-elements';
 import Colors from "../constants/Colors";
@@ -10,17 +10,17 @@ import InfoOverlay from '../components/InfoOverlay';
 const HomeScreen = props =>{
 const [infoState , setInfoState] = useState(false);
 
-const infoHandler = ()=>{
+const infoHandler = useCallback(()=>{
 
   setInfoState(currentIsOpen => !currentIsOpen);
 
 
-};
+},[infoState]);
 
 useEffect(()=>{
   props.navigation.setParams({showInfo : infoHandler});
 
-} , [infoState]);
+} , [infoHandler]);
 
   return (
     <View style={styles.container}>
