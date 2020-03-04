@@ -7,7 +7,7 @@ import { Platform } from "react-native";
 
 
 const CustomHeaderButton = props =>{
-Platform
+
      return <HeaderButton 
      {...props} 
      IconComponent = {Ionicons}
