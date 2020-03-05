@@ -83,6 +83,7 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, borderColor:'white'}}
                     icon='camera'
                     dark={true}
+                    onPress={()=> console.log('Pressed')}
                     >Se connecter 
                     </Button>
                   </View>
