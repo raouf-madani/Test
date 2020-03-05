@@ -56,7 +56,7 @@ const MainNavigator = createDrawerNavigator({
           Home : {
             screen : FootNavigation , 
             navigationOptions : {
-              drawerLabel : "الصفحة الرئيسية",
+              drawerLabel : "Réserver Votre Match",
               drawerIcon : (tabInfo) => {
                 return( <Ionicons name = "md-home" 
                 size = {25} color ={tabInfo.tintColor}/>);
@@ -67,7 +67,7 @@ const MainNavigator = createDrawerNavigator({
             Bookings : {
               screen : BookingNavigation , 
               navigationOptions : {
-                drawerLabel : "الحجوزات",
+                drawerLabel : "Mes Réservations",
                 drawerIcon : (tabInfo) => {
                   return( <Ionicons name = "md-bookmark" 
                   size = {25} color ={tabInfo.tintColor}/>);

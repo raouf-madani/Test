@@ -16,14 +16,14 @@ const SignupScreen = props =>{
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
             <ScrollView>
               <View style={styles.titleContainer}>
-                <Text style={styles.title}>سجل الآن</Text>
+                <Text style={styles.title}>Inscrivez-Vous</Text>
               </View>
               <View style={styles.signupContainer}>
                 <View style={styles.inputsContainer}>
                   <TextInput
                     mode='flat'
-                    label='اللقب'
-                    placeholder='اكتب شيئا هنا'
+                    label='Nom'
+                    placeholder='Votre nom'
                     value={lastName}
                     onChangeText={prevText=>setLastName(prevText)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
@@ -32,8 +32,8 @@ const SignupScreen = props =>{
                   />
                   <TextInput
                     mode='flat'
-                    label='الإسم'
-                    placeholder='اكتب شيئا هنا'
+                    label='Prénom'
+                    placeholder='Votre prénom'
                     value={firstName}
                     onChangeText={prevText=>setFirstName(prevText)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
@@ -42,8 +42,8 @@ const SignupScreen = props =>{
                   />
                   <TextInput
                     mode='flat'
-                    label='رقم الهاتف'
-                    placeholder='أدخل رقم هاتفك'
+                    label='Téléphone'
+                    placeholder='Votre numéro de téléphone'
                     value={phone}
                     onChangeText={prevValue=>setPhone(prevValue)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
@@ -52,8 +52,8 @@ const SignupScreen = props =>{
                   />
                   <TextInput
                     mode='flat'
-                    label='كلمة السر'
-                    placeholder='أدخل كلمة السر'
+                    label='Mot de passe'
+                    placeholder='Rentrez votre mot de passe'
                     value={password}
                     onChangeText={prevValue=>setPassword(prevValue)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
@@ -71,7 +71,7 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, borderColor:'white'}}
                     icon='camera'
                     dark={true}
-                    >إنطلق
+                    >S'inscrire
                     </Button>
                   </View>
                   <View style={styles.buttonContainer}>
@@ -83,7 +83,8 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, borderColor:'white'}}
                     icon='camera'
                     dark={true}
-                    > لا, لدي حساب
+                    onPress={()=> console.log('Pressed')}
+                    >Se connecter 
                     </Button>
                   </View>
                 </View>
@@ -124,7 +125,7 @@ const styles= StyleSheet.create({
   title:{
     color:Colors.primary,
     fontFamily:'poppins-bold',
-    fontSize:50
+    fontSize:30
   },
   signupContainer:{
     padding:20

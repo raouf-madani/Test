@@ -9,29 +9,27 @@ const TypeMatchScreen = props =>{
        <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <ScrollView>
           <View style= {styles.textContainer}>
-          <Text style= {styles.text}>اختر نوع المباراة</Text>
+          <Text style= {styles.text}>Choisis le type du Match</Text>
           </View>
 
           <PricingCard
             color={Colors.primary}
-            title="مباراة واحدة"
+            title="UN MATCH"
             price="300 دج"
             pricingStyle = {{fontSize : 25 , color : "white" }}
-            info={['ساعة واحدة', 'دش', 'حجرة تغيير الملابس']}
-            button={{ title: 'إحجز الآن' , buttonStyle :styles.buttons}}
-
+            info={['1h', 'Douche', 'Vestiaire']}
+            button={{ title: 'Réserver' , buttonStyle :styles.buttons}}
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
-
             containerStyle = {styles.card}
             infoStyle = {{color : "white"}}
           />
           <PricingCard
             color= {Colors.primary}
-            title="مباراة واحدة"
+            title="UN MATCH"
             price="350 دج"
             pricingStyle = {{fontSize : 25 , color : "white" }}
-            info={['ساعة و نصف', 'دش', 'حجرة تغيير الملابس']}
-            button={{ title: 'إحجز الآن'  , buttonStyle :styles.buttons}}
+            info={['1h30', 'Douche', 'Vestiaire']}
+            button={{ title: 'Réserver'  , buttonStyle :styles.buttons}}
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
             containerStyle = {styles.card}
             infoStyle = {{color : "white"}}
@@ -60,7 +58,7 @@ const styles= StyleSheet.create({
   },
   text : {
     color : "white" ,
-    fontSize : 25 ,
+    fontSize : 20 ,
     fontFamily : "poppins-bold"
   },
   bigBackgroundImage:{

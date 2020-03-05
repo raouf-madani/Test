@@ -30,14 +30,14 @@ const BookingMatchScreen = props =>{
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={100}>
             <ScrollView>
               <View style= {styles.textContainer}>
-              <Text style= {styles.text}>إملئ الإستمارة</Text>
+              <Text style= {styles.text}>Remplir le formulaire</Text>
               </View> 
               <View style={styles.formControl}>
                   <View style={styles.inputContainer}>
                     <TextInput
                       mode='outlined'
-                      label='اللقب'
-                      placeholder='اكتب شيئا هنا'
+                      label='Nom'
+                      placeholder='Votre nom'
                       value={lastName}
                       onChangeText={prevText=>setLastName(prevText)}
                       theme={{colors: {primary:Colors.primary}}}
@@ -46,8 +46,8 @@ const BookingMatchScreen = props =>{
                   <View style={styles.inputContainer}>
                     <TextInput
                       mode='outlined'
-                      label='الإسم'
-                      placeholder='اكتب شيئا هنا'
+                      label='Prénom'
+                      placeholder='Votre prénom'
                       value={firstName}
                       onChangeText={prevText=>setFirstName(prevText)}
                       theme={{colors: {primary:Colors.primary}}}
@@ -56,8 +56,8 @@ const BookingMatchScreen = props =>{
                   <View style={styles.inputContainer}>
                     <TextInput
                       mode='outlined'
-                      label='رقم الهاتف'
-                      placeholder='أدخل رقم هاتفك '
+                      label='Téléphone'
+                      placeholder='Numéro de téléphone'
                       value={phone}
                       onChangeText={prevText=>setPhone(prevText)}
                       theme={{colors: {primary:Colors.primary}}}
@@ -67,8 +67,8 @@ const BookingMatchScreen = props =>{
                   <View style={styles.inputContainer}>
                     <TextInput
                       mode='outlined'
-                      label='موعد المباراة'
-                      placeholder='إختر اليوم و التوقيت'
+                      label='Créneau'
+                      placeholder="Jouer et l'heure"
                       value={matchTime}
                       onChangeText={prevMatchTime=>setMatchTime(prevMatchTime)}
                       theme={{colors: {primary:Colors.primary}}}
@@ -92,7 +92,7 @@ const BookingMatchScreen = props =>{
                   style={{borderRadius:20, borderColor:'white'}}
                   onPress={() =>props.navigation.navigate('Signup')}
                   >
-                  إرسل الآن
+                   Confirmer
                   </Button>
                   </View>
               </View>
@@ -110,13 +110,13 @@ const styles= StyleSheet.create({
  },
   textContainer : {
     alignSelf : "center",
-    marginTop : 20,
+    marginTop : 40,
     borderBottomWidth:1,
     borderBottomColor:'white'
   },
   text : {
     color : "white" ,
-    fontSize : 25 ,
+    fontSize : 23 ,
     fontFamily : "poppins-bold"
   },
   keyboard:{
