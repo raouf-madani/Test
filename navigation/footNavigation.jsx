@@ -81,8 +81,8 @@ const MainNavigator = createDrawerNavigator({
 { 
   contentComponent : props => <SideBar {...props}/>,
  
-  drawerBackgroundColor : "#282828",
-  drawerWidth : "95%" ,
+  drawerBackgroundColor : "#fff",
+  drawerWidth : "80%" ,
   hideStatusBar : "true" , 
 
   contentOptions : {
@@ -101,8 +101,6 @@ const MainNavigator = createDrawerNavigator({
   }
 
 }
-
-
 );
 
 

@@ -4,12 +4,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Text , StyleSheet, ImageBackground, Image, View } from "react-native";
 import Colors from "../constants/Colors";
 import { DrawerNavigatorItems } from "react-navigation-drawer";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const SideBar = (props) => {
 
     return( 
-<ScrollView>
+<View style = {{flex : 1}}>
 <ImageBackground 
 source = {require("../assets/images/hero.jpg")} 
 style = {{width : undefined , padding : 16 , paddingTop : 48}}
@@ -32,15 +33,16 @@ style = {styles.profile}
 
 </ImageBackground>
 
+<LinearGradient colors={['#f5f7fa', '#c3cfe2']} style = {styles.gradient}>
 <View style = {styles.container}>
 
 <DrawerNavigatorItems {...props}/>
 
 </View>
+</LinearGradient>
 
 
-
-</ScrollView>
+</View>
 
 
 );
@@ -72,6 +74,10 @@ numberOfBookings : {
     fontSize : 14 ,
     marginRight : 4,
     fontFamily : "poppins-bold"
+},
+gradient : {
+   
+    flex : 1
 }
 
 
