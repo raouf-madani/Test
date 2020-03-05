@@ -9,16 +9,16 @@ const TypeMatchScreen = props =>{
        <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <ScrollView>
           <View style= {styles.textContainer}>
-          <Text style= {styles.text}>اختر نوع الإشتراك</Text>
+          <Text style= {styles.text}>Type d'Abonnement</Text>
           </View>
 
           <PricingCard
             color={Colors.orange}
-            title="إشتراك شهري"
-            price="1200 دج"
+            title="ABONNEMENT"
+            price="12 000 DA"
             pricingStyle = {{fontSize : 25 , color : "white" }}
-            info={['4 مباريات / شهر','ساعة واحدة','دش']}
-            button={{ title: 'إحجز الآن' , buttonStyle :styles.buttons}}
+            info={['4 Matchs / mois','1h / semaine','Douche et Vestiaire']}
+            button={{ title: 'Réserver' , buttonStyle :styles.buttons}}
 
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
 
@@ -27,11 +27,11 @@ const TypeMatchScreen = props =>{
           />
           <PricingCard
             color= {Colors.orange}
-            title="إشتراك شهري"
+            title="ABONNEMENT"
             price="14000 دج"
             pricingStyle = {{fontSize : 25 , color : "white" }}
-            info={['4 مباريات / شهر','ساعة و نصف','دش']}
-            button={{ title: 'إحجز الآن'  , buttonStyle :styles.buttons}}
+            info={['4 Matchs / mois','1h30 / semaine','Douche et Vestiaire']}
+            button={{ title: 'Réserver'  , buttonStyle :styles.buttons}}
             onButtonPress={()=>props.navigation.navigate('BookingMatch')}
             containerStyle = {styles.card}
             infoStyle = {{color : "white"}}
@@ -60,7 +60,7 @@ const styles= StyleSheet.create({
   },
   text : {
     color : "white" ,
-    fontSize : 25 ,
+    fontSize : 23 ,
     fontFamily : "poppins-bold"
   },
   bigBackgroundImage:{

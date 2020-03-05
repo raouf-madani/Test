@@ -23,27 +23,25 @@ const InfoOverlay = props =>{
         </View>
 
           <View style = {styles.textContainer}>
-              <Text style = {{fontSize : 25 , fontFamily : "poppins-bold" , color : "black"}}>قواعد الحجز</Text>
-              <View style = {styles.rulesContainer}>
-              <Text style = {styles.text}>قاعدة 1 : إلغاء الحجز يكون على الأقل ساعة قبل بدأ المباراة</Text>
-              <Text style = {styles.text}>قاعدة 2 : يجب الرد على المكالمة لتأكيد الحجز</Text>
-
-
-              <Text style = {styles.text}>قاعدة 3 : إلغاء الحجز يكون على الأقل ساعة قبل بدأ المباراة</Text>
-              </View>
+            <Text style = {{fontSize : 23 , fontFamily : "poppins-bold" , color : "black"}}>Règles de réservation</Text>
+            <View style = {styles.rulesContainer}>
+            <Text style = {styles.text}>Règle 1 : ################</Text>
+            <Text style = {styles.text}>Règle 2 : ################</Text>
+            <Text style = {styles.text}>Règle 3 : ################</Text>
+          </View>
           </View>
           <View style={styles.buttonContainer}>
-          <Button 
-                  theme={{colors: {primary:Colors.primary}}} 
-                  mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                  labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
-                  contentStyle={{width:'100%'}}
-                  style={{borderRadius:20, borderColor:'white'}}
-                  onPress={props.infoHandler}
-                  >
-                  موافق
-                  </Button>
-                  </View>
+            <Button 
+              theme={{colors: {primary:Colors.primary}}} 
+              mode={Platform.OS === 'android' ? "contained" : "outlined"}
+              labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
+              contentStyle={{width:'100%'}}
+              style={{borderRadius:20, borderColor:'white'}}
+              onPress={props.infoHandler}
+            >
+              Confirmer
+            </Button>
+          </View>
 
         </View>
       </Overlay>
@@ -55,14 +53,10 @@ const InfoOverlay = props =>{
 const styles= StyleSheet.create({
 container : {
   flex : 1 ,
- 
   justifyContent : "space-around",
-  
-  
 },
 textContainer : {
   flex : 1 ,
-  
   justifyContent : "center",
   alignItems : "center"
 },
@@ -73,7 +67,6 @@ iconContainer : {
   alignSelf : "center" ,
   marginVertical : 15
 },
-
   buttonContainer:{
     padding:20,
     alignItems:'center',
@@ -83,7 +76,6 @@ iconContainer : {
     flex : 1 ,
       justifyContent : "space-around" ,
   },
-
   text : {
       color : "black",
       fontFamily : "poppins"
