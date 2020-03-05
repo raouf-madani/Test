@@ -40,7 +40,7 @@ const BookingMatchScreen = props =>{
                       placeholder='اكتب شيئا هنا'
                       value={lastName}
                       onChangeText={prevText=>setLastName(prevText)}
-                      theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
+                      theme={{colors: {primary:Colors.primary}}}
                     />
                   </View>
                   <View style={styles.inputContainer}>
@@ -50,19 +50,17 @@ const BookingMatchScreen = props =>{
                       placeholder='اكتب شيئا هنا'
                       value={firstName}
                       onChangeText={prevText=>setFirstName(prevText)}
-                      selectionColor='red'
-                      underlineColor='green'
-                      theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
+                      theme={{colors: {primary:Colors.primary}}}
                     />
                   </View>
                   <View style={styles.inputContainer}>
                     <TextInput
                       mode='outlined'
                       label='رقم الهاتف'
-                      placeholder='اكتب شيئا هنا'
+                      placeholder='أدخل رقم هاتفك '
                       value={phone}
                       onChangeText={prevText=>setPhone(prevText)}
-                      theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
+                      theme={{colors: {primary:Colors.primary}}}
                       
                     />
                   </View>
@@ -73,7 +71,7 @@ const BookingMatchScreen = props =>{
                       placeholder='إختر اليوم و التوقيت'
                       value={matchTime}
                       onChangeText={prevMatchTime=>setMatchTime(prevMatchTime)}
-                      theme={{colors: {primary:Colors.primary,underlineColor:'transparent'}}}
+                      theme={{colors: {primary:Colors.primary}}}
                       onFocus={()=>setIsDatePickerVisible(true)}
                     />
                   </View>  
