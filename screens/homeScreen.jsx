@@ -8,7 +8,7 @@ import HeaderButton from "../components/HeaderButton";
 import InfoOverlay from '../components/InfoOverlay';
 
 const HomeScreen = props =>{
-const [infoState , setInfoState] = useState(false);
+const [infoState , setInfoState] = useState(true);
 
 const infoHandler = useCallback(()=>{
 
