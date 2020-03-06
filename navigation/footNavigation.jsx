@@ -42,7 +42,8 @@ const FootNavigation = createStackNavigator({
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
    BookingMatch: BookingMatchScreen , 
-   Signup: SignupScreen 
+   Signup: SignupScreen,
+   Login: LoginScreen 
 },
 {
     defaultNavigationOptions: defaultNavigation

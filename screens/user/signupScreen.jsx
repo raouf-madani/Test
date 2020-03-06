@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
 
@@ -83,9 +83,15 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, borderColor:'white'}}
                     icon='camera'
                     dark={true}
-                    onPress={()=> console.log('Pressed')}
+                    onPress={() =>props.navigation.navigate('Login')}
                     >Se connecter 
                     </Button>
+                  </View>
+                  <View style={styles.facebookContainer}>
+                    <View style={styles.facebookTextContainer}>
+                     <Text style={styles.facebookText}>S'inscrire avec Facebook</Text>
+                    </View>
+                    <Image source = {require('../../assets/images/facebook32.png')} />
                   </View>
                 </View>
               </View>
@@ -138,9 +144,24 @@ const styles= StyleSheet.create({
   },
   buttonContainer:{
     paddingVertical:5
+  },
+  facebookContainer:{
+     flexDirection:'row',
+     alignItems:'center',
+     justifyContent:'center',
+     marginVertical:15
+  },
+  facebookTextContainer:{
+     marginHorizontal:8,
+     borderBottomWidth:1,
+     borderBottomColor:'white'
+  },
+  facebookText:{
+    fontFamily:'poppins',
+    fontSize:13,
+    color:'white'
   }
    
-
 });
 
 export default SignupScreen;
