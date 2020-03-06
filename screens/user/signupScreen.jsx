@@ -71,6 +71,7 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, borderColor:'white'}}
                     icon='camera'
                     dark={true}
+                    onPress={() =>props.navigation.navigate('SignupOwner')}
                     >S'inscrire
                     </Button>
                   </View>
