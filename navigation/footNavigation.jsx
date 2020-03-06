@@ -4,15 +4,19 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
 import {Platform,Image,StyleSheet} from 'react-native';
 import Colors from '../constants/Colors';
+
 import HomeScreen from '../screens/homeScreen';
 import MyBookingsScreen from '../screens/myBookingsScreen';
 import BookingMatchScreen from '../screens/booking/bookingMatchScreen';
 import TypeMatchScreen from '../screens/booking/typeMatchScreen'; 
 import TypeMembershipScreen from '../screens/membership/typeMembershipScreen';
 import LoginScreen from '../screens/user/loginScreen';
+import ProfileChoiceScreen from '../screens/profileChoiceScreen';
 import SignupScreen from '../screens/user/signupScreen';
+
 import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
+
 
 const defaultNavigation = {
   headerTransparent : true ,
@@ -33,6 +37,7 @@ const defaultNavigation = {
 }
 
 const FootNavigation = createStackNavigator({
+   Role : ProfileChoiceScreen ,
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
