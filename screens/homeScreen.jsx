@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, ImageBackground, View, ScrollView , Text ,Image} from 'react-native';
-import { PricingCard ,Overlay } from 'react-native-elements';
+import { PricingCard  } from 'react-native-elements';
 import Colors from "../constants/Colors";
 
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
@@ -8,14 +8,21 @@ import HeaderButton from "../components/HeaderButton";
 import InfoOverlay from '../components/InfoOverlay';
 
 const HomeScreen = props =>{
-const [infoState , setInfoState] = useState(true);
+
+const [infoState , setInfoState] = useState(false);
 
 const infoHandler = useCallback(()=>{
   setInfoState(currentIsOpen => !currentIsOpen);
-},[infoState]);
+},[setInfoState]);
 
 useEffect(()=>{
   props.navigation.setParams({showInfo : infoHandler});
+
+  setTimeout(()=>{
+    infoHandler();
+
+  },1000);
+
 },[infoHandler]);
 
   return (
