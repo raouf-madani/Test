@@ -13,6 +13,7 @@ import TypeMembershipScreen from '../screens/membership/typeMembershipScreen';
 import LoginScreen from '../screens/user/loginScreen';
 import ProfileChoiceScreen from '../screens/profileChoiceScreen';
 import SignupScreen from '../screens/user/signupScreen';
+import SignupOwnerScreen from '../screens/user/signupOwnerScreen';
 
 import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
@@ -43,7 +44,8 @@ const FootNavigation = createStackNavigator({
    TypeMembership: TypeMembershipScreen,
    BookingMatch: BookingMatchScreen , 
    Signup: SignupScreen,
-   Login: LoginScreen 
+   Login: LoginScreen,
+   SignupOwner:SignupOwnerScreen 
 },
 {
     defaultNavigationOptions: defaultNavigation

@@ -52,7 +52,6 @@ const LoginScreen = props =>{
                    style={{borderRadius:20, borderColor:'white'}}
                    icon='camera'
                    dark={true}
-                   onPress={() =>props.navigation.navigate('Login')}
                    >Se connecter 
                    </Button>
                  </View>
