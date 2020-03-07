@@ -7,11 +7,23 @@ import Colors from '../../constants/Colors';
 
 const SignupOwnerScreen = props =>{
 
+    //states for checkboxes
+    const [isCheckedShower, setIsCheckedShower] = useState(false);
+    const [isCheckedBall, setIsCheckedBall] = useState(false);
+    const [isCheckedCloackroom, setIsCheckedcloackroom] = useState(false);
+    const [isCheckedBib, setIsCheckedBib] = useState(false);
+    const [isChecked5vs5, setIsChecked5vs5] = useState(false);
+    const [isChecked6vs6, setIsChecked6vs6] = useState(false);
+    const [isChecked10vs10, setIsChecked10vs10] = useState(false);
+    const [isChecked11vs11, setIsChecked11vs11] = useState(false);
+
+    //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
     const [phone,setPhone] = useState('');
     const [email,setEmail] = useState('');
     const [address,setAddress] = useState('');
     
+    //States for complex information textInputs
     const [complexName,setComplexName] = useState('');
     const [complexCity,setComplexCity] = useState('');
     const [complexAddress,setComplexAddress] = useState('');
@@ -147,20 +159,32 @@ const SignupOwnerScreen = props =>{
                                 <CheckBox
                                     title='Douches'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                    checked={isCheckedShower ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsCheckedShower(isChecked => !isChecked)}
                                 />
                                 <CheckBox
                                     title='Vestiaire'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                    checked={isCheckedCloackroom ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsCheckedcloackroom(isChecked => !isChecked)}
                                 />
                             </View>
                             <View style={styles.rowStyle}>
                                 <CheckBox
                                     title='Ballons'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                    checked={isCheckedBall ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsCheckedBall(isChecked => !isChecked)}
                                 />
                                 <CheckBox
                                     title='Dossards'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                    checked={isCheckedBib ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsCheckedBib(isChecked => !isChecked)}
                                 />
                             </View>
                         </View>
@@ -174,12 +198,18 @@ const SignupOwnerScreen = props =>{
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                     checkedIcon='dot-circle-o'
                                     uncheckedIcon='circle-o'
+                                    checked={isChecked5vs5 ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsChecked5vs5(isChecked => !isChecked)}
                                 />
                                 <CheckBox
                                     title='6 vs 6'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                     checkedIcon='dot-circle-o'
                                     uncheckedIcon='circle-o'
+                                    checked={isChecked6vs6 ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsChecked6vs6(isChecked => !isChecked)}
                                 />
                             </View>
                             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',width:'100%'}}>
@@ -188,12 +218,18 @@ const SignupOwnerScreen = props =>{
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                     checkedIcon='dot-circle-o'
                                     uncheckedIcon='circle-o'
+                                    checked={isChecked10vs10 ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsChecked10vs10(isChecked => !isChecked)}
                                 />
                                 <CheckBox
                                     title='11 vs 11'
                                     containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                     checkedIcon='dot-circle-o'
                                     uncheckedIcon='circle-o'
+                                    checked={isChecked11vs11 ? true : false}
+                                    checkedColor={Colors.primary}
+                                    onPress={()=>setIsChecked11vs11(isChecked => !isChecked)}
                                 />
                             </View>
                         </View>
