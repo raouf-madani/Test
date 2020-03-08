@@ -17,6 +17,8 @@ import SignupOwnerScreen from '../screens/user/signupOwnerScreen';
 
 import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
+import PlayerHomeScreen from '../screens/home/playerHomeScreen';
+import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
 
 
 const defaultNavigation = {
@@ -39,6 +41,8 @@ const defaultNavigation = {
 
 const FootNavigation = createStackNavigator({
    Role : ProfileChoiceScreen ,
+   Player : PlayerHomeScreen , 
+   Owner : OwnerHomeScreen,
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
