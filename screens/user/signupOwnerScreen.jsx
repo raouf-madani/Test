@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {TextInput,Searchbar} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
@@ -12,10 +12,9 @@ const SignupOwnerScreen = props =>{
     const [isCheckedBall, setIsCheckedBall] = useState(false);
     const [isCheckedCloackroom, setIsCheckedcloackroom] = useState(false);
     const [isCheckedBib, setIsCheckedBib] = useState(false);
-    const [isChecked5vs5, setIsChecked5vs5] = useState(false);
-    const [isChecked6vs6, setIsChecked6vs6] = useState(false);
-    const [isChecked10vs10, setIsChecked10vs10] = useState(false);
-    const [isChecked11vs11, setIsChecked11vs11] = useState(false);
+    const [isCheckedCover, setIsCheckedCover] = useState(false);
+    const [isCheckedUncover, setIsCheckedUncover] = useState(false);
+   
 
     //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
@@ -111,16 +110,6 @@ const SignupOwnerScreen = props =>{
                         />
                         <TextInput
                             mode='flat'
-                            label='Ville du complexe *'
-                            placeholder=' Tapez le nom de la ville'
-                            value={complexCity}
-                            onChangeText={prevText=>setComplexCity(prevText)}
-                            theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='white'
-                        />
-                        <TextInput
-                            mode='flat'
                             label='Adresse du complexe *'
                             placeholder="Tapez l'adresse du votre complexe"
                             value={complexAddress}
@@ -132,116 +121,99 @@ const SignupOwnerScreen = props =>{
                         <TextInput
                             mode='flat'
                             label='Nombre des stades *'
-                            placeholder=' Tapez le nombre des stades'
+                            placeholder="Tapez l'adresse du votre complexe"
                             value={complexStadiumNumber}
                             onChangeText={prevText=>setComplexStadiumNumber(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
                             style={{backgroundColor:'transparent'}}
                             underlineColor='white'
                         />
+                        <View style={{paddingVertical:15}}>
+                            <Searchbar
+                            placeholder='Ville du complexe *' 
+                            value={complexCity}
+                            onChangeText={prevText=>setComplexCity(prevText)}
+                            inputStyle={{color:'white',fontSize:16, fontFamily:'poppins'}}
+                            iconColor='white'
+                            style={styles.searchBarCity}
+                            theme={{colors: {placeholder:'white'}}}
+                            />
+                        </View>
                      </View>
                     </ProgressStep>
                     <ProgressStep 
                         label="Logistiques"
                         previousBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}} 
-                        nextBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}}
-                        nextBtnText='Suivant'
-                        previousBtnText='Précédent'
-                        nextBtnStyle={{padding:0}}
-                        previousBtnStyle={{padding:0}}
-                        
-                    >
-                      <View style={styles.rowContainer}>
-                            <View style={styles.textContainer}>
-                                <Text style={styles.text}>Matériels logistiques *</Text>
-                            </View>
-                            <View style={styles.rowStyle}>
-                                <CheckBox
-                                    title='Douches'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checked={isCheckedShower ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsCheckedShower(isChecked => !isChecked)}
-                                />
-                                <CheckBox
-                                    title='Vestiaire'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checked={isCheckedCloackroom ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsCheckedcloackroom(isChecked => !isChecked)}
-                                />
-                            </View>
-                            <View style={styles.rowStyle}>
-                                <CheckBox
-                                    title='Ballons'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checked={isCheckedBall ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsCheckedBall(isChecked => !isChecked)}
-                                />
-                                <CheckBox
-                                    title='Dossards'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checked={isCheckedBib ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsCheckedBib(isChecked => !isChecked)}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <View style={styles.textContainer}>
-                                <Text style={styles.text}>Joueurs *</Text>
-                            </View>
-                            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',width:'100%'}}>
-                                <CheckBox
-                                    title='5 vs 5'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={isChecked5vs5 ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsChecked5vs5(isChecked => !isChecked)}
-                                />
-                                <CheckBox
-                                    title='6 vs 6'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={isChecked6vs6 ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsChecked6vs6(isChecked => !isChecked)}
-                                />
-                            </View>
-                            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',width:'100%'}}>
-                                <CheckBox
-                                    title='10 vs 10'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={isChecked10vs10 ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsChecked10vs10(isChecked => !isChecked)}
-                                />
-                                <CheckBox
-                                    title='11 vs 11'
-                                    containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={isChecked11vs11 ? true : false}
-                                    checkedColor={Colors.primary}
-                                    onPress={()=>setIsChecked11vs11(isChecked => !isChecked)}
-                                />
-                            </View>
-                        </View>
-                    </ProgressStep>
-                    <ProgressStep 
-                        label="Tarifs"
-                        previousBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}} 
                         nextBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}}
                         finishBtnText='Confirmer'
-                        previousBtnText='Précédent' 
+                        previousBtnText='Précédent'
+                        nextBtnStyle={{padding:0}}
+                        previousBtnStyle={{padding:0}}    
                     >
-
+                        <View style={styles.step3Container}>
+                            <View style={styles.rowContainer}>
+                                <View style={styles.textContainer}>
+                                    <Text style={styles.text}>Matériels logistiques *</Text>
+                                </View>
+                                <View style={styles.rowStyle}>
+                                    <CheckBox
+                                        title='Douches'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checked={isCheckedShower ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedShower(isChecked => !isChecked)}
+                                    />
+                                    <CheckBox
+                                        title='Vestiaire'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checked={isCheckedCloackroom ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedcloackroom(isChecked => !isChecked)}
+                                    />
+                                </View>
+                                <View style={styles.rowStyle}>
+                                    <CheckBox
+                                        title='Ballons'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checked={isCheckedBall ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedBall(isChecked => !isChecked)}
+                                    />
+                                    <CheckBox
+                                        title='Dossards'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checked={isCheckedBib ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedBib(isChecked => !isChecked)}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <View style={styles.textContainer}>
+                                    <Text style={styles.text}>Plafond *</Text>
+                                </View>
+                                <View style={styles.rowStyle}>
+                                    <CheckBox
+                                        title='Couvert'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={isCheckedCover ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedCover(isChecked => !isChecked)}
+                                    />
+                                    <CheckBox
+                                        title='Non couvert'
+                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={isCheckedUncover ? true : false}
+                                        checkedColor={Colors.primary}
+                                        onPress={()=>setIsCheckedUncover(isChecked => !isChecked)}
+                                    />
+                                </View>
+                            </View>
+                        </View>
                     </ProgressStep>
                 </ProgressSteps>
             </View>
@@ -295,6 +267,17 @@ const styles= StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     width:'100%'
+  },
+  step3Container:{
+      paddingTop:20
+  },
+  searchBarCity:{
+    backgroundColor:'transparent',
+    borderBottomColor:'white',
+    borderTopColor:'transparent',
+    borderRightColor:'transparent',
+    borderLeftColor:'transparent',
+    borderWidth:1, 
   }
   
    
