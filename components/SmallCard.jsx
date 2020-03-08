@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, Image} from 'react-native';
 import { Button } from 'react-native-paper';
 import Colors from "../constants/Colors";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SmallCard = props =>{
     return(
       <View style = {styles.container}>  
-            <View style = {styles.card}>
+            <TouchableOpacity onPress = {props.onPress} style = {styles.card}>
 
                 <View style= {styles.imageContainer}>
                         <Image style={styles.image} source ={props.image}/>
@@ -22,7 +23,7 @@ const SmallCard = props =>{
 
                 </View>
 
-            </View>
+            </TouchableOpacity>
 
 
       </View>

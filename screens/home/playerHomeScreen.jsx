@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
 
+
 const PlayerHomeScreen = props =>{
     return(
       <View style ={styles.container}>
@@ -17,7 +18,7 @@ const PlayerHomeScreen = props =>{
                   <SmallCard 
                   image ={require("../../assets/logo/user.png")} 
                   screen = "Profile"
-
+                  onPress = {() =>props.navigation.navigate('Home')}
                   />
                   
                   <SmallCard
