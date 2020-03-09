@@ -23,6 +23,7 @@ const OwnerHomeScreen = props =>{
                   <SmallCard
                   image ={require("../../assets/logo/book.png")} 
                   screen = "Services"
+                  onPress={()=> props.navigation.navigate('UserService')}
                    />
 
               </View> 
