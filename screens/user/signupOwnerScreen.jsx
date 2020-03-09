@@ -274,11 +274,7 @@ const styles= StyleSheet.create({
   searchBarCity:{
     backgroundColor:'transparent',
     borderBottomColor:'white',
-    borderTopColor:'transparent',
-    borderRightColor:'transparent',
-    borderLeftColor:'transparent',
-    borderWidth:1, 
-  }
+    borderBottomWidth:1  }
   
    
 });
