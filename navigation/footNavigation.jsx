@@ -19,7 +19,7 @@ import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
 import PlayerHomeScreen from '../screens/home/playerHomeScreen';
 import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
-
+import stadiumChoiceScreen from "../screens/playerBooking/stadiumChoiceScreen"
 
 const defaultNavigation = {
   headerTransparent : true ,
@@ -43,6 +43,7 @@ const FootNavigation = createStackNavigator({
    Role : ProfileChoiceScreen ,
    Player : PlayerHomeScreen , 
    Owner : OwnerHomeScreen,
+   Stadiums : stadiumChoiceScreen,
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
