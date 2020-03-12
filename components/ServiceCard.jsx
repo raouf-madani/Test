@@ -32,11 +32,11 @@ const ServiceCard = props =>{
                 <View style={styles.infoMatchDateContainerRight}>
                     <View style={styles.typeTimeMatchContainer}> 
                         <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.orange}/>
-                        <Text style={styles.typeMatch}> {props.daysMatch}</Text>
+                        <Text style={styles.edit}> modifier </Text>
                     </View>
                     <View style={styles.typeTimeMatchContainer}>
                         <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.orange}/>
-                        <Text style={styles.typeMatch}> {props.timeMatch}</Text>
+                        <Text style={styles.edit}> modifier </Text>
                     </View>
                 </View>
             </View>
@@ -47,10 +47,7 @@ const ServiceCard = props =>{
 
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonWidth}>
-                    <Button color='#D4AF37' title="Modifier"  />
-                </View>
-                <View style={styles.buttonWidth}>
-                    <Button color='#FF0000' title="Supprimer"/>
+                    <Button color='#D4AF37' title="Supprimer"/>
                 </View>
             </View>
 
@@ -100,7 +97,14 @@ const styles= StyleSheet.create({
  typeMatch:{
     fontSize:18,
     fontFamily:'poppins',
-    color:'white'
+    color:'white',
+ },
+ edit:{
+    fontSize:18,
+    fontFamily:'poppins',
+    color:'white',
+    borderBottomColor:'white',
+    borderBottomWidth:1
  },
  infoMatchContainerLeft:{
      width:'50%',
@@ -129,8 +133,7 @@ const styles= StyleSheet.create({
      color:'white'
  },
  buttonsContainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     height:'20%',
     paddingHorizontal: 20,
