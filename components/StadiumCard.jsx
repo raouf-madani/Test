@@ -26,7 +26,7 @@ const StadiumCard = props =>{
              </View>
       
             <View style = {styles.buttonContainer}>
-                    <Button title = "Choisir" color ={Colors.primary}/>
+                    <Button title = "Choisir" color ={Colors.primary} onPress = {props.onPress}/>
 
             </View>
 

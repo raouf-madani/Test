@@ -22,6 +22,7 @@ import {Ionicons} from "@expo/vector-icons";
 import PlayerHomeScreen from '../screens/home/playerHomeScreen';
 import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
 import stadiumChoiceScreen from "../screens/playerBooking/stadiumChoiceScreen"
+import stadiumBookingScreen from "../screens/playerBooking/stadiumBookingScreen";
 
 const defaultNavigation = {
   headerTransparent : true ,
@@ -46,6 +47,7 @@ const FootNavigation = createStackNavigator({
    Player : PlayerHomeScreen , 
    Owner : OwnerHomeScreen,
    Stadiums : stadiumChoiceScreen,
+   StadiumBooking : stadiumBookingScreen ,
    Home: HomeScreen,
    TypeMatch: TypeMatchScreen,
    TypeMembership: TypeMembershipScreen,
