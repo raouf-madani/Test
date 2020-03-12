@@ -28,7 +28,7 @@ const StadiumChoiceScreen = props =>{
                 <StadiumCard
                   name = "Foot Five Blida"
                   adress = "18 Rue bab dzair rue soumaa"
-
+                  onPress = {()=>props.navigation.navigate("StadiumBooking")}
                  />
                 
                 <StadiumCard
