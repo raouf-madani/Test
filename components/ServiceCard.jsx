@@ -6,79 +6,60 @@ import {Ionicons} from '@expo/vector-icons';
 
 const ServiceCard = props =>{
 
-   
     return(
      
-    <View style={styles.bigContainer}>
-        <ImageBackground source={require('../assets/images/stadium.jpg')} style={styles.stadiumImageBackground} blurRadius={0}>
-            <View style={styles.container}>
-                <ImageBackground source={require('../assets/images/player.jpg')} style={styles.backgroundImage} blurRadius={0}>
-                <View style={styles.overlayBackground}>
+    <View style={styles.container}>
+        <ImageBackground source={require('../assets/images/player.jpg')} style={styles.backgroundImage} blurRadius={0}>
+        <View style={styles.overlayBackground}>
 
-                    <View style={styles.titleContainer}>
-                    <Text style={styles.title}>SERVICE {props.serviceNumber}</Text>
-                    </View>
-                    
-
-                    <View style={styles.infoContainer}>
-                        <View style={styles.infoMatchContainerLeft}>
-                            <View style={styles.typeTimeMatchContainer}>
-                                <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
-                                <Text style={styles.typeMatch}> {props.typeMatch} </Text>
-                                <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
-                            </View>
-                            <View style={styles.typeTimeMatchContainer}>
-                                <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={25} color={Colors.orange}/>
-                                <Text style={styles.typeMatch}> {props.durationMatch} heure</Text>
-                            </View>
-                        </View>
-                        <View style={styles.infoMatchDateContainerRight}>
-                            <View style={styles.typeTimeMatchContainer}> 
-                                <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.orange}/>
-                                <Text style={styles.typeMatch}> {props.daysMatch}</Text>
-                            </View>
-                            <View style={styles.typeTimeMatchContainer}>
-                                <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.orange}/>
-                                <Text style={styles.typeMatch}> {props.timeMatch}</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={styles.tarifContainer}>
-                        <Text style={styles.title}>{props.price} <Text style={styles.algerianDinar}>DA/Equipe</Text></Text>
-                    </View>
-
-                    <View style={styles.buttonsContainer}>
-                        <View style={styles.buttonWidth}>
-                            <Button color='#D4AF37' title="Modifier"  />
-                        </View>
-                        <View style={styles.buttonWidth}>
-                            <Button color='#FF0000' title="Supprimer"/>
-                        </View>
-                    </View>
-
-                </View> 
-            </ImageBackground>
+            <View style={styles.titleContainer}>
+            <Text style={styles.title}>SERVICE {props.serviceNumber}</Text>
             </View>
-        </ImageBackground>
+            
+
+            <View style={styles.infoContainer}>
+                <View style={styles.infoMatchContainerLeft}>
+                    <View style={styles.typeTimeMatchContainer}>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
+                        <Text style={styles.typeMatch}> {props.typeMatch} </Text>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
+                    </View>
+                    <View style={styles.typeTimeMatchContainer}>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={25} color={Colors.orange}/>
+                        <Text style={styles.typeMatch}> {props.durationMatch} heure</Text>
+                    </View>
+                </View>
+                <View style={styles.infoMatchDateContainerRight}>
+                    <View style={styles.typeTimeMatchContainer}> 
+                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.orange}/>
+                        <Text style={styles.edit}> modifier </Text>
+                    </View>
+                    <View style={styles.typeTimeMatchContainer}>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.orange}/>
+                        <Text style={styles.edit}> modifier </Text>
+                    </View>
+                </View>
+            </View>
+
+            <View style={styles.tarifContainer}>
+                <Text style={styles.title}>{props.price} <Text style={styles.algerianDinar}>DA/Equipe</Text></Text>
+            </View>
+
+            <View style={styles.buttonsContainer}>
+                <View style={styles.buttonWidth}>
+                    <Button color='#D4AF37' title="Supprimer"/>
+                </View>
+            </View>
+
+        </View> 
+    </ImageBackground>
     </View>
-    
-     );    
+    );    
 };
 
 
 const styles= StyleSheet.create({
-    bigContainer:{
-      flex:1,
-      backgroundColor:'white'
-    },
-    stadiumImageBackground:{
-    alignItems:'center',
-    justifyContent:'center',
-    flex:1,
-    backgroundColor:'white',
-    
- },
+   
  container:{
     shadowColor: 'black',
     shadowOpacity: 0.26,
@@ -116,7 +97,14 @@ const styles= StyleSheet.create({
  typeMatch:{
     fontSize:18,
     fontFamily:'poppins',
-    color:'white'
+    color:'white',
+ },
+ edit:{
+    fontSize:18,
+    fontFamily:'poppins',
+    color:'white',
+    borderBottomColor:'white',
+    borderBottomWidth:1
  },
  infoMatchContainerLeft:{
      width:'50%',
@@ -145,8 +133,7 @@ const styles= StyleSheet.create({
      color:'white'
  },
  buttonsContainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     height:'20%',
     paddingHorizontal: 20,
