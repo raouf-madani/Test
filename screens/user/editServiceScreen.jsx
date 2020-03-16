@@ -1,32 +1,20 @@
 import React, { useState,useEffect } from 'react';
 import { StyleSheet,View,Switch,Text,ScrollView} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import { DataTable } from 'react-native-paper';
+import { DataTable,RadioButton } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {TextInput} from 'react-native-paper';
-import Colors from '../../constants/Colors';
-import {Ionicons} from '@expo/vector-icons';
-
 import HeaderButton from "../../components/HeaderButton";
+import Colors from '../../constants/Colors';
 
 
 const EditServiceScreen = props =>{
  
      
-    //Siwtch buttons states for Match Type 
-    const [switch5vs5, setSwitch5vs5] = useState(false);
-    const [switch6vs6, setSwitch6vs6] = useState(false);
-    const [switch7vs7, setSwitch7vs7] = useState(false);
-    const [switch8vs8, setSwitch8vs8] = useState(false);
-    const [switch9vs9, setSwitch9vs9] = useState(false);
-    const [switch10vs10, setSwitch10vs10] = useState(false);
-    const [switch11vs11, setSwitch11vs11] = useState(false);
-    
-
-    //Switch buttons states for Match Duration
-    const [switchOneHour, setSwitchOneHour] = useState(false);
-    const [switchOneHourHalf, setSwitchOneHourHalf] = useState(false);
-    const [switchTwoHours, setSwitchTwoHours] = useState(false);
+    //radio group buttons state for Match Type 
+    const [matchType, setMatchType] = useState();
+    //radio group buttons state for Match Time 
+    const [matchTime,setMatchTime]= useState();
 
     //Switch buttons states for slots
     const [switchSat, setSwitchSat] = useState(false);
@@ -143,55 +131,46 @@ const EditServiceScreen = props =>{
         </View>
         <View style={styles.typeTimeMatchContainer}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>5 vs 5</Text>
-                    <Switch 
-                        value={switch5vs5} 
-                        onValueChange={()=>setSwitch5vs5(prevValue => !prevValue)} 
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}
-                    />
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>6 vs 6</Text>
-                    <Switch 
-                        value={switch6vs6} 
-                        onValueChange={()=>setSwitch6vs6(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>7 vs 7</Text>
-                    <Switch 
-                        value={switch7vs7} 
-                        onValueChange={()=>setSwitch7vs7(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>8 vs 8</Text>
-                    <Switch 
-                        value={switch8vs8} 
-                        onValueChange={()=>setSwitch8vs8(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>9 vs 9</Text>
-                    <Switch 
-                        value={switch9vs9}
-                        onValueChange={()=>setSwitch9vs9(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>10 vs 10</Text>
-                    <Switch 
-                        value={switch10vs10} 
-                        onValueChange={()=>setSwitch10vs10(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-                </View>
-                <View style={styles.optionContainer}>
-                    <Text style={styles.text}>11 vs 11</Text>
-                    <Switch 
-                        value={switch11vs11} 
-                        onValueChange={()=>setSwitch11vs11(prevValue=>!prevValue)}
-                        trackColor={{true:'rgba(240,94,35,0.4)'}}/>
+                <View style={styles.radioContainer}>
+                   <RadioButton.Group
+                    value = {matchType}
+                    onValueChange = {prevValue=>setMatchType(prevValue)}>
+                      <View style={styles.radioTypeMatch}>
+                        <Text>5 vs 5</Text>
+                        <RadioButton value="5 vs 5"/>
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>6 vs 6</Text>
+                        <RadioButton value="6 vs 6" />
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>7 vs 7</Text>
+                        <RadioButton value="7 vs 7" />
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>8 vs 8</Text>
+                        <RadioButton value="8 vs 8" />
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>9 vs 9</Text>
+                        <RadioButton value="9 vs 9" />
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>10 vs 10</Text>
+                        <RadioButton value="10 vs 10" />
+                      </View>
+
+                      <View style={styles.radioTypeMatch}>
+                        <Text>11 vs 11</Text>
+                        <RadioButton value="11 vs 11" />
+                      </View>
+             
+                  </RadioButton.Group>
                 </View>
             </ScrollView> 
         </View>
@@ -200,27 +179,24 @@ const EditServiceScreen = props =>{
             <Text style={styles.title}>Durée du match :</Text>
         </View>
         <View style={styles.typeTimeMatchContainer}>
-            <View style={styles.optionContainer}>
-                <Text style={styles.text}>1h00</Text>
-                <Switch 
-                    value={switchOneHour} 
-                    onValueChange={()=>setSwitchOneHour(prevValue => !prevValue)} 
-                    trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-            </View>
-            <View style={styles.optionContainer}>
-                <Text style={styles.text}>1h30</Text>
-                <Switch 
-                    value={switchOneHourHalf} 
-                    onValueChange={()=>setSwitchOneHourHalf(prevValue=>!prevValue)}
-                    trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-            </View>
-            <View style={styles.optionContainer}>
-                <Text style={styles.text}>2h00</Text>
-                <Switch 
-                    value={switchTwoHours} 
-                    onValueChange={()=>setSwitchTwoHours(prevValue=>!prevValue)}
-                    trackColor={{true:'rgba(240,94,35,0.4)'}}/>
-            </View>
+            <RadioButton.Group
+              value = {matchTime}
+              onValueChange = {prevValue=>setMatchTime(prevValue)}>
+              <View style={styles.radioTypeMatch}>
+                <Text>1h00</Text>
+                <RadioButton value="1h"/>
+              </View>
+
+              <View style={styles.radioTypeMatch}>
+                <Text>1h30</Text>
+                <RadioButton value="1h30" />
+              </View>
+
+              <View style={styles.radioTypeMatch}>
+                <Text>2h00</Text>
+                <RadioButton value="2h" />
+              </View>
+            </RadioButton.Group>
         </View>
 
         <View style={styles.titleContainer2}>
@@ -228,31 +204,31 @@ const EditServiceScreen = props =>{
         </View>
         <DataTable>
         <DataTable.Row>
-          <Switch value={switchSat} onValueChange={()=>setSwitchSat(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}}/><DataTable.Cell>Sam</DataTable.Cell>
+          <Switch value={switchSat} onValueChange={()=>setSwitchSat(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchSat? Colors.orange: 'white'}/><DataTable.Cell>Sam</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchSat){showDatePicker();setSat({...sat,isOpenSat:true});setId('sat');} }}>{sat.isOpenSat === true ? sat.openTimeSat: 'Ouvert'}</Text>  -  <Text onPress={()=>{if(switchSat){showDatePicker();setSatClose({...satClose,isCloseSat:true});setId('satClose')}}}>{satClose.isCloseSat ? satClose.closeTimeSat : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchSun} onValueChange={()=>setSwitchSun(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} /><DataTable.Cell>Dim</DataTable.Cell>
+          <Switch value={switchSun} onValueChange={()=>setSwitchSun(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchSun ? Colors.orange: 'white'}/><DataTable.Cell>Dim</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchSun){showDatePicker();setSun({...sun,isOpenSun:true});setId('sun');} }}>{sun.isOpenSun ? sun.openTimeSun: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchSun){showDatePicker();setSunClose({...sunClose,isCloseSun:true});setId('sunClose');} }}>{sunClose.isCloseSun ? sunClose.closeTimeSun : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchMon} onValueChange={()=>setSwitchMon(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} /><DataTable.Cell>Lun</DataTable.Cell>
+          <Switch value={switchMon} onValueChange={()=>setSwitchMon(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchMon ? Colors.orange: 'white'}/><DataTable.Cell>Lun</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchMon){showDatePicker();setMon({...mon,isOpenMon:true});setId('mon');} }}>{mon.isOpenMon ? mon.openTimeMon: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchMon){showDatePicker();setMonClose({...monClose,isCloseMon:true});setId('monClose');} }}>{monClose.isCloseMon ? monClose.closeTimeMon : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchTue} onValueChange={()=>setSwitchTue(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} /><DataTable.Cell>Mar</DataTable.Cell>
+          <Switch value={switchTue} onValueChange={()=>setSwitchTue(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchTue ? Colors.orange: 'white'}/><DataTable.Cell>Mar</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchTue){showDatePicker();setTue({...tue,isOpenTue:true});setId('tue');} }}>{tue.isOpenTue ? tue.openTimeTue: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchTue){showDatePicker();setTueClose({...tueClose,isCloseTue:true});setId('tueClose');} }}>{tueClose.isCloseTue ? tueClose.closeTimeTue : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchWed} onValueChange={()=>setSwitchWed(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}}/><DataTable.Cell>Mer</DataTable.Cell>
+          <Switch value={switchWed} onValueChange={()=>setSwitchWed(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchWed ? Colors.orange: 'white'}/><DataTable.Cell>Mer</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchWed){showDatePicker();setWed({...wed,isOpenWed:true});setId('wed');} }}>{wed.isOpenWed ? wed.openTimeWed: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchWed){showDatePicker();setWedClose({...wedClose,isCloseWed:true});setId('wedClose');} }}>{wedClose.isCloseWed ? wedClose.closeTimeWed: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchThu} onValueChange={()=>setSwitchThu(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}}/><DataTable.Cell>Jeu</DataTable.Cell>
+          <Switch value={switchThu} onValueChange={()=>setSwitchThu(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchThu ? Colors.orange: 'white'}/><DataTable.Cell>Jeu</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchThu){showDatePicker();setThu({...thu,isOpenThu:true});setId('thu');} }}>{thu.isOpenThu ? thu.openTimeThu: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchThu){showDatePicker();setThuClose({...thuClose,isCloseThu:true});setId('thuClose');} }}>{thuClose.isCloseThu ? thuClose.closeTimeThu: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchFri} onValueChange={()=>setSwitchFri(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}}/><DataTable.Cell>Ven</DataTable.Cell>
+          <Switch value={switchFri} onValueChange={()=>setSwitchFri(prevValue=>!prevValue)} trackColor={{true:'rgba(240,94,35,0.4)'}} thumbColor={switchFri ? Colors.orange: 'white'}/><DataTable.Cell>Ven</DataTable.Cell>
           <DataTable.Cell numeric><Text onPress={()=>{ if(switchFri){showDatePicker();setFri({...fri,isOpenFri:true});setId('fri');} }}>{fri.isOpenFri ? fri.openTimeFri: 'Ouvert'}</Text>  -  <Text onPress={()=>{ if(switchFri){showDatePicker();setFriClose({...friClose,isCloseFri:true});setId('friClose');} }}>{friClose.isCloseFri ? friClose.closeTimeFri: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         </DataTable>
@@ -325,8 +301,8 @@ title:{
   
 },
 typeTimeMatchContainer:{
-    width : "97%" ,
-    height : 60,
+    width : "95%" ,
+    height : 90,
     backgroundColor : "rgba(255, 255, 255, 0.9)",
     flexDirection : "row",
     justifyContent : "space-around",
@@ -335,9 +311,12 @@ typeTimeMatchContainer:{
     padding : 20,
     borderRadius : 10
 },
-optionContainer:{
+radioContainer:{
     flexDirection:'row',
     paddingHorizontal:10
+},
+radioTypeMatch:{
+    marginHorizontal:16
 },
 text:{
     fontFamily:'poppins',
