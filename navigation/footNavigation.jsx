@@ -16,6 +16,8 @@ import SignupScreen from '../screens/user/signupScreen';
 import SignupOwnerScreen from '../screens/user/signupOwnerScreen';
 import UserServiceScreen from '../screens/user/userServiceScreen';
 import EditServiceScreen from '../screens/user/editServiceScreen';
+import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
+import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
 
 import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
@@ -56,7 +58,9 @@ const FootNavigation = createStackNavigator({
    Login: LoginScreen,
    SignupOwner:SignupOwnerScreen,
    UserService : UserServiceScreen,
-   EditService: EditServiceScreen 
+   EditService: EditServiceScreen,
+   OwnerBookings: OwnerBookingsScreen,
+   OwnerBookingsDetail: OwnerBookingsDetailScreen
 },
 {
     defaultNavigationOptions: defaultNavigation
