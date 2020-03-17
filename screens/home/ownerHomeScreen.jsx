@@ -39,6 +39,7 @@ const OwnerHomeScreen = props =>{
                   <SmallCard
                     image ={require("../../assets/logo/football2.png")} 
                     screen = "Support"
+                    onPress={()=>props.navigation.navigate('OwnerSupport')}
                    />
 
               </View>
