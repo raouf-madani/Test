@@ -18,6 +18,7 @@ import UserServiceScreen from '../screens/user/userServiceScreen';
 import EditServiceScreen from '../screens/user/editServiceScreen';
 import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
 import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
+import OwnerSupportScreen from '../screens/user/ownerSupportScreen';
 
 import SideBar from '../components/SideBar';
 import {Ionicons} from "@expo/vector-icons";
@@ -60,7 +61,8 @@ const FootNavigation = createStackNavigator({
    UserService : UserServiceScreen,
    EditService: EditServiceScreen,
    OwnerBookings: OwnerBookingsScreen,
-   OwnerBookingsDetail: OwnerBookingsDetailScreen
+   OwnerBookingsDetail: OwnerBookingsDetailScreen,
+   OwnerSupport: OwnerSupportScreen
 },
 {
     defaultNavigationOptions: defaultNavigation

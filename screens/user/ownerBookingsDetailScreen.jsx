@@ -72,7 +72,7 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
     return {
         headerRight : ()=>  
               (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
-                <Item title = "calendar" 
+                <Item title = "callCustomer" 
                   iconName = {Platform.OS === 'android' ? 'md-call' : 'ios-call'}  
                   onPress={()=>{
                     let phoneNumber = '';
