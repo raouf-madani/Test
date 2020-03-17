@@ -4,7 +4,8 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
 import {Platform,Image,StyleSheet} from 'react-native';
 import Colors from '../constants/Colors';
-
+import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import HomeScreen from '../screens/homeScreen';
 import MyBookingsScreen from '../screens/myBookingsScreen';
 import BookingMatchScreen from '../screens/booking/bookingMatchScreen';
@@ -19,12 +20,15 @@ import EditServiceScreen from '../screens/user/editServiceScreen';
 import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
 import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
 
+import PlayerBookingsScreen from "../screens/playerBooking/playerBookingsScreen";
+
 import SideBar from '../components/SideBar';
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons,  MaterialIcons} from "@expo/vector-icons";
 import PlayerHomeScreen from '../screens/home/playerHomeScreen';
 import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
 import stadiumChoiceScreen from "../screens/playerBooking/stadiumChoiceScreen"
 import stadiumBookingScreen from "../screens/playerBooking/stadiumBookingScreen";
+import PlayerExpiredBookingsScreen from '../screens/playerBooking/playerExpiredBookingsScreen';
 
 const defaultNavigation = {
   headerTransparent : true ,
@@ -44,6 +48,52 @@ const defaultNavigation = {
     )
 }
 
+///////////////////////////////////////////////////////////////////
+//Tab Navigator For Player Bookings Screen
+const tabConfig = {
+  Réservations : {
+          screen : PlayerBookingsScreen ,
+          navigationOptions : {
+            
+            tabBarLabel : "Mes Réservations" ,
+            tabBarColor : "#006d6a" ,
+            tabBarIcon : () => {
+              return( <Ionicons name = "ios-calendar" 
+              size = {22} color ="white"/>);
+                },
+        
+        }
+          
+  } ,
+  Expirés : {
+          screen : PlayerExpiredBookingsScreen,
+          navigationOptions : {
+            tabBarLabel : "Expirées" ,
+            tabBarColor : "rgba(198, 34, 37, 1)" ,
+            tabBarIcon : () => {
+              return( <MaterialIcons name = "history" 
+              size = {22} color ="white"/>);
+                }
+        } 
+
+  }
+
+
+}
+
+const PlayerBookingsTab = createMaterialBottomTabNavigator(tabConfig, 
+{
+  activeColor: '#f0edf6',
+shifting : true ,
+labeled  : true
+
+
+
+} ) ;
+
+///////////////////////////////////////////////////////////////////
+
+//Main Stack Navigator
 const FootNavigation = createStackNavigator({
    Role : ProfileChoiceScreen ,
    Player : PlayerHomeScreen , 
@@ -60,7 +110,9 @@ const FootNavigation = createStackNavigator({
    UserService : UserServiceScreen,
    EditService: EditServiceScreen,
    OwnerBookings: OwnerBookingsScreen,
-   OwnerBookingsDetail: OwnerBookingsDetailScreen
+   OwnerBookingsDetail: OwnerBookingsDetailScreen , 
+   PlayerBookings : PlayerBookingsTab ,
+   
 },
 {
     defaultNavigationOptions: defaultNavigation
@@ -75,6 +127,8 @@ const BookingNavigation =  createStackNavigator (
   );
 
 
+
+  //Drawer Navigator for the main screen
 const MainNavigator = createDrawerNavigator({
           Home : {
             screen : FootNavigation , 
@@ -125,6 +179,9 @@ const MainNavigator = createDrawerNavigator({
 
 }
 );
+
+///////////////////////////////////////////////////////////////
+
 
 
 
