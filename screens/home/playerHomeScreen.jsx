@@ -34,6 +34,7 @@ const PlayerHomeScreen = props =>{
                   <SmallCard
                     image ={require("../../assets/logo/calendar.png")} 
                     screen = "Réservations"
+                    onPress = {() =>props.navigation.navigate('PlayerBookings')}
                      />
 
                   <SmallCard

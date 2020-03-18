@@ -19,6 +19,7 @@ import UserServiceScreen from '../screens/user/userServiceScreen';
 import EditServiceScreen from '../screens/user/editServiceScreen';
 import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
 import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
+import OwnerSupportScreen from '../screens/user/ownerSupportScreen';
 
 import PlayerBookingsScreen from "../screens/playerBooking/playerBookingsScreen";
 
@@ -113,6 +114,7 @@ const FootNavigation = createStackNavigator({
    OwnerBookingsDetail: OwnerBookingsDetailScreen , 
    PlayerBookings : PlayerBookingsTab ,
    
+   OwnerSupport: OwnerSupportScreen
 },
 {
     defaultNavigationOptions: defaultNavigation
@@ -181,9 +183,6 @@ const MainNavigator = createDrawerNavigator({
 );
 
 ///////////////////////////////////////////////////////////////
-
-
-
 
 const styles= StyleSheet.create({
   
