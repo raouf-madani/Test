@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground} from 'react-native';
-
 import Card from "../components/Card";
 
 const ProfileChoiceScreen = props =>
@@ -23,7 +22,7 @@ const ProfileChoiceScreen = props =>
                 <View style = {styles.cardsContainer}>
                 <Card 
                 url = {require("../assets/logo/soccer-field.png")}
-                role = "Proprétaire"
+                role = "Propriétaire"
                 fonctionA = "Ajoutez votre Stade"
                 fonctionB = "Louez votre Stade"
                 onPress={() =>props.navigation.navigate('Owner')}
@@ -32,7 +31,7 @@ const ProfileChoiceScreen = props =>
                 <Card 
                 url = {require("../assets/logo/football-player.png")}
                 role = "Joueur"
-                fonctionA = "Reservez un stade"
+                fonctionA = "Réservez un créneau"
                 fonctionB = "Trouvez un adversaire"
                 onPress={() =>props.navigation.navigate('Player')}
                  />

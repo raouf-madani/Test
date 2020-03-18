@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text} from 'react-native';
 import {TextInput,Searchbar} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
@@ -101,7 +101,7 @@ const SignupOwnerScreen = props =>{
                         <TextInput
                             mode='flat'
                             label='Nom du complexe *'
-                            placeholder=' Tapez le nom du votre complexe'
+                            placeholder='Tapez le nom du votre complexe'
                             value={complexName}
                             onChangeText={prevText=>setComplexName(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
@@ -121,7 +121,7 @@ const SignupOwnerScreen = props =>{
                         <TextInput
                             mode='flat'
                             label='Nombre des stades *'
-                            placeholder="Tapez l'adresse du votre complexe"
+                            placeholder="Entrez le nombre de vos stades"
                             value={complexStadiumNumber}
                             onChangeText={prevText=>setComplexStadiumNumber(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
