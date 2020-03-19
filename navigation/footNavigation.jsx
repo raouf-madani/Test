@@ -20,6 +20,7 @@ import EditServiceScreen from '../screens/user/editServiceScreen';
 import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
 import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
 import OwnerSupportScreen from '../screens/user/ownerSupportScreen';
+import OwnerProfileScreen from '../screens/user/ownerProfileScreen';
 
 import PlayerBookingsScreen from "../screens/playerBooking/playerBookingsScreen";
 
@@ -111,9 +112,10 @@ const FootNavigation = createStackNavigator({
    UserService : UserServiceScreen,
    EditService: EditServiceScreen,
    OwnerBookings: OwnerBookingsScreen,
-   OwnerBookingsDetail: OwnerBookingsDetailScreen , 
+   OwnerBookingsDetail: OwnerBookingsDetailScreen,
+   OwnerSupport: OwnerSupportScreen,
+   OwnerProfile: OwnerProfileScreen,
    PlayerBookings : PlayerBookingsTab ,
-   
    OwnerSupport: OwnerSupportScreen
 },
 {
