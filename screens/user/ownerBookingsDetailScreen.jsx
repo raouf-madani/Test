@@ -1,8 +1,11 @@
 import React,{useEffect} from 'react';
-import { StyleSheet,View,Text,ScrollView,Linking} from 'react-native';
+import { StyleSheet,View,Linking} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
 import Colors from '../../constants/Colors';
+import {TextInput} from 'react-native-paper';
+
+import BookingCard from '../../components/BookingCard';
 
 
 
@@ -11,7 +14,7 @@ const OwnerBookingsDetailScreen = props =>{
     const bookingID = props.navigation.getParam('bookingID');
     const data=[{id:'1',nom:'Madani',prenom:'Raouf',creneauD:'13h',creneauF:'14h',statut:'Confirmée',date:'2020-03-16',num:'06598532145'},
                {id:'2',nom:'Snoussi',prenom:'el Hareth',creneauD:'14h',creneauF:'15h',statut:'Confirmée',date:'2020-03-16',num:'07597532145'},
-               {id:'3',nom:'Mahdi',prenom:'Djalel',creneauD:'15h',creneauF:'16h',statut:'Confirmée',date:'2020-03-17',num:'06338532145'},
+               {id:'3',nom:'Mahdi',prenom:'Djalel',creneauD:'15h',creneauF:'16h',statut:'Expirée',date:'2020-03-17',num:'06338532145'},
                {id:'4',nom:'Benzema',prenom:'Karim',creneauD:'16h',creneauF:'17h',statut:'Confirmée',date:'2020-03-18',num:'06408532145'},
                {id:'5',nom:'Ronaldo',prenom:'Cristiano',creneauD:'17h',creneauF:'18h',statut:'Anulée',date:'2020-03-16',num:'06556832145'},
                {id:'6',nom:'Neymar',prenom:'Junior',creneauD:'18h',creneauF:'19h',statut:'Confirmée',date:'2020-03-16',num:'06778532145'},
@@ -21,6 +24,17 @@ const OwnerBookingsDetailScreen = props =>{
                {id:'10',nom:'Carlos',prenom:'Balboa',creneauD:'20h',creneauF:'21h',statut:'Anulée',date:'2020-03-16',num:'05519892145'}
                ];
     const currentBooking = data.find(booking => booking.id === bookingID);
+
+    const month = ()=>{
+        const array = currentBooking.date.split('-');
+        const newArrayMonth = array.slice(1,2);
+        if(newArrayMonth.toString()=== '03'){
+            return 'Mars';
+        }else{
+            return;
+        }
+
+    }
     
     useEffect(()=>{
     props.navigation.setParams({phoneNumber:currentBooking.num});
@@ -28,40 +42,46 @@ const OwnerBookingsDetailScreen = props =>{
       
     return(
     <View style={styles.container}>
-    <ScrollView contentContainerStyle={{flex:1,justifyContent:'center'}}>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Nom : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.nom}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Prénom : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.prenom}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Numéro de téléphone : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.num}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Date : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.date}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Créneau : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.creneauD+' > '+currentBooking.creneauF}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Type du match : </Text>
-            <Text style={styles.infoDetail}> 5vs5</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Statut : </Text>
-            <Text style={styles.infoDetail}> {currentBooking.statut}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-            <Text style={styles.info}>Numéro de la réservation : {currentBooking.id}</Text>
-            <Text></Text>
-        </View>
-     </ScrollView>   
+       <BookingCard 
+        status="error"
+        value={currentBooking.statut}
+        time="1h"
+        stadium = "5vs5"
+        hours={currentBooking.creneauD+' > '+currentBooking.creneauF}
+        day={currentBooking.date.split('-').pop()}
+        month={month()}
+        year={currentBooking.date.split('-').shift()}
+       />
+       <View style={styles.cardContainer}>
+        <TextInput
+            mode='outlined'
+            value={'Nom : '+currentBooking.nom}
+            theme={{colors: {primary:'#323232',text:'white'}}}
+            style={{backgroundColor:'#323232'}}
+            underlineColor='white'
+        />
+        <TextInput
+            mode='outlined'
+            value={'Prénom : '+currentBooking.prenom}
+            theme={{colors: {primary:'#323232',text:'white'}}}
+            style={{backgroundColor:'#323232'}}
+            underlineColor='white'
+        />
+        <TextInput
+            mode='outlined'
+            value={'Téléphone : '+currentBooking.num}
+            theme={{colors: {primary:'#323232',text:'white'}}}
+            style={{backgroundColor:'#323232'}}
+            underlineColor='white'
+        />
+         <TextInput
+            mode='outlined'
+            value={'Numéro de réservation : '+currentBooking.id}
+            theme={{colors: {primary:'#323232',text:'white'}}}
+            style={{backgroundColor:'#323232'}}
+            underlineColor='white'
+        />
+       </View>
     </View>
     
      );    
@@ -98,25 +118,18 @@ const styles= StyleSheet.create({
 container:{
     flex:1,
     backgroundColor:'black',
-    justifyContent:'center',
-    alignItems:'flex-start',
+    justifyContent:'flex-end',
+    alignItems:'center',
     padding:20
 },
-infoContainer:{
-    borderBottomColor:'white',
-    borderBottomWidth:1,
-    flexDirection:'row',
-    margin:10,
-    padding:5
-},
-info:{
-    fontFamily:'poppins-bold',
-    color:'white'
-},
-infoDetail:{
-    fontFamily:'poppins',
-    color:'white',
-    fontSize:15
+cardContainer : {
+    width : " 97%" ,
+    height : 300,
+    justifyContent : "center",
+    backgroundColor : "rgba(80, 80, 80,0.9)",
+    borderRadius : 15,
+    marginVertical : 10,
+    paddingHorizontal:10
 }
 });
 

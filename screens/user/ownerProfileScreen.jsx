@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert} from 'react-native';
-import {TextInput,Searchbar} from 'react-native-paper';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
 import Colors from '../../constants/Colors';
@@ -17,11 +17,15 @@ const OwnerProfileScreen = props =>{
     const [email,setEmail] = useState('');
     const [address,setAddress] = useState('');
 
+    const cities = [{id:'09',wilaya:'Blida'},{id:'16',wilaya:'Alger'}];
+
     //States for complex information textInputs
     const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState('');
+    const [complexCity,setComplexCity] = useState(`${cities[0].wilaya}`);
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
+
+    
 
     //state for image
     const [pickedImage,setPickedImage]= useState();
@@ -54,139 +58,132 @@ const OwnerProfileScreen = props =>{
     return(
     <View style={styles.container}>
      <ImageBackground source = {require("../../assets/images/profileBack5.jpg")}  style={styles.backgroudnImage}>
-     <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.cardContainer}>
-            <View style={styles.card}>
-                {!pickedImage ? (<Text style={styles.pickedImageText}>Capture de votre stade!</Text>)
-                : (<Image style={styles.image} source={{uri:pickedImage}} />)}
-            </View>
-            <View style={styles.circlesContainer}>
-                <TouchableHighlight style={styles.circleOne} onPress={takeImageHandler}>
-                  <Ionicons title = "save" 
-                   name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
-                   color='white' size={24} />
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.circleTwo}>
-                <Ionicons title = "save" 
-                   name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
-                   color='white' size={24} />
-                </TouchableHighlight>
-            </View>
-        </View> 
-        <View style={styles.card2Container}>
-            <View style={styles.card2}>
-                <View style={styles.textInputsContainer}>  
-                   <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Nom et Prénom *'
-                            placeholder='Tapez votre nom et prénom'
-                            value={fullName}
-                            onChangeText={prevText=>setFullName(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
+        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.cardContainer}>
+                    <View style={styles.card}>
+                        {!pickedImage ? (<Text style={styles.pickedImageText}>Capture de votre stade!</Text>)
+                        : (<Image style={styles.image} source={{uri:pickedImage}} />)}
                     </View>
-                    <View style={styles.textInputContainer}> 
-                        <TextInput
-                            mode='outlined'
-                            label='Téléphone *'
-                            placeholder='Tapez votre numéro de téléphone'
-                            value={phone}
-                            onChangeText={prevText=>setPhone(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Email *'
-                            placeholder='Tapez votre adresse email'
-                            value={email}
-                            onChangeText={prevText=>setEmail(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Adresse *'
-                            placeholder='Tapez votre propre adresse'
-                            value={address}
-                            onChangeText={prevText=>setAddress(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Nom du complexe *'
-                            placeholder="Tapez le nom du votre complexe"
-                            value={complexName}
-                            onChangeText={prevText=>setComplexName(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                       <TextInput
-                            mode='outlined'
-                            label='Adresse du complexe *'
-                            placeholder="Tapez l'adresse du votre complexe"
-                            value={complexAddress}
-                            onChangeText={prevText=>setComplexAddress(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                       <TextInput
-                            mode='outlined'
-                            label='Nombre des stades *'
-                            placeholder="Entrez le nombre de vos stades"
-                            value={complexStadiumNumber}
-                            onChangeText={prevText=>setComplexStadiumNumber(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                       <TextInput
-                            mode='outlined'
-                            label='Nombre des stades *'
-                            placeholder="Entrez le nombre de vos stades"
-                            value={complexStadiumNumber}
-                            onChangeText={prevText=>setComplexStadiumNumber(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={{backgroundColor:'transparent'}}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.searchBarContainer}>
-                        <Searchbar
-                                placeholder='Ville du complexe *' 
-                                value={complexCity}
-                                onChangeText={prevText=>setComplexCity(prevText)}
-                                inputStyle={{color:'#456383',fontSize:16, fontFamily:'poppins'}}
-                                iconColor='#456383'
-                                style={styles.searchBarCity}
-                                theme={{colors: {placeholder:'#9399a1'}}}
-                        />
+                    <View style={styles.circlesContainer}>
+                        <TouchableHighlight style={styles.circleOne} onPress={takeImageHandler}>
+                        <Ionicons title = "save" 
+                        name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
+                        color='white' size={24} />
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.circleTwo} onPress={()=>setPickedImage(false)}>
+                        <Ionicons title = "save" 
+                        name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
+                        color='white' size={24} />
+                        </TouchableHighlight>
                     </View>
                 </View> 
-            </View>
-        </View>
-     </ScrollView> 
+                <View style={styles.card2Container}>
+                    <View style={styles.card2}>
+                        <View style={styles.textInputsContainer}>  
+                        <View style={styles.textInputContainer}>
+                                <TextInput
+                                    mode='outlined'
+                                    label='Nom et Prénom *'
+                                    placeholder='Tapez votre nom et prénom'
+                                    value={fullName}
+                                    onChangeText={prevText=>setFullName(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}> 
+                                <TextInput
+                                    mode='outlined'
+                                    label='Téléphone *'
+                                    placeholder='Tapez votre numéro de téléphone'
+                                    value={phone}
+                                    onChangeText={prevText=>setPhone(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    mode='outlined'
+                                    label='Email *'
+                                    placeholder='Tapez votre adresse email'
+                                    value={email}
+                                    onChangeText={prevText=>setEmail(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    mode='outlined'
+                                    label='Adresse *'
+                                    placeholder='Tapez votre propre adresse'
+                                    value={address}
+                                    onChangeText={prevText=>setAddress(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    mode='outlined'
+                                    label='Nom du complexe *'
+                                    placeholder="Tapez le nom du votre complexe"
+                                    value={complexName}
+                                    onChangeText={prevText=>setComplexName(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                            <TextInput
+                                    mode='outlined'
+                                    label='Adresse du complexe *'
+                                    placeholder="Tapez l'adresse du votre complexe"
+                                    value={complexAddress}
+                                    onChangeText={prevText=>setComplexAddress(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                            <TextInput
+                                    mode='outlined'
+                                    label='Nombre des stades *'
+                                    placeholder="Entrez le nombre de vos stades"
+                                    value={complexStadiumNumber}
+                                    onChangeText={prevText=>setComplexStadiumNumber(prevText)}
+                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
+                                    style={{backgroundColor:'transparent'}}
+                                    underlineColor='#9399a1'
+                                />
+                            </View>
+                            <View style={styles.pickerContainer}>
+                                <Picker
+                                 style = {styles.picker}
+                                 onValueChange = {prevValue=>setComplexCity(prevValue)}
+                                 selectedValue = {complexCity}
+                                >
+                                    {cities.map(el=>
+                                    <Picker.Item
+                                     key={el.id}
+                                     label={el.wilaya}
+                                     value={el.wilaya}
+                                      />)}
+                                </Picker>
+                            </View>
+                        </View> 
+                    </View>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView> 
      </ImageBackground>
     </View>
 
@@ -277,7 +274,7 @@ const styles= StyleSheet.create({
      marginBottom:50
    },
    card2:{
-    height:700,
+    height:650,
     width:'90%',
     backgroundColor:'#263341',
     borderRadius:10,
@@ -290,13 +287,17 @@ const styles= StyleSheet.create({
    textInputContainer:{
     paddingVertical:5
    },
-   searchBarCity:{
-    backgroundColor:'#263341',
-    borderColor:'#9399a1',
+  pickerContainer:{
     borderWidth:1,
+    borderColor:'#9399a1',
+    padding:5,
+    borderRadius:5,
+    marginTop:12  
   },
-  searchBarContainer:{
-    paddingVertical:12  
+  picker:{
+    width:'100%',
+    backgroundColor:'#263341',
+    color:'#9399a1'
   }
   
 });
