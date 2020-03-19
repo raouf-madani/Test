@@ -3,8 +3,8 @@ import { StyleSheet,View,Text,TouchableHighlight,Dimensions,Alert,ScrollView} fr
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import { DataTable } from 'react-native-paper';
 import {Calendar,LocaleConfig} from 'react-native-calendars';
-import HeaderButton from "../../components/HeaderButton";
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../../components/HeaderButton";
+import Colors from '../../../constants/Colors';
 
 LocaleConfig.locales['fr'] = {
     monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],

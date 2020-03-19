@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import Colors from '../../constants/Colors';
+import Colors from '../constants/Colors';
 
 const LoginScreen = props =>{
 
@@ -10,14 +10,14 @@ const LoginScreen = props =>{
 
     return(
       <View style={styles.container}>
-      <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
+      <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
            <ScrollView>
              <View style={styles.titleContainer}>
                <Text style={styles.title}>Bienvenue à</Text>
              </View>
              <View style = {styles.iconContainer} >
-              <Image style={{width:'100%', height:'100%'}} source = {require('../../assets/images/5.png')}/>
+              <Image style={{width:'100%', height:'100%'}} source = {require("../assets/images/5.png")}/>
              </View>
              <View style={styles.signupContainer}>
                <View style={styles.inputsContainer}>
@@ -64,7 +64,7 @@ const LoginScreen = props =>{
                      <Text style={styles.accountOrText}>Ou</Text>
                      <Text style={styles.connectWidthText}>Se connecter avec</Text>
                      <View style={styles.facebookIconContainer}>
-                      <Image source = {require('../../assets/images/facebook24.png')} /> 
+                      <Image source = {require('../assets/images/facebook24.png')} /> 
                      </View>     
                    </View>
                  </View>

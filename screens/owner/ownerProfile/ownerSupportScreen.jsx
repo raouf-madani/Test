@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet,View,ImageBackground,Image,Text,Linking} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import HeaderButton from "../../components/HeaderButton";
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../../components/HeaderButton";
+import Colors from '../../../constants/Colors';
 
 const OwnerSupportScreen = props =>{
 
     return(
     <View style={styles.container}>
         <View style={styles.card}>
-            <ImageBackground source={require('../../assets/images/support.png')} style={styles.bigBackgroundImage} blurRadius={0}>
+            <ImageBackground source={require('../../../assets/images/support.png')} style={styles.bigBackgroundImage} blurRadius={0}>
                 
             </ImageBackground>
         </View>
@@ -18,15 +18,15 @@ const OwnerSupportScreen = props =>{
         </View>
         <View style={styles.card2}>
             <View style={styles.infoContainer}>
-              <Image style={{height:24,width:24}} source={require('../../assets/images/whatsapp.png')} />
+              <Image style={{height:24,width:24}} source={require('../../../assets/images/whatsapp.png')} />
               <Text  style={styles.info}>06532458765</Text>
             </View>
             <View style={styles.infoContainer}>
-              <Image style={{height:24,width:24}}  source={require('../../assets/images/inbox.png')} />
+              <Image style={{height:24,width:24}}  source={require('../../../assets/images/inbox.png')} />
               <Text style={styles.info}>contact@partiyadz.com</Text>
             </View>
             <View style={styles.infoContainer}>
-              <Image style={{height:24,width:24}}  source={require('../../assets/images/domain.png')} />
+              <Image style={{height:24,width:24}}  source={require('../../../assets/images/domain.png')} />
               <Text style={styles.info}>partiyadz.com</Text>
             </View>
         </View>

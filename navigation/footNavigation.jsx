@@ -6,21 +6,17 @@ import {Platform,Image,StyleSheet} from 'react-native';
 import Colors from '../constants/Colors';
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import HomeScreen from '../screens/homeScreen';
-import MyBookingsScreen from '../screens/myBookingsScreen';
-import BookingMatchScreen from '../screens/booking/bookingMatchScreen';
-import TypeMatchScreen from '../screens/booking/typeMatchScreen'; 
-import TypeMembershipScreen from '../screens/membership/typeMembershipScreen';
-import LoginScreen from '../screens/user/loginScreen';
+
+import LoginScreen from '../screens/loginScreen';
 import ProfileChoiceScreen from '../screens/profileChoiceScreen';
-import SignupScreen from '../screens/user/signupScreen';
-import SignupOwnerScreen from '../screens/user/signupOwnerScreen';
-import UserServiceScreen from '../screens/user/userServiceScreen';
-import EditServiceScreen from '../screens/user/editServiceScreen';
-import OwnerBookingsScreen from '../screens/user/ownerBookingsScreen';
-import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen';
-import OwnerSupportScreen from '../screens/user/ownerSupportScreen';
-import OwnerProfileScreen from '../screens/user/ownerProfileScreen';
+import SignupScreen from '../screens/player/signupScreen';
+import SignupOwnerScreen from '../screens/owner/signupOwnerScreen';
+import OwnerServiceScreen from '../screens/owner/ownerBooking/ownerServiceScreen';
+import EditServiceScreen from '../screens/owner/ownerBooking/editServiceScreen';
+import OwnerBookingsScreen from '../screens/owner/ownerBooking/ownerBookingsScreen';
+import OwnerBookingsDetailScreen from '../screens/owner/ownerBooking/ownerBookingsDetailScreen';
+import OwnerSupportScreen from '../screens/owner/ownerProfile/ownerSupportScreen';
+import OwnerProfileScreen from '../screens/owner/ownerProfile/ownerProfileScreen';
 
 import PlayerBookingsScreen from "../screens/player/playerBooking/playerBookingsScreen";
 
@@ -103,14 +99,10 @@ const FootNavigation = createStackNavigator({
    Owner : OwnerHomeScreen,
    Stadiums : stadiumChoiceScreen,
    StadiumBooking : stadiumBookingScreen ,
-   Home: HomeScreen,
-   TypeMatch: TypeMatchScreen,
-   TypeMembership: TypeMembershipScreen,
-   BookingMatch: BookingMatchScreen , 
    Signup: SignupScreen,
    Login: LoginScreen,
    SignupOwner:SignupOwnerScreen,
-   UserService : UserServiceScreen,
+   OwnerService : OwnerServiceScreen,
    EditService: EditServiceScreen,
    OwnerBookings: OwnerBookingsScreen,
    OwnerBookingsDetail: OwnerBookingsDetailScreen,
@@ -119,20 +111,10 @@ const FootNavigation = createStackNavigator({
    PlayerBookings : PlayerBookingsTab ,
    OwnerSupport: OwnerSupportScreen,
    PlayerProfileScreen: PlayerProfileScreen
-   
 },
 {
     defaultNavigationOptions: defaultNavigation
 });
-
-const BookingNavigation =  createStackNavigator (
-  {
-    Bookings : MyBookingsScreen
-  
-  }
-  
-  );
-
 
 
   //Drawer Navigator for the main screen
@@ -148,18 +130,6 @@ const MainNavigator = createDrawerNavigator({
 
             }},
 
-            Bookings : {
-              screen : BookingNavigation , 
-              navigationOptions : {
-                drawerLabel : "Mes Réservations",
-                drawerIcon : (tabInfo) => {
-                  return( <Ionicons name = "md-bookmark" 
-                  size = {25} color ={tabInfo.tintColor}/>);
-                    }
-  
-              }
-
-          },
         
 },
 { 

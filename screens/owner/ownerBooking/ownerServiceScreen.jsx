@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet,ImageBackground, ScrollView,Platform} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 import {Ionicons} from '@expo/vector-icons';
 
-import ServiceCard from '../../components/ServiceCard';
-import HeaderButton from "../../components/HeaderButton";
+import ServiceCard from '../../../components/ServiceCard';
+import HeaderButton from "../../../components/HeaderButton";
 
 
-const UserServiceScreen = props =>{
+const OwnerServiceScreen = props =>{
 
    
     return(
            
-        <ImageBackground source={require('../../assets/images/stadium.jpg')} style={styles.stadiumImageBackground} blurRadius={0}>
+        <ImageBackground source={require('../../../assets/images/stadium.jpg')} style={styles.stadiumImageBackground} blurRadius={0}>
             <ScrollView>
                 <ServiceCard 
                     serviceNumber={1}
@@ -55,7 +55,7 @@ const UserServiceScreen = props =>{
      );    
 };
 
-UserServiceScreen.navigationOptions = navData => {
+OwnerServiceScreen.navigationOptions = navData => {
     
     return  {
     
@@ -79,4 +79,4 @@ stadiumImageBackground:{
 }
 });
 
-export default UserServiceScreen;
+export default OwnerServiceScreen;

@@ -1,11 +1,11 @@
 import React,{useEffect} from 'react';
 import { StyleSheet,View,Linking} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import HeaderButton from "../../components/HeaderButton";
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../../components/HeaderButton";
+import Colors from '../../../constants/Colors';
 import {TextInput} from 'react-native-paper';
 
-import BookingCard from '../../components/BookingCard';
+import BookingCard from '../../../components/BookingCard';
 
 
 

@@ -4,8 +4,8 @@ import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import { DataTable,RadioButton } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {TextInput} from 'react-native-paper';
-import HeaderButton from "../../components/HeaderButton";
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../../components/HeaderButton";
+import Colors from '../../../constants/Colors';
 
 
 const EditServiceScreen = props =>{

@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import HeaderButton from "../../components/HeaderButton";
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../../components/HeaderButton";
+import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
 
 import * as ImagePicker from 'expo-image-picker';
@@ -57,7 +57,7 @@ const OwnerProfileScreen = props =>{
 
     return(
     <View style={styles.container}>
-     <ImageBackground source = {require("../../assets/images/profileBack5.jpg")}  style={styles.backgroudnImage}>
+     <ImageBackground source = {require("../../../assets/images/profileBack5.jpg")}  style={styles.backgroudnImage}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.cardContainer}>
