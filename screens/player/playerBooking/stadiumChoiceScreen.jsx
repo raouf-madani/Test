@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground} from 'react-native';
 
-import StadiumCard from '../../components/StadiumCard';
+import StadiumCard from '../../../components/StadiumCard';
 import { SearchBar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Colors from "../../constants/Colors";
+import Colors from "../../../constants/Colors";
 
 const StadiumChoiceScreen = props =>{
     return(
-      <ImageBackground source = {require ("../../assets/images/profileBack5.jpg")} style ={styles.container} blurRadius = {1}>
+      <ImageBackground source = {require ("../../../assets/images/profileBack5.jpg")} style ={styles.container} blurRadius = {1}>
       
         <View style = {styles.componentsContainer}>
         <SearchBar

@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Avatar ,Badge } from 'react-native-elements';
-import Colors from "../../constants/Colors";
-import BookingCard from '../../components/BookingCard';
+import Colors from "../../../constants/Colors";
+import BookingCard from '../../../components/BookingCard';
 
 
 const PlayerExpiredBookingsScreen = props =>{

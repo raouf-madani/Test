@@ -18,7 +18,7 @@ const PlayerHomeScreen = props =>{
                   <SmallCard 
                   image ={require("../../assets/logo/user.png")} 
                   screen = "Profile"
-                  onPress = {() =>props.navigation.navigate('Home')}
+                  onPress = {() =>props.navigation.navigate('PlayerProfileScreen')}
                   />
                   
                   <SmallCard

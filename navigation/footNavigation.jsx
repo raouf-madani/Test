@@ -22,15 +22,16 @@ import OwnerBookingsDetailScreen from '../screens/user/ownerBookingsDetailScreen
 import OwnerSupportScreen from '../screens/user/ownerSupportScreen';
 import OwnerProfileScreen from '../screens/user/ownerProfileScreen';
 
-import PlayerBookingsScreen from "../screens/playerBooking/playerBookingsScreen";
+import PlayerBookingsScreen from "../screens/player/playerBooking/playerBookingsScreen";
 
 import SideBar from '../components/SideBar';
 import {Ionicons,  MaterialIcons} from "@expo/vector-icons";
 import PlayerHomeScreen from '../screens/home/playerHomeScreen';
 import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
-import stadiumChoiceScreen from "../screens/playerBooking/stadiumChoiceScreen"
-import stadiumBookingScreen from "../screens/playerBooking/stadiumBookingScreen";
-import PlayerExpiredBookingsScreen from '../screens/playerBooking/playerExpiredBookingsScreen';
+import stadiumChoiceScreen from "../screens/player/playerBooking/stadiumChoiceScreen";
+import stadiumBookingScreen from "../screens/player/playerBooking/stadiumBookingScreen";
+import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerExpiredBookingsScreen';
+import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
 
 const defaultNavigation = {
   headerTransparent : true ,
@@ -116,7 +117,9 @@ const FootNavigation = createStackNavigator({
    OwnerSupport: OwnerSupportScreen,
    OwnerProfile: OwnerProfileScreen,
    PlayerBookings : PlayerBookingsTab ,
-   OwnerSupport: OwnerSupportScreen
+   OwnerSupport: OwnerSupportScreen,
+   PlayerProfileScreen: PlayerProfileScreen
+   
 },
 {
     defaultNavigationOptions: defaultNavigation
