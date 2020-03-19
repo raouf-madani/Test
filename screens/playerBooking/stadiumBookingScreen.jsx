@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View , Picker,ImageBackground} from 'react-native';
 import { RadioButton , Button} from 'react-native-paper';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { FlatList } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Colors from "../../constants/Colors";
 import {Ionicons} from "@expo/vector-icons";
@@ -493,7 +491,7 @@ const styles= StyleSheet.create({
       },
       picker : {
         backgroundColor : "white",
-        width : "11%",
+        width : "15%",
         marginLeft : 25,
         
       },

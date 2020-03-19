@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker} from 'react-native';
 import {TextInput,Searchbar} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
@@ -21,10 +21,12 @@ const SignupOwnerScreen = props =>{
     const [phone,setPhone] = useState('');
     const [email,setEmail] = useState('');
     const [address,setAddress] = useState('');
+
+    const cities = [{id:'09',wilaya:'Blida'},{id:'16',wilaya:'Alger'}];
     
     //States for complex information textInputs
     const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState('');
+    const [complexCity,setComplexCity] = useState(`${cities[0].wilaya}`);
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState(''); 
 
@@ -128,16 +130,19 @@ const SignupOwnerScreen = props =>{
                             style={{backgroundColor:'transparent'}}
                             underlineColor='white'
                         />
-                        <View style={{paddingVertical:15}}>
-                            <Searchbar
-                            placeholder='Ville du complexe *' 
-                            value={complexCity}
-                            onChangeText={prevText=>setComplexCity(prevText)}
-                            inputStyle={{color:'white',fontSize:16, fontFamily:'poppins'}}
-                            iconColor='white'
-                            style={styles.searchBarCity}
-                            theme={{colors: {placeholder:'white'}}}
-                            />
+                        <View style={styles.pickerContainer}>
+                            <Picker
+                            selectedValue={complexCity}
+                            onValueChange={prevText=>setComplexCity(prevText)}
+                            style={styles.pickerCity}
+                            >
+                            {cities.map(el=>
+                                    <Picker.Item
+                                     key={el.id}
+                                     label={el.wilaya}
+                                     value={el.wilaya}
+                                      />)}
+                            </Picker>
                         </View>
                      </View>
                     </ProgressStep>
@@ -269,12 +274,17 @@ const styles= StyleSheet.create({
     width:'100%'
   },
   step3Container:{
-      paddingTop:20
+    paddingTop:20
   },
-  searchBarCity:{
-    backgroundColor:'transparent',
+  pickerContainer:{
+    borderBottomWidth:1,
     borderBottomColor:'white',
-    borderBottomWidth:1  }
+    padding:5
+  },
+  pickerCity:{
+    width:'100%',
+    color:'white'  
+}
   
    
 });
