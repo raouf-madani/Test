@@ -26,7 +26,7 @@ const StadiumCard = props =>{
              </View>
       
             <View style = {styles.buttonContainer}>
-                    <Button title = "Choisir" color ={Colors.primary} onPress = {props.onPress}/>
+                    <Button title = "Choisir" color ={Colors.secondary} onPress = {props.onPress}/>
 
             </View>
 
@@ -37,7 +37,7 @@ const StadiumCard = props =>{
         <View style = {styles.info}>
 
         <Ionicons name = "md-information-circle" 
-        size = {25} color = {Colors.primary} />
+        size = {25} color = {Colors.secondary} />
         </View>
       
     </View>
@@ -97,7 +97,6 @@ const styles= StyleSheet.create({
     info : {
         alignSelf : "flex-start"
     }
-  
     
   
    

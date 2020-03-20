@@ -133,7 +133,7 @@ OwnerBookingsScreen.navigationOptions= navData => {
 const styles= StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor:'#000000',
+    backgroundColor:'#1E1F28',
     paddingTop:100
 },
 bookingsNotifications:{

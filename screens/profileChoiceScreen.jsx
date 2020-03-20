@@ -23,7 +23,7 @@ const ProfileChoiceScreen = props =>
                 <Card 
                 url = {require("../assets/logo/soccer-field.png")}
                 role = "Propriétaire"
-                fonctionA = "Ajoutez votre Stade"
+                fonctionA = "Louez votre Stade"
                 fonctionB = "Louez votre Stade"
                 onPress={() =>props.navigation.navigate('Owner')}
                     />
@@ -61,7 +61,7 @@ const styles= StyleSheet.create({
                 justifyContent : "center",
                 alignItems : "center",
                 width : "100%",
-                height : "60%"
+                height : "60%",
           },
           cardsContainer : {
             flex : 1 ,
@@ -74,7 +74,7 @@ const styles= StyleSheet.create({
           textContainer : {
                 justifyContent : "center",
                 alignItems :"center",
-                
+                marginBottom : 20
                
           }
 

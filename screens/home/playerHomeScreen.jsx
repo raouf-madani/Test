@@ -23,7 +23,7 @@ const PlayerHomeScreen = props =>{
                   
                   <SmallCard
                   image ={require("../../assets/logo/book.png")} 
-                  screen = "Réservez"
+                  screen = "Réserver"
                   onPress = {() =>props.navigation.navigate('Stadiums')}
                    />
 

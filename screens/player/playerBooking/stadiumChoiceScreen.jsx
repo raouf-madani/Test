@@ -9,7 +9,7 @@ import Colors from "../../../constants/Colors";
 
 const StadiumChoiceScreen = props =>{
     return(
-      <ImageBackground source = {require ("../../../assets/images/profileBack5.jpg")} style ={styles.container} blurRadius = {1}>
+      <View style = {styles.container}>
       
         <View style = {styles.componentsContainer}>
         <SearchBar
@@ -22,7 +22,7 @@ const StadiumChoiceScreen = props =>{
         }}
 
         lightTheme = {true}
-        searchIcon = {{color : Colors.primary , size : 25}}
+        searchIcon = {{color : Colors.secondary, size : 25}}
       />
             <ScrollView>
                 <StadiumCard
@@ -40,22 +40,12 @@ const StadiumChoiceScreen = props =>{
                   name = "Foot Five Blida"
                   adress = "18 Rue bab dzair rue soumaa"
                 />
-                <StadiumCard
-                name = "Foot Five Blida"
-                  adress = "18 Rue bab dzair rue soumaa" 
-
-                  />
-
-                <StadiumCard
-                  name = "Foot Five Blida"
-                  adress = "18 Rue bab dzair rue soumaa" 
-
-                  />
+                
                 </ScrollView>
 
         </View>
           
-      </ImageBackground>
+      </View>
 
      );    
 };
@@ -64,7 +54,8 @@ const StadiumChoiceScreen = props =>{
 const styles= StyleSheet.create({
     container : {
             flex: 1 ,
-            justifyContent : "flex-end"
+            justifyContent : "flex-end",
+            backgroundColor : "#323232"
             
             
     },
