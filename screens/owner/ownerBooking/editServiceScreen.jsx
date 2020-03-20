@@ -268,7 +268,11 @@ const EditServiceScreen = props =>{
               <Item title = "save" 
                 iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}        
               />
-            </HeaderButtons>)
+            </HeaderButtons>),
+            headerTitle:'Ajouter Service',
+            headerTitleStyle:{
+              fontFamily:'poppins'
+            }
     };
 
  };

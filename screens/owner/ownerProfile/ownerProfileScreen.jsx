@@ -200,7 +200,11 @@ OwnerProfileScreen.navigationOptions= navData => {
                  />
                </HeaderButtons>
                
-             )
+             ),
+             headerTitle:'Mon Profile',
+             headerTitleStyle:{
+               fontFamily:'poppins'
+             }
      
      };
  

@@ -65,7 +65,11 @@ OwnerServiceScreen.navigationOptions = navData => {
                     iconName = {Platform.OS === 'android' ? 'md-create' : 'ios-create'}  
                     onPress = {()=> navData.navigation.navigate("EditService")}
                   />
-                </HeaderButtons>)
+                </HeaderButtons>),
+                headerTitle:'Mes Services',
+                headerTitleStyle:{
+                  fontFamily:'poppins'
+                }
         };
   };
   

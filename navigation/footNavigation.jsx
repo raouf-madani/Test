@@ -30,7 +30,7 @@ import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerE
 import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
 
 const defaultNavigation = {
-  headerTransparent : true ,
+  /*headerTransparent : true ,
     headerStyle:{
         backgroundColor: 'white'
     },
@@ -44,7 +44,7 @@ const defaultNavigation = {
         alignSelf: 'center'}}
       
       />
-    )
+    )*/
 }
 
 ///////////////////////////////////////////////////////////////////

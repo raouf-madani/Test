@@ -107,8 +107,11 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
                   }}
                 />
               </HeaderButtons>
-              
-            )
+            ),
+            headerTitle:phoneN,
+            headerTitleStyle:{
+              fontFamily:'poppins'
+            }
     
     };
 

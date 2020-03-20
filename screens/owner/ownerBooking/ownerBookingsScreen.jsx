@@ -36,6 +36,7 @@ const OwnerBookingsScreen = props =>{
     <View style={styles.container}>
        <ScrollView>
           <Calendar
+          style={{marginTop:40}}
           theme={{calendarBackground:'transparent',
                   todayTextColor: Colors.orange,
                   selectedDayTextColor: 'white',
@@ -109,22 +110,26 @@ OwnerBookingsScreen.navigationOptions= navData => {
    
     return {
         headerRight : ()=>  (
-            <View>
-              <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
-                <Item title = "calendar" 
-                  iconName = {Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'}  
-      
-                />
-              </HeaderButtons>
+            <View style={styles.iconContainer}>
               <TouchableHighlight
                 style = {styles.bookingsNotifications}
                 underlayColor = 'red'
                 onPress = { () => Alert.alert('Important','Vous avez 1 réservation(s). Cliquez sur chaque ligne dans le tableau pour voir les détails de chaque réservation.',[{text:"D'accord"}]) }
               >
                  <Text style={{color:'white'}}> 1 </Text>
-              </TouchableHighlight>  
+              </TouchableHighlight>
+              <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
+                <Item title = "calendar" 
+                  iconName = {Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'}  
+                  style={{marginHorizontal:-10}}
+                />
+              </HeaderButtons>  
             </View>
-            )
+            ),
+            headerTitle:'Mes Réservations',
+            headerTitleStyle:{
+              fontFamily:'poppins'
+            }
     
     };
 
@@ -133,17 +138,21 @@ OwnerBookingsScreen.navigationOptions= navData => {
 const styles= StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor:'#1E1F28',
-    paddingTop:100
+    backgroundColor:Colors.background,
+    justifyContent:'flex-end'
+},
+iconContainer:{
+  flexDirection:'row',
+  paddingRight:10
 },
 bookingsNotifications:{
-  borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-  width: Dimensions.get('window').width * 0.06,
-  height: Dimensions.get('window').width * 0.06,
-  backgroundColor:Colors.orange,
+  height:20,
+  width:20,
+  borderRadius:20/2,
+  backgroundColor:Colors.primary,
+  justifyContent:'center',
   alignItems:'center',
-  marginBottom:-55,
-  
+  marginHorizontal:-10
 },
 dataTable:{
   backgroundColor:'white',
