@@ -57,7 +57,7 @@ const OwnerProfileScreen = props =>{
 
     return(
     <View style={styles.container}>
-     <ImageBackground source = {require("../../../assets/images/profileBack5.jpg")}  style={styles.backgroudnImage}>
+     <ImageBackground source = {require("../../../assets/images/stadium2.jpg")}  style={styles.backgroudnImage} blurRadius={1}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.cardContainer}>
@@ -225,7 +225,7 @@ const styles= StyleSheet.create({
     height:200,
     width:'60%',
     marginTop:100,
-    backgroundColor:'#263341',
+    backgroundColor:Colors.background,
     borderRadius:10,
     shadowColor: 'black',
     shadowOpacity: 0.86,
@@ -276,7 +276,7 @@ const styles= StyleSheet.create({
    card2:{
     height:650,
     width:'90%',
-    backgroundColor:'#263341',
+    backgroundColor:Colors.background,
     borderRadius:10,
     paddingHorizontal:20,
     paddingVertical:20

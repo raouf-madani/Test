@@ -87,7 +87,7 @@ const styles= StyleSheet.create({
    },
    title:{
        fontFamily:'poppins-bold',
-       color:'grey',
+       color:Colors.background,
        fontSize:24
    },
    card2:{
@@ -102,7 +102,8 @@ const styles= StyleSheet.create({
    info:{
        fontSize:15,
        fontFamily:'poppins',
-       paddingLeft:10
+       paddingLeft:10,
+       color:Colors.background
    }
 });
 

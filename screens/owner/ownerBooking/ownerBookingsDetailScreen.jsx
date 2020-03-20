@@ -56,29 +56,29 @@ const OwnerBookingsDetailScreen = props =>{
         <TextInput
             mode='outlined'
             value={'Nom : '+currentBooking.nom}
-            theme={{colors: {primary:'#323232',text:'white'}}}
-            style={{backgroundColor:'#323232'}}
+            theme={{colors: {primary:Colors.background,text:'white'}}}
+            style={{backgroundColor:Colors.background}}
             underlineColor='white'
         />
         <TextInput
             mode='outlined'
             value={'Prénom : '+currentBooking.prenom}
-            theme={{colors: {primary:'#323232',text:'white'}}}
-            style={{backgroundColor:'#323232'}}
+            theme={{colors: {primary:Colors.background,text:'white'}}}
+            style={{backgroundColor:Colors.background}}
             underlineColor='white'
         />
         <TextInput
             mode='outlined'
             value={'Téléphone : '+currentBooking.num}
-            theme={{colors: {primary:'#323232',text:'white'}}}
-            style={{backgroundColor:'#323232'}}
+            theme={{colors: {primary:Colors.background,text:'white'}}}
+            style={{backgroundColor:Colors.background}}
             underlineColor='white'
         />
          <TextInput
             mode='outlined'
             value={'Numéro de réservation : '+currentBooking.id}
-            theme={{colors: {primary:'#323232',text:'white'}}}
-            style={{backgroundColor:'#323232'}}
+            theme={{colors: {primary:Colors.background,text:'white'}}}
+            style={{backgroundColor:Colors.background}}
             underlineColor='white'
         />
        </View>
@@ -117,7 +117,7 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
 const styles= StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor:'black',
+    backgroundColor:Colors.background,
     justifyContent:'flex-end',
     alignItems:'center',
     padding:20

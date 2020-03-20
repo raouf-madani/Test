@@ -9,7 +9,7 @@ const ServiceCard = props =>{
     return(
      
     <View style={styles.container}>
-        <ImageBackground source={require('../assets/images/player.jpg')} style={styles.backgroundImage} blurRadius={0}>
+        <View  style={styles.backgroundImage}>
         <View style={styles.overlayBackground}>
 
             <View style={styles.titleContainer}>
@@ -20,22 +20,22 @@ const ServiceCard = props =>{
             <View style={styles.infoContainer}>
                 <View style={styles.infoMatchContainerLeft}>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.primary}/>
                         <Text style={styles.typeMatch}> {props.typeMatch} </Text>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.orange}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.primary}/>
                     </View>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={25} color={Colors.orange}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={25} color={Colors.primary}/>
                         <Text style={styles.typeMatch}> {props.durationMatch} heure</Text>
                     </View>
                 </View>
                 <View style={styles.infoMatchDateContainerRight}>
                     <View style={styles.typeTimeMatchContainer}> 
-                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.orange}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.primary}/>
                         <Text style={styles.edit}> modifier </Text>
                     </View>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.orange}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.primary}/>
                         <Text style={styles.edit}> modifier </Text>
                     </View>
                 </View>
@@ -47,12 +47,12 @@ const ServiceCard = props =>{
 
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonWidth}>
-                    <Button color='#D4AF37' title="Supprimer"/>
+                    <Button color={Colors.primary} title="Supprimer"/>
                 </View>
             </View>
 
         </View> 
-    </ImageBackground>
+    </View>
     </View>
     );    
 };
@@ -75,7 +75,7 @@ const styles= StyleSheet.create({
     overflow:'hidden'
  },
  overlayBackground:{
-    backgroundColor:"rgba(0, 0, 0, 0.7)"
+    backgroundColor:"rgba(1,2,3,0.8)"
  },
  titleContainer:{
     width:'100%',
@@ -86,7 +86,7 @@ const styles= StyleSheet.create({
  title:{
      fontFamily:'poppins-bold',
      fontSize:30,
-     color:Colors.orange
+     color:Colors.primary
  },
  infoContainer:{
     width:'100%',
