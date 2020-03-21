@@ -163,7 +163,7 @@ const StadiumBookingScreen = props =>{
     const buttonsHandler = (e)=> {
       setButtonState({
         id : e ,
-       color : "rgba(54, 187, 117,0.9)" });
+       color : Colors.secondary });
      
     };
  //////////////////////////////////////////////////////////
@@ -233,15 +233,16 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
     return(
       
-      <ImageBackground source = {require ("../../../assets/images/smoke3.jpg")} style ={styles.container} blurRadius = {0.5}>
+      // <ImageBackground source = {require ("../../../assets/images/back4.jpg")} style ={styles.container} blurRadius = {0.5}>
+      <View style ={styles.container}>
           <View style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
-                  <Ionicons name="md-football" size={22} color={Colors.primary} />
+                  <Ionicons name="md-football" size={22} color={Colors.secondary} />
                       <Text style ={styles.nameText}>
                       FootFive Blida
                       </Text>
-                      <Ionicons name="md-football" size={22} color={Colors.primary} />
+                      <Ionicons name="md-football" size={22} color={Colors.secondary} />
                   </View>
 
                           {/* Match Type Part : Start */}
@@ -301,7 +302,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                            </Text>
                           <RadioButton 
                           value={element} 
-                           color = {Colors.primary}
+                           color = {Colors.secondary}
                           />
                         </View>
                         )
@@ -342,7 +343,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                             
                               <RadioButton  
                               value={itemData.item} 
-                              color = {Colors.primary}
+                              color = {Colors.secondary}
                               />
 
                               <Text style ={{fontFamily : "poppins", fontSize : 12}} >
@@ -391,7 +392,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
              <Button
                   contentStyle={styles.timeButton}
                   labelStyle = {{color : "black" }}
-                  style={{borderColor:Colors.primary , 
+                  style={{borderColor:Colors.secondary , 
                   borderWidth : 0.5 , 
                   backgroundColor : buttonState.id ===itemData.item.time ? buttonState.color : "white",
                   width : "90%",
@@ -425,14 +426,14 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
         <View style= {styles.priceContainer}>
 
               <View style = {styles.priceTextContainer}>
-              <Text style = {{fontSize : 22 , fontFamily : "poppins" , color : "black"}}>
+              <Text style = {{fontSize : 22 , fontFamily : "poppins-bold" , color : "black"}}>
               {priceState + " DA"}
               </Text>
 
               </View>
 
               <View style = {styles.priceButtonContainer}>
-                <Button style = { styles.priceButton} mode = "contained" color = {Colors.primary}>
+                <Button style = { styles.priceButton} mode = "contained" color = {Colors.secondary}>
                 Reserver
                 </Button>
               </View>
@@ -441,8 +442,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
           </View>
 
-           
-          </ImageBackground>
+          </View>
+          // </ImageBackground>
       
       
 
@@ -456,15 +457,16 @@ const styles= StyleSheet.create({
           flex : 1 ,
           justifyContent : "flex-end",
           alignItems : "center",
-          backgroundColor : "#323232"
+          backgroundColor : Colors.background
 
       },
       componentsContainer : {
-          height : "93%",
-          width : "98%",
-          backgroundColor :  "rgba(255, 255, 255, 0.75)",
+          height : "97%",
+          width : "95%",
+          backgroundColor :  "rgba(255, 255, 255, 0.9)",
           borderRadius : 25,
-          marginBottom : 11
+          marginBottom : 11,
+         
 
       },
       stadiumCard : {
@@ -521,7 +523,7 @@ const styles= StyleSheet.create({
      timeText : {
       fontFamily : "poppins-bold",
         fontSize : 15,
-        color : "black"
+        color : Colors.background
      },
      radioButtons : {
        flexDirection : "row",

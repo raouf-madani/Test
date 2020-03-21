@@ -97,7 +97,11 @@ const FootNavigation = createStackNavigator({
    Role : ProfileChoiceScreen ,
    Player : PlayerHomeScreen , 
    Owner : OwnerHomeScreen,
-   Stadiums : stadiumChoiceScreen,
+   Stadiums : {
+     screen : stadiumChoiceScreen ,
+     navigationOptions : {headerTransparent : true,title : ""}
+  
+  },
    StadiumBooking : stadiumBookingScreen ,
    Signup: SignupScreen,
    Login: LoginScreen,

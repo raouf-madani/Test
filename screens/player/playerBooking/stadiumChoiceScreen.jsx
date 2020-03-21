@@ -9,7 +9,11 @@ import Colors from "../../../constants/Colors";
 
 const StadiumChoiceScreen = props =>{
     return(
-      <View style = {styles.container}>
+      <ImageBackground
+      source = {require("../../../assets/images/back6.jpg")}
+       style = {styles.container}
+     blurRadius = {0}
+       >
       
         <View style = {styles.componentsContainer}>
         <SearchBar
@@ -45,23 +49,25 @@ const StadiumChoiceScreen = props =>{
 
         </View>
           
-      </View>
+      </ImageBackground>
 
      );    
 };
+
+
 
 
 const styles= StyleSheet.create({
     container : {
             flex: 1 ,
             justifyContent : "flex-end",
-            backgroundColor : "#323232"
-            
-            
+            backgroundColor : "#323232",
+
     },
     componentsContainer : {
-        width : "100%",
-        height : "93%"
+        width : "95%",
+        height : "93%",
+        alignSelf : "center"
     },
     searchBar :{
       width : "80%" , 

@@ -53,9 +53,9 @@ const PlayerProfileScreen = props =>{
 
     return(
     <View style={styles.container}>
-     <ImageBackground source = {require("../../../assets/images/profileBack5.jpg")}  
+     <ImageBackground source = {require("../../../assets/images/back6.jpg")}  
      style={styles.backgroudnImage}
-     blurRadius = {1}
+    
      >
 
      <ScrollView showsVerticalScrollIndicator={false}>
@@ -171,7 +171,7 @@ const styles= StyleSheet.create({
     flex : 1 
   },
    cardContainer:{
-       marginTop:"22%",
+       marginTop:"5%",
        alignItems : "center",
        justifyContent : "center",
 

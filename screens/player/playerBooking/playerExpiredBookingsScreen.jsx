@@ -9,13 +9,13 @@ import BookingCard from '../../../components/BookingCard';
 const PlayerExpiredBookingsScreen = props =>{
   return(
     <View style = {styles.container}>
-      <View style={styles.titleContainer}>
+      {/* <View style={styles.titleContainer}>
 
       <Text style = {{fontFamily : "poppins-bold" , fontSize : 18 , color : "white"}}>
       Historique 
       </Text>
 
-      </View>
+      </View> */}
 
 
    
