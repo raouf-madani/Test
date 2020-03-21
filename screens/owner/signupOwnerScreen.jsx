@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker,Image} from 'react-native';
 import {TextInput,Searchbar} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
@@ -228,6 +228,25 @@ const SignupOwnerScreen = props =>{
 
      );    
 };
+
+SignupOwnerScreen.navigationOptions= ()=>{
+    return {
+      headerTransparent : true ,
+      headerStyle:{
+          backgroundColor: 'white'
+      },
+      headerTitle: () => (
+        <Image 
+        resizeMode="cover"
+        style={{
+          width:150,
+          height:40,
+          resizeMode:'contain',
+          alignSelf: 'center'}}
+        
+        />
+      )};
+  }
 
 
 const styles= StyleSheet.create({

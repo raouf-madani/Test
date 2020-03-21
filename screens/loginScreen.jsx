@@ -78,6 +78,24 @@ const LoginScreen = props =>{
      );    
 };
 
+LoginScreen.navigationOptions= ()=>{
+  return {
+    headerTransparent : true ,
+    headerStyle:{
+        backgroundColor: 'white'
+    },
+    headerTitle: () => (
+      <Image 
+      resizeMode="cover"
+      style={{
+        width:150,
+        height:40,
+        resizeMode:'contain',
+        alignSelf: 'center'}}
+      
+      />
+    )};
+}
 
 const styles= StyleSheet.create({
  container:{

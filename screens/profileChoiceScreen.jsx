@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground,Image} from 'react-native';
 import Card from "../components/Card";
 
 const ProfileChoiceScreen = props =>
@@ -45,6 +45,25 @@ const ProfileChoiceScreen = props =>
 
      );    
 };
+
+ProfileChoiceScreen.navigationOptions= ()=>{
+  return {
+    headerTransparent : true ,
+    headerStyle:{
+        backgroundColor: 'white'
+    },
+    headerTitle: () => (
+      <Image 
+      resizeMode="cover"
+      style={{
+        width:150,
+        height:40,
+        resizeMode:'contain',
+        alignSelf: 'center'}}
+      
+      />
+    )};
+}
 
 
 const styles= StyleSheet.create({

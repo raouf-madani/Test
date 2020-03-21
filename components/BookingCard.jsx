@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { Avatar ,Badge } from 'react-native-elements';
-
+import Colors from '../constants/Colors';
 
 const BookingCard = props =>{
     return(
@@ -11,7 +11,7 @@ const BookingCard = props =>{
                  <Avatar 
                  size="large" 
                  rounded title="FF"
-                 overlayContainerStyle={{backgroundColor: '#323232',marginTop : 2}}
+                 overlayContainerStyle={{backgroundColor: Colors.background,marginTop : 2}}
                  />
                  <Badge
                        status={props.status}

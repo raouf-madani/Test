@@ -57,7 +57,11 @@ OwnerSupportScreen.navigationOptions= navData => {
                  />
                </HeaderButtons>
                
-             )
+             ),
+             headerTitle:'Support',
+             headerTitleStyle:{
+               fontFamily:'poppins'
+             }
      
      };
  
@@ -71,9 +75,8 @@ const styles= StyleSheet.create({
     justifyContent:'flex-start'
    },
    card:{
-    margin:20,
+    margin:15,
     height:300,
-    marginTop:80
    },
    bigBackgroundImage:{
     flex:1,
@@ -87,7 +90,7 @@ const styles= StyleSheet.create({
    },
    title:{
        fontFamily:'poppins-bold',
-       color:'grey',
+       color:Colors.background,
        fontSize:24
    },
    card2:{
@@ -102,7 +105,8 @@ const styles= StyleSheet.create({
    info:{
        fontSize:15,
        fontFamily:'poppins',
-       paddingLeft:10
+       paddingLeft:10,
+       color:Colors.background
    }
 });
 
