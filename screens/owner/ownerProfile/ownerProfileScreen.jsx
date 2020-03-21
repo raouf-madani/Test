@@ -57,7 +57,7 @@ const OwnerProfileScreen = props =>{
 
     return(
     <View style={styles.container}>
-     <ImageBackground source = {require("../../../assets/images/stadium2.jpg")}  style={styles.backgroudnImage} blurRadius={1}>
+     <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.cardContainer}>
@@ -197,14 +197,20 @@ OwnerProfileScreen.navigationOptions= navData => {
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "save" 
                    iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+                   color='white'
                  />
                </HeaderButtons>
                
              ),
              headerTitle:'Mon Profile',
              headerTitleStyle:{
-               fontFamily:'poppins'
-             }
+               fontFamily:'poppins',
+               color:'white'
+             },
+             headerStyle:{
+                 backgroundColor:Colors.background
+             },
+             headerTintColor:'white'
      
      };
  
@@ -215,20 +221,20 @@ const styles= StyleSheet.create({
    container:{
     flex:1,
     backgroundColor:'white',
-    justifyContent:'flex-start',
-    
+    justifyContent:'flex-start'
    },
-   backgroudnImage : {
-    flex : 1 
+   backgroundImage : {
+    flex : 1,
+    resizeMode: 'cover'
   },
    cardContainer:{
     flexDirection:'row'
    },
    card:{
-    margin:20,
+    marginHorizontal:20,
     height:200,
     width:'60%',
-    marginTop:100,
+    marginTop:50,
     backgroundColor:Colors.background,
     borderRadius:10,
     shadowColor: 'black',
@@ -251,7 +257,7 @@ const styles= StyleSheet.create({
    circlesContainer:{
      width:'40%',
      margin:20,
-     marginTop:100,
+     marginTop:50,
      height:200,
      justifyContent:'center',
    },

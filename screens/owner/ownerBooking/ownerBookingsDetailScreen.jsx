@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { StyleSheet,View,Linking} from 'react-native';
+import { StyleSheet,View,Linking,ImageBackground} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
@@ -41,48 +41,50 @@ const OwnerBookingsDetailScreen = props =>{
     },[currentBooking.num]);
       
     return(
-    <View style={styles.container}>
-       <BookingCard 
-        status="error"
-        value={currentBooking.statut}
-        time="1h"
-        stadium = "5vs5"
-        hours={currentBooking.creneauD+' > '+currentBooking.creneauF}
-        day={currentBooking.date.split('-').pop()}
-        month={month()}
-        year={currentBooking.date.split('-').shift()}
-       />
-       <View style={styles.cardContainer}>
-        <TextInput
-            mode='outlined'
-            value={'Nom : '+currentBooking.nom}
-            theme={{colors: {primary:Colors.background,text:'white'}}}
-            style={{backgroundColor:Colors.background}}
-            underlineColor='white'
+    
+      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
+        <BookingCard 
+          status="error"
+          value={currentBooking.statut}
+          time="1h"
+          stadium = "5vs5"
+          hours={currentBooking.creneauD+' > '+currentBooking.creneauF}
+          day={currentBooking.date.split('-').pop()}
+          month={month()}
+          year={currentBooking.date.split('-').shift()}
         />
-        <TextInput
-            mode='outlined'
-            value={'Prénom : '+currentBooking.prenom}
-            theme={{colors: {primary:Colors.background,text:'white'}}}
-            style={{backgroundColor:Colors.background}}
-            underlineColor='white'
-        />
-        <TextInput
-            mode='outlined'
-            value={'Téléphone : '+currentBooking.num}
-            theme={{colors: {primary:Colors.background,text:'white'}}}
-            style={{backgroundColor:Colors.background}}
-            underlineColor='white'
-        />
-         <TextInput
-            mode='outlined'
-            value={'Numéro de réservation : '+currentBooking.id}
-            theme={{colors: {primary:Colors.background,text:'white'}}}
-            style={{backgroundColor:Colors.background}}
-            underlineColor='white'
-        />
-       </View>
-    </View>
+        <View style={styles.cardContainer}>
+          <TextInput
+              mode='outlined'
+              value={'Nom : '+currentBooking.nom}
+              theme={{colors: {primary:Colors.background,text:'white'}}}
+              style={{backgroundColor:Colors.background}}
+              underlineColor='white'
+          />
+          <TextInput
+              mode='outlined'
+              value={'Prénom : '+currentBooking.prenom}
+              theme={{colors: {primary:Colors.background,text:'white'}}}
+              style={{backgroundColor:Colors.background}}
+              underlineColor='white'
+          />
+          <TextInput
+              mode='outlined'
+              value={'Téléphone : '+currentBooking.num}
+              theme={{colors: {primary:Colors.background,text:'white'}}}
+              style={{backgroundColor:Colors.background}}
+              underlineColor='white'
+          />
+          <TextInput
+              mode='outlined'
+              value={'Numéro de réservation : '+currentBooking.id}
+              theme={{colors: {primary:Colors.background,text:'white'}}}
+              style={{backgroundColor:Colors.background}}
+              underlineColor='white'
+          />
+        </View>
+      </ImageBackground>
+    
     
      );    
 };
@@ -93,7 +95,8 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
         headerRight : ()=>  
               (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                 <Item title = "callCustomer" 
-                  iconName = {Platform.OS === 'android' ? 'md-call' : 'ios-call'}  
+                  iconName = {Platform.OS === 'android' ? 'md-call' : 'ios-call'} 
+                  color={Colors.primary} 
                   onPress={()=>{
                     let phoneNumber = '';
     
@@ -110,20 +113,27 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
             ),
             headerTitle:phoneN,
             headerTitleStyle:{
-              fontFamily:'poppins'
-            }
+              fontFamily:'poppins',
+              color:Colors.background
+            },
+            headerStyle:{
+                backgroundColor:'white'
+            },
+            headerTintColor:Colors.background
     
     };
 
  };
 
 const styles= StyleSheet.create({
-container:{
-    flex:1,
-    backgroundColor:Colors.background,
-    justifyContent:'flex-end',
-    alignItems:'center',
-    padding:20
+
+backgroundImage:{
+  flex:1,
+  backgroundColor:Colors.background,
+  justifyContent:'flex-end',
+  alignItems:'center',
+  padding:20,
+  resizeMode:'cover'
 },
 cardContainer : {
     width : " 97%" ,
