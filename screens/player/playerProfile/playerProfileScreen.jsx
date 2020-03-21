@@ -53,7 +53,7 @@ const PlayerProfileScreen = props =>{
 
     return(
     <View style={styles.container}>
-     <ImageBackground source = {require("../../../assets/images/back6.jpg")}  
+     <ImageBackground source = {require("../../../assets/images/android.jpg")}  
      style={styles.backgroudnImage}
     
      >

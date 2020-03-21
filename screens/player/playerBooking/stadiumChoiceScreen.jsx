@@ -10,7 +10,7 @@ import Colors from "../../../constants/Colors";
 const StadiumChoiceScreen = props =>{
     return(
       <ImageBackground
-      source = {require("../../../assets/images/back6.jpg")}
+      source = {require("../../../assets/images/android.jpg")}
        style = {styles.container}
      blurRadius = {0}
        >

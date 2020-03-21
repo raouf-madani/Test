@@ -6,7 +6,7 @@ import SmallCard  from '../../components/SmallCard';
 const PlayerHomeScreen = props =>{
     return(
       <View style ={styles.container}>
-        <ImageBackground source = {require("../../assets/images/profileBack5.jpg")}  style = {styles.backgroudnImage}>
+        <ImageBackground source = {require("../../assets/images/test.jpg")}  style = {styles.backgroudnImage}>
          
          <View style = {styles.textContainer}>
             <Text style = {styles.welcomeText}>BIENVENUE</Text>
