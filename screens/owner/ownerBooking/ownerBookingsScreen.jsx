@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet,View,Text,TouchableHighlight,Dimensions,Alert,ScrollView} from 'react-native';
+import { StyleSheet,View,Text,TouchableHighlight,ImageBackground,Alert,ScrollView} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import { DataTable } from 'react-native-paper';
 import {Calendar,LocaleConfig} from 'react-native-calendars';
@@ -34,6 +34,7 @@ const OwnerBookingsScreen = props =>{
       
     return(
     <View style={styles.container}>
+      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
        <ScrollView>
           <Calendar
           style={{marginTop:40}}
@@ -100,6 +101,7 @@ const OwnerBookingsScreen = props =>{
               
             </DataTable>
           </ScrollView>
+        </ImageBackground> 
     </View>
     
      );    
@@ -122,14 +124,20 @@ OwnerBookingsScreen.navigationOptions= navData => {
                 <Item title = "calendar" 
                   iconName = {Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'}  
                   style={{marginHorizontal:-10}}
+                  color={Colors.primary}
                 />
               </HeaderButtons>  
             </View>
             ),
             headerTitle:'Mes Réservations',
             headerTitleStyle:{
-              fontFamily:'poppins'
-            }
+              fontFamily:'poppins',
+              color:Colors.background
+            },
+            headerStyle:{
+                backgroundColor:'white'
+            },
+            headerTintColor:Colors.background
     
     };
 
@@ -144,6 +152,10 @@ container:{
 iconContainer:{
   flexDirection:'row',
   paddingRight:10
+},
+backgroundImage:{
+  flex : 1,
+  resizeMode: 'cover'
 },
 bookingsNotifications:{
   height:20,

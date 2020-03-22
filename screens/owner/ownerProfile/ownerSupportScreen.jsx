@@ -42,7 +42,7 @@ OwnerSupportScreen.navigationOptions= navData => {
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "callSupport" 
                    iconName = {Platform.OS === 'android' ? 'md-call' : 'ios-call'}
-                   
+                   color='white'
                    onPress={()=>{
                      let phoneNumber = '';
      
@@ -60,8 +60,13 @@ OwnerSupportScreen.navigationOptions= navData => {
              ),
              headerTitle:'Support',
              headerTitleStyle:{
-               fontFamily:'poppins'
-             }
+               fontFamily:'poppins',
+               color:'white'
+             },
+             headerStyle:{
+                 backgroundColor:Colors.background
+             },
+             headerTintColor:'white'
      
      };
  

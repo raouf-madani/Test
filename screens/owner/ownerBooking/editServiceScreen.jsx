@@ -243,7 +243,7 @@ const EditServiceScreen = props =>{
         <View style={styles.titleContainer2}>
             <Text style={styles.title}>Tarif :</Text>
         </View>
-        <View style={styles.textInputContainer}>
+        <View style={styles.tarifInputContainer}>
           <TextInput
               mode='outlined'
               placeholder='DA/Equipe'
@@ -266,13 +266,19 @@ const EditServiceScreen = props =>{
          headerRight : () =>(
             <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
               <Item title = "save" 
-                iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}        
+                iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+                color={Colors.primary}        
               />
             </HeaderButtons>),
             headerTitle:'Ajouter Service',
             headerTitleStyle:{
-              fontFamily:'poppins'
-            }
+              fontFamily:'poppins',
+              color:Colors.background
+            },
+            headerStyle:{
+                backgroundColor:'white'
+            },
+            headerTintColor:Colors.background
     };
 
  };
@@ -283,13 +289,12 @@ container:{
     alignItems:'center',
     justifyContent:'flex-start',
     backgroundColor:Colors.background,
-    width:'100%',
-    paddingVertical:40
+    width:'100%'
 },
 titleContainer:{
     justifyContent:'flex-end',
     alignItems:'flex-start',
-    marginTop:70,
+    marginTop:40,
     paddingVertical:5,
     paddingHorizontal:10,
 },
@@ -332,6 +337,10 @@ text:{
 },
 textInputContainer:{
   paddingHorizontal:10
+},
+tarifInputContainer:{
+  paddingHorizontal:10,
+  paddingBottom:30
 }
 });
 
