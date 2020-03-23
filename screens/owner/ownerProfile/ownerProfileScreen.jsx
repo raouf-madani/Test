@@ -1,8 +1,6 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import {HeaderButtons,Item} from "react-navigation-header-buttons";
-import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
 
@@ -195,31 +193,7 @@ const OwnerProfileScreen = props =>{
      );    
 };
 
-OwnerProfileScreen.navigationOptions= navData => {
-    
-     return {
-         headerRight : ()=>  
-               (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
-                 <Item title = "save" 
-                   iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
-                   color='white'
-                 />
-               </HeaderButtons>
-               
-             ),
-             headerTitle:'Mon Profile',
-             headerTitleStyle:{
-               fontFamily:'poppins',
-               color:'white'
-             },
-             headerStyle:{
-                 backgroundColor:Colors.background
-             },
-             headerTintColor:'white'
-     
-     };
- 
-  };
+
 
 
 const styles= StyleSheet.create({
