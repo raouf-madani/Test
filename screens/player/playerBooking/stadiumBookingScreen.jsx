@@ -233,8 +233,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
     return(
       
-      // <ImageBackground source = {require ("../../../assets/images/back4.jpg")} style ={styles.container} blurRadius = {0.5}>
-      <View style ={styles.container}>
+      <ImageBackground source = {require ("../../../assets/images/android.jpg")} style ={styles.container} blurRadius = {0.5}>
+     
           <View style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
@@ -442,14 +442,22 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
           </View>
 
-          </View>
-          // </ImageBackground>
       
+          </ImageBackground>
       
+          // </View> 
 
 
      );    
 };
+
+StadiumBookingScreen.navigationOptions = ()=> {
+      return {
+        headerTransparent : true,
+        title : "" 
+      }
+
+}
 
 
 const styles= StyleSheet.create({
@@ -462,16 +470,16 @@ const styles= StyleSheet.create({
       },
       componentsContainer : {
           height : "97%",
-          width : "95%",
-          backgroundColor :  "rgba(255, 255, 255, 0.9)",
-          borderRadius : 25,
+          width : "100%",
+          backgroundColor :  "rgba(255, 255, 255, 0.85)",
+          
           marginBottom : 11,
          
 
       },
       stadiumCard : {
           backgroundColor : "rgba(255, 255, 255, 0.85)",
-          width : "90%",
+          width : "80%",
           height : "7%",
           alignSelf : "center",
           borderRadius : 15,

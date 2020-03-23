@@ -148,10 +148,16 @@ const PlayerProfileScreen = props =>{
 PlayerProfileScreen.navigationOptions= navData => {
     
      return {
+       title : "Mon Profile" , 
+      headerStyle:{
+        backgroundColor: Colors.background
+    } ,
+    headerTintColor: '#fff',
          headerRight : ()=>  
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "save" 
                    iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+                   color = "#fff"
                  />
                </HeaderButtons>
                

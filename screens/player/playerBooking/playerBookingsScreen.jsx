@@ -8,11 +8,7 @@ import BookingCard from '../../../components/BookingCard';
 const PlayerBookingsScreen = props =>{
     return(
       <View style = {styles.container}>
-      {/* <View style={styles.titleContainer}>
-      <Text style = {{fontFamily : "poppins-bold" , fontSize : 18 , color : "white"}}>
-      Mes Réservations 
-      </Text>
-      </View> */}
+     
               <ScrollView style = {styles.componentContainer}>
               
                     <BookingCard 
@@ -73,6 +69,14 @@ const PlayerBookingsScreen = props =>{
      );    
 };
 
+
+PlayerBookingsScreen.navigationOptions = ()=> {
+  return {
+    
+    title : "Mes Réservations"
+  }
+
+};
 
 const styles= StyleSheet.create({
   container : {

@@ -21,7 +21,7 @@ import OwnerGaleryScreen from '../screens/owner/ownerProfile/ownerGaleryScreen';
 
 import PlayerBookingsScreen from "../screens/player/playerBooking/playerBookingsScreen";
 
-import SideBar from '../components/SideBar';
+
 import {Ionicons,  MaterialIcons} from "@expo/vector-icons";
 import PlayerHomeScreen from '../screens/home/playerHomeScreen';
 import OwnerHomeScreen from '../screens/home/ownerHomeScreen';
@@ -132,45 +132,7 @@ const FootNavigation = createStackNavigator({
 );
 
 
-  //Drawer Navigator for the main screen
-const MainNavigator = createDrawerNavigator({
-          Home : {
-            screen : FootNavigation , 
-            navigationOptions : {
-              drawerLabel : "Réserver Votre Match",
-              drawerIcon : (tabInfo) => {
-                return( <Ionicons name = "md-home" 
-                size = {25} color ={tabInfo.tintColor}/>);
-                  }
-
-            }},
-
-        
-},
-{ 
-  contentComponent : props => <SideBar {...props}/>,
  
-  drawerBackgroundColor : "#fff",
-  drawerWidth : "80%" ,
-  hideStatusBar : "true" , 
-
-  contentOptions : {
-    activeBackgroundColor : "rgba(80,210,148,0.3)",
-    activeTintColor : Colors.primary,
-    itemContainerStyle : {
-        marginTop : 16 ,
-        marginHorizontal : 8
-
-    },
-    itemStyle : {
-      borderRadius : 4
-
-    }
-
-  }
-
-}
-);
 
 ///////////////////////////////////////////////////////////////
 
@@ -180,4 +142,4 @@ const styles= StyleSheet.create({
 });
 
 
-export default createAppContainer(MainNavigator);
+export default createAppContainer(FootNavigation);
