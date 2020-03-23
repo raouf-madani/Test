@@ -17,6 +17,7 @@ import OwnerBookingsScreen from '../screens/owner/ownerBooking/ownerBookingsScre
 import OwnerBookingsDetailScreen from '../screens/owner/ownerBooking/ownerBookingsDetailScreen';
 import OwnerSupportScreen from '../screens/owner/ownerProfile/ownerSupportScreen';
 import OwnerProfileScreen from '../screens/owner/ownerProfile/ownerProfileScreen';
+import OwnerGaleryScreen from '../screens/owner/ownerProfile/ownerGaleryScreen';
 
 import PlayerBookingsScreen from "../screens/player/playerBooking/playerBookingsScreen";
 
@@ -114,7 +115,8 @@ const FootNavigation = createStackNavigator({
    OwnerProfile: OwnerProfileScreen,
    PlayerBookings : PlayerBookingsTab ,
    OwnerSupport: OwnerSupportScreen,
-   PlayerProfileScreen: PlayerProfileScreen
+   PlayerProfileScreen: PlayerProfileScreen,
+   OwnerGalery: OwnerGaleryScreen
 },
 {
     defaultNavigationOptions: defaultNavigation

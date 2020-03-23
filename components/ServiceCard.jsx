@@ -9,9 +9,7 @@ const ServiceCard = props =>{
     return(
      
     <View style={styles.container}>
-        <View  style={styles.backgroundImage}>
-        <View style={styles.overlayBackground}>
-
+       
             <View style={styles.titleContainer}>
             <Text style={styles.title}>SERVICE {props.serviceNumber}</Text>
             </View>
@@ -51,8 +49,7 @@ const ServiceCard = props =>{
                 </View>
             </View>
 
-        </View> 
-    </View>
+        
     </View>
     );    
 };
@@ -61,22 +58,12 @@ const ServiceCard = props =>{
 const styles= StyleSheet.create({
    
  container:{
-    shadowColor: 'black',
-    shadowOpacity: 0.26,
-    shadowOffset: {width:0, height:2},
-    shadowRadius:8,
-    elevation:5,
     borderRadius:10,
     margin:20,
-    height:300
+    height:300,
+    backgroundColor:"rgba(1,2,3,0.6)"
  },
- backgroundImage:{
-    borderRadius:10,
-    overflow:'hidden'
- },
- overlayBackground:{
-    backgroundColor:"rgba(1,2,3,0.8)"
- },
+
  titleContainer:{
     width:'100%',
     height:'25%',
