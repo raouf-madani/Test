@@ -67,19 +67,19 @@ const OwnerProfileScreen = props =>{
                     </View>
                     <View style={styles.circlesContainer}>
                         <TouchableHighlight style={styles.circleOne} onPress={takeImageHandler}>
-                        <Ionicons title = "add" 
-                        name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
-                        color='white' size={24} />
+                            <Ionicons title = "add" 
+                            name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
+                            color='white' size={24} />
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.circleTwo} onPress={()=>setPickedImage(false)}>
-                        <Ionicons title = "delete" 
-                        name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
-                        color='white' size={24} />
+                            <Ionicons title = "delete" 
+                            name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
+                            color='white' size={24} />
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.circleThree} onPress={()=>props.navigation.navigate('OwnerGalery')}>
-                        <Ionicons title = "addMore" 
-                        name = {Platform.OS === 'android' ? 'md-add' : 'ios-add'}
-                        color='white' size={24} />
+                            <Ionicons title = "addMore" 
+                            name = {Platform.OS === 'android' ? 'md-add' : 'ios-add'}
+                            color='white' size={24} />
                         </TouchableHighlight>
                     </View>
                 </View> 
