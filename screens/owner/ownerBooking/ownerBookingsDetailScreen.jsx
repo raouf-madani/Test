@@ -42,7 +42,7 @@ const OwnerBookingsDetailScreen = props =>{
       
     return(
     
-      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
+     <View style={styles.container}>
         <BookingCard 
           status="error"
           value={currentBooking.statut}
@@ -83,7 +83,7 @@ const OwnerBookingsDetailScreen = props =>{
               underlineColor='white'
           />
         </View>
-      </ImageBackground>
+      </View>
     
     
      );    
@@ -127,13 +127,12 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
 
 const styles= StyleSheet.create({
 
-backgroundImage:{
+container:{
   flex:1,
   backgroundColor:Colors.background,
   justifyContent:'flex-end',
   alignItems:'center',
   padding:20,
-  resizeMode:'cover'
 },
 cardContainer : {
     width : " 97%" ,
