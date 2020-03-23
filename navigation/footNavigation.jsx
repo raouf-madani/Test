@@ -47,15 +47,16 @@ const defaultNavigation = {
     )*/
 }
 
+
+
 ///////////////////////////////////////////////////////////////////
 //Tab Navigator For Player Bookings Screen
 const tabConfig = {
   Réservations : {
           screen : PlayerBookingsScreen ,
           navigationOptions : {
-            
             tabBarLabel : "Mes Réservations" ,
-            tabBarColor : "#006d6a" ,
+            tabBarColor : Colors.secondary ,
             tabBarIcon : () => {
               return( <Ionicons name = "ios-calendar" 
               size = {22} color ="white"/>);
@@ -67,6 +68,7 @@ const tabConfig = {
   Expirés : {
           screen : PlayerExpiredBookingsScreen,
           navigationOptions : {
+            
             tabBarLabel : "Expirées" ,
             tabBarColor : "rgba(198, 34, 37, 1)" ,
             tabBarIcon : () => {
@@ -81,12 +83,18 @@ const tabConfig = {
 }
 
 const PlayerBookingsTab = createMaterialBottomTabNavigator(tabConfig, 
+      
 {
-  activeColor: '#f0edf6',
+  navigationOptions : {
+    title :"Mes Réservations",
+    headerTintColor: '#fff' ,
+    headerStyle:{
+      backgroundColor:  "rgba(53, 53, 53,0.95)"
+  },
+  } ,
+activeColor: '#f0edf6',
 shifting : true ,
 labeled  : true
-
-
 
 } ) ;
 
@@ -112,13 +120,14 @@ const FootNavigation = createStackNavigator({
    OwnerBookingsDetail: OwnerBookingsDetailScreen,
    OwnerSupport: OwnerSupportScreen,
    OwnerProfile: OwnerProfileScreen,
-   PlayerBookings : PlayerBookingsTab ,
+   PlayerBookings :{ 
+     screen : PlayerBookingsTab 
+    
+    },
    OwnerSupport: OwnerSupportScreen,
    PlayerProfileScreen: PlayerProfileScreen
 },
-{
-    defaultNavigationOptions: defaultNavigation
-});
+);
 
 
   //Drawer Navigator for the main screen
