@@ -64,18 +64,18 @@ OwnerServiceScreen.navigationOptions = navData => {
                   <Item title = "Edit" 
                     iconName = {Platform.OS === 'android' ? 'md-create' : 'ios-create'}  
                     onPress = {()=> navData.navigation.navigate("EditService")}
-                    color={Colors.primary}
+                    color='white'
                   />
                 </HeaderButtons>),
                 headerTitle:'Mes Services',
                 headerTitleStyle:{
                   fontFamily:'poppins',
-                  color:Colors.background
+                  color:'white'
                 },
                 headerStyle:{
-                    backgroundColor:'white'
+                    backgroundColor:Colors.background
                 },
-                headerTintColor:Colors.background
+                headerTintColor:'white'
         };
   };
   

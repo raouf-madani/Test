@@ -67,13 +67,18 @@ const OwnerProfileScreen = props =>{
                     </View>
                     <View style={styles.circlesContainer}>
                         <TouchableHighlight style={styles.circleOne} onPress={takeImageHandler}>
-                        <Ionicons title = "save" 
+                        <Ionicons title = "add" 
                         name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
                         color='white' size={24} />
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.circleTwo} onPress={()=>setPickedImage(false)}>
-                        <Ionicons title = "save" 
+                        <Ionicons title = "delete" 
                         name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
+                        color='white' size={24} />
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.circleThree} onPress={()=>props.navigation.navigate('OwnerGalery')}>
+                        <Ionicons title = "addMore" 
+                        name = {Platform.OS === 'android' ? 'md-add' : 'ios-add'}
                         color='white' size={24} />
                         </TouchableHighlight>
                     </View>
@@ -266,7 +271,7 @@ const styles= StyleSheet.create({
      width:50,
      borderRadius:50/2,
      backgroundColor:'#171d23',
-     marginVertical:20,
+     marginVertical:7,
      justifyContent:'center',
      alignItems:'center'
    },
@@ -275,7 +280,16 @@ const styles= StyleSheet.create({
     width:50,
     borderRadius:50/2,
     backgroundColor:'#456383',
-    marginVertical:20,
+    marginVertical:7,
+    justifyContent:'center',
+    alignItems:'center'
+   },
+   circleThree:{
+    height:50,
+    width:50,
+    borderRadius:50/2,
+    backgroundColor:'#171d23',
+    marginVertical:7,
     justifyContent:'center',
     alignItems:'center'
    },
@@ -306,7 +320,7 @@ const styles= StyleSheet.create({
   },
   picker:{
     width:'100%',
-    backgroundColor:'#263341',
+    backgroundColor:Colors.background,
     color:'#9399a1'
   }
   
