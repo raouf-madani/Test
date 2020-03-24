@@ -479,7 +479,7 @@ const styles= StyleSheet.create({
       },
       stadiumCard : {
           backgroundColor : "rgba(255, 255, 255, 0.85)",
-          width : "80%",
+          width : "70%",
           height : "7%",
           alignSelf : "center",
           borderRadius : 15,

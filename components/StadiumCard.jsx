@@ -5,6 +5,7 @@ import Colors from "../constants/Colors";
 
 
 const StadiumCard = props =>{
+  
     return(
         <ImageBackground source = {require("../assets/images/cardback1.jpg")} style = {styles.cardContainer}>
 
@@ -36,8 +37,13 @@ const StadiumCard = props =>{
 
         <View style = {styles.info}>
 
-        <Ionicons name = "md-information-circle" 
-        size = {25} color = {Colors.secondary} />
+        <Ionicons 
+        name = "md-information-circle" 
+        size = {25}
+         color = {Colors.secondary} 
+         onPress = {props.infoPress}
+
+         />
         </View>
       
     </ImageBackground>

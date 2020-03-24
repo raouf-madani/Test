@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground} from 'react-native';
 
 import StadiumCard from '../../../components/StadiumCard';
@@ -6,14 +6,29 @@ import { SearchBar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Colors from "../../../constants/Colors";
+import InfoOverlay from '../../../components/InfoOverlay';
 
 const StadiumChoiceScreen = props =>{
+
+  const [overlayState , setOverlay] = useState (false);
+
+  const overlayHandler = ()=> {
+
+    setOverlay((previous) => !previous);
+  }
+  
     return(
+     
       <ImageBackground
       source = {require("../../../assets/images/android.jpg")}
        style = {styles.container}
      blurRadius = {0}
        >
+        <InfoOverlay 
+        isVisible = {overlayState}
+        infoHandler = {overlayHandler}
+     
+         />
       
         <View style = {styles.componentsContainer}>
         <SearchBar
@@ -33,10 +48,11 @@ const StadiumChoiceScreen = props =>{
                   name = "Foot Five Blida"
                   adress = "18 Rue bab dzair rue soumaa"
                   onPress = {()=>props.navigation.navigate("StadiumBooking")}
+                  infoPress = {overlayHandler}
                  />
                 
                 <StadiumCard
-                name = "Foot Five Blida"
+                 name = "Foot Five Blida"
                   adress = "18 Rue bab dzair rue soumaa"
                    />
 
@@ -55,7 +71,13 @@ const StadiumChoiceScreen = props =>{
 };
 
 
+StadiumChoiceScreen.navigationOptions = (navData) => {
+return {
+  headerTintColor:'white'
 
+}
+
+};
 
 const styles= StyleSheet.create({
     container : {
