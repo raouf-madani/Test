@@ -1,12 +1,12 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
-import {Platform,Image,StyleSheet} from 'react-native';
+import {Platform,StyleSheet} from 'react-native';
 import Colors from '../constants/Colors';
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import {HeaderButtons,Item} from "react-navigation-header-buttons";
 
+import HeaderButton from "../components/HeaderButton";
 import LoginScreen from '../screens/loginScreen';
 import ProfileChoiceScreen from '../screens/profileChoiceScreen';
 import SignupScreen from '../screens/player/signupScreen';
@@ -29,25 +29,6 @@ import stadiumChoiceScreen from "../screens/player/playerBooking/stadiumChoiceSc
 import stadiumBookingScreen from "../screens/player/playerBooking/stadiumBookingScreen";
 import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerExpiredBookingsScreen';
 import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
-
-const defaultNavigation = {
-  /*headerTransparent : true ,
-    headerStyle:{
-        backgroundColor: 'white'
-    },
-    headerTitle: () => (
-      <Image 
-      resizeMode="cover"
-      style={{
-        width:150,
-        height:40,
-        resizeMode:'contain',
-        alignSelf: 'center'}}
-      
-      />
-    )*/
-}
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -78,10 +59,12 @@ const tabConfig = {
                 }
         } 
 
-  }
+  } 
 
 
 }
+
+
 
 const PlayerBookingsTab = createMaterialBottomTabNavigator(tabConfig, 
       
@@ -98,6 +81,52 @@ shifting : true ,
 labeled  : true
 
 } ) ;
+
+///////////////////////////////////////////////////////////////////
+//Tab Navigator For Owner Profile Screen
+
+const tabConfig2 = {
+  LogOut : {
+          screen : OwnerProfileScreen ,
+          navigationOptions : {
+            tabBarLabel : "Se déconnecter" ,
+            tabBarColor:"rgba(198, 34, 37, 1)",
+            tabBarIcon : () => {
+              return( <MaterialIcons name = "exit-to-app" 
+              size = {22} color ="white"/>);
+                }
+        
+        }
+          
+  }
+}
+
+const ownerProfileTab = createMaterialBottomTabNavigator(tabConfig2, 
+      
+  {
+    navigationOptions : {
+      headerRight : ()=>  
+               (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
+                 <Item title = "save" 
+                   iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+                   color='white'
+                 />
+               </HeaderButtons>
+               
+             ),
+      headerTitle:'Mon Profile',
+      headerTitleStyle:{
+        fontFamily:'poppins',
+        color:'white'
+      },
+      headerStyle:{
+          backgroundColor:Colors.background
+      },
+      headerTintColor:'white'
+    }
+  
+  } ) ;
+
 
 ///////////////////////////////////////////////////////////////////
 
@@ -120,7 +149,9 @@ const FootNavigation = createStackNavigator({
    OwnerBookings: OwnerBookingsScreen,
    OwnerBookingsDetail: OwnerBookingsDetailScreen,
    OwnerSupport: OwnerSupportScreen,
-   OwnerProfile: OwnerProfileScreen,
+   OwnerProfile: {
+     screen: ownerProfileTab
+   },
    PlayerBookings :{ 
      screen : PlayerBookingsTab 
     
