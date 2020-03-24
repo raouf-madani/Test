@@ -116,7 +116,6 @@ OwnerBookingsScreen.navigationOptions= navData => {
               <TouchableHighlight
                 style = {styles.bookingsNotifications}
                 underlayColor = 'red'
-                onPress = { () => Alert.alert('Important','Vous avez 1 réservation(s). Cliquez sur chaque ligne dans le tableau pour voir les détails de chaque réservation.',[{text:"D'accord"}]) }
               >
                  <Text style={{color:'white'}}> 1 </Text>
               </TouchableHighlight>
@@ -125,6 +124,7 @@ OwnerBookingsScreen.navigationOptions= navData => {
                   iconName = {Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'}  
                   style={{marginHorizontal:-10}}
                   color={Colors.primary}
+                  onPress = { () => Alert.alert('Important','Vous avez 1 réservation(s). Cliquez sur chaque ligne dans le tableau pour voir les détails de chaque réservation.',[{text:"D'accord"}]) }
                 />
               </HeaderButtons>  
             </View>

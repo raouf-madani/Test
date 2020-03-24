@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert} from 'react-native';
-import {TextInput,Searchbar} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
@@ -138,7 +138,7 @@ const PlayerProfileScreen = props =>{
                 </View> 
             </View>
         </View>
-     </ScrollView> 
+     </ScrollView>
      </ImageBackground>
     </View>
 

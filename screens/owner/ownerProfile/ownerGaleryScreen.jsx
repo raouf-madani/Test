@@ -73,7 +73,7 @@ const takeImageHandler3 = async ()=>{
   setPickedImage3(image.uri);
 };
 
-//Image 3
+//Image 4
 const takeImageHandler4 = async ()=>{
   const hasPermissions = await verifyPermissions();
   if(!hasPermissions){
@@ -97,35 +97,36 @@ const takeImageHandler4 = async ()=>{
           <View style={styles.grid}>
             {!pickedImage ? (<View style={styles.wrapper}>
               <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler}>
-              <Ionicons title = "add" 
-              name ='ios-camera'
-              color={Colors.background} size={36} />
-            </TouchableHighlight>
-            <Text style={styles.text}>Photo 1</Text>
+                <Ionicons title = "add" 
+                name ='ios-camera'
+                color={Colors.background} size={36} />
+              </TouchableHighlight>
+              <Text style={styles.text}>Photo 1</Text>
             </View>)
              : (<View style={styles.wrapper}>
                <Image style={styles.image} source={{uri:pickedImage}} />
                <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage(false)}>
-                <Ionicons title = "add" 
-                name ='ios-remove'
-                color='red' size={36} />
+                  <Ionicons title = "add" 
+                  name ='ios-remove'
+                  color='red' size={36} />
                </TouchableHighlight>
                </View>)}
           </View>
           <View style={styles.grid}>
             {!pickedImage2 ? (<View style={styles.wrapper}>
               <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler2}>
-              <Ionicons title = "remove" 
-              name = 'ios-camera'
-              color={Colors.background} size={36} />
-            </TouchableHighlight><Text style={styles.text}>Photo 2</Text>
+                <Ionicons title = "remove" 
+                name = 'ios-camera'
+                color={Colors.background} size={36} />
+              </TouchableHighlight>
+              <Text style={styles.text}>Photo 2</Text>
             </View>) :
              ( <View style={styles.wrapper}>
-              <Image style={styles.image} source={{uri:pickedImage2}} />
-              <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage2(false)}>
-                <Ionicons title = "remove" 
-                name ='ios-remove'
-                color='red' size={36} />
+                <Image style={styles.image} source={{uri:pickedImage2}} />
+                <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage2(false)}>
+                  <Ionicons title = "remove" 
+                  name ='ios-remove'
+                  color='red' size={36} />
                </TouchableHighlight>
                </View>)}
           </View>
@@ -134,36 +135,36 @@ const takeImageHandler4 = async ()=>{
           <View style={styles.grid}>
             {!pickedImage3 ? (<View style={styles.wrapper}>
               <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler3}>
-              <Ionicons title = "add" 
-              name ='ios-camera'
-              color={Colors.background} size={36} />
-            </TouchableHighlight>
-            <Text style={styles.text}>Photo 3</Text>
+                <Ionicons title = "add" 
+                name ='ios-camera'
+                color={Colors.background} size={36} />
+              </TouchableHighlight>
+              <Text style={styles.text}>Photo 3</Text>
             </View>) : 
             (<View style={styles.wrapper}>
-              <Image style={styles.image} source={{uri:pickedImage3}} />
-              <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage3(false)}>
-                <Ionicons title = "remove" 
-                name ='ios-remove'
-                color='red' size={36} />
+               <Image style={styles.image} source={{uri:pickedImage3}} />
+               <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage3(false)}>
+                  <Ionicons title = "remove" 
+                  name ='ios-remove'
+                  color='red' size={36} />
                </TouchableHighlight>
                </View>)}
           </View>
           <View style={styles.grid}>
             {!pickedImage4 ? (<View style={styles.wrapper}>
               <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler4}>
-              <Ionicons title = "add" 
-              name ='ios-camera'
-              color={Colors.background} size={36} />
-            </TouchableHighlight>
-            <Text style={styles.text}>Photo 4</Text>
+                <Ionicons title = "add" 
+                name ='ios-camera'
+                color={Colors.background} size={36} />
+              </TouchableHighlight>
+              <Text style={styles.text}>Photo 4</Text>
             </View>) : 
             (<View style={styles.wrapper}>
-              <Image style={styles.image} source={{uri:pickedImage4}} />
-              <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage4(false)}>
-                <Ionicons title = "remove" 
-                name ='ios-remove'
-                color='red' size={36} />
+                <Image style={styles.image} source={{uri:pickedImage4}} />
+                <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage4(false)}>
+                  <Ionicons title = "remove" 
+                  name ='ios-remove'
+                  color='red' size={36} />
                </TouchableHighlight>
                </View>)}
           </View>

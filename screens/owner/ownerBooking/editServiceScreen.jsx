@@ -260,7 +260,7 @@ const EditServiceScreen = props =>{
 };
 
 
- EditServiceScreen.navigationOptions= navData => {
+ EditServiceScreen.navigationOptions= () => {
    
     return {
          headerRight : () =>(
