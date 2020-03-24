@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {TextInput,Button} from 'react-native-paper';
+import {HeaderButtons,Item} from "react-navigation-header-buttons";
+import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
 
@@ -56,8 +58,8 @@ const OwnerProfileScreen = props =>{
     return(
     <View style={styles.container}>
      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
-        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
                         {!pickedImage ? (<Text style={styles.pickedImageText}>Capture de votre stade!</Text>)
@@ -170,23 +172,35 @@ const OwnerProfileScreen = props =>{
                             </View>
                             <View style={styles.pickerContainer}>
                                 <Picker
-                                 style = {styles.picker}
-                                 onValueChange = {prevValue=>setComplexCity(prevValue)}
-                                 selectedValue = {complexCity}
+                                    style = {styles.picker}
+                                    onValueChange = {prevValue=>setComplexCity(prevValue)}
+                                    selectedValue = {complexCity}
                                 >
                                     {cities.map(el=>
                                     <Picker.Item
-                                     key={el.id}
-                                     label={el.wilaya}
-                                     value={el.wilaya}
-                                      />)}
+                                        key={el.id}
+                                        label={el.wilaya}
+                                        value={el.wilaya}
+                                        />)}
                                 </Picker>
                             </View>
                         </View> 
                     </View>
                 </View>
-            </ScrollView>
-        </KeyboardAvoidingView> 
+            </KeyboardAvoidingView>
+        </ScrollView>
+        <View style={{width:'100%'}}>
+            <Button
+                theme={{colors: {primary:Colors.primary}}} 
+                mode="contained"
+                labelStyle={{fontSize:15,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
+                contentStyle={{width:'100%'}}
+                style={{borderColor:Colors.primary}}
+                icon='exit-to-app'
+                dark={true}
+                >Se déconnecter 
+            </Button>
+        </View>
      </ImageBackground>
     </View>
 
@@ -194,6 +208,27 @@ const OwnerProfileScreen = props =>{
 };
 
 
+OwnerProfileScreen.navigationOptions = () => {
+
+    return {
+        headerRight : ()=>  (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
+          <Item title = "save" 
+            iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+            color='white'
+          />
+        </HeaderButtons>
+      ),
+        headerTitle:'Mon Profile',
+        headerTitleStyle:{
+        fontFamily:'poppins',
+        color:'white'
+        },
+        headerStyle:{
+        backgroundColor:Colors.background
+        },
+        headerTintColor:'white'
+        };
+};
 
 
 const styles= StyleSheet.create({
@@ -204,7 +239,6 @@ const styles= StyleSheet.create({
    },
    backgroundImage : {
     flex : 1,
-    resizeMode: 'cover'
   },
    cardContainer:{
     flexDirection:'row'
