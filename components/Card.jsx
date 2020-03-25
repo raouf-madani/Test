@@ -1,22 +1,47 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import { Button } from 'react-native-paper';
 import Colors from "../constants/Colors";
 
+const screen = Dimensions.get('window'); 
 const Card = props =>{
-    return(
-      <View style = {styles.container}>  
 
-          <View style = {styles.imageContainer}>
+let roleStyle = styles.role;
+let fonctionsStyle = styles.fonctions;
+let buttonLabelStyle = styles.buttonLabel;
+let imageContainerStyle = styles.imageContainer;
+let containerStyle = styles.container;
+
+if (screen.width < 350) {
+    roleStyle = styles.roleSmall ;
+    fonctionsStyle = styles.fonctionsSmall;
+    buttonLabelStyle = styles.buttonLabelSmall;
+    imageContainerStyle = styles.imageContainerSmall;
+}
+
+if (screen.height > 800) {
+    containerStyle = styles.containerBig;
+    roleStyle = styles.roleBig ;
+    fonctionsStyle = styles.fonctionsBig;
+    imageContainerStyle = styles.imageContainerBig;
+}
+
+    return(
+      <View style = {containerStyle}>  
+
+          <View style = {imageContainerStyle}>
               <Image style = {styles.image} source ={props.url} />
             
           </View>
 
           <View style = {styles.textContainer}>
-                <Text style ={styles.role}>{props.role}</Text>
+                <Text style ={roleStyle}>{props.role}</Text>
                 
-                <Text style = {styles.fonctions}>{props.fonctionA}</Text>
-               
+       
+           <Text style = {fonctionsStyle}>
+               {props.fonctionA}
+               </Text>
+              
 
           </View>
 
@@ -24,7 +49,7 @@ const Card = props =>{
               <Button 
                   theme={{colors: {primary:Colors.primary}}} 
                   mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                  labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
+                  labelStyle={buttonLabelStyle}
                   contentStyle={{width:'100%'}}
 
                   style={{borderColor:'white' , 
@@ -48,45 +73,105 @@ const Card = props =>{
 
 const styles= StyleSheet.create({
     container :{
-       
         borderWidth : 2 ,
         borderColor : "white",
         backgroundColor :  "rgba(52, 52, 52, 0.6)",
-        width : "45%"
+        width : screen.width *0.45,
+        justifyContent : "space-around"
     },
+    containerBig : {
+        borderWidth : 2 ,
+        borderColor : "white",
+        backgroundColor :  "rgba(52, 52, 52, 0.6)",
+        width : screen.width *0.45,
+        height : 450 ,
+        justifyContent : "space-around",
+    },
+/////////////////////////////////////////////////////////////////
     imageContainer : {
         height : 95 ,
         width : 95,
         alignSelf : "center",
         marginTop : 20
     },
+
+    imageContainerSmall : {
+        height : 75 ,
+        width : 75,
+        alignSelf : "center",
+        marginTop : 20
+    },
+    imageContainerBig : {
+        height : 128 ,
+        width : 128,
+        alignSelf : "center",
+        marginTop : 20
+    },
+/////////////////////////////////////////////////////////////////
     image :{
         height : "100%",
         width : "100%"
-
     },
     textContainer :{
         alignItems : "center",
         marginTop : 25 ,
-        marginBottom : 30
+        marginBottom : 30,
+       
     },
-
+///////////////////////////////////////////////////////////////
     role : {
         fontFamily : "poppins-bold",
         color : "white",
-        fontSize : 18,
+        fontSize : 22,
         letterSpacing : 2
     },
+    roleSmall : {
+        fontFamily : "poppins-bold",
+        color : "white",
+        fontSize : 15,
+        letterSpacing : 1
+
+    },
+    roleBig : {
+        fontFamily : "poppins-bold",
+        color : "white",
+        fontSize : 28,
+        letterSpacing : 2
+    },
+///////////////////////////////////////////////////////////////
     fonctions:{
         fontFamily : "poppins",
-        color : "white"
-
+        color : "white",
+        fontSize : 16
     }, 
+    fonctionsSmall : {
+        fontFamily : "poppins",
+        color : "white",
+        fontSize : 11
+    },
+    fonctionsBig: {
+        fontFamily : "poppins",
+        color : "white",
+        fontSize : 22
+    },
+///////////////////////////////////////////////////////////////
     buttonContainer:{
-      padding:20,
+      padding: 20,
       alignItems:'center',
       width:'100%',
       
+    } ,
+///////////////////////////////////////////////////////////////
+    buttonLabel : {
+        fontSize:16,
+        fontFamily:'poppins', 
+        color: Platform.OS === 'android' ? 'white' : Colors.primary
+    },
+    buttonLabelSmall : {
+        fontSize:13,
+        fontFamily:'poppins', 
+        color: Platform.OS === 'android' ? 'white' : Colors.primary     
+
     }
 
    

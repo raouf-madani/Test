@@ -1,12 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground,Image} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground,Image, Dimensions} from 'react-native';
 import Card from "../components/Card";
+
+const screen = Dimensions.get('window');
 
 const ProfileChoiceScreen = props =>
 {
+  let titleStyle = styles.title;
+  if (screen.width < 350) {
+    titleStyle = styles.titleSmall ;
+    }
+
+  if (screen.height > 800) {
+      titleStyle = styles.titleBig;
+    }
+
     return(
       <View style = {styles.container}>
-
         <ImageBackground 
         source={require('../assets/images/test.jpg')} style={styles.bigBackgroundImage} 
         blurRadius={0}
@@ -16,7 +26,9 @@ const ProfileChoiceScreen = props =>
           <View style = {styles.generalContainer}>
 
                 <View style = {styles.textContainer}> 
-                    <Text style = {{fontSize : 24 , fontFamily : "poppins-bold" , letterSpacing : 2 , color :"white"}}>Choisissez votre camps</Text>
+                    <Text style = {titleStyle}>
+                    Choisissez votre camps
+                    </Text>
                 </View>
 
                 <View style = {styles.cardsContainer}>
@@ -70,32 +82,54 @@ const styles= StyleSheet.create({
         container : {
             flex : 1 ,
         },
+        textContainer : {
+          justifyContent : "center",
+          alignItems :"center",
+          marginBottom : 20,
+       
+    
+    },
+  /////////////////////////////////////////////////////////
+        title : {
+          fontSize : 24 , 
+          fontFamily : "poppins-bold" , 
+          letterSpacing : 2 , 
+          color :"white"
+        },
+        titleSmall : {
+          fontSize : 18 , 
+          fontFamily : "poppins-bold" , 
+          letterSpacing : 1 , 
+          color :"white"
+        },
+        titleBig : {
+          fontSize : 30, 
+          fontFamily : "poppins-bold" , 
+          letterSpacing : 2 , 
+          color :"white"
+        },
+
+/////////////////////////////////////////////////////////////////
         bigBackgroundImage:{
             flex:1,
-            height:'100%',
-            width:'100%',
             justifyContent : "center"
           },
           generalContainer : {
                 justifyContent : "center",
                 alignItems : "center",
-                width : "100%",
-                height : "60%",
+                 width : "100%",
+                 height : "100%" ,
+              
           },
           cardsContainer : {
-            flex : 1 ,
             flexDirection : "row",
             justifyContent : "space-around",
             alignItems : "center",
-            width : "100%"
+            width : "100%",
+            overflow : "hidden",
            
-          },
-          textContainer : {
-                justifyContent : "center",
-                alignItems :"center",
-                marginBottom : 20
-               
           }
+          
 
 
 });
