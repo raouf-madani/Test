@@ -1,26 +1,74 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
+
 const LoginScreen = props =>{
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+   let titleContainerStyle= styles.titleContainer;
+   let titleStyle = styles.title;
+   let iconContainerStyle = styles.iconContainer;
+   let signupContainerStyle = styles.signupContainer;
+   let inputsContainerStyle = styles.inputsContainer;
+   let textInputStyle = styles.textInput;
+   let buttonLabelStyle = styles.buttonLabel;
+   let accountTextContainerStyle = styles.accountTextContainer;
+   let accountOrTextStyle = styles.accountOrText;
+   let registerNowTextStyle = styles.registerNowText;
+   let connectWidthTextStyle = styles.connectWidthText;
+   let facebookIconStyle = styles.facebookIcon;
+
+   if(screen.width < 350){
+    titleContainerStyle= styles.titleContainerSmall;
+    titleStyle = styles.titleSmall;
+    iconContainerStyle = styles.iconContainerSmall;
+    signupContainerStyle = styles.signupContainerSmall;
+    inputsContainerStyle = styles.inputsContainerSmall;
+    buttonLabelStyle = styles.buttonLabelSmall;
+    accountTextContainerStyle = styles.accountTextContainerSmall;
+    accountOrTextStyle = styles.accountOrTextSmall;
+    registerNowTextStyle = styles.registerNowTextSmall;
+    connectWidthTextStyle = styles.connectWidthTextSmall;
+    facebookIconStyle = styles.facebookIconSmall;
+   }
+
+   if(screen.height > 800){
+    titleContainerStyle= styles.titleContainerBig;
+    titleStyle = styles.titleBig;
+    iconContainerStyle = styles.iconContainerBig;
+    signupContainerStyle = styles.signupContainerBig;
+    textInputStyle = styles.textInputBig;
+    inputsContainerStyle = styles.inputsContainerBig;
+    buttonLabelStyle = styles.buttonLabelBig;
+    accountTextContainerStyle = styles.accountTextContainerBig;
+    accountOrTextStyle = styles.accountOrTextBig;
+    registerNowTextStyle = styles.registerNowTextBig;
+    connectWidthTextStyle = styles.connectWidthTextBig;
+    facebookIconStyle = styles.facebookIconBig;
+   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [phone,setPhone] = useState('');
   const [password,setPassword] = useState('');
 
     return(
       <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
+      <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
            <ScrollView>
-             <View style={styles.titleContainer}>
-               <Text style={styles.title}>Bienvenue à</Text>
+             <View style={titleContainerStyle}>
+               <Text style={titleStyle}>Bienvenue à</Text>
              </View>
-             <View style = {styles.iconContainer} >
+             <View style = {iconContainerStyle} >
               <Image style={{width:'100%', height:'100%'}} source = {require("../assets/images/5.png")}/>
              </View>
-             <View style={styles.signupContainer}>
-               <View style={styles.inputsContainer}>
+             <View style={signupContainerStyle}>
+               <View style={inputsContainerStyle}>
                  <TextInput
                    mode='flat'
                    label='Téléphone'
@@ -28,7 +76,7 @@ const LoginScreen = props =>{
                    value={phone}
                    onChangeText={prevValue=>setPhone(prevValue)}
                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                   style={{backgroundColor:'transparent'}}
+                   style={textInputStyle}
                    underlineColor='white'
                  />
                  <TextInput
@@ -38,33 +86,33 @@ const LoginScreen = props =>{
                    value={password}
                    onChangeText={prevValue=>setPassword(prevValue)}
                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                   style={{backgroundColor:'transparent'}}
+                   style={textInputStyle}
                    underlineColor='white'
                  />
                </View>
                <View style={styles.buttonsContainer}>
                  <View style={styles.buttonContainer}>
                    <Button
-                   theme={{colors: {primary:Colors.orange}}} 
+                   theme={{colors: {primary:Colors.primary}}} 
                    mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                   labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.orange}}
+                   labelStyle={buttonLabelStyle}
                    contentStyle={{width:'100%'}}
                    style={{borderRadius:20, borderColor:'white'}}
-                   icon='camera'
+                   icon='login'
                    dark={true}
                    >Se connecter 
                    </Button>
                  </View>
                  <View style={styles.facebookContainer}>
-                   <View style={styles.accountTextContainer}>
-                    <Text style={styles.accountOrText}>Je n'ai pas un compte ?</Text>
+                   <View style={accountTextContainerStyle}>
+                    <Text style={accountOrTextStyle}>Je n'ai pas un compte ?</Text>
                    </View>
                    <View style={styles.loginFacebookContainer}>
-                     <Text style={styles.registerNowText}>S'inscrire Maintenant</Text>
-                     <Text style={styles.accountOrText}>Ou</Text>
-                     <Text style={styles.connectWidthText}>Se connecter avec</Text>
+                     <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
+                     <Text style={accountOrTextStyle}>Ou</Text>
+                     <Text style={connectWidthTextStyle}>Se connecter avec</Text>
                      <View style={styles.facebookIconContainer}>
-                      <Image source = {require('../assets/images/facebook24.png')} /> 
+                      <Image style={facebookIconStyle} source = {require('../assets/images/facebook.png')} /> 
                      </View>     
                    </View>
                  </View>
@@ -101,80 +149,201 @@ const styles= StyleSheet.create({
  container:{
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    
    },
    bigBackgroundImage:{
     flex:1,
     resizeMode:'cover',
-    height:'100%',
     width:'100%',
+    
   },
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
-    flex:1
+    flex:1,
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
     alignItems:'center',
     marginTop:40,
-    alignSelf:'center'
   },
+  titleContainerSmall:{
+    alignItems:'center',
+    marginTop:30,
+  },
+  titleContainerBig:{
+    alignItems:'center',
+    marginTop:60
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   title:{
     color:'white',
     fontFamily:'poppins',
-    fontSize:40
+    fontSize:42
   },
+  titleSmall:{
+    color:'white',
+    fontFamily:'poppins',
+    fontSize:34
+  },
+  titleBig:{
+    color:'white',
+    fontFamily:'poppins',
+    fontSize:54
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   iconContainer :{  
-    overflow : "hidden",
+    width : 100 , 
+    height : 100 ,  
+    alignSelf : "center"
+   },
+   iconContainerSmall:{
     width : 90 , 
     height : 90 ,  
     alignSelf : "center"
    },
+   iconContainerBig:{
+    width : 220 , 
+    height : 220 ,  
+    alignSelf : "center"
+   },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   signupContainer:{
     padding:20
   },
+  signupContainerSmall:{
+    padding:10
+  },
+  signupContainerBig:{
+    padding:50
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   inputsContainer:{
     marginBottom:30
   },
+  inputsContainerSmall:{
+    marginBottom:20
+  },
+  inputsContainerBig:{
+    marginBottom:50
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  textInput:{
+    backgroundColor:'transparent'
+  },
+  textInputBig:{
+    backgroundColor:'transparent',
+    fontSize:20
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   buttonsContainer:{
-    marginHorizontal:40
+    alignItems:'center',
+    marginHorizontal:10
   },
   buttonContainer:{
     paddingVertical:5
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  buttonLabel:{
+    fontSize:16,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  buttonLabelSmall:{
+    fontSize:14,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  }, 
+  buttonLabelBig:{
+    fontSize:20,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookContainer:{
      alignItems:'center',
-     justifyContent:'center',
-     marginVertical:20
+     justifyContent:'center'
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   accountTextContainer:{
-     marginHorizontal:8,
      marginVertical:10
   },
+  accountTextContainerSmall:{
+    marginVertical:7
+  },
+  accountTextContainerBig:{
+    marginVertical:20
+ },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   accountOrText:{
     fontFamily:'poppins',
     fontSize:13,
     color:'#A8A8A8'
   },
+  accountOrTextSmall:{
+    fontFamily:'poppins',
+    fontSize:12,
+    color:'#A8A8A8'
+  },
+  accountOrTextBig:{
+    fontFamily:'poppins',
+    fontSize:19,
+    color:'#A8A8A8'
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   loginFacebookContainer:{
     alignItems:'center',
      justifyContent:'center',
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   registerNowText:{
     fontFamily:'poppins',
     fontSize:13,
-    color:Colors.orange
+    color:Colors.primary
   },
+  registerNowTextSmall:{
+    fontFamily:'poppins',
+    fontSize:12,
+    color:Colors.primary
+  },
+  registerNowTextBig:{
+    fontFamily:'poppins',
+    fontSize:17,
+    color:Colors.primary
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   connectWidthText:{
     fontFamily:'poppins',
     fontSize:13,
     color:'white'
   },
+  connectWidthTextSmall:{
+    fontFamily:'poppins',
+    fontSize:12,
+    color:'white'
+  },
+  connectWidthTextBig:{
+    fontFamily:'poppins',
+    fontSize:17,
+    color:'white'
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookIconContainer:{
     paddingVertical:5
-  } 
-   
-
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  facebookIcon:{
+    width:24,
+    height:24
+  },
+  facebookIconSmall:{
+    width:20,
+    height:20
+  },
+  facebookIconBig:{
+    width:32,
+    height:32
+  }
+  
 });
 
 export default LoginScreen;
