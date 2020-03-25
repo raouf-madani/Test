@@ -13,7 +13,7 @@ const OwnerServiceScreen = props =>{
    
     return(
         <View style={styles.container}> 
-            <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.stadiumImageBackground} blurRadius={1}>
+            <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.stadiumImageBackground}>
                 <ScrollView>
                     <ServiceCard 
                         serviceNumber={1}
