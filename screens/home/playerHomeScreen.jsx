@@ -1,15 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground , Image} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
 
 
+const screen = Dimensions.get("window");
 const PlayerHomeScreen = props =>{
+
+
+let welcomeTextStyle = styles.welcomeText;
+
+  if(screen.width < 350) {
+    welcomeTextStyle = styles.welcomeTextSmall;
+  }
+
+  if (screen.height > 800) {
+    welcomeTextStyle = styles.welcomeTextBig;
+    
+  }
+
     return(
       <View style ={styles.container}>
         <ImageBackground source = {require("../../assets/images/test.jpg")}  style = {styles.backgroudnImage}>
          
          <View style = {styles.textContainer}>
-            <Text style = {styles.welcomeText}>BIENVENUE</Text>
+            <Text style = {welcomeTextStyle}>BIENVENUE</Text>
 
          </View>
 
@@ -115,13 +129,28 @@ const styles= StyleSheet.create({
             alignSelf : "center",
 
     },
+/////////////////////////////////////////////////////////////
     welcomeText : {
         fontFamily : "poppins-bold",
         fontSize : 45,
         color : "white",
         letterSpacing : 5,
 
+    },
+    welcomeTextSmall : {
+      fontFamily : "poppins-bold",
+      fontSize : 28,
+      color : "white",
+      letterSpacing : 4,
+
+    },
+    welcomeTextBig : {
+      fontFamily : "poppins-bold",
+      fontSize : 55,
+      color : "white",
+      letterSpacing : 5,
     }
+/////////////////////////////////////////////////////////////
 
    
 

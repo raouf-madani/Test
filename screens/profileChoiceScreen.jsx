@@ -85,13 +85,11 @@ const styles= StyleSheet.create({
         textContainer : {
           justifyContent : "center",
           alignItems :"center",
-          marginBottom : 20,
-       
-    
+          marginBottom : 20
     },
   /////////////////////////////////////////////////////////
         title : {
-          fontSize : 24 , 
+          fontSize : 22 , 
           fontFamily : "poppins-bold" , 
           letterSpacing : 2 , 
           color :"white"
@@ -103,10 +101,11 @@ const styles= StyleSheet.create({
           color :"white"
         },
         titleBig : {
-          fontSize : 30, 
+          fontSize : 38, 
           fontFamily : "poppins-bold" , 
           letterSpacing : 2 , 
-          color :"white"
+          color :"white",
+          marginBottom : 15
         },
 
 /////////////////////////////////////////////////////////////////

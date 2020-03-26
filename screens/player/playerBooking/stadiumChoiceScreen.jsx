@@ -86,6 +86,7 @@ const styles= StyleSheet.create({
             backgroundColor : "#323232",
 
     },
+
     componentsContainer : {
         width : "95%",
         height : "93%",
@@ -97,8 +98,9 @@ const styles= StyleSheet.create({
       borderRadius : 20 , 
       backgroundColor : "rgba(52, 52, 52, 0)" ,
       marginBottom : 15 ,
-       borderTopWidth : 0 , 
-       borderBottomWidth : 0 }
+      borderTopWidth : 0 , 
+      borderBottomWidth : 0 
+      }
     
    
 
