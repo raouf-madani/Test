@@ -360,12 +360,12 @@ const styles= StyleSheet.create({
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   termsConditionsText:{
     fontFamily:'poppins',
-    fontSize:11,
+    fontSize:10,
     color:'white'
   },
   termsConditionsTextSmall:{
     fontFamily:'poppins',
-    fontSize:10,
+    fontSize:9,
     color:'white'
   },
   termsConditionsTextBig:{
