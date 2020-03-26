@@ -164,7 +164,7 @@ const styles= StyleSheet.create({
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
     alignItems:'center',
-    marginTop:40,
+    marginTop:40
   },
   titleContainerSmall:{
     alignItems:'center',
@@ -232,7 +232,8 @@ const styles= StyleSheet.create({
   },
   textInputBig:{
     backgroundColor:'transparent',
-    fontSize:20
+    fontSize:20,
+    paddingVertical:20
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   buttonsContainer:{

@@ -1,9 +1,54 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
 
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
+
 const SignupScreen = props =>{
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+  let titleContainerStyle= styles.titleContainer;
+  let titleStyle = styles.title;
+  let signupContainerStyle = styles.signupContainer;
+  let inputsContainerStyle = styles.inputsContainer;
+  let textInputStyle = styles.textInput;
+  let labelSignupStyle= styles.labelSignup;
+  let labelLoginStyle = styles.labelLogin;
+  let facebookContainerStyle = styles.facebookContainer;
+  let facebookTextStyle = styles.facebookText;
+  let facebookIconStyle = styles.facebookIcon;
+  let termsConditionsTextStyle = styles.termsConditionsText;
+
+  if(screen.width < 350){
+    titleContainerStyle= styles.titleContainerSmall;
+    titleStyle = styles.titleSmall;
+    signupContainerStyle = styles.signupContainerSmall;
+    inputsContainerStyle = styles.inputsContainerSmall;
+    labelSignupStyle = styles.labelSignupSmall;
+    labelLoginStyle = styles.labelLoginSmall;
+    facebookContainerStyle = styles.facebookContainerSmall;
+    facebookTextStyle = styles.facebookTextSmall;
+    facebookIconStyle = styles.facebookIconSmall;
+    termsConditionsTextStyle = styles.termsConditionsTextSmall;
+   }
+
+   if(screen.height > 800){
+    titleContainerStyle= styles.titleContainerBig;
+    titleStyle = styles.titleBig;
+    signupContainerStyle = styles.signupContainerBig;
+    inputsContainerStyle = styles.inputsContainerBig;
+    textInputStyle = styles.textInputBig;
+    labelSignupStyle = styles.labelSignupBig;
+    labelLoginStyle = styles.labelLoginBig;
+    facebookContainerStyle = styles.facebookContainerBig;
+    facebookTextStyle = styles.facebookTextBig;
+    facebookIconStyle = styles.facebookIconBig;
+    termsConditionsTextStyle = styles.termsConditionsTextBig;
+   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     const [lastName,setLastName] = useState('');
     const [firstName,setFirstName] = useState('');
@@ -12,14 +57,14 @@ const SignupScreen = props =>{
 
     return(
       <View style={styles.container}>
-       <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
+       <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
             <ScrollView>
-              <View style={styles.titleContainer}>
-                <Text style={styles.title}>Inscrivez-Vous</Text>
+              <View style={titleContainerStyle}>
+                <Text style={titleStyle}>Inscrivez-Vous</Text>
               </View>
-              <View style={styles.signupContainer}>
-                <View style={styles.inputsContainer}>
+              <View style={signupContainerStyle}>
+                <View style={inputsContainerStyle}>
                   <TextInput
                     mode='flat'
                     label='Nom'
@@ -27,7 +72,7 @@ const SignupScreen = props =>{
                     value={lastName}
                     onChangeText={prevText=>setLastName(prevText)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={{backgroundColor:'transparent'}}
+                    style={textInputStyle}
                     underlineColor='white'
                   />
                   <TextInput
@@ -37,7 +82,7 @@ const SignupScreen = props =>{
                     value={firstName}
                     onChangeText={prevText=>setFirstName(prevText)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={{backgroundColor:'transparent'}}
+                    style={textInputStyle}
                     underlineColor='white'
                   />
                   <TextInput
@@ -47,7 +92,7 @@ const SignupScreen = props =>{
                     value={phone}
                     onChangeText={prevValue=>setPhone(prevValue)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={{backgroundColor:'transparent'}}
+                    style={textInputStyle}
                     underlineColor='white'
                   />
                   <TextInput
@@ -57,19 +102,19 @@ const SignupScreen = props =>{
                     value={password}
                     onChangeText={prevValue=>setPassword(prevValue)}
                     theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={{backgroundColor:'transparent'}}
+                    style={textInputStyle}
                     underlineColor='white'
                   />
                 </View>
                 <View style={styles.buttonsContainer}>
                   <View style={styles.buttonContainer}>
                     <Button
-                    theme={{colors: {primary:Colors.primary}}} 
+                    theme={{colors: {primary:Colors.secondary}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                    labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
+                    labelStyle={labelSignupStyle}
                     contentStyle={{width:'100%'}}
                     style={{borderRadius:20, borderColor:'white'}}
-                    icon='camera'
+                    icon='open-in-app'
                     dark={true}
                     onPress={() =>props.navigation.navigate('SignupOwner')}
                     >S'inscrire
@@ -79,20 +124,23 @@ const SignupScreen = props =>{
                     <Button
                     theme={{colors: {primary:Colors.orange}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                    labelStyle={{fontSize:16,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.orange}}
+                    labelStyle={labelLoginStyle}
                     contentStyle={{width:'100%'}}
                     style={{borderRadius:20, borderColor:'white'}}
-                    icon='camera'
+                    icon='login'
                     dark={true}
                     onPress={() =>props.navigation.navigate('Login')}
                     >Se connecter 
                     </Button>
                   </View>
-                  <View style={styles.facebookContainer}>
+                  <View style={facebookContainerStyle}>
                     <View style={styles.facebookTextContainer}>
-                     <Text style={styles.facebookText}>S'inscrire avec Facebook</Text>
+                     <Text style={facebookTextStyle}>S'inscrire avec</Text>
                     </View>
-                    <Image style={styles.facebookIcon}  source = {require('../../assets/images/facebook.png')} />
+                    <Image style={facebookIconStyle}  source = {require('../../assets/images/facebook.png')} />
+                  </View>
+                  <View style={styles.termsConditionsContainer}>
+                     <Text style={termsConditionsTextStyle}>Lisez les termes et conditions avant s'inscrire</Text>
                   </View>
                 </View>
               </View>
@@ -127,63 +175,204 @@ const styles= StyleSheet.create({
    container:{
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    
    },
    bigBackgroundImage:{
     flex:1,
     resizeMode:'cover',
-    height:'100%',
-    width:'100%',
+    width:'100%'
+    
   },
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
     flex:1
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
     alignItems:'center',
-    marginTop:40,
-    borderBottomColor:Colors.secondary,
-    borderBottomWidth:1,
-    alignSelf:'center'
+    marginTop:50,
+    backgroundColor:'white',
+    alignSelf:'center',
+    padding:10,
+    borderRadius:20
   },
+  titleContainerSmall:{
+    alignItems:'center',
+    marginTop:35,
+    backgroundColor:'white',
+    alignSelf:'center',
+    padding:10,
+    borderRadius:20
+  },
+  titleContainerBig:{
+    alignItems:'center',
+    marginTop:70,
+    backgroundColor:'white',
+    alignSelf:'center',
+    padding:20,
+    borderRadius:20
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   title:{
     color:Colors.primary,
     fontFamily:'poppins-bold',
-    fontSize:30
+    fontSize:26
   },
+  titleSmall:{
+    color:Colors.primary,
+    fontFamily:'poppins-bold',
+    fontSize:23
+  },
+  titleBig:{
+    color:Colors.primary,
+    fontFamily:'poppins-bold',
+    fontSize:46
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   signupContainer:{
-    padding:20
+    paddingHorizontal:20,
+    marginVertical:10
   },
+  signupContainerSmall:{
+    paddingHorizontal:15,
+    marginVertical:5
+  },
+  signupContainerBig:{
+    paddingHorizontal:40,
+    marginVertical:20
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   inputsContainer:{
     marginBottom:30
   },
+  inputsContainerSmall:{
+    marginBottom:20
+  },
+  inputsContainerBig:{
+    marginBottom:50
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   buttonsContainer:{
     marginHorizontal:40
   },
   buttonContainer:{
     paddingVertical:5
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  textInput:{
+    backgroundColor:'transparent'
+  },
+  textInputBig:{
+    backgroundColor:'transparent',
+    fontSize:20,
+    paddingVertical:20
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  labelSignup:{
+    fontSize:16,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  labelSignupSmall:{
+    fontSize:14,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  labelSignupBig:{
+    fontSize:20,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  labelLogin:{
+    fontSize:16,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+  },
+  labelLoginSmall:{
+    fontSize:14,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+  },
+  labelLoginBig:{
+    fontSize:20,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookContainer:{
      flexDirection:'row',
      alignItems:'center',
      justifyContent:'center',
-     marginVertical:15
+     marginVertical:10
   },
+  facebookContainerSmall:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    marginVertical:7
+ },
+ facebookContainerBig:{
+  flexDirection:'row',
+  alignItems:'center',
+  justifyContent:'center',
+  marginVertical:20
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookTextContainer:{
-     marginHorizontal:8,
-     borderBottomWidth:1,
-     borderBottomColor:'white'
+     marginHorizontal:8
   },
   facebookText:{
+    fontFamily:'poppins',
+    fontSize:14,
+    color:'white'
+  },
+  facebookTextSmall:{
     fontFamily:'poppins',
     fontSize:13,
     color:'white'
   },
+  facebookTextBig:{
+    fontFamily:'poppins',
+    fontSize:19,
+    color:'white'
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookIcon:{
     width:24,
     height:24
-  } 
+  },
+  facebookIconSmall:{
+    width:20,
+    height:20
+  },
+  facebookIconBig:{
+    width:32,
+    height:32
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  termsConditionsContainer:{
+    borderBottomColor:'white',
+    borderBottomWidth:1,
+    alignItems:'center',
+    alignSelf:'center'
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  termsConditionsText:{
+    fontFamily:'poppins',
+    fontSize:10,
+    color:'white'
+  },
+  termsConditionsTextSmall:{
+    fontFamily:'poppins',
+    fontSize:9,
+    color:'white'
+  },
+  termsConditionsTextBig:{
+    fontFamily:'poppins',
+    fontSize:13,
+    color:'white'
+  }
    
 });
 
