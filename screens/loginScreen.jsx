@@ -164,7 +164,7 @@ const styles= StyleSheet.create({
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
     alignItems:'center',
-    marginTop:40,
+    marginTop:40
   },
   titleContainerSmall:{
     alignItems:'center',

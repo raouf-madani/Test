@@ -40,7 +40,7 @@ const PlayerHomeScreen = props =>{
                   <SmallCard
                     image ={require("../../assets/logo/football2.png")} 
                     screen = "Something"
-                    onPress = {() =>props.navigation.navigate('Login')}
+                    onPress = {() =>props.navigation.navigate('Signup')}
                    />
 
               </View>
