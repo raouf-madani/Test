@@ -1,10 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import { Button } from 'react-native-paper';
 import Colors from "../constants/Colors";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+const screen = Dimensions.get("window");
+
+
 const SmallCard = props =>{
+
+let textStyle = styles.text;
+
+if(screen.height > 800 || screen.width >500) {
+        textStyle = styles.textBig;
+}
     return(
       <View style = {styles.container}>  
             <TouchableOpacity onPress = {props.onPress} style = {styles.card}>
@@ -15,7 +24,7 @@ const SmallCard = props =>{
                 </View>
                 
                 <View style = {styles.textContainer}>
-                        <Text style = {styles.text}>
+                        <Text style = {textStyle}>
                         
                         {props.screen}
                         
@@ -49,19 +58,27 @@ const styles= StyleSheet.create({
         },
         imageContainer : {
             width : "35%",
-            height : "35%"
+            height : "35%" ,
+            
         },
 
         image: {
                 width : "100%",
                 height : "100%",
-                flexShrink : 1
+                flexShrink : 1 ,
+                resizeMode : "contain"
                 
         },
+ /////////////////////////////////////////////////////
         text : {
-              
                 fontFamily : "poppins",
                 color : "white"
+        },
+        textBig : {
+                fontFamily : "poppins",
+                color : "white",
+                fontSize : 26
+
         }
    
 

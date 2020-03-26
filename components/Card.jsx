@@ -19,7 +19,7 @@ if (screen.width < 350) {
     imageContainerStyle = styles.imageContainerSmall;
 }
 
-if (screen.height > 800) {
+if (screen.height > 800 || screen.width >500 ) {
     containerStyle = styles.containerBig;
     roleStyle = styles.roleBig ;
     fonctionsStyle = styles.fonctionsBig;
@@ -84,8 +84,8 @@ const styles= StyleSheet.create({
         borderColor : "white",
         backgroundColor :  "rgba(52, 52, 52, 0.6)",
         width : screen.width *0.45,
-        height : 450 ,
-        justifyContent : "space-around",
+        height :450 ,
+        justifyContent : "space-around"
     },
 /////////////////////////////////////////////////////////////////
     imageContainer : {
@@ -102,8 +102,8 @@ const styles= StyleSheet.create({
         marginTop : 20
     },
     imageContainerBig : {
-        height : 128 ,
-        width : 128,
+        height : 138 ,
+        width : 138,
         alignSelf : "center",
         marginTop : 20
     },
@@ -122,8 +122,8 @@ const styles= StyleSheet.create({
     role : {
         fontFamily : "poppins-bold",
         color : "white",
-        fontSize : 22,
-        letterSpacing : 2
+        fontSize : 20,
+        letterSpacing : 1
     },
     roleSmall : {
         fontFamily : "poppins-bold",
@@ -135,14 +135,14 @@ const styles= StyleSheet.create({
     roleBig : {
         fontFamily : "poppins-bold",
         color : "white",
-        fontSize : 28,
-        letterSpacing : 2
+        fontSize : 30,
+        letterSpacing : 2,
     },
 ///////////////////////////////////////////////////////////////
     fonctions:{
         fontFamily : "poppins",
         color : "white",
-        fontSize : 16
+        fontSize : 14
     }, 
     fonctionsSmall : {
         fontFamily : "poppins",
