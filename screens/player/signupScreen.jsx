@@ -92,7 +92,7 @@ const SignupScreen = props =>{
                     <View style={styles.facebookTextContainer}>
                      <Text style={styles.facebookText}>S'inscrire avec Facebook</Text>
                     </View>
-                    <Image source = {require('../../assets/images/facebook32.png')} />
+                    <Image style={styles.facebookIcon}  source = {require('../../assets/images/facebook.png')} />
                   </View>
                 </View>
               </View>
@@ -179,7 +179,11 @@ const styles= StyleSheet.create({
     fontFamily:'poppins',
     fontSize:13,
     color:'white'
-  }
+  },
+  facebookIcon:{
+    width:24,
+    height:24
+  } 
    
 });
 
