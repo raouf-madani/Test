@@ -43,7 +43,7 @@ const SignupScreen = props =>{
     textInputStyle = styles.textInputBig;
     labelSignupStyle = styles.labelSignupBig;
     labelLoginStyle = styles.labelLoginBig;
-    facebookContainerStyle = facebookContainerBig;
+    facebookContainerStyle = styles.facebookContainerBig;
     facebookTextStyle = styles.facebookTextBig;
     facebookIconStyle = styles.facebookIconBig;
     termsConditionsTextStyle = styles.termsConditionsTextBig;
