@@ -36,6 +36,7 @@ const SignupScreen = props =>{
    }
 
    if(screen.height > 800){
+
     titleContainerStyle= styles.titleContainerBig;
     titleStyle = styles.titleBig;
     signupContainerStyle = styles.signupContainerBig;
@@ -185,7 +186,9 @@ const styles= StyleSheet.create({
   },
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
-    flex:1
+    flex:1,
+   
+  
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
