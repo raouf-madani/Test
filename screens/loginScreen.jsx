@@ -8,6 +8,8 @@ const screen = Dimensions.get('window');
 
 const LoginScreen = props =>{
 
+  console.log(screen.height);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
    let titleContainerStyle= styles.titleContainer;
@@ -35,6 +37,13 @@ const LoginScreen = props =>{
     registerNowTextStyle = styles.registerNowTextSmall;
     connectWidthTextStyle = styles.connectWidthTextSmall;
     facebookIconStyle = styles.facebookIconSmall;
+   }
+
+   if(screen.height <= 799 && screen.height >=650){
+    titleContainerStyle = styles.titleContainerTall;
+    inputsContainerStyle = styles.inputsContainerTall;
+    textInputStyle = styles.textInputTall;
+    accountTextContainerStyle = styles.accountTextContainerTall;
    }
 
    if(screen.height > 800){
@@ -170,6 +179,10 @@ const styles= StyleSheet.create({
     alignItems:'center',
     marginTop:30,
   },
+  titleContainerTall:{
+    alignItems:'center',
+    marginTop:50,
+  },
   titleContainerBig:{
     alignItems:'center',
     marginTop:60
@@ -223,12 +236,19 @@ const styles= StyleSheet.create({
   inputsContainerSmall:{
     marginBottom:20
   },
+  inputsContainerTall:{
+    marginBottom:40
+  },
   inputsContainerBig:{
     marginBottom:50
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   textInput:{
     backgroundColor:'transparent'
+  },
+  textInputTall:{
+    backgroundColor:'transparent',
+    paddingVertical:15
   },
   textInputBig:{
     backgroundColor:'transparent',
@@ -270,6 +290,9 @@ const styles= StyleSheet.create({
   },
   accountTextContainerSmall:{
     marginVertical:7
+  },
+  accountTextContainerTall:{
+    marginVertical:15
   },
   accountTextContainerBig:{
     marginVertical:20
