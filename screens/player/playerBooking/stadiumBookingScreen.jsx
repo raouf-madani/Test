@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View , Picker,ImageBackground} from 'react-native';
+import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions} from 'react-native';
 import { RadioButton , Button} from 'react-native-paper';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
@@ -7,6 +7,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import Colors from "../../../constants/Colors";
 import {Ionicons} from "@expo/vector-icons";
+
+const screen = Dimensions.get("window");
 
 // 10 next Days and OWN TIME PICKER
 let days = [];
@@ -102,15 +104,58 @@ stadiumsType.forEach(element => {
   
       if(allStadiums.indexOf(element) === -1)
         {allStadiums.push(element);}
-
-
 }
 
 );
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 const StadiumBookingScreen = props =>{
+/////////////////////////////////////////////////////////////////
+//Responsivity //
+let iconSize = 22 ;
+let nameTextStyle = styles.nameText;
+let typeStyle = styles.typeStyle;
+let timeTextStyle = styles.timeText;
+let calendarCardStyle = styles.calendarCard ;
+let calendarDayStyle = styles.calendarDay;
+let calendarDateStyle = styles.calendarDate;
+let matchTypeStyle = styles.matchType;
+let matchTimeStyle = styles.matchTime;
+let partyTimeStyle = styles.partyTime ;
+let priceTextStyle = styles.priceText;
+let priceButtonStyle =  styles.priceButton;
+//Big Screen Design 
+if(screen.height > 800) {
+    iconSize = 30 ;
+    nameTextStyle = styles.nameTextBig;
+    typeStyle = styles.typeStyleBig;
+    timeTextStyle = styles.timeTextBig;
+    calendarCardStyle = styles.calendarCardBig;
+    calendarDayStyle = styles.calendarDayBig;
+    calendarDateStyle = styles.calendarDateBig;
+    matchTypeStyle = styles.matchTypeBig;
+    matchTimeStyle = styles.matchTimeBig;
+    partyTimeStyle = styles.partyTimeBig ;
+    priceTextStyle = styles.priceTextBig;
+    priceButtonStyle = styles.priceButtonBig;
+}
 
+if(screen.width <= 360) {
+  
+  iconSize = 14 ;
+  nameTextStyle = styles.nameTextSmall;
+  matchTypeStyle = styles.matchTypeSmall;
+  typeStyle = styles.typeStyleSmall;
+  matchTimeStyle = styles.matchTimeSmall;
+  timeTextStyle = styles.timeTextSmall;
+  calendarCardStyle = styles.calendarCardSmall;
+  calendarDayStyle = styles.calendarDaySmall;
+  calendarDateStyle = styles.calendarDateSmall;
+  partyTimeStyle = styles.partyTimeSmall ;
+  priceButtonStyle = styles.priceButtonSmall;
+  priceTextStyle = styles.priceTextSmall;
+}
+/////////////////////////////////////////////////////////////////
     const [selectedOffer , setSelectedOffer] = useState(false);
     const [priceState , setPrice] = useState(0);
     const [offerHoursState , setOfferHours] = useState([]);
@@ -233,23 +278,25 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
     return(
       
-      <ImageBackground source = {require ("../../../assets/images/android.jpg")} style ={styles.container} blurRadius = {0.5}>
+      <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
+      style ={styles.container} 
+      blurRadius = {0.5}>
      
           <View style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
-                  <Ionicons name="md-football" size={22} color={Colors.secondary} />
-                      <Text style ={styles.nameText}>
+                  <Ionicons name="md-football" size={iconSize} color={Colors.secondary} />
+                      <Text style ={nameTextStyle}>
                       FootFive Blida
                       </Text>
-                      <Ionicons name="md-football" size={22} color={Colors.secondary} />
+                      <Ionicons name="md-football" size={iconSize} color={Colors.secondary} />
                   </View>
 
                           {/* Match Type Part : Start */}
-                  <View style = {styles.matchType}>
+                  <View style = {matchTypeStyle}>
 
                     <View style = {styles.typeTextContainer}>
-                          <Text style = {styles.typeStyle}>
+                          <Text style = {typeStyle}>
                           Type du Match :  
                           </Text>
                     </View>
@@ -272,11 +319,11 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                     {/* Match Type Part : End */}
 
                       {/* Match Time Part : Start */}
-                  <View style = {styles.matchTime}>
+                  <View style = {matchTimeStyle}>
                  
                  <View style = {styles.timeTextContainer}>
                   
-                   <Text style = {styles.timeText}>Temps du Match : </Text>
+                   <Text style = {timeTextStyle}>Temps du Match : </Text>
                  
                  </View> 
 
@@ -285,8 +332,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                         value = {matchTimeState}
                         onValueChange = {matchTimeHandler}
                       >
-                        {/* RadioButtons Elements : Start */}
-                        
+
+                {/* RadioButtons Elements : Start */}
                       {timesFilteredToShow.map(
                         (element,index)=>
                         {
@@ -297,7 +344,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                                }} 
                              key ={index}>
 
-                          <Text style = {styles.timeText}>
+                          <Text style = {timeTextStyle}>
                           {element}
                            </Text>
                           <RadioButton 
@@ -318,14 +365,13 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                    <View  style = {styles.customCalendar}>
                         <View style = {styles.dateText}>
                         
-                        <Text style = {styles.timeText}>
+                        <Text style = {timeTextStyle}>
                         Date du match :</Text>
                         
                   </View>  
                     <RadioButton.Group
                         value = {selectedDateState}
                         onValueChange = {selectedDateHandler}
-                        
                       >
                         {/* RadioButtons Elements : Start */}
                       
@@ -336,8 +382,9 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                              
                             return (
                             
-                          <View style = {styles.calendarCard}>
-                           <Text style ={{fontFamily : "poppins"}} >
+                          <View style = {calendarCardStyle}>
+                           <Text 
+                           style ={calendarDayStyle} >
                               {itemData.item.day}
                             </Text>
                             
@@ -346,7 +393,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                               color = {Colors.secondary}
                               />
 
-                              <Text style ={{fontFamily : "poppins", fontSize : 12}} >
+                              <Text style ={calendarDateStyle} >
                               {itemData.item.date}
                               </Text>
 
@@ -365,7 +412,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                <View style = {{marginTop : 20}}>
             {hoursState.length === 0 ?
             <View>
-            <Text style = {{fontSize :20 , color : "black", alignSelf : "center",fontFamily : "poppins"}}>
+            <Text style = {styles.noTimeText}>
             Aucun créneau disponible 
             </Text>
             </View> 
@@ -405,7 +452,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                     setSelectedHour(itemData.item.time);
                     }}
                   >
-                    <Text style = {{fontSize : 12 }}>
+                    <Text 
+                    style = {partyTimeStyle}>
                     {itemData.item.time }
                     
                     </Text> 
@@ -426,15 +474,17 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
         <View style= {styles.priceContainer}>
 
               <View style = {styles.priceTextContainer}>
-              <Text style = {{fontSize : 22 , fontFamily : "poppins-bold" , color : "black"}}>
+              <Text style = {priceTextStyle}>
               {priceState + " DA"}
               </Text>
 
               </View>
 
               <View style = {styles.priceButtonContainer}>
-                <Button style = { styles.priceButton} mode = "contained" color = {Colors.secondary}>
-                Reserver
+                <Button 
+                style = {priceButtonStyle} 
+                mode = "contained" color = {Colors.secondary}>
+               <Text style = {styles.bookButtonText}>Reserver</Text>
                 </Button>
               </View>
               
@@ -445,7 +495,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
       
           </ImageBackground>
       
-          // </View> 
+       
 
 
      );    
@@ -472,11 +522,10 @@ const styles= StyleSheet.create({
           height : "97%",
           width : "100%",
           backgroundColor :  "rgba(255, 255, 255, 0.85)",
-          
           marginBottom : 11,
-         
-
+          
       },
+//////////////////////////////////////////////////////////     
       stadiumCard : {
           backgroundColor : "rgba(255, 255, 255, 0.85)",
           width : "70%",
@@ -487,52 +536,113 @@ const styles= StyleSheet.create({
           justifyContent : "space-around",
           marginTop : 25,
           flexDirection : "row"
-
       },
+///////////////////////////////////////////////////////////      
       nameText :{
           fontSize : 20,
           fontFamily : "poppins-bold"
       },
+      nameTextBig : {
+        fontSize : 26,
+        fontFamily : "poppins-bold"
+      },
+      nameTextSmall : {
+        fontSize : 14,
+        fontFamily : "poppins-bold"
+      },
+///////////////////////////////////////////////////////////      
       matchType : {
           width : "100%",
           height : 80 , 
           marginTop : 10,
           flexDirection : "row",
           alignItems : "center"
-          
       },
+      matchTypeBig : {
+        width : "100%",
+        height : 80 , 
+        marginVertical : 20,
+        flexDirection : "row",
+        alignItems : "center"
+    },
+    matchTypeSmall : {
+      width : "100%",
+      height : 80 , 
+      flexDirection : "row",
+      alignItems : "center"
+  },
+
+///////////////////////////////////////////////////////////       
       picker : {
         backgroundColor : "white",
-        width : "11%",
+        width : 50,
         marginLeft : 25,
         
       },
+   
      typeTextContainer : {   
        justifyContent : "center",
-       marginLeft : 6
+       marginLeft : 6 
      },
+
+///////////////////////////////////////////////////////////     
      typeStyle : {
         fontFamily : "poppins-bold",
         fontSize : 15,
-        color : "black"
+        color : Colors.background
+     },
+     typeStyleBig : {
+      fontFamily : "poppins-bold",
+      fontSize : 22,
+      color : Colors.background
 
      },
+     typeStyleSmall : {
+      fontFamily : "poppins-bold",
+      fontSize : 11,
+      color : Colors.background
+
+     },
+ /////////////////////////////////////////////////////////  
      matchTime : {
-        
         width : "100%",
         height : 120,
         justifyContent : "center",
      },
-
+     matchTimeBig : {
+      width : "100%",
+        height : 120,
+        justifyContent : "center",
+      marginVertical : 25
+   },
+   matchTimeSmall : {
+    width : "100%",
+      height : 100,
+      justifyContent : "center",
+    
+ },
+//////////////////////////////////////////////////////////////////
      timeTextContainer : {
-        marginLeft : 6,
-        
+        marginLeft : 6
      },
+   
+///////////////////////////////////////////////////////////     
      timeText : {
       fontFamily : "poppins-bold",
         fontSize : 15,
         color : Colors.background
      },
+     timeTextBig : {
+      fontFamily : "poppins-bold",
+        fontSize : 22,
+        color : Colors.background
+     },
+     timeTextSmall : {
+      fontFamily : "poppins-bold",
+        fontSize : 11,
+        color : Colors.background
+     },
+///////////////////////////////////////////////////////////     
      radioButtons : {
        flexDirection : "row",
        width : "40%",
@@ -543,6 +653,7 @@ const styles= StyleSheet.create({
       marginVertical : 10,
       marginLeft : 6,
      },
+//////////////////////////////////////////////////////////
      calendarCard : {
         width : 80,
         height : 80,
@@ -550,37 +661,132 @@ const styles= StyleSheet.create({
         alignItems : "center",
         marginHorizontal : 6,
         borderRadius : 12
-
      },
-     hoursList : {
-       marginTop : 6,
-       
-       paddingVertical : 8
 
+     calendarCardBig : {
+      width : 140,
+      height : 140,
+      backgroundColor : "white",
+      alignItems : "center",
+      marginHorizontal : 6,
+      borderRadius : 12,
+      justifyContent : "center"
+     },
+     calendarCardSmall : {
+      width : 60,
+      height : 60,
+      backgroundColor : "white",
+      alignItems : "center",
+      marginHorizontal : 6,
+      borderRadius : 12,
+      justifyContent : "center"
+     },
+//////////////////////////////////////////////////////////
+     calendarDay : {
+      fontFamily : "poppins"
+    },
+
+     calendarDayBig : {
+        fontFamily : "poppins",
+        fontSize : 24
+     },
+     calendarDaySmall : {
+      fontFamily : "poppins",
+      fontSize : 10
+   },
+////////////////////////////////////////////////////////////
+     calendarDate : {
+       fontFamily : "poppins", 
+       fontSize : 12
+      },
+      calendarDateBig : {
+        fontFamily : "poppins", 
+        fontSize : 18
+       },
+       calendarDateSmall : {
+        fontFamily : "poppins", 
+        fontSize : 8
+       },
+////////////////////////////////////////////////////////////
+    hoursList : {
+       marginTop : 6,
+       paddingVertical : 8
      },
      buttonContainer :{
-    
-      
+     
      },
      timeButton : {
-    
+      
         
      },
+
+ ///////////////////////////////////////////////////////
+ partyTime: {
+   fontSize : 12 
+  },
+  partyTimeBig : {
+    fontSize : 18 
+  },
+  partyTimeSmall : {
+    fontSize : 8
+  },
+ /////////////////////////////////////// ////////////////
      priceContainer : {
-      
-        marginTop :25,
+        marginTop :screen.width <350 ? 2 : 25,
         alignItems : "center"
      },
      priceButtonContainer : {
-       
         overflow : "hidden",
-        marginBottom : 15
-
+        marginBottom : 15 ,
+        
      },
+   ////////////////////////////////////////////////////////  
      priceButton : {
-      borderRadius : 15
-     }
-   
+      borderRadius : 15 ,
+      justifyContent : "center"
+     },
+     priceButtonBig : {
+      borderRadius : 50 ,
+      justifyContent : "center",
+      width : 200 ,
+      height : 50
+     },
+     priceButtonSmall : {
+      borderRadius : 50 ,
+      justifyContent : "center",
+     
+      
+     },
+  ////////////////////////////////////////////////////////   
+     priceText :{
+       fontSize : 28 , 
+       fontFamily : "poppins-bold" , 
+       color : "black"
+      },
+
+       priceTextBig : {
+        fontSize : 34, 
+        fontFamily : "poppins-bold" , 
+        color : "black",
+        padding : 5
+
+       },
+       priceTextSmall: {
+        fontSize : 16, 
+        fontFamily : "poppins-bold" , 
+        color : "black",
+        
+       },
+////////////////////////////////////////////////////
+bookButtonText : {
+  fontSize : screen.width < 350 ? 10 : 14
+} ,
+
+noTimeText : {
+  fontSize : screen.width < 350 ? 14 : 20 , 
+  color : "black", 
+  alignSelf : "center",
+  fontFamily : "poppins"}
 
 });
 
