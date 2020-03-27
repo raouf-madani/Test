@@ -36,9 +36,9 @@ const SignupScreen = props =>{
    }
 
    if(screen.height <= 799 && screen.height >=650){
-    titleContainerStyle = styles.titleContainerTall;
+    titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
-    textInputStyle = styles.textInputTall;
+    textInputStyle = styles.textInputBig;
     facebookContainerStyle = styles.facebookContainerTall;
    }
 

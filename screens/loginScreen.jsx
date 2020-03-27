@@ -40,10 +40,11 @@ const LoginScreen = props =>{
    }
 
    if(screen.height <= 799 && screen.height >=650){
-    titleContainerStyle = styles.titleContainerTall;
+    titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
     textInputStyle = styles.textInputTall;
     accountTextContainerStyle = styles.accountTextContainerTall;
+    iconContainerStyle = styles.iconContainerTall;
    }
 
    if(screen.height > 800){
@@ -212,6 +213,11 @@ const styles= StyleSheet.create({
    iconContainerSmall:{
     width : 90 , 
     height : 90 ,  
+    alignSelf : "center"
+   },
+   iconContainerTall:{
+    width : 150 , 
+    height : 150 ,  
     alignSelf : "center"
    },
    iconContainerBig:{
