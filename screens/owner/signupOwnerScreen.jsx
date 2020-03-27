@@ -1,12 +1,68 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker,Image} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker,Image,Dimensions} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
 
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
+
 const SignupOwnerScreen = props =>{
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+  let progressStepsStyle = styles.progressSteps;
+  let inputsContainerStyle = styles.inputsContainer;
+  let previousNextBtnStyle = styles.previousNextBtn;
+  let finishBtnStyle = styles.finishBtn;
+  let textInputStyle = styles.textInput;
+  let pickerContainerStyle = styles.pickerContainer;
+  let itemPickerStyleIOS = styles.itemPickerIOS;
+  let step3ContainerStyle = styles.step3Container;
+  let textStyle = styles.text;
+  let checkBoxLabelStyle = styles.checkBoxLabel;
+  let rowContainerStyle = styles.rowContainer;
+  let rowsStyle = styles.rowStyle;
+
+  if(screen.width < 350){
+    progressStepsStyle = styles.progressStepsSmall;
+    pickerContainerStyle = styles.pickerContainer;
+    inputsContainerStyle = styles.inputsContainerSmall;
+    step3ContainerStyle = styles.step3ContainerSmall;
+    rowContainerStyle = styles.rowContainerSmall;
     
+   }
+
+   if(screen.height <= 799 && screen.height >=650){
+    progressStepsStyle = styles.progressStepsTall;
+    inputsContainerStyle = styles.inputsContainerBig;
+    textInputStyle = styles.textInputTall;
+    pickerContainerStyle = styles.pickerContainerTall;
+    itemPickerStyleIOS = styles.itemPickerIOSBig;
+    step3ContainerStyle = styles.step3ContainerBig;
+    textStyle = styles.textTall;
+    checkBoxLabelStyle = styles.checkBoxLabelTall;
+    rowContainerStyle = styles.rowContainerTall;
+    rowsStyle = styles.rowStyleTall;
+   }
+
+   if(screen.height > 800){
+    progressStepsStyle = styles.progressStepsBig;
+    inputsContainerStyle = styles.inputsContainerBig;
+    previousNextBtnStyle = styles.previousNextBtnBig;
+    finishBtnStyle = styles.finishBtnBig;
+    textInputStyle = styles.textInputBig;
+    pickerContainerStyle = styles.pickerContainerBig;
+    itemPickerStyleIOS = styles.itemPickerIOSBig;
+    step3ContainerStyle = styles.step3ContainerBig;
+    textStyle = styles.textBig;
+    checkBoxLabelStyle = styles.checkBoxLabelBig;
+    rowContainerStyle = styles.rowContainerBig;
+    rowsStyle = styles.rowStyleBig;
+   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     //states for checkboxes
     const [isCheckedShower, setIsCheckedShower] = useState(false);
@@ -35,7 +91,7 @@ const SignupOwnerScreen = props =>{
       <View style={styles.container}>
        <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
-            <View style={styles.progressSteps}>
+            <View style={progressStepsStyle}>
                 <ProgressSteps
                  activeStepIconBorderColor={Colors.primary}
                  completedProgressBarColor={Colors.primary}
@@ -43,14 +99,15 @@ const SignupOwnerScreen = props =>{
                  activeStepNumColor='white'
                  completedStepNumColor='white' 
                  activeLabelColor={Colors.primary}
+                 labelFontFamily='poppins-bold'
                  >
                     <ProgressStep 
                       label="Propriétaire" 
-                      previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
-                      nextBtnTextStyle={{color:Colors.primary}}
+                      previousBtnTextStyle={previousNextBtnStyle} 
+                      nextBtnTextStyle={previousNextBtnStyle}
                       nextBtnText='Suivant'
                       >
-                        <View style={styles.inputsContainer}>
+                        <View style={inputsContainerStyle}>
                             <TextInput
                                 mode='flat'
                                 label='Nom et Prénom *'
@@ -58,7 +115,7 @@ const SignupOwnerScreen = props =>{
                                 value={fullName}
                                 onChangeText={prevText=>setFullName(prevText)}
                                 theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                                style={{backgroundColor:'transparent'}}
+                                style={textInputStyle}
                                 underlineColor='white'
                             />
                             <TextInput
@@ -68,7 +125,7 @@ const SignupOwnerScreen = props =>{
                                 value={phone}
                                 onChangeText={prevText=>setPhone(prevText)}
                                 theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                                style={{backgroundColor:'transparent'}}
+                                style={textInputStyle}
                                 underlineColor='white'
                             />
                             <TextInput
@@ -78,7 +135,7 @@ const SignupOwnerScreen = props =>{
                                 value={email}
                                 onChangeText={prevText=>setEmail(prevText)}
                                 theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                                style={{backgroundColor:'transparent'}}
+                                style={textInputStyle}
                                 underlineColor='white'
                             />
                             <TextInput
@@ -88,19 +145,19 @@ const SignupOwnerScreen = props =>{
                                 value={address}
                                 onChangeText={prevText=>setAddress(prevText)}
                                 theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                                style={{backgroundColor:'transparent'}}
+                                style={textInputStyle}
                                 underlineColor='white'
                             />
                         </View>
                     </ProgressStep>
                     <ProgressStep 
                         label="Multi-Stades"
-                        previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
-                        nextBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}}
+                        previousBtnTextStyle={previousNextBtnStyle} 
+                        nextBtnTextStyle={previousNextBtnStyle}
                         nextBtnText='Suivant'
                         previousBtnText='Précédent'
                     >
-                     <View style={styles.inputsContainer}>
+                     <View style={inputsContainerStyle}>
                         <TextInput
                             mode='flat'
                             label='Nom du complexe *'
@@ -108,7 +165,7 @@ const SignupOwnerScreen = props =>{
                             value={complexName}
                             onChangeText={prevText=>setComplexName(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                            style={{backgroundColor:'transparent'}}
+                            style={textInputStyle}
                             underlineColor='white'
                         />
                         <TextInput
@@ -118,7 +175,7 @@ const SignupOwnerScreen = props =>{
                             value={complexAddress}
                             onChangeText={prevText=>setComplexAddress(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                            style={{backgroundColor:'transparent'}}
+                            style={textInputStyle}
                             underlineColor='white'
                         />
                         <TextInput
@@ -128,14 +185,17 @@ const SignupOwnerScreen = props =>{
                             value={complexStadiumNumber}
                             onChangeText={prevText=>setComplexStadiumNumber(prevText)}
                             theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                            style={{backgroundColor:'transparent'}}
+                            style={textInputStyle}
                             underlineColor='white'
                         />
-                        <View style={styles.pickerContainer}>
+                        <View style={pickerContainerStyle}>
                             <Picker
                             selectedValue={complexCity}
                             onValueChange={prevText=>setComplexCity(prevText)}
                             style={styles.pickerCity}
+                            itemTextStyle={{fontFamily:'poppins-bold'}}
+                            itemTextStyle={itemPickerStyleIOS}
+                            activeItemTextStyle={itemPickerStyleIOS}
                             >
                             {cities.map(el=>
                                     <Picker.Item
@@ -149,25 +209,27 @@ const SignupOwnerScreen = props =>{
                     </ProgressStep>
                     <ProgressStep 
                         label="Logistiques"
-                        previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
-                        nextBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}}
+                        previousBtnTextStyle={previousNextBtnStyle} 
+                        nextBtnTextStyle={finishBtnStyle}
                         finishBtnText='Confirmer'
                         previousBtnText='Précédent'
                         nextBtnStyle={{padding:0}}
                         previousBtnStyle={{padding:0}}    
                     >
-                        <View style={styles.step3Container}>
-                            <View style={styles.rowContainer}>
+                        <View style={step3ContainerStyle}>
+                            <View style={rowContainerStyle}>
                                 <View style={styles.textContainer}>
-                                    <Text style={styles.text}>Matériels logistiques *</Text>
+                                    <Text style={textStyle}>Matériels logistiques *</Text>
                                 </View>
-                                <View style={styles.rowStyle}>
+                                <View style={rowsStyle}>
                                     <CheckBox
                                         title='Douches'
                                         containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                         checked={isCheckedShower ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedShower(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                     <CheckBox
                                         title='Vestiaire'
@@ -175,15 +237,19 @@ const SignupOwnerScreen = props =>{
                                         checked={isCheckedCloackroom ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedcloackroom(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                 </View>
-                                <View style={styles.rowStyle}>
+                                <View style={rowsStyle}>
                                     <CheckBox
                                         title='Ballons'
                                         containerStyle={{backgroundColor:'transparent',borderWidth:0}}
                                         checked={isCheckedBall ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedBall(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                     <CheckBox
                                         title='Dossards'
@@ -191,14 +257,16 @@ const SignupOwnerScreen = props =>{
                                         checked={isCheckedBib ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedBib(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                 </View>
                             </View>
-                            <View style={styles.rowContainer}>
+                            <View style={rowContainerStyle}>
                                 <View style={styles.textContainer}>
-                                    <Text style={styles.text}>Plafond *</Text>
+                                    <Text style={textStyle}>Plafond *</Text>
                                 </View>
-                                <View style={styles.rowStyle}>
+                                <View style={rowsStyle}>
                                     <CheckBox
                                         title='Couvert'
                                         containerStyle={{backgroundColor:'transparent',borderWidth:0}}
@@ -207,6 +275,8 @@ const SignupOwnerScreen = props =>{
                                         checked={isCheckedCover ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedCover(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                     <CheckBox
                                         title='Non couvert'
@@ -216,6 +286,8 @@ const SignupOwnerScreen = props =>{
                                         checked={isCheckedUncover ? true : false}
                                         checkedColor={Colors.primary}
                                         onPress={()=>setIsCheckedUncover(isChecked => !isChecked)}
+                                        fontFamily='poppins'
+                                        textStyle={checkBoxLabelStyle}
                                     />
                                 </View>
                             </View>
@@ -267,45 +339,183 @@ const styles= StyleSheet.create({
     flex:1,
     justifyContent:'center'
   },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   progressSteps:{
      marginHorizontal:10,
      flex:1,
      marginVertical:30
   },
+  progressStepsSmall:{
+    marginHorizontal:10,
+    flex:1,
+    marginVertical:25
+ },
+ progressStepsTall:{
+    marginHorizontal:10,
+    flex:1,
+    marginVertical:40
+ },
+ progressStepsBig:{
+    marginHorizontal:10,
+    flex:1,
+    marginVertical:50
+ },
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ previousNextBtn:{
+   color:Colors.primary,
+   fontFamily:'poppins'
+ },
+ previousNextBtnBig:{
+    color:Colors.primary,
+    fontFamily:'poppins',
+    fontSize:24
+ },
+ finishBtn:{
+    color:Colors.seondary,
+    fontFamily:'poppins'
+ },
+ finishBtnBig:{
+    color:Colors.secondary,
+    fontFamily:'poppins',
+    fontSize:24
+ },
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   inputsContainer:{
     padding:10,
     marginTop:30
   },
+  inputsContainerSmall:{
+    padding:10,
+    marginTop:20
+  },
+  inputsContainerBig:{
+    padding:30,
+    marginTop:50
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  textInput:{
+    backgroundColor:'transparent'
+  },
+  textInputTall:{
+    backgroundColor:'transparent',
+    fontSize:20,
+    paddingVertical:20
+  },
+  textInputBig:{
+    backgroundColor:'transparent',
+    fontSize:20,
+    paddingVertical:25
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   textContainer:{
     alignItems:'center',
     justifyContent:'center'
   },
   rowContainer:{
-    paddingVertical:13
+    marginVertical:13
   },
+  rowContainerSmall:{
+    marginVertical:11
+  },
+  rowContainerTall:{
+    marginVertical:35
+  },
+  rowContainerBig:{
+    marginVertical:40
+  },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   rowStyle:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around',
+    width:'100%'
+  },
+  rowStyleTall:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around',
+    width:'100%',
+    marginVertical:30
+  },
+  rowStyleBig:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around',
+    width:'100%',
+    marginVertical:35
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   text:{
     color:'white',
     fontFamily:'poppins'
   },
-  rowStyle:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    width:'100%'
+  textTall:{
+    color:'white',
+    fontFamily:'poppins',
+    fontSize:20
   },
+  textBig:{
+    color:'white',
+    fontFamily:'poppins',
+    fontSize:24
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  checkBoxLabel:{
+    color:'grey',
+    fontFamily:'poppins'
+  },
+  checkBoxLabelTall:{
+    color:'grey',
+    fontFamily:'poppins',
+    fontSize:18
+  },
+  checkBoxLabelBig:{
+    color:'grey',
+    fontSize:20,
+    fontFamily:'poppins'
+  },
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   step3Container:{
-    paddingTop:20
+    marginTop:30
   },
+  step3ContainerSmall:{
+    marginTop:20
+  },
+  step3ContainerBig:{
+    marginTop:60
+  },
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   pickerContainer:{
     borderBottomWidth:1,
     borderBottomColor:'white',
     padding:5
   },
+  pickerContainerTall:{
+    borderBottomWidth:1,
+    borderBottomColor:'white',
+    paddingVertical:20,
+    paddingHorizontal:10
+  },
+  pickerContainerBig:{
+    borderBottomWidth:1,
+    borderBottomColor:'white',
+    paddingVertical:25,
+    paddingHorizontal:10
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   pickerCity:{
     width:'100%',
-    color:'white'  
+    color:'white'
+},
+itemPickerIOS:{
+ fontFamily:'poppins'
+},
+itemPickerIOSBig:{
+    fontSize: 20,
+    fontFamily:'poppins'
 }
-  
    
 });
 
