@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker,Image} from 'react-native';
-import {TextInput,Searchbar} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
 
 const SignupOwnerScreen = props =>{
+    
 
     //states for checkboxes
     const [isCheckedShower, setIsCheckedShower] = useState(false);
@@ -32,21 +33,21 @@ const SignupOwnerScreen = props =>{
 
     return(
       <View style={styles.container}>
-       <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage} blurRadius={0}>
+       <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
             <View style={styles.progressSteps}>
                 <ProgressSteps
-                 activeStepIconBorderColor={Colors.orange}
-                 completedProgressBarColor={Colors.orange}
-                 completedStepIconColor={Colors.orange} 
+                 activeStepIconBorderColor={Colors.primary}
+                 completedProgressBarColor={Colors.primary}
+                 completedStepIconColor={Colors.primary} 
                  activeStepNumColor='white'
                  completedStepNumColor='white' 
-                 activeLabelColor={Colors.orange}
+                 activeLabelColor={Colors.primary}
                  >
                     <ProgressStep 
                       label="Propriétaire" 
-                      previousBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}} 
-                      nextBtnTextStyle={{color:Colors.orange}}
+                      previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
+                      nextBtnTextStyle={{color:Colors.primary}}
                       nextBtnText='Suivant'
                       >
                         <View style={styles.inputsContainer}>
@@ -94,8 +95,8 @@ const SignupOwnerScreen = props =>{
                     </ProgressStep>
                     <ProgressStep 
                         label="Multi-Stades"
-                        previousBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}} 
-                        nextBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}}
+                        previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
+                        nextBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}}
                         nextBtnText='Suivant'
                         previousBtnText='Précédent'
                     >
@@ -148,7 +149,7 @@ const SignupOwnerScreen = props =>{
                     </ProgressStep>
                     <ProgressStep 
                         label="Logistiques"
-                        previousBtnTextStyle={{color:Colors.orange,fontFamily:'poppins'}} 
+                        previousBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}} 
                         nextBtnTextStyle={{color:Colors.primary,fontFamily:'poppins'}}
                         finishBtnText='Confirmer'
                         previousBtnText='Précédent'
@@ -259,12 +260,12 @@ const styles= StyleSheet.create({
    bigBackgroundImage:{
     flex:1,
     resizeMode:'cover',
-    height:'100%',
     width:'100%',
   },
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
-    flex:1
+    flex:1,
+    justifyContent:'center'
   },
   progressSteps:{
      marginHorizontal:10,

@@ -35,6 +35,13 @@ const SignupScreen = props =>{
     termsConditionsTextStyle = styles.termsConditionsTextSmall;
    }
 
+   if(screen.height <= 799 && screen.height >=650){
+    titleContainerStyle = styles.titleContainerTall;
+    inputsContainerStyle = styles.inputsContainerTall;
+    textInputStyle = styles.textInputTall;
+    facebookContainerStyle = styles.facebookContainerTall;
+   }
+
    if(screen.height > 800){
 
     titleContainerStyle= styles.titleContainerBig;
@@ -187,8 +194,7 @@ const styles= StyleSheet.create({
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
     flex:1,
-   
-  
+    justifyContent:'center'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
@@ -202,6 +208,14 @@ const styles= StyleSheet.create({
   titleContainerSmall:{
     alignItems:'center',
     marginTop:35,
+    backgroundColor:'white',
+    alignSelf:'center',
+    padding:10,
+    borderRadius:20
+  },
+  titleContainerTall:{
+    alignItems:'center',
+    marginTop:60,
     backgroundColor:'white',
     alignSelf:'center',
     padding:10,
@@ -251,6 +265,9 @@ const styles= StyleSheet.create({
   inputsContainerSmall:{
     marginBottom:20
   },
+  inputsContainerTall:{
+    marginBottom:40
+  },
   inputsContainerBig:{
     marginBottom:50
   },
@@ -264,6 +281,11 @@ const styles= StyleSheet.create({
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   textInput:{
     backgroundColor:'transparent'
+  },
+  textInputTall:{
+    backgroundColor:'transparent',
+    fontSize:20,
+    paddingVertical:15
   },
   textInputBig:{
     backgroundColor:'transparent',
@@ -315,6 +337,12 @@ const styles= StyleSheet.create({
     justifyContent:'center',
     marginVertical:7
  },
+ facebookContainerTall:{
+  flexDirection:'row',
+  alignItems:'center',
+  justifyContent:'center',
+  marginVertical:15
+},
  facebookContainerBig:{
   flexDirection:'row',
   alignItems:'center',
