@@ -305,13 +305,16 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                       style = {styles.picker}
                       onValueChange = {matchTypeHandler}
                       selectedValue = {matchTypeState}
+                      
                       >
                    
                       {allStadiums.map ( (item,index) => 
                       <Picker.Item 
                       key = {index} 
                       label={item} 
-                      value={item} />)}
+                      value={item} 
+                     
+                      />)}
 
                       </Picker>
 
