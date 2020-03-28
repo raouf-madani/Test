@@ -34,7 +34,7 @@ const SignupOwnerScreen = props =>{
     
    }
 
-   if(screen.height <= 799 && screen.height >=650){
+   if(screen.height <= 800 && screen.height >=650){
     progressStepsStyle = styles.progressStepsTall;
     inputsContainerStyle = styles.inputsContainerBig;
     textInputStyle = styles.textInputTall;
@@ -371,7 +371,7 @@ const styles= StyleSheet.create({
     fontSize:24
  },
  finishBtn:{
-    color:Colors.seondary,
+    color:Colors.secondary,
     fontFamily:'poppins'
  },
  finishBtnBig:{
