@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView,Dimensions} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
@@ -9,7 +9,31 @@ import {Ionicons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
+
 const OwnerProfileScreen = props =>{
+    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */ 
+    let textInputStyle = styles.textInput;
+    let textInputContainerStyle = styles.textInputContainer;
+    let cardStyle = styles.card;
+    let circlesContainerStyle = styles.circlesContainer;
+    let card2Style = styles.card2;
+    let itemPickerStyleIOS = styles.itemPickerIOS;
+    let labelBtnStyle = styles.labelBtn;
+
+    if(screen.height > 800){
+        textInputStyle = styles.textInputBig;
+        textInputContainerStyle = styles.textInputContainerBig;
+        cardStyle = styles.cardBig;
+        circlesContainerStyle = styles.circlesContainerBig;
+        card2Style = styles.card2Big;
+        itemPickerStyleIOS = styles.itemPickerIOSBig;
+        labelBtnStyle =styles.labelBtnBig;
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
@@ -58,14 +82,14 @@ const OwnerProfileScreen = props =>{
     return(
     <View style={styles.container}>
      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
+     <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={{flex:1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-            <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10}>
                 <View style={styles.cardContainer}>
-                    <View style={styles.card}>
+                    <View style={cardStyle}>
                         {!pickedImage ? (<Text style={styles.pickedImageText}>Capture de votre stade!</Text>)
                         : (<Image style={styles.image} source={{uri:pickedImage}} />)}
                     </View>
-                    <View style={styles.circlesContainer}>
+                    <View style={circlesContainerStyle}>
                         <TouchableHighlight style={styles.circleOne} onPress={takeImageHandler}>
                             <Ionicons title = "add" 
                             name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
@@ -84,9 +108,9 @@ const OwnerProfileScreen = props =>{
                     </View>
                 </View> 
                 <View style={styles.card2Container}>
-                    <View style={styles.card2}>
+                    <View style={card2Style}>
                         <View style={styles.textInputsContainer}>  
-                        <View style={styles.textInputContainer}>
+                        <View style={textInputContainerStyle}>
                                 <TextInput
                                     mode='outlined'
                                     label='Nom et Prénom *'
@@ -94,11 +118,11 @@ const OwnerProfileScreen = props =>{
                                     value={fullName}
                                     onChangeText={prevText=>setFullName(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}> 
+                            <View style={textInputContainerStyle}> 
                                 <TextInput
                                     mode='outlined'
                                     label='Téléphone *'
@@ -106,11 +130,11 @@ const OwnerProfileScreen = props =>{
                                     value={phone}
                                     onChangeText={prevText=>setPhone(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}>
+                            <View style={textInputContainerStyle}>
                                 <TextInput
                                     mode='outlined'
                                     label='Email *'
@@ -118,11 +142,11 @@ const OwnerProfileScreen = props =>{
                                     value={email}
                                     onChangeText={prevText=>setEmail(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}>
+                            <View style={textInputContainerStyle}>
                                 <TextInput
                                     mode='outlined'
                                     label='Adresse *'
@@ -130,11 +154,11 @@ const OwnerProfileScreen = props =>{
                                     value={address}
                                     onChangeText={prevText=>setAddress(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}>
+                            <View style={textInputContainerStyle}>
                                 <TextInput
                                     mode='outlined'
                                     label='Nom du complexe *'
@@ -142,11 +166,11 @@ const OwnerProfileScreen = props =>{
                                     value={complexName}
                                     onChangeText={prevText=>setComplexName(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}>
+                            <View style={textInputContainerStyle}>
                             <TextInput
                                     mode='outlined'
                                     label='Adresse du complexe *'
@@ -154,11 +178,11 @@ const OwnerProfileScreen = props =>{
                                     value={complexAddress}
                                     onChangeText={prevText=>setComplexAddress(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.textInputContainer}>
+                            <View style={textInputContainerStyle}>
                             <TextInput
                                     mode='outlined'
                                     label='Nombre des stades *'
@@ -166,7 +190,7 @@ const OwnerProfileScreen = props =>{
                                     value={complexStadiumNumber}
                                     onChangeText={prevText=>setComplexStadiumNumber(prevText)}
                                     theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={{backgroundColor:'transparent'}}
+                                    style={textInputStyle}
                                     underlineColor='#9399a1'
                                 />
                             </View>
@@ -175,6 +199,8 @@ const OwnerProfileScreen = props =>{
                                     style = {styles.picker}
                                     onValueChange = {prevValue=>setComplexCity(prevValue)}
                                     selectedValue = {complexCity}
+                                    itemTextStyle={itemPickerStyleIOS}
+                                    activeItemTextStyle={itemPickerStyleIOS}
                                 >
                                     {cities.map(el=>
                                     <Picker.Item
@@ -186,14 +212,13 @@ const OwnerProfileScreen = props =>{
                             </View>
                         </View> 
                     </View>
-                </View>
-            </KeyboardAvoidingView>
+                </View>  
         </ScrollView>
         <View style={{width:'100%'}}>
             <Button
                 theme={{colors: {primary:Colors.primary}}} 
                 mode="contained"
-                labelStyle={{fontSize:15,fontFamily:'poppins', color: Platform.OS === 'android' ? 'white' : Colors.primary}}
+                labelStyle={labelBtnStyle}
                 contentStyle={{width:'100%'}}
                 style={{borderColor:Colors.primary}}
                 icon='exit-to-app'
@@ -201,6 +226,7 @@ const OwnerProfileScreen = props =>{
                 >Se déconnecter 
             </Button>
         </View>
+        </KeyboardAvoidingView>
      </ImageBackground>
     </View>
 
@@ -234,20 +260,21 @@ OwnerProfileScreen.navigationOptions = () => {
 const styles= StyleSheet.create({
    container:{
     flex:1,
-    backgroundColor:'white',
-    justifyContent:'flex-start'
+    backgroundColor:'white'
    },
    backgroundImage : {
-    flex : 1,
+    flex : 1
   },
    cardContainer:{
-    flexDirection:'row'
+    flexDirection:'row',
+    width:'90%'
    },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    card:{
-    marginHorizontal:20,
     height:200,
-    width:'60%',
+    width:'70%',
     marginTop:50,
+    marginHorizontal:20,
     backgroundColor:Colors.background,
     borderRadius:10,
     shadowColor: 'black',
@@ -256,8 +283,22 @@ const styles= StyleSheet.create({
     shadowRadius:8,
     elevation:5,
     justifyContent:'center',
-    
    },
+   cardBig:{
+    height:300,
+    width:'70%',
+    marginTop:50,
+    marginHorizontal:40,
+    backgroundColor:Colors.background,
+    borderRadius:10,
+    shadowColor: 'black',
+    shadowOpacity: 0.86,
+    shadowOffset: {width:0, height:2},
+    shadowRadius:8,
+    elevation:5,
+    justifyContent:'center',
+   },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    pickedImageText:{
     fontFamily:'poppins',
     color:'white',
@@ -267,13 +308,24 @@ const styles= StyleSheet.create({
     width:'100%',
     height:'100%'
    },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    circlesContainer:{
-     width:'40%',
-     margin:20,
+     width:'20%',
+     marginBottom:20,
      marginTop:50,
      height:200,
      justifyContent:'center',
+     marginHorizontal:20
    },
+   circlesContainerBig:{
+    width:'20%',
+    marginBottom:20,
+    marginTop:50,
+    height:300,
+    justifyContent:'center',
+    marginHorizontal:35
+  },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    circleOne:{
      height:50,
      width:50,
@@ -305,6 +357,7 @@ const styles= StyleSheet.create({
      alignItems:'center',
      marginBottom:50
    },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    card2:{
     height:650,
     width:'90%',
@@ -313,12 +366,34 @@ const styles= StyleSheet.create({
     paddingHorizontal:20,
     paddingVertical:20
    },
+   card2Big:{
+    height:800,
+    width:'90%',
+    backgroundColor:Colors.background,
+    borderRadius:10,
+    paddingHorizontal:20,
+    paddingVertical:20
+   },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    textInputsContainer:{
       height:'100%'
    },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    textInputContainer:{
     paddingVertical:5
    },
+   textInputContainerBig:{
+    paddingVertical:15
+   },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   textInput:{
+     backgroundColor:'transparent'
+   },
+   textInputBig:{
+    backgroundColor:'transparent',
+    fontSize:20
+   },
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   pickerContainer:{
     borderWidth:1,
     borderColor:'#9399a1',
@@ -330,7 +405,26 @@ const styles= StyleSheet.create({
     width:'100%',
     backgroundColor:Colors.background,
     color:'#9399a1'
-  }
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  itemPickerIOS:{
+    fontFamily:'poppins'
+   },
+   itemPickerIOSBig:{
+       fontSize: 20,
+       fontFamily:'poppins'
+   },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   labelBtn:{
+    fontSize:15,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+   },
+   labelBtnBig:{
+    fontSize:20,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+   }
   
 });
 
