@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet,View,Text,TouchableHighlight,ImageBackground,Alert,ScrollView} from 'react-native';
+import { StyleSheet,View,Text,TouchableHighlight,ImageBackground,Alert,ScrollView,Dimensions} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import { DataTable } from 'react-native-paper';
 import {Calendar,LocaleConfig} from 'react-native-calendars';
@@ -15,9 +15,47 @@ LocaleConfig.locales['fr'] = {
   };
 LocaleConfig.defaultLocale = 'fr';
 
-
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
 
 const OwnerBookingsScreen = props =>{
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+  let calendarStyle = styles.calendar;
+  let dataTableStyle = styles.dataTable;
+  let textStyle = styles.text;
+  let sizeDay = 14;
+  let sizeMonth = 14;
+
+  if(screen.width < 350){
+    calendarStyle = styles.calendarSmall;
+    dataTableStyle = styles.dataTableSmall;
+    textStyle = styles.textSmall;
+    sizeDay = 13;
+    sizeMonth = 13;
+  }
+
+  if(screen.height <= 800 && screen.height >=650){
+    calendarStyle = styles.calendarTall;
+    dataTableStyle = styles.dataTableTall;
+    textStyle = styles.textTall;
+    sizeDay = 16;
+    sizeMonth = 17;
+  }
+
+  if(screen.height > 800){
+    calendarStyle = styles.calendarBig;
+    dataTableStyle = styles.dataTableBig;
+    textStyle = styles.textBig;
+    sizeDay = 18;
+    sizeMonth = 20;
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  // Calendar Configuration
    const [theDay, setTheDay]= useState();
    const data=[{id:'1',nom:'Madani',prenom:'Raouf',creneauD:'13h',creneauF:'14h',statut:'Confirmée',date:'2020-03-16',num:'06598532145'},
                {id:'2',nom:'Snoussi',prenom:'el Hareth',creneauD:'14h',creneauF:'15h',statut:'Confirmée',date:'2020-03-16',num:'07597532145'},
@@ -37,7 +75,7 @@ const OwnerBookingsScreen = props =>{
       <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
        <ScrollView>
           <Calendar
-          style={{marginTop:40}}
+          style={calendarStyle}
           theme={{calendarBackground:'transparent',
                   todayTextColor: Colors.orange,
                   selectedDayTextColor: 'white',
@@ -49,7 +87,10 @@ const OwnerBookingsScreen = props =>{
                   indicatorColor: Colors.orange,
                   arrowColor:  Colors.orange,
                   dayTextColor: 'white',
-                  textDisabledColor: 'grey'}}
+                  textDisabledColor: 'grey',
+                  textDayFontSize: sizeDay,
+                  textMonthFontSize: sizeMonth,
+                  textDayHeaderFontSize: 14}}
               
           onDayPress={day => {
             setTheDay(day.dateString);
@@ -57,10 +98,10 @@ const OwnerBookingsScreen = props =>{
           markedDates={{
           [theDay]: {selected: true},
           }}       
-          firstDay={6}
+          firstDay={7}
           />
           
-            <DataTable style={styles.dataTable}>
+            <DataTable style={dataTableStyle}>
               <DataTable.Header>
                 <DataTable.Title>Créneau</DataTable.Title>
                 <DataTable.Title>Réservation</DataTable.Title>
@@ -88,15 +129,15 @@ const OwnerBookingsScreen = props =>{
                   
                     <Text style={styles.slot}>{e.statut}</Text>
 
-                </DataTable.Cell> 
+                </DataTable.Cell>   
 
             </DataTable.Row>)}
 
               {theDay && data.length === 0 && (<View  style={styles.textContainer}>
-                                       <Text style={styles.text}>Il n'y a aucune réservation pour le moment!</Text>
+                                       <Text style={textStyle}>Il n'y a aucune réservation pour le moment!</Text>
                                      </View>)}  
               {!theDay &&  (<View  style={styles.textContainer}>
-                                       <Text style={styles.text}>Séléctionner une date pour afficher les réservations.</Text>
+                                       <Text style={textStyle}>Séléctionner une date pour afficher les réservations.</Text>
                                      </View>)}                                  
               
             </DataTable>
@@ -157,6 +198,20 @@ backgroundImage:{
   flex : 1,
   resizeMode: 'cover'
 },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+calendar:{
+  marginTop:30
+},
+calendarSmall:{
+  marginTop:40
+},
+calendarTall:{
+  marginTop:60
+},
+calendarBig:{
+  marginTop:70
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bookingsNotifications:{
   height:20,
   width:20,
@@ -166,18 +221,53 @@ bookingsNotifications:{
   alignItems:'center',
   marginHorizontal:-10
 },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 dataTable:{
+  backgroundColor:'white',
+  marginVertical:20
+},
+dataTableSmall:{
   backgroundColor:'white',
   marginVertical:10
 },
+dataTableTall:{
+  backgroundColor:'white',
+  marginVertical:50
+},
+dataTableBig:{
+  backgroundColor:'white',
+  marginVertical:60
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 textContainer:{
  padding:15
 },
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 text:{
   color:'grey',
   fontFamily:'poppins',
-  alignSelf:'center'
+  alignSelf:'center',
+  fontSize:12
 },
+textSmall:{
+  color:'grey',
+  fontFamily:'poppins',
+  alignSelf:'center',
+  fontSize:11
+},
+textTall:{
+  color:'grey',
+  fontFamily:'poppins',
+  alignSelf:'center',
+  fontSize:18
+},
+textBig:{
+  color:'grey',
+  fontFamily:'poppins',
+  alignSelf:'center',
+  fontSize:19
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 slot:{
   fontFamily:'poppins',
   color:'white'

@@ -39,7 +39,7 @@ const LoginScreen = props =>{
     facebookIconStyle = styles.facebookIconSmall;
    }
 
-   if(screen.height <= 799 && screen.height >=650){
+   if(screen.height <= 800 && screen.height >=650){
     titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
     textInputStyle = styles.textInputTall;
