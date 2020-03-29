@@ -43,6 +43,7 @@ const SignupScreen = props =>{
    }
 
    if(screen.height > 800){
+
     titleContainerStyle= styles.titleContainerBig;
     titleStyle = styles.titleBig;
     signupContainerStyle = styles.signupContainerBig;

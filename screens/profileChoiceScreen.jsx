@@ -7,7 +7,7 @@ const screen = Dimensions.get('window');
 const ProfileChoiceScreen = props =>
 {
   let titleStyle = styles.title;
-  if (screen.width < 350) {
+  if (screen.width <= 360) {
     titleStyle = styles.titleSmall ;
     }
 
