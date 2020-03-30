@@ -1,51 +1,104 @@
 import React from 'react';
-import { StyleSheet,View,Text,ImageBackground,Platform,Button} from 'react-native';
-//import {Button} from 'react-native-paper';
+import { StyleSheet,View,Text,Dimensions,Platform} from 'react-native';
+import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import {Ionicons} from '@expo/vector-icons';
 
+
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
+
 const ServiceCard = props =>{
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+  let containerStyle = styles.container;
+  let titleStyle = styles.title;
+  let typeMatchStyle = styles.typeMatch;
+  let editStyle = styles.edit;
+  let size = 25;
+  let algerianDinarStyle = styles.algerianDinar;
+  let labelBtnStyle = styles.labelBtn;
+  
+  if(screen.width < 350){
+    containerStyle = styles.containerSmall;
+    titleStyle = styles.titleSmall;
+    typeMatchStyle = styles.typeMatchSmall;
+    editStyle = styles.editSmall;
+    size = 22;
+    algerianDinarStyle = styles.algerianDinarSmall;
+    labelBtnStyle = styles.labelBtnSmall;
+}
+
+if(screen.height <= 800 && screen.height >=650){
+    containerStyle = styles.containerTall;
+    titleStyle = styles.titleTall;
+    typeMatchStyle = styles.typeMatchTall;
+    editStyle = styles.editTall;
+    size = 30;
+    algerianDinarStyle = styles.algerianDinarTall;
+    labelBtnStyle = styles.labelBtnTall;
+}
+
+if(screen.height > 800){
+   containerStyle = styles.containerBig;
+   titleStyle = styles.titleBig;
+   typeMatchStyle = styles.typeMatchBig;
+   editStyle = styles.editBig;
+   size = 36;
+   algerianDinarStyle = styles.algerianDinarBig;
+   labelBtnStyle = styles.labelBtnBig;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return(
      
-    <View style={styles.container}>
+    <View style={containerStyle}>
        
             <View style={styles.titleContainer}>
-            <Text style={styles.title}>SERVICE {props.serviceNumber}</Text>
+            <Text style={titleStyle}>SERVICE {props.serviceNumber}</Text>
             </View>
             
 
             <View style={styles.infoContainer}>
                 <View style={styles.infoMatchContainerLeft}>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.primary}/>
-                        <Text style={styles.typeMatch}> {props.typeMatch} </Text>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={25} color={Colors.primary}/>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={size} color={Colors.primary}/>
+                        <Text style={typeMatchStyle}> {props.typeMatch} </Text>
+                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={size} color={Colors.primary}/>
                     </View>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={25} color={Colors.primary}/>
-                        <Text style={styles.typeMatch}> {props.durationMatch} heure</Text>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={size} color={Colors.primary}/>
+                        <Text style={typeMatchStyle}> {props.durationMatch} heure</Text>
                     </View>
                 </View>
                 <View style={styles.infoMatchDateContainerRight}>
                     <View style={styles.typeTimeMatchContainer}> 
-                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={25} color={Colors.primary}/>
-                        <Text style={styles.edit}> modifier </Text>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={size} color={Colors.primary}/>
+                        <Text style={editStyle}> modifier </Text>
                     </View>
                     <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={25} color={Colors.primary}/>
-                        <Text style={styles.edit}> modifier </Text>
+                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={size} color={Colors.primary}/>
+                        <Text style={editStyle}> modifier </Text>
                     </View>
                 </View>
             </View>
 
             <View style={styles.tarifContainer}>
-                <Text style={styles.title}>{props.price} <Text style={styles.algerianDinar}>DA/Equipe</Text></Text>
+                <Text style={titleStyle}>{props.price} <Text style={algerianDinarStyle}>DA/Equipe</Text></Text>
             </View>
 
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonWidth}>
-                    <Button color={Colors.primary} title="Supprimer"/>
+                <Button
+                theme={{colors: {primary:Colors.primary}}} 
+                mode="contained"
+                labelStyle={labelBtnStyle}
+                contentStyle={{width:'100%'}}
+                style={{borderColor:Colors.primary}}
+                dark={true}
+                >Supprimer
+            </Button>
                 </View>
             </View>
 
@@ -63,29 +116,81 @@ const styles= StyleSheet.create({
     height:300,
     backgroundColor:"rgba(1,2,3,0.6)"
  },
-
+ containerSmall:{
+    borderRadius:10,
+    margin:20,
+    height:200,
+    backgroundColor:"rgba(1,2,3,0.6)"
+ },
+ containerTall:{
+    borderRadius:10,
+    margin:20,
+    height:400,
+    backgroundColor:"rgba(1,2,3,0.6)"
+ },
+ containerBig:{
+    borderRadius:10,
+    margin:20,
+    height:500,
+    backgroundColor:"rgba(1,2,3,0.6)"
+ },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  titleContainer:{
     width:'100%',
     height:'25%',
     alignItems:'center',
     justifyContent:'center'
  },
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  title:{
      fontFamily:'poppins-bold',
      fontSize:30,
      color:Colors.primary
  },
+ titleSmall:{
+    fontFamily:'poppins-bold',
+    fontSize:26,
+    color:Colors.primary
+},
+titleTall:{
+    fontFamily:'poppins-bold',
+    fontSize:36,
+    color:Colors.primary
+},
+titleBig:{
+    fontFamily:'poppins-bold',
+    fontSize:42,
+    color:Colors.primary
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  infoContainer:{
     width:'100%',
     height:'35%',
     justifyContent: 'space-between',
     flexDirection:'row'
  },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  typeMatch:{
     fontSize:18,
     fontFamily:'poppins',
     color:'white',
  },
+ typeMatchSmall:{
+    fontSize:15,
+    fontFamily:'poppins',
+    color:'white',
+ },
+ typeMatchTall:{
+    fontSize:22,
+    fontFamily:'poppins',
+    color:'white',
+ },
+ typeMatchBig:{
+    fontSize:26,
+    fontFamily:'poppins',
+    color:'white',
+ },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  edit:{
     fontSize:18,
     fontFamily:'poppins',
@@ -93,6 +198,29 @@ const styles= StyleSheet.create({
     borderBottomColor:'white',
     borderBottomWidth:1
  },
+ editSmall:{
+    fontSize:16,
+    fontFamily:'poppins',
+    color:'white',
+    borderBottomColor:'white',
+    borderBottomWidth:1
+ },
+ editTall:{
+    fontSize:18,
+    fontFamily:'poppins',
+    color:'white',
+    borderBottomColor:'white',
+    borderBottomWidth:1
+ },
+ editBig:{
+    fontSize:26,
+    fontFamily:'poppins',
+    color:'white',
+    borderBottomColor:'white',
+    borderBottomWidth:1,
+    alignSelf:'center'
+ },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  infoMatchContainerLeft:{
      width:'50%',
      padding:5,
@@ -114,11 +242,28 @@ const styles= StyleSheet.create({
      width:'100%',
      height:'20%'
  },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  algerianDinar:{
      fontSize:14,
      fontFamily:'poppins',
      color:'white'
  },
+ algerianDinarSmall:{
+    fontSize:13,
+    fontFamily:'poppins',
+    color:'white'
+},
+algerianDinarTall:{
+    fontSize:16,
+    fontFamily:'poppins',
+    color:'white'
+},
+algerianDinarBig:{
+    fontSize:20,
+    fontFamily:'poppins',
+    color:'white'
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  buttonsContainer:{
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,10 +272,31 @@ const styles= StyleSheet.create({
     
  },
  buttonWidth:{
-    width:'40%',
+    width:'60%',
     borderRadius:20,
     overflow:'hidden'
  },
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ labelBtn:{
+    fontSize:15,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+   },
+ labelBtnSmall:{
+    fontSize:14,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+},
+ labelBtnTall:{
+    fontSize:18,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+},
+ labelBtnBig:{
+    fontSize:24,
+    fontFamily:'poppins', 
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
+}
 });
 
 export default ServiceCard;

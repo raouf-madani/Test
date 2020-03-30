@@ -28,6 +28,8 @@ const OwnerBookingsScreen = props =>{
   let textStyle = styles.text;
   let sizeDay = 14;
   let sizeMonth = 14;
+  let slotStyle = styles.slot;
+  let dataTableHeaderStyle = styles.dataTableHeader;
 
   if(screen.width < 350){
     calendarStyle = styles.calendarSmall;
@@ -35,6 +37,8 @@ const OwnerBookingsScreen = props =>{
     textStyle = styles.textSmall;
     sizeDay = 13;
     sizeMonth = 13;
+    slotStyle = styles.slotSmall;
+    dataTableHeaderStyle = styles.dataTableHeaderSmall;
   }
 
   if(screen.height <= 800 && screen.height >=650){
@@ -43,6 +47,8 @@ const OwnerBookingsScreen = props =>{
     textStyle = styles.textTall;
     sizeDay = 16;
     sizeMonth = 17;
+    slotStyle = styles.slotTall;
+    dataTableHeaderStyle = styles.dataTableHeaderTall;
   }
 
   if(screen.height > 800){
@@ -51,6 +57,8 @@ const OwnerBookingsScreen = props =>{
     textStyle = styles.textBig;
     sizeDay = 18;
     sizeMonth = 20;
+    slotStyle = styles.slotBig;
+    dataTableHeaderStyle = styles.dataTableHeaderBig;
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -103,9 +111,9 @@ const OwnerBookingsScreen = props =>{
           
             <DataTable style={dataTableStyle}>
               <DataTable.Header>
-                <DataTable.Title>Créneau</DataTable.Title>
-                <DataTable.Title>Réservation</DataTable.Title>
-                <DataTable.Title numeric>Statut</DataTable.Title>
+                <DataTable.Title><Text style={dataTableHeaderStyle}>Créneau</Text></DataTable.Title>
+                <DataTable.Title><Text style={dataTableHeaderStyle}>Réservation</Text></DataTable.Title>
+                <DataTable.Title numeric><Text style={dataTableHeaderStyle}>Statut</Text></DataTable.Title>
               </DataTable.Header>
 
               {theDay && data.length !== 0 && data.map( e => e.date===theDay && <DataTable.Row 
@@ -115,19 +123,19 @@ const OwnerBookingsScreen = props =>{
         
                 <DataTable.Cell>
                   
-                    <Text style={styles.slot}>{e.creneauD+ ' > '}</Text>
-                    <Text style={styles.slot}>{e.creneauF}</Text>
+                    <Text style={slotStyle}>{e.creneauD+ ' > '}</Text>
+                    <Text style={slotStyle}>{e.creneauF}</Text>
 
                 </DataTable.Cell>
                 <DataTable.Cell>
                   
-                    <Text style={styles.slot}>{e.nom}</Text>
+                    <Text style={slotStyle}>{e.nom}</Text>
 
                 </DataTable.Cell>
 
                 <DataTable.Cell numeric>
                   
-                    <Text style={styles.slot}>{e.statut}</Text>
+                    <Text style={slotStyle}>{e.statut}</Text>
 
                 </DataTable.Cell>   
 
@@ -268,9 +276,46 @@ textBig:{
   fontSize:19
 },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+dataTableHeader:{
+  fontFamily:'poppins',
+  color:'grey',
+  fontSize:14
+},
+dataTableHeaderSmall:{
+  fontFamily:'poppins',
+  color:'grey',
+  fontSize:13
+},
+dataTableHeaderTall:{
+  fontFamily:'poppins',
+  color:'grey',
+  fontSize:16
+},
+dataTableHeaderBig:{
+  fontFamily:'poppins',
+  color:'grey',
+  fontSize:18
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 slot:{
   fontFamily:'poppins',
-  color:'white'
+  color:'white',
+  fontSize:14
+},
+slotSmall:{
+  fontFamily:'poppins',
+  color:'white',
+  fontSize:13
+},
+slotTall:{
+  fontFamily:'poppins',
+  color:'white',
+  fontSize:16
+},
+slotBig:{
+  fontFamily:'poppins',
+  color:'white',
+  fontSize:18
 }
 });
 
