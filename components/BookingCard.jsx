@@ -134,9 +134,7 @@ const styles= StyleSheet.create({
       justifyContent : "center",
       height : "90%",
       overflow : "hidden",
-      alignSelf : "center",
-      
-
+      alignSelf : "center"
     },
     avatarContainerBig : {
       flexDirection : "row",

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Platform, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Image, Platform, ImageBackground ,Dimensions} from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { Button } from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Carousel , { ParallaxImage }  from 'react-native-snap-carousel';
 import {Ionicons} from "@expo/vector-icons";
 
+const screen = Dimensions.get("window");
 const InfoOverlay = props =>{
   
   const data = [
@@ -79,8 +80,8 @@ const InfoOverlay = props =>{
                     <Carousel
                       data = {data}
                       renderItem = {renderItem} 
-                      itemWidth = {300}
-                      sliderWidth = {350}
+                      itemWidth = {screen.width - 60}
+                      sliderWidth = {screen.width - 60 }
                       itemHeight = {300}
                       sliderHeight = {350}
                     hasParallaxImages = {true}
@@ -94,12 +95,12 @@ const InfoOverlay = props =>{
             
                   <Text>
                  <Text style = {styles.leftText}>Télephone : </Text> 
-                 <Text style = {styles.rightText}>025252525 </Text> 
+                 <Text style = {styles.rightText}> 025252525 </Text> 
                   </Text>
                   <Text>
 
                   <Text style = {styles.leftText} >Adresse : </Text>
-                   <Text style = {styles.rightText}>17 Cité jwajla 
+                   <Text style = {styles.rightText}> 17 Cité jwajla 
                    </Text> 
                   </Text>
 
@@ -112,13 +113,13 @@ const InfoOverlay = props =>{
                 <Text>
                   <Text style = {styles.leftText} >Douche : 
                   </Text>
-                   <Text style = {styles.rightText}>Oui</Text> 
+                   <Text style = {styles.rightText}> Oui</Text> 
                 </Text>
                     
                   <Text>
                   <Text style = {styles.leftText} >Stades : 
                   </Text>
-                   <Text style = {styles.rightText} >5x5 , 7x7
+                   <Text style = {styles.rightText} > 5x5 , 7x7
                    </Text> 
                   </Text>
 
@@ -184,17 +185,19 @@ propertyInfo : {
 extraInfo : {
   flex : 1 
 },
+////////////////////////////////////////////////////////
 leftText : {
   fontFamily : "poppins-bold",
-  fontSize : 16,
+  fontSize : screen.height >800 ? 24 :  16,
   
 },
+/////////////////////////////////////////////
 rightText : {
-  fontFamily : "poppins"
-
+  fontFamily : "poppins",
+  fontSize : screen.height >800 ? 22 :  14,
 }
 
-
+////////////////////////////////////////////////////////
 
 });
 
