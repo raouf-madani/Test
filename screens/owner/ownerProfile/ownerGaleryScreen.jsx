@@ -19,7 +19,6 @@ const OwnerGaleryScreen = props =>{
   let size = 36;
 
   if(screen.width < 350){
-    textStyle = styles.textSmall;
     size = 34;
   }
 
@@ -252,7 +251,6 @@ const styles= StyleSheet.create({
      flexDirection:'row',
       height:'50%',
      width:'90%',
-     backgroundColor:'red',
      justifyContent:'space-around',
      alignItems:'center'
    },
@@ -272,8 +270,8 @@ const styles= StyleSheet.create({
    },
    iconContainer:{
     height:40,
-    width:40,
-    borderRadius:40/2,
+    width:50,
+    borderRadius:50/2,
     backgroundColor:'transparent',
     justifyContent:'center',
     alignItems:'center'
@@ -287,23 +285,18 @@ const styles= StyleSheet.create({
    text:{
      alignSelf:'center',
      position:'relative',
-     top:60
+     top:screen.height * 0.1
    },
-   textSmall:{
-    alignSelf:'center',
-    position:'relative',
-    top:40
-  },
   textTall:{
     alignSelf:'center',
     position:'relative',
-    top:100,
+    top:screen.height * 0.1,
     fontSize:20
   },
   textBig:{
     alignSelf:'center',
     position:'relative',
-    top:150,
+    top:screen.height * 0.15,
     fontSize:22
   }
 });
