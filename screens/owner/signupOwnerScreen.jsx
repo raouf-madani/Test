@@ -28,13 +28,15 @@ const SignupOwnerScreen = props =>{
   if(screen.width < 350){
     progressStepsStyle = styles.progressStepsSmall;
     pickerContainerStyle = styles.pickerContainer;
+    previousNextBtnStyle = styles.previousNextBtnSmall;
+    finishBtnStyle = styles.finishBtnSmall;
     inputsContainerStyle = styles.inputsContainerSmall;
     step3ContainerStyle = styles.step3ContainerSmall;
     rowContainerStyle = styles.rowContainerSmall;
     
    }
 
-   if(screen.height <= 800 && screen.height >=650){
+   if(screen.height <= 800 && screen.height >=700){
     progressStepsStyle = styles.progressStepsTall;
     inputsContainerStyle = styles.inputsContainerBig;
     textInputStyle = styles.textInputTall;
@@ -213,8 +215,8 @@ const SignupOwnerScreen = props =>{
                         nextBtnTextStyle={finishBtnStyle}
                         finishBtnText='Confirmer'
                         previousBtnText='Précédent'
-                        nextBtnStyle={{padding:0}}
-                        previousBtnStyle={{padding:0}}    
+                        nextBtnStyle={{paddingHorizontal:0}}
+                        previousBtnStyle={{paddingHorizontal:0}}    
                     >
                         <View style={step3ContainerStyle}>
                             <View style={rowContainerStyle}>
@@ -348,7 +350,7 @@ const styles= StyleSheet.create({
   progressStepsSmall:{
     marginHorizontal:10,
     flex:1,
-    marginVertical:25
+    marginVertical:10
  },
  progressStepsTall:{
     marginHorizontal:10,
@@ -365,6 +367,11 @@ const styles= StyleSheet.create({
    color:Colors.primary,
    fontFamily:'poppins'
  },
+ previousNextBtnSmall:{
+  color:Colors.primary,
+  fontFamily:'poppins',
+  fontSize:15
+},
  previousNextBtnBig:{
     color:Colors.primary,
     fontFamily:'poppins',
@@ -374,6 +381,11 @@ const styles= StyleSheet.create({
     color:Colors.secondary,
     fontFamily:'poppins'
  },
+ finishBtnSmall:{
+  color:Colors.secondary,
+  fontFamily:'poppins',
+  fontSize:15
+},
  finishBtnBig:{
     color:Colors.secondary,
     fontFamily:'poppins',
@@ -386,7 +398,7 @@ const styles= StyleSheet.create({
   },
   inputsContainerSmall:{
     padding:10,
-    marginTop:20
+    marginTop:15
   },
   inputsContainerBig:{
     padding:30,
@@ -399,7 +411,7 @@ const styles= StyleSheet.create({
   textInputTall:{
     backgroundColor:'transparent',
     fontSize:20,
-    paddingVertical:20
+    paddingVertical:15
   },
   textInputBig:{
     backgroundColor:'transparent',
@@ -435,14 +447,14 @@ const styles= StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-around',
     width:'100%',
-    marginVertical:30
+    marginVertical:20
   },
   rowStyleBig:{
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-around',
     width:'100%',
-    marginVertical:35
+    marginVertical:25
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   text:{
@@ -483,7 +495,7 @@ const styles= StyleSheet.create({
     marginTop:20
   },
   step3ContainerBig:{
-    marginTop:60
+    marginTop:50
   },
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -495,7 +507,7 @@ const styles= StyleSheet.create({
   pickerContainerTall:{
     borderBottomWidth:1,
     borderBottomColor:'white',
-    paddingVertical:20,
+    paddingVertical:15,
     paddingHorizontal:10
   },
   pickerContainerBig:{

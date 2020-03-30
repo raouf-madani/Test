@@ -41,7 +41,7 @@ const OwnerBookingsScreen = props =>{
     dataTableHeaderStyle = styles.dataTableHeaderSmall;
   }
 
-  if(screen.height <= 800 && screen.height >=650){
+  if(screen.height <= 800 && screen.height >=700){
     calendarStyle = styles.calendarTall;
     dataTableStyle = styles.dataTableTall;
     textStyle = styles.textTall;

@@ -24,7 +24,7 @@ const OwnerBookingsDetailScreen = props =>{
     textInputStyle = styles.textInputSmall;
   }
 
-  if(screen.height <= 800 && screen.height >=650){
+  if(screen.height <= 800 && screen.height >=700){
     cardContainerStyle = styles.cardContainerTall;
     textInputStyle = styles.textInputTall;
   }
@@ -179,7 +179,7 @@ cardContainer : {
 },
 cardContainerSmall : {
   width : " 97%" ,
-  height : 200,
+  height : 280,
   justifyContent : "center",
   backgroundColor : "rgba(80, 80, 80,0.9)",
   borderRadius : 15,

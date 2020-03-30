@@ -24,7 +24,7 @@ const OwnerSupportScreen = props =>{
     iconStyle = styles.iconSmall;
   }
 
-  if(screen.height <= 800 && screen.height >=650){
+  if(screen.height <= 800 && screen.height >=700){
     cardStyle = styles.cardTall;
     titleStyle = styles.titleTall;
     infoContainerStyle = styles.infoContainerTall;
@@ -117,19 +117,19 @@ const styles= StyleSheet.create({
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    card:{
     margin:15,
-    height:300,
+    height:'50%',
    },
    cardSmall:{
     margin:15,
-    height:250,
+    height:'50%',
    },
    cardTall:{
     margin:15,
-    height:500,
+    height:'55%',
    },
    cardBig:{
     margin:15,
-    height:600,
+    height:'60%',
    },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    bigBackgroundImage:{
@@ -157,12 +157,12 @@ const styles= StyleSheet.create({
   titleTall:{
     fontFamily:'poppins-bold',
     color:Colors.background,
-    fontSize:32
+    fontSize:26
   },
   titleBig:{
     fontFamily:'poppins-bold',
     color:Colors.background,
-    fontSize:42
+    fontSize:36
   },
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   card2:{

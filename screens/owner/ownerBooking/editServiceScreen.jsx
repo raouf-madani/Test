@@ -26,7 +26,7 @@ const EditServiceScreen = props =>{
     radioTypeMatchStyle = styles.radioTypeMatchSmall;
   }
 
-  if(screen.height <= 800 && screen.height >=650){
+  if(screen.height <= 800 && screen.height >=700){
     titleStyle = styles.titleTall;
     titleNoBoldStyle = styles.titleNoBoldTall;
     titleContainer2Style = styles.titleContainer2Tall;

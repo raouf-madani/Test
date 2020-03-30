@@ -26,15 +26,22 @@ const OwnerGaleryScreen = props =>{
     size = 34;
   }
 
-  if(screen.height <= 800 && screen.height >=650){
+  if(screen.height <= 800 && screen.height >=700){
     gridStyle = styles.gridTall;
     iconContainerStyle = styles.iconContainerTall;
     textStyle = styles.textTall;
     size = 42;
   }
 
-  if(screen.height > 800){
+  if(screen.height <= 1200 && screen.height > 800){
     gridStyle = styles.gridBig;
+    iconContainerStyle = styles.iconContainerBig;
+    textStyle = styles.textBig;
+    size = 46;
+  }
+
+  if(screen.height > 1200 ){
+    gridStyle = styles.gridLarge;
     iconContainerStyle = styles.iconContainerBig;
     textStyle = styles.textBig;
     size = 46;
@@ -143,13 +150,15 @@ const takeImageHandler4 = async ()=>{
                </View>)}
           </View>
           <View style={gridStyle}>
-            {!pickedImage2 ? (<View style={styles.wrapper}>
+            {!pickedImage2 ? (<View><View style={styles.wrapper}>
               <TouchableHighlight style={iconContainerStyle} onPress={takeImageHandler2}>
                 <Ionicons title = "remove" 
                 name = 'ios-camera'
                 color={Colors.background} size={size} />
               </TouchableHighlight>
-              <Text style={textStyle}>Photo 2</Text>
+
+            </View>
+            <Text style={textStyle}>Photo 2</Text>
             </View>) :
              ( <View style={styles.wrapper}>
                 <Image style={styles.image} source={{uri:pickedImage2}} />
@@ -253,7 +262,7 @@ const styles= StyleSheet.create({
     alignItems:'center'
    },
    gridContainer:{
-     flexDirection:'row'
+     flexDirection:'row',
    },
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    grid:{
@@ -282,8 +291,16 @@ const styles= StyleSheet.create({
   },
   gridBig:{
     backgroundColor:'white',
-    width:300,
-    height:400,
+    width:250,
+    height:350,
+    borderRadius:10,
+    borderWidth:1,
+    margin:5
+  },
+  gridLarge:{
+    backgroundColor:'white',
+    width:350,
+    height:450,
     borderRadius:10,
     borderWidth:1,
     margin:5

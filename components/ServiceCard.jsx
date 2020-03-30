@@ -30,7 +30,7 @@ const ServiceCard = props =>{
     labelBtnStyle = styles.labelBtnSmall;
 }
 
-if(screen.height <= 800 && screen.height >=650){
+if(screen.height <= 800 && screen.height >=700){
     containerStyle = styles.containerTall;
     titleStyle = styles.titleTall;
     typeMatchStyle = styles.typeMatchTall;
@@ -119,13 +119,13 @@ const styles= StyleSheet.create({
  containerSmall:{
     borderRadius:10,
     margin:20,
-    height:200,
+    height:280,
     backgroundColor:"rgba(1,2,3,0.6)"
  },
  containerTall:{
     borderRadius:10,
     margin:20,
-    height:400,
+    height:350,
     backgroundColor:"rgba(1,2,3,0.6)"
  },
  containerBig:{
@@ -283,7 +283,7 @@ algerianDinarBig:{
     color: Platform.OS === 'android' ? 'white' : Colors.primary
    },
  labelBtnSmall:{
-    fontSize:14,
+    fontSize:13,
     fontFamily:'poppins', 
     color: Platform.OS === 'android' ? 'white' : Colors.primary
 },

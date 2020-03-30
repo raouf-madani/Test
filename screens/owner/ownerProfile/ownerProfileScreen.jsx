@@ -13,7 +13,7 @@ import * as Permissions from 'expo-permissions';
 const screen = Dimensions.get('window');
 
 const OwnerProfileScreen = props =>{
-    
+    console.log(screen.height);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */ 
     let textInputStyle = styles.textInput;
@@ -23,6 +23,10 @@ const OwnerProfileScreen = props =>{
     let card2Style = styles.card2;
     let itemPickerStyleIOS = styles.itemPickerIOS;
     let labelBtnStyle = styles.labelBtn;
+
+    if(screen.width < 350){
+        circlesContainerStyle = styles.circlesContainerSmall;
+    }
 
     if(screen.height > 800){
         textInputStyle = styles.textInputBig;
@@ -317,6 +321,14 @@ const styles= StyleSheet.create({
      justifyContent:'center',
      marginHorizontal:20
    },
+   circlesContainerSmall:{
+    width:'20%',
+    marginBottom:20,
+    marginTop:50,
+    height:200,
+    justifyContent:'center',
+    marginHorizontal:10
+  },
    circlesContainerBig:{
     width:'20%',
     marginBottom:20,

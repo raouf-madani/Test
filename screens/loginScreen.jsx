@@ -39,7 +39,7 @@ const LoginScreen = props =>{
     facebookIconStyle = styles.facebookIconSmall;
    }
 
-   if(screen.height <= 800 && screen.height >=650){
+   if(screen.height <= 800 && screen.height >=700){
     titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
     textInputStyle = styles.textInputTall;
@@ -221,8 +221,8 @@ const styles= StyleSheet.create({
     alignSelf : "center"
    },
    iconContainerBig:{
-    width : 220 , 
-    height : 220 ,  
+    width : 180 , 
+    height : 180 ,  
     alignSelf : "center"
    },
    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -233,7 +233,7 @@ const styles= StyleSheet.create({
     padding:10
   },
   signupContainerBig:{
-    padding:50
+    padding:40
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   inputsContainer:{

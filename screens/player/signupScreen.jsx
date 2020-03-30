@@ -33,12 +33,13 @@ const SignupScreen = props =>{
     facebookTextStyle = styles.facebookTextSmall;
     facebookIconStyle = styles.facebookIconSmall;
     termsConditionsTextStyle = styles.termsConditionsTextSmall;
+   
    }
 
-   if(screen.height <= 799 && screen.height >=650){
+   if(screen.height <= 800 && screen.height >=700){
     titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
-    textInputStyle = styles.textInputBig;
+    textInputStyle = styles.textInputTall;
     facebookContainerStyle = styles.facebookContainerTall;
    }
 
@@ -238,7 +239,7 @@ const styles= StyleSheet.create({
   titleSmall:{
     color:Colors.primary,
     fontFamily:'poppins-bold',
-    fontSize:23
+    fontSize:20
   },
   titleBig:{
     color:Colors.primary,
@@ -299,7 +300,7 @@ const styles= StyleSheet.create({
     color: Platform.OS === 'android' ? 'white' : Colors.primary
   },
   labelSignupSmall:{
-    fontSize:14,
+    fontSize:13,
     fontFamily:'poppins', 
     color: Platform.OS === 'android' ? 'white' : Colors.primary
   },
@@ -315,7 +316,7 @@ const styles= StyleSheet.create({
     color: Platform.OS === 'android' ? 'white' : Colors.secondary
   },
   labelLoginSmall:{
-    fontSize:14,
+    fontSize:13,
     fontFamily:'poppins', 
     color: Platform.OS === 'android' ? 'white' : Colors.secondary
   },
