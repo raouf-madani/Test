@@ -15,37 +15,25 @@ const OwnerGaleryScreen = props =>{
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
-  let gridStyle = styles.grid;
-  let iconContainerStyle = styles.iconContainer;
   let textStyle = styles.text;
   let size = 36;
 
   if(screen.width < 350){
-    gridStyle = styles.gridSmall;
     textStyle = styles.textSmall;
     size = 34;
   }
 
-  if(screen.height <= 800 && screen.height >=700){
-    gridStyle = styles.gridTall;
-    iconContainerStyle = styles.iconContainerTall;
+  if(screen.height <= 900 && screen.height >=700){
     textStyle = styles.textTall;
     size = 42;
   }
 
-  if(screen.height <= 1200 && screen.height > 800){
-    gridStyle = styles.gridBig;
-    iconContainerStyle = styles.iconContainerBig;
+  if(screen.height > 900){
     textStyle = styles.textBig;
     size = 46;
   }
 
-  if(screen.height > 1200 ){
-    gridStyle = styles.gridLarge;
-    iconContainerStyle = styles.iconContainerBig;
-    textStyle = styles.textBig;
-    size = 46;
-  }
+  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [pickedImage,setPickedImage]= useState();
@@ -131,9 +119,9 @@ const takeImageHandler4 = async ()=>{
      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
       <View style={styles.card}>
         <View style={styles.gridContainer}>
-          <View style={gridStyle}>
+          <View style={styles.grid}>
             {!pickedImage ? (<View style={styles.wrapper}>
-              <TouchableHighlight style={iconContainerStyle} onPress={takeImageHandler}>
+              <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler}>
                 <Ionicons title = "add" 
                 name ='ios-camera'
                 color={Colors.background} size={size} />
@@ -142,27 +130,26 @@ const takeImageHandler4 = async ()=>{
             </View>)
              : (<View style={styles.wrapper}>
                <Image style={styles.image} source={{uri:pickedImage}} />
-               <TouchableHighlight style={iconContainerStyle} onPress={()=>setPickedImage(false)}>
+               <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage(false)}>
                   <Ionicons title = "add" 
                   name ='ios-remove'
                   color='red' size={size} />
                </TouchableHighlight>
                </View>)}
           </View>
-          <View style={gridStyle}>
-            {!pickedImage2 ? (<View><View style={styles.wrapper}>
-              <TouchableHighlight style={iconContainerStyle} onPress={takeImageHandler2}>
-                <Ionicons title = "remove" 
-                name = 'ios-camera'
-                color={Colors.background} size={size} />
-              </TouchableHighlight>
-
-            </View>
-            <Text style={textStyle}>Photo 2</Text>
-            </View>) :
+          <View style={styles.grid}>
+            {!pickedImage2 ? 
+            ( <View style={styles.wrapper}>
+                <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler2}>
+                  <Ionicons title = "remove" 
+                  name = 'ios-camera'
+                  color={Colors.background} size={size} />
+                </TouchableHighlight>
+                <Text style={textStyle}>Photo 2</Text>
+              </View>) :
              ( <View style={styles.wrapper}>
                 <Image style={styles.image} source={{uri:pickedImage2}} />
-                <TouchableHighlight style={iconContainerStyle} onPress={()=>setPickedImage2(false)}>
+                <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage2(false)}>
                   <Ionicons title = "remove" 
                   name ='ios-remove'
                   color='red' size={size} />
@@ -171,9 +158,9 @@ const takeImageHandler4 = async ()=>{
           </View>
         </View>
         <View style={styles.gridContainer}>
-          <View style={gridStyle}>
+          <View style={styles.grid}>
             {!pickedImage3 ? (<View style={styles.wrapper}>
-              <TouchableHighlight style={iconContainerStyle} onPress={takeImageHandler3}>
+              <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler3}>
                 <Ionicons title = "add" 
                 name ='ios-camera'
                 color={Colors.background} size={size} />
@@ -189,9 +176,9 @@ const takeImageHandler4 = async ()=>{
                </TouchableHighlight>
                </View>)}
           </View>
-          <View style={gridStyle}>
+          <View style={styles.grid}>
             {!pickedImage4 ? (<View style={styles.wrapper}>
-              <TouchableHighlight style={iconContainerStyle} onPress={takeImageHandler4}>
+              <TouchableHighlight style={styles.iconContainer} onPress={takeImageHandler4}>
                 <Ionicons title = "add" 
                 name ='ios-camera'
                 color={Colors.background} size={size} />
@@ -200,7 +187,7 @@ const takeImageHandler4 = async ()=>{
             </View>) : 
             (<View style={styles.wrapper}>
                 <Image style={styles.image} source={{uri:pickedImage4}} />
-                <TouchableHighlight style={iconContainerStyle} onPress={()=>setPickedImage4(false)}>
+                <TouchableHighlight style={styles.iconContainer} onPress={()=>setPickedImage4(false)}>
                   <Ionicons title = "remove" 
                   name ='ios-remove'
                   color='red' size={size} />
@@ -263,56 +250,26 @@ const styles= StyleSheet.create({
    },
    gridContainer:{
      flexDirection:'row',
+      height:'50%',
+     width:'90%',
+     backgroundColor:'red',
+     justifyContent:'space-around',
+     alignItems:'center'
    },
-   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    grid:{
      backgroundColor:'white',
-     width:150,
-     height:200,
+     width:'45%',
+     height:'90%',
      borderRadius:10,
      borderWidth:1,
      margin:5
    },
-   gridSmall:{
-    backgroundColor:'white',
-    width:100,
-    height:150,
-    borderRadius:10,
-    borderWidth:1,
-    margin:5
-  },
-  gridTall:{
-    backgroundColor:'white',
-    width:200,
-    height:300,
-    borderRadius:10,
-    borderWidth:1,
-    margin:5
-  },
-  gridBig:{
-    backgroundColor:'white',
-    width:250,
-    height:350,
-    borderRadius:10,
-    borderWidth:1,
-    margin:5
-  },
-  gridLarge:{
-    backgroundColor:'white',
-    width:350,
-    height:450,
-    borderRadius:10,
-    borderWidth:1,
-    margin:5
-  },
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    wrapper:{
      width:'100%',
      height:'100%',
      justifyContent:'flex-start',
      alignItems:'flex-end'
    },
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    iconContainer:{
     height:40,
     width:40,
@@ -320,24 +277,7 @@ const styles= StyleSheet.create({
     backgroundColor:'transparent',
     justifyContent:'center',
     alignItems:'center'
-   },
-   iconContainerTall:{
-    height:50,
-    width:50,
-    borderRadius:40/2,
-    backgroundColor:'transparent',
-    justifyContent:'center',
-    alignItems:'center'
-   },
-   iconContainerBig:{
-    height:60,
-    width:60,
-    borderRadius:40/2,
-    backgroundColor:'transparent',
-    justifyContent:'center',
-    alignItems:'center'
-   },
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+   }, 
    image:{
      width:'100%',
      height:'100%',
@@ -347,7 +287,7 @@ const styles= StyleSheet.create({
    text:{
      alignSelf:'center',
      position:'relative',
-     top:50
+     top:60
    },
    textSmall:{
     alignSelf:'center',
@@ -357,13 +297,13 @@ const styles= StyleSheet.create({
   textTall:{
     alignSelf:'center',
     position:'relative',
-    top:80,
+    top:100,
     fontSize:20
   },
   textBig:{
     alignSelf:'center',
     position:'relative',
-    top:100,
+    top:150,
     fontSize:22
   }
 });
