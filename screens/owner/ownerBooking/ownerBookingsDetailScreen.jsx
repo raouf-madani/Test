@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { StyleSheet,View,Linking,ImageBackground} from 'react-native';
+import { StyleSheet,View,Linking,Dimensions} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
@@ -8,8 +8,34 @@ import {TextInput} from 'react-native-paper';
 import BookingCard from '../../../components/BookingCard';
 
 
+//responsivity (Dimensions get method)
+const screen = Dimensions.get('window');
 
 const OwnerBookingsDetailScreen = props =>{
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*Responsivity */
+  let cardContainerStyle = styles.cardContainer;
+  let textInputStyle = styles.textInput;
+  let containerStyle = styles.container;
+
+  if(screen.width < 350){
+    cardContainerStyle = styles.cardContainerSmall;
+    textInputStyle = styles.textInputSmall;
+  }
+
+  if(screen.height <= 800 && screen.height >=650){
+    cardContainerStyle = styles.cardContainerTall;
+    textInputStyle = styles.textInputTall;
+  }
+
+  if(screen.height > 800){
+    cardContainerStyle = styles.cardContainerBig;
+    textInputStyle = styles.textInputBig;
+    containerStyle = styles.containerBig;
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     const bookingID = props.navigation.getParam('bookingID');
     const data=[{id:'1',nom:'Madani',prenom:'Raouf',creneauD:'13h',creneauF:'14h',statut:'Confirmée',date:'2020-03-16',num:'06598532145'},
@@ -42,7 +68,7 @@ const OwnerBookingsDetailScreen = props =>{
       
     return(
     
-     <View style={styles.container}>
+     <View style={containerStyle}>
         <BookingCard 
           status="error"
           value={currentBooking.statut}
@@ -53,33 +79,33 @@ const OwnerBookingsDetailScreen = props =>{
           month={month()}
           year={currentBooking.date.split('-').shift()}
         />
-        <View style={styles.cardContainer}>
+        <View style={cardContainerStyle}>
           <TextInput
               mode='outlined'
               value={'Nom : '+currentBooking.nom}
               theme={{colors: {primary:Colors.background,text:'white'}}}
-              style={{backgroundColor:Colors.background}}
+              style={textInputStyle}
               underlineColor='white'
           />
           <TextInput
               mode='outlined'
               value={'Prénom : '+currentBooking.prenom}
               theme={{colors: {primary:Colors.background,text:'white'}}}
-              style={{backgroundColor:Colors.background}}
+              style={textInputStyle}
               underlineColor='white'
           />
           <TextInput
               mode='outlined'
               value={'Téléphone : '+currentBooking.num}
               theme={{colors: {primary:Colors.background,text:'white'}}}
-              style={{backgroundColor:Colors.background}}
+              style={textInputStyle}
               underlineColor='white'
           />
           <TextInput
               mode='outlined'
               value={'Numéro de réservation : '+currentBooking.id}
               theme={{colors: {primary:Colors.background,text:'white'}}}
-              style={{backgroundColor:Colors.background}}
+              style={textInputStyle}
               underlineColor='white'
           />
         </View>
@@ -134,6 +160,14 @@ container:{
   alignItems:'center',
   padding:20,
 },
+containerBig:{
+  flex:1,
+  backgroundColor:Colors.background,
+  justifyContent:'center',
+  alignItems:'center',
+  padding:20,
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 cardContainer : {
     width : " 97%" ,
     height : 300,
@@ -142,7 +176,54 @@ cardContainer : {
     borderRadius : 15,
     marginVertical : 10,
     paddingHorizontal:10
-}
+},
+cardContainerSmall : {
+  width : " 97%" ,
+  height : 200,
+  justifyContent : "center",
+  backgroundColor : "rgba(80, 80, 80,0.9)",
+  borderRadius : 15,
+  marginVertical : 10,
+  paddingHorizontal:10
+},
+cardContainerTall : {
+  width : " 97%" ,
+  height : 350,
+  justifyContent : "center",
+  backgroundColor : "rgba(80, 80, 80,0.9)",
+  borderRadius : 15,
+  marginVertical : 30,
+  paddingHorizontal:10
+},
+cardContainerBig : {
+  width : " 97%" ,
+  height : 400,
+  justifyContent : "center",
+  backgroundColor : "rgba(80, 80, 80,0.9)",
+  borderRadius : 15,
+  marginVertical : 30,
+  paddingHorizontal:10
+},
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+textInput:{
+  backgroundColor:Colors.background,
+  fontSize:16
+},
+textInputSmall:{
+  backgroundColor:Colors.background,
+  fontSize:14,
+  
+},
+textInputTall:{
+  backgroundColor:Colors.background,
+  fontSize:17,
+  marginVertical : 5
+},
+textInputBig:{
+  backgroundColor:Colors.background,
+  fontSize:20,
+  marginVertical : 10
+},
 });
 
 export default OwnerBookingsDetailScreen;

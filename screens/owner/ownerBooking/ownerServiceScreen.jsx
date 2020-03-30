@@ -2,13 +2,16 @@ import React from 'react';
 import { StyleSheet,View,ImageBackground, ScrollView,Platform} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import Colors from '../../../constants/Colors';
-import {Ionicons} from '@expo/vector-icons';
+
 
 import ServiceCard from '../../../components/ServiceCard';
 import HeaderButton from "../../../components/HeaderButton";
 
 
+
+
 const OwnerServiceScreen = props =>{
+
 
    
     return(
