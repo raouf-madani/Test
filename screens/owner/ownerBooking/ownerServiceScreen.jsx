@@ -20,7 +20,7 @@ const OwnerServiceScreen = props =>{
                 <ScrollView>
                     <ServiceCard 
                         serviceNumber={1}
-                        typeMatch='5 vs 5'
+                        typeMatch='5 x 5'
                         durationMatch={1}
                         daysMatch='Sam - Ven'
                         timeMatch='9h - 22h'
@@ -28,7 +28,7 @@ const OwnerServiceScreen = props =>{
                     />
                     <ServiceCard 
                         serviceNumber={2}
-                        typeMatch='11 vs 11'
+                        typeMatch='11 x 11'
                         durationMatch={1}
                         daysMatch='Sam - Ven'
                         timeMatch='9h - 22h'
@@ -36,7 +36,7 @@ const OwnerServiceScreen = props =>{
                     />
                     <ServiceCard 
                         serviceNumber={3}
-                        typeMatch='5 vs 5'
+                        typeMatch='5 x 5'
                         durationMatch={2}
                         daysMatch='Sam - Mar'
                         timeMatch='18h - 22h'
@@ -44,7 +44,7 @@ const OwnerServiceScreen = props =>{
                     />
                     <ServiceCard 
                         serviceNumber={4}
-                        typeMatch='10 vs 10'
+                        typeMatch='10 x 10'
                         durationMatch={2}
                         daysMatch='Sam - Ven'
                         timeMatch='9h - 18h'
@@ -67,18 +67,19 @@ OwnerServiceScreen.navigationOptions = navData => {
                   <Item title = "Edit" 
                     iconName = {Platform.OS === 'android' ? 'md-create' : 'ios-create'}  
                     onPress = {()=> navData.navigation.navigate("EditService")}
-                    color='white'
+                    color={Platform.OS === 'android' ? 'white' : Colors.background}
                   />
                 </HeaderButtons>),
                 headerTitle:'Mes Services',
                 headerTitleStyle:{
-                  fontFamily:'poppins',
-                  color:'white'
-                },
-                headerStyle:{
-                    backgroundColor:Colors.background
-                },
-                headerTintColor:'white'
+                    fontFamily:'poppins',
+                    color:Platform.OS === 'android' ? 'white' : Colors.background
+                  },
+                  headerStyle:{
+                      backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
+                  },
+                  headerBackTitle:null,
+                  headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
         };
   };
   

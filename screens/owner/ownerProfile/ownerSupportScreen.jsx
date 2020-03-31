@@ -25,8 +25,6 @@ const OwnerSupportScreen = props =>{
   }
 
   if(screen.height <= 800 && screen.height >=700){
-    cardStyle = styles.cardTall;
-    titleStyle = styles.titleTall;
     infoContainerStyle = styles.infoContainerTall;
     infoStyle = styles.infoTall;
     iconStyle = styles.iconTall;
@@ -77,7 +75,7 @@ OwnerSupportScreen.navigationOptions= navData => {
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "callSupport" 
                    iconName = {Platform.OS === 'android' ? 'md-call' : 'ios-call'}
-                   color='white'
+                   color= {Platform.OS === 'android' ? 'white' : Colors.background}
                    onPress={()=>{
                      let phoneNumber = '';
      
@@ -96,12 +94,13 @@ OwnerSupportScreen.navigationOptions= navData => {
              headerTitle:'Support',
              headerTitleStyle:{
                fontFamily:'poppins',
-               color:'white'
+               color:Platform.OS === 'android' ? 'white' : Colors.background
              },
              headerStyle:{
-                 backgroundColor:Colors.background
+                 backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
              },
-             headerTintColor:'white'
+             headerBackTitle:null,
+             headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
      
      };
  
@@ -117,15 +116,11 @@ const styles= StyleSheet.create({
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    card:{
     margin:15,
-    height:'50%',
+    height:'55%',
    },
    cardSmall:{
     margin:15,
     height:'50%',
-   },
-   cardTall:{
-    margin:15,
-    height:'55%',
    },
    cardBig:{
     margin:15,
@@ -154,15 +149,10 @@ const styles= StyleSheet.create({
     color:Colors.background,
     fontSize:21
   },
-  titleTall:{
-    fontFamily:'poppins-bold',
-    color:Colors.background,
-    fontSize:26
-  },
   titleBig:{
     fontFamily:'poppins-bold',
     color:Colors.background,
-    fontSize:36
+    fontSize:34
   },
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   card2:{

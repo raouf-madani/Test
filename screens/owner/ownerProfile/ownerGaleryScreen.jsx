@@ -208,20 +208,21 @@ OwnerGaleryScreen.navigationOptions= navData => {
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "save" 
                    iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
-                   color='white'
+                   color={Platform.OS === 'android' ? 'white' : Colors.background}
                  />
                </HeaderButtons>
                
              ),
              headerTitle:'Ma Galerie',
              headerTitleStyle:{
-               fontFamily:'poppins',
-               color:'white'
-             },
+              fontFamily:'poppins',
+              color:Platform.OS === 'android' ? 'white' : Colors.background
+            },
              headerStyle:{
-                 backgroundColor:Colors.background
-             },
-             headerTintColor:'white'
+              backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
+            },
+            headerBackTitle: null,
+            headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
      
      };
  

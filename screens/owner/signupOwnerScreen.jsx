@@ -101,7 +101,7 @@ const SignupOwnerScreen = props =>{
                  activeStepNumColor='white'
                  completedStepNumColor='white' 
                  activeLabelColor={Colors.primary}
-                 labelFontFamily='poppins-bold'
+                 labelFontFamily='poppins'
                  >
                     <ProgressStep 
                       label="Propriétaire" 
@@ -153,7 +153,7 @@ const SignupOwnerScreen = props =>{
                         </View>
                     </ProgressStep>
                     <ProgressStep 
-                        label="Multi-Stades"
+                        label="Multi-Stade"
                         previousBtnTextStyle={previousNextBtnStyle} 
                         nextBtnTextStyle={previousNextBtnStyle}
                         nextBtnText='Suivant'
@@ -430,7 +430,7 @@ const styles= StyleSheet.create({
     marginVertical:11
   },
   rowContainerTall:{
-    marginVertical:35
+    marginVertical:25
   },
   rowContainerBig:{
     marginVertical:40

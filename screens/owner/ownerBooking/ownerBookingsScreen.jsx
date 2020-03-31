@@ -172,7 +172,7 @@ OwnerBookingsScreen.navigationOptions= navData => {
                 <Item title = "calendar" 
                   iconName = {Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'}  
                   style={{marginHorizontal:-10}}
-                  color={Colors.primary}
+                  color= {Colors.primary}
                   onPress = { () => Alert.alert('Important','Vous avez 1 réservation(s). Cliquez sur chaque ligne dans le tableau pour voir les détails de chaque réservation.',[{text:"D'accord"}]) }
                 />
               </HeaderButtons>  
@@ -181,12 +181,13 @@ OwnerBookingsScreen.navigationOptions= navData => {
             headerTitle:'Mes Réservations',
             headerTitleStyle:{
               fontFamily:'poppins',
-              color:Colors.background
+              color:Platform.OS === 'android' ? 'white' : Colors.background
             },
             headerStyle:{
-                backgroundColor:'white'
+                backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
             },
-            headerTintColor:Colors.background
+            headerBackTitle:null,
+            headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
     
     };
 
@@ -267,7 +268,7 @@ textTall:{
   color:'grey',
   fontFamily:'poppins',
   alignSelf:'center',
-  fontSize:18
+  fontSize:15
 },
 textBig:{
   color:'grey',

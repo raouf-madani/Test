@@ -166,38 +166,38 @@ const EditServiceScreen = props =>{
                     value = {matchType}
                     onValueChange = {prevValue=>setMatchType(prevValue)}>
                       <View style={radioTypeMatchStyle}>
-                        <Text>5 vs 5</Text>
-                        <RadioButton color={Colors.primary} value="5 vs 5"/>
+                        <Text>5 x 5</Text>
+                        <RadioButton color={Colors.primary} value="5 x 5"/>
                       </View>
 
                       <View style={styles.radioTypeMatch}>
-                        <Text>6 vs 6</Text>
-                        <RadioButton color={Colors.primary} value="6 vs 6" />
+                        <Text>6 x 6</Text>
+                        <RadioButton color={Colors.primary} value="6 x 6" />
                       </View>
 
                       <View style={radioTypeMatchStyle}>
-                        <Text>7 vs 7</Text>
-                        <RadioButton color={Colors.primary} value="7 vs 7" />
+                        <Text>7 x 7</Text>
+                        <RadioButton color={Colors.primary} value="7 x 7" />
                       </View>
 
                       <View style={radioTypeMatchStyle}>
-                        <Text>8 vs 8</Text>
-                        <RadioButton color={Colors.primary} value="8 vs 8" />
+                        <Text>8 x 8</Text>
+                        <RadioButton color={Colors.primary} value="8 x 8" />
                       </View>
 
                       <View style={radioTypeMatchStyle}>
-                        <Text>9 vs 9</Text>
-                        <RadioButton color={Colors.primary} value="9 vs 9" />
+                        <Text>9 x 9</Text>
+                        <RadioButton color={Colors.primary} value="9 x 9" />
                       </View>
 
                       <View style={radioTypeMatchStyle}>
-                        <Text>10 vs 10</Text>
-                        <RadioButton color={Colors.primary} value="10 vs 10" />
+                        <Text>10 x 10</Text>
+                        <RadioButton color={Colors.primary} value="10 x 10" />
                       </View>
 
                       <View style={radioTypeMatchStyle}>
-                        <Text>11 vs 11</Text>
-                        <RadioButton color={Colors.primary} value="11 vs 11" />
+                        <Text>11 x 11</Text>
+                        <RadioButton color={Colors.primary} value="11 x 11" />
                       </View>
              
                   </RadioButton.Group>
@@ -305,11 +305,12 @@ const EditServiceScreen = props =>{
             headerTitle:'Ajouter Service',
             headerTitleStyle:{
               fontFamily:'poppins',
-              color:Colors.background
+              color: Colors.background
             },
             headerStyle:{
                 backgroundColor:'white'
             },
+            headerBackTitle:null,
             headerTintColor:Colors.background
     };
 
@@ -404,7 +405,7 @@ typeTimeMatchContainer:{
     flexDirection : "row",
     justifyContent:'space-evenly',
     alignSelf : "center",
-    padding : 20,
+    padding : 17,
     borderRadius : 10
 },
 
