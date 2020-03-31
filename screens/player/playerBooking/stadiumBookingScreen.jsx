@@ -284,7 +284,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
       <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
       style ={styles.container} 
       blurRadius = {0.5}>
-     <StatusBar hidden /> 
+   
      <ScrollView style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
@@ -526,7 +526,7 @@ const styles= StyleSheet.create({
       },
 //////////////////////////////////////////////////////////     
       stadiumCard : {
-          backgroundColor : "rgba(255, 255, 255, 0.85)",
+          backgroundColor : "red",
           width : "70%",
           height : "7%",
           alignSelf : "center",
