@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions} from 'react-native';
+import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions , StatusBar} from 'react-native';
 import { RadioButton , Button} from 'react-native-paper';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
@@ -277,14 +277,14 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 } 
 
  },[matchTypeState,matchTimeState,selectedDateState,selectedHour,buttonState]);
- <ScrollView style = {styles.componentsContainer}></ScrollView>
+
 
     return(
       
       <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
       style ={styles.container} 
       blurRadius = {0.5}>
-     
+     <StatusBar hidden /> 
      <ScrollView style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
@@ -521,8 +521,8 @@ const styles= StyleSheet.create({
           height : "97%",
           width : "100%",
           backgroundColor :  "rgba(255, 255, 255, 0.85)",
-          marginBottom : 8,
-          
+          marginBottom : screen.height < 500 ? 0 : 10,
+          marginTop :screen.height < 500 ? 0 :  10,
       },
 //////////////////////////////////////////////////////////     
       stadiumCard : {
@@ -533,7 +533,7 @@ const styles= StyleSheet.create({
           borderRadius : 15,
           alignItems : "center",
           justifyContent : "space-around",
-          marginTop : screen.height >700 ? 60 :  25,
+          marginTop : screen.height >700 ? 45 :  25,
           flexDirection : "row"
       },
       
@@ -631,7 +631,7 @@ tempsDuMatchSmall : {
       width : "100%",
         height : 120,
         justifyContent : "center",
-      marginVertical : 25
+      marginVertical : 15
    },
    matchTimeSmall : {
     width : "100%",
@@ -680,13 +680,13 @@ tempsDuMatchSmall : {
      },
 //////////////////////////////////////////////////////////
      calendarCard : {
-        width : 80,
-        height : 80,
+        width : 95,
+        height : 90,
         backgroundColor : "white",
         alignItems : "center",
         marginHorizontal : 6,
         borderRadius : 12,
-
+        justifyContent : "center"
      },
 
      calendarCardBig : {
@@ -705,11 +705,12 @@ tempsDuMatchSmall : {
       alignItems : "center",
       marginHorizontal : 6,
       borderRadius : 12,
-      justifyContent : "space-around"
+      justifyContent : "center"
      },
 //////////////////////////////////////////////////////////
      calendarDay : {
-      fontFamily : "poppins"
+      fontFamily : "poppins",
+      fontSize : 13
     },
 
      calendarDayBig : {
