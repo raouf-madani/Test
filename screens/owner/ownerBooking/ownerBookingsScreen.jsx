@@ -267,7 +267,7 @@ textTall:{
   color:'grey',
   fontFamily:'poppins',
   alignSelf:'center',
-  fontSize:18
+  fontSize:15
 },
 textBig:{
   color:'grey',

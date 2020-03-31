@@ -14,6 +14,7 @@ const screen = Dimensions.get('window');
 
 const OwnerProfileScreen = props =>{
     console.log(screen.height);
+    console.log(screen.width);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */ 
     let textInputStyle = styles.textInput;

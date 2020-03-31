@@ -157,12 +157,12 @@ const styles= StyleSheet.create({
   titleTall:{
     fontFamily:'poppins-bold',
     color:Colors.background,
-    fontSize:26
+    fontSize:24
   },
   titleBig:{
     fontFamily:'poppins-bold',
     color:Colors.background,
-    fontSize:36
+    fontSize:34
   },
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   card2:{
