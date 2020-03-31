@@ -124,6 +124,7 @@ let matchTimeStyle = styles.matchTime;
 let partyTimeStyle = styles.partyTime ;
 let priceTextStyle = styles.priceText;
 let priceButtonStyle =  styles.priceButton;
+let tempsDuMatchStyle = styles.tempsDuMatch ;
 //Big Screen Design 
 if(screen.height > 800) {
     iconSize = 30 ;
@@ -138,6 +139,7 @@ if(screen.height > 800) {
     partyTimeStyle = styles.partyTimeBig ;
     priceTextStyle = styles.priceTextBig;
     priceButtonStyle = styles.priceButtonBig;
+    tempsDuMatchStyle = styles.tempsDuMatchBig ;
 }
 
 if(screen.width <= 360) {
@@ -154,6 +156,7 @@ if(screen.width <= 360) {
   partyTimeStyle = styles.partyTimeSmall ;
   priceButtonStyle = styles.priceButtonSmall;
   priceTextStyle = styles.priceTextSmall;
+  tempsDuMatchStyle = styles.tempsDuMatchSmall ;
 }
 /////////////////////////////////////////////////////////////////
     const [selectedOffer , setSelectedOffer] = useState(false);
@@ -274,7 +277,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 } 
 
  },[matchTypeState,matchTimeState,selectedDateState,selectedHour,buttonState]);
-
+ <ScrollView style = {styles.componentsContainer}></ScrollView>
 
     return(
       
@@ -282,7 +285,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
       style ={styles.container} 
       blurRadius = {0.5}>
      
-          <View style = {styles.componentsContainer}>
+     <ScrollView style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
                   <Ionicons name="md-football" size={iconSize} color={Colors.secondary} />
@@ -326,7 +329,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                  
                  <View style = {styles.timeTextContainer}>
                   
-                   <Text style = {timeTextStyle}>Temps du Match : </Text>
+                   <Text style = {tempsDuMatchStyle}>Temps du Match : </Text>
                  
                  </View> 
 
@@ -343,7 +346,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                            return (
                              <View 
                              style = {{
-                               marginHorizontal : 5 
+                               marginHorizontal : 5 ,
+                              
                                }} 
                              key ={index}>
 
@@ -368,7 +372,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                    <View  style = {styles.customCalendar}>
                         <View style = {styles.dateText}>
                         
-                        <Text style = {timeTextStyle}>
+                        <Text style = {tempsDuMatchStyle}>
                         Date du match :</Text>
                         
                   </View>  
@@ -431,13 +435,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
                 return (
                  <View style = {styles.buttonContainer}>
-                    {/* <Button 
-                    title = {itemData.item.time } 
-                    color = {buttonState.id ===itemData.item.id ? buttonState.color : ""}
-                    
-                    onPress ={()=>buttonsHandler(itemData.item.id)} */}
-                      
-                  
+                   
                       
              <Button
                   contentStyle={styles.timeButton}
@@ -445,9 +443,9 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                   style={{borderColor:Colors.secondary , 
                   borderWidth : 0.5 , 
                   backgroundColor : buttonState.id ===itemData.item.time ? buttonState.color : "white",
-                  width : "90%",
-                  borderRadius : 25,
-                  marginHorizontal : 5
+                  borderRadius : 20,
+                  marginHorizontal : 5,
+                  marginVertical : 5
                   }} 
                   
                   onPress ={()=>{
@@ -458,7 +456,6 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                     <Text 
                     style = {partyTimeStyle}>
                     {itemData.item.time }
-                    
                     </Text> 
                       </Button>
                        
@@ -493,8 +490,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
               
               </View>} 
 
-          </View>
-
+              </ScrollView>
       
           </ImageBackground>
       
@@ -525,7 +521,7 @@ const styles= StyleSheet.create({
           height : "97%",
           width : "100%",
           backgroundColor :  "rgba(255, 255, 255, 0.85)",
-          marginBottom : 11,
+          marginBottom : 8,
           
       },
 //////////////////////////////////////////////////////////     
@@ -537,9 +533,10 @@ const styles= StyleSheet.create({
           borderRadius : 15,
           alignItems : "center",
           justifyContent : "space-around",
-          marginTop : 25,
+          marginTop : screen.height >700 ? 60 :  25,
           flexDirection : "row"
       },
+      
 ///////////////////////////////////////////////////////////      
       nameText :{
           fontSize : 20,
@@ -574,6 +571,7 @@ const styles= StyleSheet.create({
       flexDirection : "row",
       alignItems : "center"
   },
+  ////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////       
       picker : {
@@ -585,9 +583,26 @@ const styles= StyleSheet.create({
    
      typeTextContainer : {   
        justifyContent : "center",
-       marginLeft : 6 
+       marginLeft : 10
      },
+/////////////////////////////////////////////////////////////
+tempsDuMatch : { 
+  fontFamily : "poppins-bold",
+  fontSize : 15,
+  color : Colors.background
+},
+tempsDuMatchBig : {
+  fontFamily : "poppins-bold",
+  fontSize : 22,
+  color : Colors.background
 
+},
+
+tempsDuMatchSmall : {
+  fontFamily : "poppins-bold",
+      fontSize : 11,
+      color : Colors.background
+},
 ///////////////////////////////////////////////////////////     
      typeStyle : {
         fontFamily : "poppins-bold",
@@ -622,39 +637,46 @@ const styles= StyleSheet.create({
     width : "100%",
       height : 100,
       justifyContent : "center",
+      
     
  },
 //////////////////////////////////////////////////////////////////
      timeTextContainer : {
-        marginLeft : 6
+        marginLeft :10 ,
+        
      },
    
 ///////////////////////////////////////////////////////////     
      timeText : {
       fontFamily : "poppins-bold",
         fontSize : 15,
-        color : Colors.background
+        color : Colors.background,
+        alignSelf : "center",
+       
      },
      timeTextBig : {
       fontFamily : "poppins-bold",
         fontSize : 22,
-        color : Colors.background
+        color : Colors.background,
+        alignSelf : "center"
      },
      timeTextSmall : {
       fontFamily : "poppins-bold",
         fontSize : 11,
-        color : Colors.background
+        color : Colors.background,
+        alignSelf : "center"
      },
 ///////////////////////////////////////////////////////////     
      radioButtons : {
        flexDirection : "row",
        width : "40%",
        marginTop : 10,
-       marginLeft : 15
+       marginLeft : 5,
+       
      } ,
      dateText : {
       marginVertical : 10,
-      marginLeft : 6,
+      marginLeft : 10,
      },
 //////////////////////////////////////////////////////////
      calendarCard : {
@@ -663,7 +685,8 @@ const styles= StyleSheet.create({
         backgroundColor : "white",
         alignItems : "center",
         marginHorizontal : 6,
-        borderRadius : 12
+        borderRadius : 12,
+
      },
 
      calendarCardBig : {
@@ -676,13 +699,13 @@ const styles= StyleSheet.create({
       justifyContent : "center"
      },
      calendarCardSmall : {
-      width : 60,
-      height : 60,
+      width : 70,
+      height : 70,
       backgroundColor : "white",
       alignItems : "center",
       marginHorizontal : 6,
       borderRadius : 12,
-      justifyContent : "center"
+      justifyContent : "space-around"
      },
 //////////////////////////////////////////////////////////
      calendarDay : {
@@ -712,8 +735,9 @@ const styles= StyleSheet.create({
        },
 ////////////////////////////////////////////////////////////
     hoursList : {
-       marginTop : 6,
-       paddingVertical : 8
+    
+
+     
      },
      buttonContainer :{
      
