@@ -251,6 +251,7 @@ const styles= StyleSheet.create({
      flexDirection : "row",
      width : 90,
      justifyContent : "space-between",
+     marginBottom : 10
     
    },
    circlesContainerBig:{

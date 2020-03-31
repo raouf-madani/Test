@@ -159,7 +159,7 @@ container:{
   backgroundColor:Colors.background,
   justifyContent:'flex-start',
   alignItems:'center',
-  padding:20,
+  padding:5,
 },
 containerBig:{
   flex:1,

@@ -26,7 +26,7 @@ let badgeStyle = styles.badgeStyle;
       badgeTextStyle = styles.badgeTextBig;
   }
   if(screen.width <= 360) {
-        avatarSize = "medium";
+        avatarSize = 65;
         avatarContainerStyle = styles.avatarContainerSmall;
         badgeTextStyle = styles.badgeTextSmall;
         badgeStyle = styles.badgeStyleSmall;
@@ -146,9 +146,9 @@ const styles= StyleSheet.create({
     },
     avatarContainerSmall : {
       flexDirection : "row",
-      width : 50,
+      width : 65,
       justifyContent : "center",
-      height : "80%",
+      height : "85%",
       overflow : "hidden",
       alignSelf : "center"
     },
