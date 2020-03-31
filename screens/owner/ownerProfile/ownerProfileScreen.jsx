@@ -13,8 +13,7 @@ import * as Permissions from 'expo-permissions';
 const screen = Dimensions.get('window');
 
 const OwnerProfileScreen = props =>{
-    console.log(screen.height);
-    console.log(screen.width);
+    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */ 
     let textInputStyle = styles.textInput;
@@ -245,19 +244,20 @@ OwnerProfileScreen.navigationOptions = () => {
         headerRight : ()=>  (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
           <Item title = "save" 
             iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
-            color='white'
+            color={Platform.OS === 'android' ? 'white' : Colors.background}
           />
         </HeaderButtons>
       ),
         headerTitle:'Mon Profile',
         headerTitleStyle:{
-        fontFamily:'poppins',
-        color:'white'
-        },
-        headerStyle:{
-        backgroundColor:Colors.background
-        },
-        headerTintColor:'white'
+            fontFamily:'poppins',
+            color:Platform.OS === 'android' ? 'white' : Colors.background
+          },
+          headerStyle:{
+              backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
+          },
+          headerBackTitle:null,
+          headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
         };
 };
 
@@ -431,12 +431,12 @@ const styles= StyleSheet.create({
    labelBtn:{
     fontSize:15,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
    },
    labelBtnBig:{
     fontSize:20,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
    }
   
 });

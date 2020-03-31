@@ -55,52 +55,51 @@ if(screen.height > 800){
      
     <View style={containerStyle}>
        
-            <View style={styles.titleContainer}>
-            <Text style={titleStyle}>SERVICE {props.serviceNumber}</Text>
-            </View>
-            
-
-            <View style={styles.infoContainer}>
-                <View style={styles.infoMatchContainerLeft}>
-                    <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={size} color={Colors.primary}/>
-                        <Text style={typeMatchStyle}> {props.typeMatch} </Text>
-                        <Ionicons name={Platform.OS === 'android' ? 'ios-person' : 'ios-person'} size={size} color={Colors.primary}/>
-                    </View>
-                    <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-trash'} size={size} color={Colors.primary}/>
-                        <Text style={typeMatchStyle}> {props.durationMatch} heure</Text>
-                    </View>
+        <View style={styles.titleContainer}>
+         <Text style={titleStyle}>SERVICE {props.serviceNumber}</Text>
+        </View>
+        
+        <View style={styles.infoContainer}>
+            <View style={styles.infoMatchContainerLeft}>
+                <View style={styles.typeTimeMatchContainer}>
+                    <Ionicons name='ios-person' size={size} color={Colors.primary}/>
+                    <Text style={typeMatchStyle}> {props.typeMatch} </Text>
+                    <Ionicons name='ios-person' size={size} color={Colors.primary}/>
                 </View>
-                <View style={styles.infoMatchDateContainerRight}>
-                    <View style={styles.typeTimeMatchContainer}> 
-                        <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={size} color={Colors.primary}/>
-                        <Text style={editStyle}> modifier </Text>
-                    </View>
-                    <View style={styles.typeTimeMatchContainer}>
-                        <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={size} color={Colors.primary}/>
-                        <Text style={editStyle}> modifier </Text>
-                    </View>
+                <View style={styles.typeTimeMatchContainer}>
+                    <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-hourglass'} size={size} color={Colors.primary}/>
+                    <Text style={typeMatchStyle}> {props.durationMatch} heure</Text>
                 </View>
             </View>
-
-            <View style={styles.tarifContainer}>
-                <Text style={titleStyle}>{props.price} <Text style={algerianDinarStyle}>DA/Equipe</Text></Text>
-            </View>
-
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonWidth}>
-                <Button
-                theme={{colors: {primary:Colors.primary}}} 
-                mode="contained"
-                labelStyle={labelBtnStyle}
-                contentStyle={{width:'100%'}}
-                style={{borderColor:Colors.primary}}
-                dark={true}
-                >Supprimer
-            </Button>
+            <View style={styles.infoMatchDateContainerRight}>
+                <View style={styles.typeTimeMatchContainer}> 
+                    <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={size} color={Colors.primary}/>
+                    <Text style={editStyle}> modifier </Text>
+                </View>
+                <View style={styles.typeTimeMatchContainer}>
+                    <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={size} color={Colors.primary}/>
+                    <Text style={editStyle}> modifier </Text>
                 </View>
             </View>
+        </View>
+
+        <View style={styles.tarifContainer}>
+            <Text style={titleStyle}>{props.price} <Text style={algerianDinarStyle}>DA/Equipe</Text></Text>
+        </View>
+
+        <View style={styles.buttonsContainer}>
+            <View style={styles.buttonWidth}>
+            <Button
+            theme={{colors: {primary:Colors.primary}}} 
+            mode="contained"
+            labelStyle={labelBtnStyle}
+            contentStyle={{width:'100%'}}
+            style={{borderColor:Colors.primary}}
+            dark={true}
+            >Supprimer
+        </Button>
+            </View>
+        </View>
 
         
     </View>
@@ -154,12 +153,12 @@ const styles= StyleSheet.create({
 },
 titleTall:{
     fontFamily:'poppins-bold',
-    fontSize:36,
+    fontSize:32,
     color:Colors.primary
 },
 titleBig:{
     fontFamily:'poppins-bold',
-    fontSize:42,
+    fontSize:40,
     color:Colors.primary
 },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -280,22 +279,22 @@ algerianDinarBig:{
  labelBtn:{
     fontSize:15,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
    },
  labelBtnSmall:{
     fontSize:13,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
 },
  labelBtnTall:{
     fontSize:18,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
 },
  labelBtnBig:{
     fontSize:24,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
 }
 });
 

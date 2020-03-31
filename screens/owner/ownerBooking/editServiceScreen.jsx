@@ -305,11 +305,12 @@ const EditServiceScreen = props =>{
             headerTitle:'Ajouter Service',
             headerTitleStyle:{
               fontFamily:'poppins',
-              color:Colors.background
+              color: Colors.background
             },
             headerStyle:{
                 backgroundColor:'white'
             },
+            headerBackTitle:null,
             headerTintColor:Colors.background
     };
 
