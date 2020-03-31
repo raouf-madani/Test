@@ -26,7 +26,7 @@ let badgeStyle = styles.badgeStyle;
       badgeTextStyle = styles.badgeTextBig;
   }
   if(screen.width <= 360) {
-        avatarSize = 50;
+        avatarSize = "medium";
         avatarContainerStyle = styles.avatarContainerSmall;
         badgeTextStyle = styles.badgeTextSmall;
         badgeStyle = styles.badgeStyleSmall;
@@ -100,7 +100,7 @@ const styles= StyleSheet.create({
 
     cardContainer : {
         width : " 97%" ,
-        height : 85,
+        height : 100,
         alignSelf : "center",
         flexDirection : "row",
         justifyContent : "space-between",
@@ -157,7 +157,8 @@ const styles= StyleSheet.create({
     badgeStyle : {
       position : "absolute" , 
       top : "80%", 
-      width : "100%"
+      width : "100%",
+      overflow : "hidden"
       },
       
     badgeStyleSmall : {
@@ -167,7 +168,7 @@ const styles= StyleSheet.create({
       },
 ///////////////////////////////////////////////////////////////      
       badgeText : {
-        fontSize : 15
+        fontSize : 12
       },
       badgeTextBig : {
         fontSize : 20
