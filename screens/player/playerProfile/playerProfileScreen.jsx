@@ -239,7 +239,7 @@ const styles= StyleSheet.create({
     fontFamily:'poppins',
     color:'white',
     alignSelf:'center',
-    fontSize : 16 
+    fontSize : 13 
    },
    image:{
     width:'100%',
