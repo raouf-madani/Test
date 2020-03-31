@@ -526,7 +526,7 @@ const styles= StyleSheet.create({
       },
 //////////////////////////////////////////////////////////     
       stadiumCard : {
-          backgroundColor : "red",
+          backgroundColor : "rgba(255, 255, 255, 0.85)",
           width : "70%",
           height : "7%",
           alignSelf : "center",
