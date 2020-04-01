@@ -198,7 +198,7 @@ const OwnerProfileScreen = props =>{
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={{borderWidth:1,borderRadius:5,borderColor:'#9399a1',padding:2,marginTop:12}}>
+                            <View style={styles.pickerContainer}>
                                 <RNPickerSelect
                                 onValueChange={prevValue =>setComplexCity(prevValue)}
                                 items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
@@ -411,6 +411,13 @@ const styles= StyleSheet.create({
     fontSize:20,
     fontFamily:'poppins', 
     color: 'white'
+   },
+   pickerContainer:{
+    borderWidth:1,
+    borderRadius:5,
+    borderColor:'#9399a1',
+    padding:Platform.OS === 'android' ? 2 : 40,
+    marginTop:12
    }
   
 });
