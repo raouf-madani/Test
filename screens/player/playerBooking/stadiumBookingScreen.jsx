@@ -7,8 +7,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import Colors from "../../../constants/Colors";
 import {Ionicons} from "@expo/vector-icons";
-import ModalSelector from 'react-native-modal-selector';
-
+import RNPickerSelect from 'react-native-picker-select';
 
 const screen = Dimensions.get("window");
 
@@ -322,6 +321,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                       />)}
 
                       </Picker>
+                    
+
                   </View>
                     {/* Match Type Part : End */}
 
@@ -490,7 +491,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
               </View>
               
               </View>} 
-
+            
               </ScrollView>
       
           </ImageBackground>
