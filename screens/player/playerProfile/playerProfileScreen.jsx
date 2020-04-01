@@ -166,15 +166,20 @@ PlayerProfileScreen.navigationOptions= navData => {
     
      return {
        title : "Mon Profile" , 
-      headerStyle:{
-        backgroundColor: Colors.background
-    } ,
-    headerTintColor: '#fff',
+       headerTitleStyle:{
+           fontFamily:'poppins',
+           color:Platform.OS === 'android' ? 'white' : Colors.background
+         },
+         headerStyle:{
+             backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
+         },
+         headerBackTitle:null,
+          headerTintColor:Platform.OS === 'android' ? 'white' :Colors.background ,
          headerRight : ()=>  
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
                  <Item title = "save" 
                    iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
-                   color = "#fff"
+                   color={Platform.OS === 'android' ? 'white' : Colors.background}
                  />
                </HeaderButtons>
                

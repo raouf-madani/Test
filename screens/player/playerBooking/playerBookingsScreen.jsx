@@ -72,9 +72,9 @@ const PlayerBookingsScreen = props =>{
 
 PlayerBookingsScreen.navigationOptions = ()=> {
   return {
-    
-    title : "Mes Réservations"
-  }
+    title : "Mes Réservations",
+ 
+  };
 
 };
 
