@@ -4,7 +4,9 @@ import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
-import {Ionicons} from "@expo/vector-icons"; 
+import {Ionicons} from "@expo/vector-icons";
+
+import RNPickerSelect from 'react-native-picker-select';
 
 
 
@@ -52,7 +54,6 @@ const OwnerProfileScreen = props =>{
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
 
-    
 
     //state for image
     const [pickedImage,setPickedImage]= useState();
@@ -197,8 +198,16 @@ const OwnerProfileScreen = props =>{
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.pickerContainer}>
-                           
+                            <View style={{borderWidth:1,borderRadius:5,borderColor:'#9399a1',padding:2,marginTop:12}}>
+                                <RNPickerSelect
+                                onValueChange={prevValue =>setComplexCity(prevValue)}
+                                items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
+                                placeholder={{label:'Ville du complexe *',value:null,displayValue: true}}
+                                Icon={() => {
+                                    return <Ionicons style={{padding:5}} name="ios-arrow-down" size={18} color='#9399a1' />;
+                                    }}
+                                style={{inputAndroid:{color:'#9399a1'},inputIOS:{color:'#9399a1'}}}    
+                                />
                             </View>
                         </View> 
                     </View>
@@ -392,14 +401,6 @@ const styles= StyleSheet.create({
     backgroundColor:'transparent',
     fontSize:20
    },
-   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  pickerContainer:{
-    borderWidth:1,
-    borderColor:'#9399a1',
-    padding:5,
-    borderRadius:5,
-    marginTop:12  
-  },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    labelBtn:{
     fontSize:15,

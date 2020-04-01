@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Picker,Image,Dimensions} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
+import {Ionicons} from "@expo/vector-icons";
+import RNPickerSelect from 'react-native-picker-select';
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
@@ -18,7 +20,6 @@ const SignupOwnerScreen = props =>{
   let finishBtnStyle = styles.finishBtn;
   let textInputStyle = styles.textInput;
   let pickerContainerStyle = styles.pickerContainer;
-  let itemPickerStyleIOS = styles.itemPickerIOS;
   let step3ContainerStyle = styles.step3Container;
   let textStyle = styles.text;
   let checkBoxLabelStyle = styles.checkBoxLabel;
@@ -41,7 +42,6 @@ const SignupOwnerScreen = props =>{
     inputsContainerStyle = styles.inputsContainerBig;
     textInputStyle = styles.textInputTall;
     pickerContainerStyle = styles.pickerContainerTall;
-    itemPickerStyleIOS = styles.itemPickerIOSBig;
     step3ContainerStyle = styles.step3ContainerBig;
     textStyle = styles.textTall;
     checkBoxLabelStyle = styles.checkBoxLabelTall;
@@ -56,7 +56,6 @@ const SignupOwnerScreen = props =>{
     finishBtnStyle = styles.finishBtnBig;
     textInputStyle = styles.textInputBig;
     pickerContainerStyle = styles.pickerContainerBig;
-    itemPickerStyleIOS = styles.itemPickerIOSBig;
     step3ContainerStyle = styles.step3ContainerBig;
     textStyle = styles.textBig;
     checkBoxLabelStyle = styles.checkBoxLabelBig;
@@ -81,11 +80,10 @@ const SignupOwnerScreen = props =>{
     const [email,setEmail] = useState('');
     const [address,setAddress] = useState('');
 
-    const cities = [{id:'09',wilaya:'Blida'},{id:'16',wilaya:'Alger'}];
     
     //States for complex information textInputs
     const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState(`${cities[0].wilaya}`);
+    const [complexCity,setComplexCity] = useState('');
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState(''); 
 
@@ -191,21 +189,15 @@ const SignupOwnerScreen = props =>{
                             underlineColor='white'
                         />
                         <View style={pickerContainerStyle}>
-                            <Picker
-                            selectedValue={complexCity}
-                            onValueChange={prevText=>setComplexCity(prevText)}
-                            style={styles.pickerCity}
-                            itemTextStyle={{fontFamily:'poppins-bold'}}
-                            itemTextStyle={itemPickerStyleIOS}
-                            activeItemTextStyle={itemPickerStyleIOS}
-                            >
-                            {cities.map(el=>
-                                    <Picker.Item
-                                     key={el.id}
-                                     label={el.wilaya}
-                                     value={el.wilaya}
-                                      />)}
-                            </Picker>
+                          <RNPickerSelect
+                              onValueChange={prevValue =>setComplexCity(prevValue)}
+                              items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
+                              placeholder={{label:'Ville du complexe *',value:null,displayValue: true}}
+                              Icon={() => {
+                                  return <Ionicons style={{paddingHorizontal:5,paddingVertical:15}} name="ios-arrow-down" size={18} color='white' />;
+                                  }}
+                              style={{inputAndroid:{color:'white'},inputIOS:{color:'white'}}}    
+                          />
                         </View>
                      </View>
                     </ProgressStep>
@@ -517,17 +509,7 @@ const styles= StyleSheet.create({
     paddingHorizontal:10
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  pickerCity:{
-    width:'100%',
-    color:'white'
-},
-itemPickerIOS:{
- fontFamily:'poppins'
-},
-itemPickerIOSBig:{
-    fontSize: 20,
-    fontFamily:'poppins'
-}
+ 
    
 });
 
