@@ -503,7 +503,9 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 StadiumBookingScreen.navigationOptions = ()=> {
       return {
         headerTransparent : true,
-        title : "" 
+        title : "" ,
+        headerBackTitle : " ",
+        headerTintColor: Platform.OS === "android"? '#fff' : "rgba(53, 53, 53,1)" 
       }
 
 }

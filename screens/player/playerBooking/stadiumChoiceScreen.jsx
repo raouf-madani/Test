@@ -73,8 +73,10 @@ const StadiumChoiceScreen = props =>{
 
 StadiumChoiceScreen.navigationOptions = (navData) => {
 return {
-  headerTintColor:'white'
-
+  headerTransparent : true,
+  headerTintColor:'white',
+  headerBackTitle : " ",
+  title : ""
 }
 
 };

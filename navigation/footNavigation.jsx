@@ -69,9 +69,10 @@ const PlayerBookingsTab = createMaterialBottomTabNavigator(tabConfig,
 {
   navigationOptions : {
     title :"Mes Réservations",
-    headerTintColor: '#fff' ,
+    headerBackTitle : " " ,
+    headerTintColor: Platform.OS === "android"? '#fff' : "rgba(53, 53, 53,1)" ,
     headerStyle:{
-      backgroundColor:  "rgba(53, 53, 53,0.95)"
+      backgroundColor:Platform.OS === "android" ?  "rgba(53, 53, 53,0.95)" : "white"
   },
   } ,
 activeColor: '#f0edf6',
@@ -90,11 +91,7 @@ const FootNavigation = createStackNavigator({
    Role : ProfileChoiceScreen ,
    Player : PlayerHomeScreen , 
    Owner : OwnerHomeScreen,
-   Stadiums : {
-     screen : stadiumChoiceScreen ,
-     navigationOptions : {headerTransparent : true,title : ""}
-  
-  },
+   Stadiums :  stadiumChoiceScreen ,
    StadiumBooking : stadiumBookingScreen ,
    Signup: SignupScreen,
    Login: LoginScreen,
