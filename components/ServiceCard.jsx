@@ -287,12 +287,12 @@ algerianDinarBig:{
     color: 'white'
 },
  labelBtnTall:{
-    fontSize:18,
+    fontSize:16,
     fontFamily:'poppins', 
     color: 'white'
 },
  labelBtnBig:{
-    fontSize:24,
+    fontSize:22,
     fontFamily:'poppins', 
     color: 'white'
 }
