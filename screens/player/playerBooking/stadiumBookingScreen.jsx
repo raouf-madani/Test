@@ -7,6 +7,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import Colors from "../../../constants/Colors";
 import {Ionicons} from "@expo/vector-icons";
+import ModalSelector from 'react-native-modal-selector';
+
 
 const screen = Dimensions.get("window");
 
@@ -320,7 +322,6 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                       />)}
 
                       </Picker>
-
                   </View>
                     {/* Match Type Part : End */}
 
@@ -505,7 +506,7 @@ StadiumBookingScreen.navigationOptions = ()=> {
         headerTransparent : true,
         title : "" ,
         headerBackTitle : " ",
-        headerTintColor: Platform.OS === "android"? '#fff' : "rgba(53, 53, 53,1)" 
+        headerTintColor: "rgba(53, 53, 53,1)" 
       }
 
 }

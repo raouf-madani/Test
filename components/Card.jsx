@@ -165,12 +165,12 @@ const styles= StyleSheet.create({
     buttonLabel : {
         fontSize:16,
         fontFamily:'poppins', 
-        color: Platform.OS === 'android' ? 'white' : Colors.primary
+        color:'white' 
     },
     buttonLabelSmall : {
         fontSize:13,
         fontFamily:'poppins', 
-        color: Platform.OS === 'android' ? 'white' : Colors.primary     
+        color:'white'   
 
     }
 
