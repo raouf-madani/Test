@@ -4,6 +4,7 @@ import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 
+
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 

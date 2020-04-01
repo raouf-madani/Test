@@ -285,7 +285,7 @@ const styles= StyleSheet.create({
   },
   textInputTall:{
     backgroundColor:'transparent',
-    fontSize:20,
+    fontSize:18,
     paddingVertical:15
   },
   textInputBig:{

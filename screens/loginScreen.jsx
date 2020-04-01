@@ -254,7 +254,7 @@ const styles= StyleSheet.create({
   },
   textInputTall:{
     backgroundColor:'transparent',
-    paddingVertical:15
+    paddingVertical:18
   },
   textInputBig:{
     backgroundColor:'transparent',

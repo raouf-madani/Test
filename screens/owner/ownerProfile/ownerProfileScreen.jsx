@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,Picker,KeyboardAvoidingView,Dimensions} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons"; 
+
+
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -21,7 +23,6 @@ const OwnerProfileScreen = props =>{
     let cardStyle = styles.card;
     let circlesContainerStyle = styles.circlesContainer;
     let card2Style = styles.card2;
-    let itemPickerStyleIOS = styles.itemPickerIOS;
     let labelBtnStyle = styles.labelBtn;
 
     if(screen.width < 350){
@@ -34,7 +35,6 @@ const OwnerProfileScreen = props =>{
         cardStyle = styles.cardBig;
         circlesContainerStyle = styles.circlesContainerBig;
         card2Style = styles.card2Big;
-        itemPickerStyleIOS = styles.itemPickerIOSBig;
         labelBtnStyle =styles.labelBtnBig;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,11 +45,10 @@ const OwnerProfileScreen = props =>{
     const [email,setEmail] = useState('');
     const [address,setAddress] = useState('');
 
-    const cities = [{id:'09',wilaya:'Blida'},{id:'16',wilaya:'Alger'}];
 
     //States for complex information textInputs
     const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState(`${cities[0].wilaya}`);
+    const [complexCity,setComplexCity] = useState('');
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
 
@@ -199,20 +198,7 @@ const OwnerProfileScreen = props =>{
                                 />
                             </View>
                             <View style={styles.pickerContainer}>
-                                <Picker
-                                    style = {styles.picker}
-                                    onValueChange = {prevValue=>setComplexCity(prevValue)}
-                                    selectedValue = {complexCity}
-                                    itemTextStyle={itemPickerStyleIOS}
-                                    activeItemTextStyle={itemPickerStyleIOS}
-                                >
-                                    {cities.map(el=>
-                                    <Picker.Item
-                                        key={el.id}
-                                        label={el.wilaya}
-                                        value={el.wilaya}
-                                        />)}
-                                </Picker>
+                           
                             </View>
                         </View> 
                     </View>
@@ -414,19 +400,6 @@ const styles= StyleSheet.create({
     borderRadius:5,
     marginTop:12  
   },
-  picker:{
-    width:'100%',
-    backgroundColor:Colors.background,
-    color:'#9399a1'
-  },
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  itemPickerIOS:{
-    fontFamily:'poppins'
-   },
-   itemPickerIOSBig:{
-       fontSize: 20,
-       fontFamily:'poppins'
-   },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    labelBtn:{
     fontSize:15,
