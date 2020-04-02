@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions , StatusBar} from 'react-native';
+import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions , StatusBar, Platform,ActionSheetIOS} from 'react-native';
 import { RadioButton , Button} from 'react-native-paper';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
@@ -279,7 +279,22 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
  },[matchTypeState,matchTimeState,selectedDateState,selectedHour,buttonState]);
 
+ const openSheet = ()=> {
+  
+  ActionSheetIOS.showActionSheetWithOptions(
+    {
+      options: allStadiums,
+      destructiveButtonIndex: -1,
+      cancelButtonIndex:-1,
+    },
+    
+    buttonIndex => {
+     matchTypeHandler(allStadiums[buttonIndex],buttonIndex);
+    
+    }
+  );
 
+ };
     return(
       
       <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
@@ -305,7 +320,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                           </Text>
                     </View>
 
-                      <Picker 
+                     { Platform.OS === "android" ? <Picker 
                       style = {styles.picker}
                       onValueChange = {matchTypeHandler}
                       selectedValue = {matchTypeState}
@@ -320,8 +335,18 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                      
                       />)}
 
-                      </Picker>
-                    
+                      </Picker> :
+                      <TouchableOpacity style = {styles.touchableIos} onPress = {openSheet}>
+                        <Text style = {{
+                          fontSize : 18,
+                          fontFamily : "poppins-bold"
+                          }
+                          }>
+                        {matchTypeState}
+                        </Text>
+
+                      </TouchableOpacity>
+                    }
 
                   </View>
                     {/* Match Type Part : End */}
@@ -356,9 +381,10 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                           <Text style = {timeTextStyle}>
                           {element}
                            </Text>
-                          <RadioButton 
+                          <RadioButton.Android
                           value={element} 
                            color = {Colors.secondary}
+                          
                           />
                         </View>
                         )
@@ -388,19 +414,18 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                             data = {days}
                             horizontal ={ true}
                             renderItem = {(itemData)=>{
-                             
-                            return (
-                            
+                            return (    
                           <View style = {calendarCardStyle}>
                            <Text 
                            style ={calendarDayStyle} >
                               {itemData.item.day}
                             </Text>
-                            
-                              <RadioButton  
+                            <View style = {{height:30,justifyContent : "center"}}>
+                              <RadioButton.Android  
                               value={itemData.item} 
                               color = {Colors.secondary}
-                              />
+                              
+                              /></View>
 
                               <Text style ={calendarDateStyle} >
                               {itemData.item.date}
@@ -439,7 +464,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
                  <View style = {styles.buttonContainer}>
                    
                       
-             <Button
+              <Button
                   contentStyle={styles.timeButton}
                   labelStyle = {{color : "black" }}
                   style={{borderColor:Colors.secondary , 
@@ -526,13 +551,13 @@ const styles= StyleSheet.create({
           width : "100%",
           backgroundColor :  "rgba(255, 255, 255, 0.85)",
           marginBottom : screen.height < 500 ? 0 : 10,
-          marginTop :screen.height < 500 ? 0 :  10,
+          marginTop :screen.height < 500 ? 0 :  5,
       },
 //////////////////////////////////////////////////////////     
       stadiumCard : {
           backgroundColor : "rgba(255, 255, 255, 0.85)",
           width : "70%",
-          height : "7%",
+          height : "8%",
           alignSelf : "center",
           borderRadius : 15,
           alignItems : "center",
@@ -575,7 +600,6 @@ const styles= StyleSheet.create({
       flexDirection : "row",
       alignItems : "center"
   },
-  ////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////       
       picker : {
@@ -590,6 +614,17 @@ const styles= StyleSheet.create({
        marginLeft : 10
      },
 /////////////////////////////////////////////////////////////
+touchableIos : {
+  
+  marginLeft : 10,
+  borderWidth : 1,
+  borderColor : Colors.background,
+  width : 75,
+  padding : 5,
+  alignItems : "center",
+  borderRadius : 10
+},
+  ////////////////////////////////////////////////////
 tempsDuMatch : { 
   fontFamily : "poppins-bold",
   fontSize : 15,
@@ -684,13 +719,14 @@ tempsDuMatchSmall : {
      },
 //////////////////////////////////////////////////////////
      calendarCard : {
-        width : 95,
-        height : 90,
+        width : 100,
+        height : 100,
         backgroundColor : "white",
         alignItems : "center",
         marginHorizontal : 6,
         borderRadius : 12,
-        justifyContent : "center"
+        justifyContent : "center",
+        
      },
 
      calendarCardBig : {
@@ -713,10 +749,9 @@ tempsDuMatchSmall : {
      },
 //////////////////////////////////////////////////////////
      calendarDay : {
-      fontFamily : "poppins",
-      fontSize : 13
+      fontFamily : "poppins-bold",
+      fontSize : 17
     },
-
      calendarDayBig : {
         fontFamily : "poppins",
         fontSize : 24
@@ -727,8 +762,8 @@ tempsDuMatchSmall : {
    },
 ////////////////////////////////////////////////////////////
      calendarDate : {
-       fontFamily : "poppins", 
-       fontSize : 12
+       fontFamily : "poppins-bold", 
+       fontSize : 14
       },
       calendarDateBig : {
         fontFamily : "poppins", 
@@ -751,7 +786,7 @@ tempsDuMatchSmall : {
       
         
      },
-
+     
  ///////////////////////////////////////////////////////
  partyTime: {
    fontSize : 12 

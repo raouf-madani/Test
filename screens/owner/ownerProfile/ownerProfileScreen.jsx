@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions , ActionSheetIOS} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
@@ -202,7 +202,7 @@ const OwnerProfileScreen = props =>{
                                 <RNPickerSelect
                                 onValueChange={prevValue =>setComplexCity(prevValue)}
                                 items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
-                                placeholder={{label:'Ville du complexe *',value:null,displayValue: true}}
+                                placeholder={{label:'Ville du complexe *',value:null}}
                                 Icon={() => {
                                     return <Ionicons style={{padding:5}} name="ios-arrow-down" size={18} color='#9399a1' />;
                                     }}
@@ -416,7 +416,7 @@ const styles= StyleSheet.create({
     borderWidth:1,
     borderRadius:5,
     borderColor:'#9399a1',
-    padding:Platform.OS === 'android' ? 2 : 40,
+    padding:Platform.OS === 'android' ? 2 : 20,
     marginTop:12
    }
   
