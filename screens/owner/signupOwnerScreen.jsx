@@ -1,11 +1,10 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions,Picker,ActionSheetIOS} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
-import {Ionicons} from "@expo/vector-icons";
-import RNPickerSelect from 'react-native-picker-select';
+
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
@@ -86,6 +85,25 @@ const SignupOwnerScreen = props =>{
     const [complexCity,setComplexCity] = useState('');
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState(''); 
+    const citiesA = ["Alger","Blida","Oran"];    
+
+    //picker only iOS function 
+    const onPress = () =>{
+      const cities = ["Annuler", "Alger","Blida","Oran"];    
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: cities,
+          cancelButtonIndex: 0
+        },
+        buttonIndex => {
+          if (buttonIndex === 0) {
+            // cancel action
+          } else {
+           setComplexCity(cities[buttonIndex]);
+          } 
+        }
+      );  
+  }
 
     return(
       <View style={styles.container}>
@@ -189,15 +207,17 @@ const SignupOwnerScreen = props =>{
                             underlineColor='white'
                         />
                         <View style={pickerContainerStyle}>
-                          <RNPickerSelect
-                              onValueChange={prevValue =>setComplexCity(prevValue)}
-                              items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
-                              placeholder={{label:'Ville du complexe *',value:null,displayValue: true}}
-                              Icon={() => {
-                                  return <Ionicons style={{paddingHorizontal:5,paddingVertical:15}} name="ios-arrow-down" size={18} color='white' />;
-                                  }}
-                              style={{inputAndroid:{color:'white'},inputIOS:{color:'white'}}}    
-                          />
+                            {Platform.OS === 'android' ? 
+                               <Picker
+                               selectedValue={complexCity}
+                               onValueChange={itemValue => setComplexCity(itemValue)}
+                               style={textInputStyle}
+                             >
+                               {citiesA.map(el=> <Picker.Item label={el} value={el} key={el} />)}
+                             </Picker> :
+                              <Text onPress={onPress}style={textInputStyle}>
+                                  {complexCity ? complexCity : 'Ville du complexe *'}
+                              </Text>}
                         </View>
                      </View>
                     </ProgressStep>
@@ -398,17 +418,24 @@ const styles= StyleSheet.create({
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   textInput:{
-    backgroundColor:'transparent'
+    backgroundColor:'transparent',
+    fontFamily:'poppins',
+    fontSize:16,
+    color:'white'
   },
   textInputTall:{
     backgroundColor:'transparent',
     fontSize:18,
-    paddingVertical:15
+    paddingVertical:15,
+    fontFamily:'poppins',
+    color:'white'
   },
   textInputBig:{
     backgroundColor:'transparent',
     fontSize:20,
-    paddingVertical:25
+    paddingVertical:25,
+    fontFamily:'poppins',
+    color:'white'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   textContainer:{

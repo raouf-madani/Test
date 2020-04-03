@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions , ActionSheetIOS} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions,ActionSheetIOS,Picker} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
@@ -53,7 +53,26 @@ const OwnerProfileScreen = props =>{
     const [complexCity,setComplexCity] = useState('');
     const [complexAddress,setComplexAddress] = useState('');
     const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
+    const citiesA = ["Alger","Blida","Oran"];    
 
+    //picker only iOS function 
+    const onPress = () =>{
+    const cities = ["Annuler", "Alger","Blida","Oran"];    
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: cities,
+        cancelButtonIndex: 0
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          // cancel action
+        } else {
+         setComplexCity(cities[buttonIndex]);
+        } 
+      }
+    );
+    
+}
 
     //state for image
     const [pickedImage,setPickedImage]= useState();
@@ -198,16 +217,18 @@ const OwnerProfileScreen = props =>{
                                     underlineColor='#9399a1'
                                 />
                             </View>
-                            <View style={styles.pickerContainer}>
-                                <RNPickerSelect
-                                onValueChange={prevValue =>setComplexCity(prevValue)}
-                                items={[{ label: 'Alger', value: 'Alger' },{ label: 'Blida', value: 'Blida' },{ label: 'Oran', value: 'Oran' }]}
-                                placeholder={{label:'Ville du complexe *',value:null}}
-                                Icon={() => {
-                                    return <Ionicons style={{padding:5}} name="ios-arrow-down" size={18} color='#9399a1' />;
-                                    }}
-                                style={{inputAndroid:{color:'#9399a1'},inputIOS:{color:'#9399a1'}}}    
-                                />
+                            <View  style={styles.pickerContainer}>
+                              {Platform.OS === 'android' ? 
+                              <Picker
+                                selectedValue={complexCity}
+                                onValueChange={itemValue => setComplexCity(itemValue)}
+                                style={textInputStyle}
+                              >
+                              {citiesA.map(el=> <Picker.Item label={el} value={el} key={el} />)}
+                              </Picker> :
+                              <Text onPress={onPress}style={textInputStyle}>
+                                  {complexCity ? complexCity : 'Ville du complexe *'}
+                              </Text>}
                             </View>
                         </View> 
                     </View>
@@ -395,11 +416,16 @@ const styles= StyleSheet.create({
    },
    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    textInput:{
-     backgroundColor:'transparent'
+     backgroundColor:'transparent',
+     fontFamily:'poppins',
+     fontSize:16,
+     color:'#9399a1'
    },
    textInputBig:{
     backgroundColor:'transparent',
-    fontSize:20
+    fontSize:20,
+    color:'#9399a1',
+    fontFamily:'poppins'
    },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    labelBtn:{
@@ -412,11 +438,12 @@ const styles= StyleSheet.create({
     fontFamily:'poppins', 
     color: 'white'
    },
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    pickerContainer:{
     borderWidth:1,
     borderRadius:5,
     borderColor:'#9399a1',
-    padding:Platform.OS === 'android' ? 2 : 20,
+    padding:Platform.OS === 'android' ? 5 : 15,
     marginTop:12
    }
   
