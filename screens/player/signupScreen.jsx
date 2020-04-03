@@ -118,11 +118,11 @@ const SignupScreen = props =>{
                 <View style={styles.buttonsContainer}>
                   <View style={styles.buttonContainer}>
                     <Button
-                    theme={{colors: {primary:Colors.secondary}}} 
+                    theme={{colors: {primary:"white"}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
                     labelStyle={labelSignupStyle}
                     contentStyle={{width:'100%'}}
-                    style={{borderRadius:20, borderColor:'white'}}
+                    style={{borderRadius:20,backgroundColor:Colors.secondary}}
                     icon='open-in-app'
                     dark={true}
                     onPress={() =>props.navigation.navigate('SignupOwner')}
@@ -131,11 +131,11 @@ const SignupScreen = props =>{
                   </View>
                   <View style={styles.buttonContainer}>
                     <Button
-                    theme={{colors: {primary:Colors.orange}}} 
+                    theme={{colors: {primary:'white'}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
                     labelStyle={labelLoginStyle}
                     contentStyle={{width:'100%'}}
-                    style={{borderRadius:20, borderColor:'white'}}
+                    style={{borderRadius:20, backgroundColor:Colors.primary}}
                     icon='login'
                     dark={true}
                     onPress={() =>props.navigation.navigate('Login')}
@@ -167,6 +167,7 @@ SignupScreen.navigationOptions= ()=>{
     headerStyle:{
         backgroundColor: 'white'
     },
+    headerBackTitle : " ",
     headerTitle: () => (
       <Image 
       resizeMode="cover"
@@ -297,33 +298,33 @@ const styles= StyleSheet.create({
   labelSignup:{
     fontSize:16,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color:'white'
   },
   labelSignupSmall:{
     fontSize:13,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
   },
   labelSignupBig:{
     fontSize:20,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   labelLogin:{
     fontSize:16,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+    color: 'white'
   },
   labelLoginSmall:{
     fontSize:13,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+    color: 'white'
   },
   labelLoginBig:{
     fontSize:20,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.secondary
+    color: 'white'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookContainer:{

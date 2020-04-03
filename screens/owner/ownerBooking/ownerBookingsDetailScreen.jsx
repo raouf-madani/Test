@@ -145,7 +145,7 @@ OwnerBookingsDetailScreen.navigationOptions= navData => {
             headerStyle:{
                 backgroundColor:'white'
             },
-            headerBackTitle:null,
+            headerBackTitle:" ",
             headerTintColor:Colors.background
     
     };

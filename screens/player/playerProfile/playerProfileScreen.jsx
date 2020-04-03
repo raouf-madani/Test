@@ -173,7 +173,7 @@ PlayerProfileScreen.navigationOptions= navData => {
          headerStyle:{
              backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
          },
-         headerBackTitle:null,
+         headerBackTitle:" ",
           headerTintColor:Platform.OS === 'android' ? 'white' :Colors.background ,
          headerRight : ()=>  
                (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 

@@ -103,11 +103,11 @@ const LoginScreen = props =>{
                <View style={styles.buttonsContainer}>
                  <View style={styles.buttonContainer}>
                    <Button
-                   theme={{colors: {primary:Colors.primary}}} 
+                   theme={{colors: {primary:'white'}}} 
                    mode={Platform.OS === 'android' ? "contained" : "outlined"}
                    labelStyle={buttonLabelStyle}
                    contentStyle={{width:'100%'}}
-                   style={{borderRadius:20, borderColor:'white'}}
+                   style={{borderRadius:20, backgroundColor:Colors.primary}}
                    icon='login'
                    dark={true}
                    >Se connecter 
@@ -142,6 +142,7 @@ LoginScreen.navigationOptions= ()=>{
     headerStyle:{
         backgroundColor: 'white'
     },
+    headerBackTitle : " ",
     headerTitle: () => (
       <Image 
       resizeMode="cover"
@@ -273,17 +274,17 @@ const styles= StyleSheet.create({
   buttonLabel:{
     fontSize:16,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
   },
   buttonLabelSmall:{
     fontSize:14,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
   }, 
   buttonLabelBig:{
     fontSize:20,
     fontFamily:'poppins', 
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: 'white'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookContainer:{

@@ -6,7 +6,6 @@ import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
 
-import RNPickerSelect from 'react-native-picker-select';
 
 
 
@@ -272,8 +271,8 @@ OwnerProfileScreen.navigationOptions = () => {
           headerStyle:{
               backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
           },
-          headerBackTitle:null,
-          headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
+          headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background,
+          headerBackTitle : " "
         };
 };
 

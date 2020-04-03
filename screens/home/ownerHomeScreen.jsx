@@ -60,6 +60,7 @@ OwnerHomeScreen.navigationOptions= ()=>{
     headerStyle:{
         backgroundColor: 'white'
     },
+    headerBackTitle : " ",
     headerTitle: () => (
       <Image 
       resizeMode="cover"
