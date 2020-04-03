@@ -100,8 +100,8 @@ OwnerSupportScreen.navigationOptions= navData => {
              headerStyle:{
                  backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
              },
-             headerBackTitle:null,
-             headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background
+             headerTintColor:Platform.OS === 'android' ? 'white' : Colors.background,
+             headerBackTitle : " "
      
      };
  

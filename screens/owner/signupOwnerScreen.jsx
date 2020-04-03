@@ -332,7 +332,9 @@ SignupOwnerScreen.navigationOptions= ()=>{
           alignSelf: 'center'}}
         
         />
-      )};
+      ),
+       headerBackTitle : " "
+    };
   }
 
 
@@ -521,19 +523,20 @@ const styles= StyleSheet.create({
   pickerContainer:{
     borderBottomWidth:1,
     borderBottomColor:'white',
-    padding:5
+    padding:Platform.OS === 'android' ? 5 : 15,
+    marginTop:12
   },
   pickerContainerTall:{
     borderBottomWidth:1,
     borderBottomColor:'white',
-    paddingVertical:15,
-    paddingHorizontal:10
+    paddingVertical:Platform.OS === 'android' ? 15 : 25,
+    paddingHorizontal:Platform.OS === 'android' ? 10 : 20
   },
   pickerContainerBig:{
     borderBottomWidth:1,
     borderBottomColor:'white',
-    paddingVertical:25,
-    paddingHorizontal:10
+    paddingVertical:Platform.OS === 'android' ? 25 : 35,
+    paddingHorizontal:Platform.OS === 'android' ? 10 : 20
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
