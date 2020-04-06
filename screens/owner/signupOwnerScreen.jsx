@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions,Picker,ActionSheetIOS} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {TextInput,RadioButton} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../../constants/Colors';
@@ -64,15 +64,14 @@ const SignupOwnerScreen = props =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    //states for checkboxes
+    //states for checkboxes and radiobutton
     const [isCheckedShower, setIsCheckedShower] = useState(false);
     const [isCheckedBall, setIsCheckedBall] = useState(false);
     const [isCheckedCloackroom, setIsCheckedcloackroom] = useState(false);
     const [isCheckedBib, setIsCheckedBib] = useState(false);
     const [isCheckedCover, setIsCheckedCover] = useState(false);
-    const [isCheckedUncover, setIsCheckedUncover] = useState(false);
+    
    
-
     //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
     const [phone,setPhone] = useState('');
@@ -281,28 +280,18 @@ const SignupOwnerScreen = props =>{
                                     <Text style={textStyle}>Plafond *</Text>
                                 </View>
                                 <View style={rowsStyle}>
-                                    <CheckBox
-                                        title='Couvert'
-                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checked={isCheckedCover ? true : false}
-                                        checkedColor={Colors.primary}
-                                        onPress={()=>setIsCheckedCover(isChecked => !isChecked)}
-                                        fontFamily='poppins'
-                                        textStyle={checkBoxLabelStyle}
-                                    />
-                                    <CheckBox
-                                        title='Non couvert'
-                                        containerStyle={{backgroundColor:'transparent',borderWidth:0}}
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checked={isCheckedUncover ? true : false}
-                                        checkedColor={Colors.primary}
-                                        onPress={()=>setIsCheckedUncover(isChecked => !isChecked)}
-                                        fontFamily='poppins'
-                                        textStyle={checkBoxLabelStyle}
-                                    />
+                                <RadioButton.Group
+                                  value = {isCheckedCover}
+                                  onValueChange = {prevValue=>setIsCheckedCover(prevValue)}>
+                                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                                      <Text style={checkBoxLabelStyle}>Couvert</Text>
+                                      <RadioButton.Android uncheckedColor='grey' color={Colors.primary} value="Couvert"/>
+                                    </View>
+                                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                                      <Text style={checkBoxLabelStyle}>Non Couvert</Text>
+                                      <RadioButton.Android uncheckedColor='grey' color={Colors.primary} value="Non Couvert"/>
+                                    </View>  
+                              </RadioButton.Group>
                                 </View>
                             </View>
                         </View>
@@ -507,7 +496,6 @@ const styles= StyleSheet.create({
     fontSize:20,
     fontFamily:'poppins'
   },
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   step3Container:{
     marginTop:30

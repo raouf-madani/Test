@@ -19,6 +19,7 @@ const EditServiceScreen = props =>{
   let titleNoBoldStyle = styles.titleNoBold;
   let titleContainer2Style = styles.titleContainer2;
   let radioTypeMatchStyle = styles.radioTypeMatch;
+  let switchIOS;
 
   if(screen.width < 350){
     titleStyle = styles.titleSmall;
@@ -38,6 +39,12 @@ const EditServiceScreen = props =>{
     titleNoBoldStyle = styles.titleNoBoldBig;
     titleContainer2Style = styles.titleContainer2Big;
     radioTypeMatchStyle = styles.radioTypeMatchBig;
+  }
+  if(Platform.OS === 'ios'){
+     switchIOS = {
+      alignSelf:'center', 
+      transform:  [{ scaleX: .7 }, { scaleY: .7 }] 
+    };
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -236,31 +243,31 @@ const EditServiceScreen = props =>{
         
         <DataTable>
         <DataTable.Row>
-          <Switch value={switchSat} onValueChange={()=>setSwitchSat(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchSat? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Sam</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchSat} onValueChange={()=>setSwitchSat(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchSat? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Sam</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchSat){showDatePicker();setSat({...sat,isOpenSat:true});setId('sat');} }}>{sat.isOpenSat === true ? sat.openTimeSat: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{if(switchSat){showDatePicker();setSatClose({...satClose,isCloseSat:true});setId('satClose')}}}>{satClose.isCloseSat ? satClose.closeTimeSat : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchSun} onValueChange={()=>setSwitchSun(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchSun ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Dim</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchSun} onValueChange={()=>setSwitchSun(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchSun ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Dim</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchSun){showDatePicker();setSun({...sun,isOpenSun:true});setId('sun');} }}>{sun.isOpenSun ? sun.openTimeSun: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchSun){showDatePicker();setSunClose({...sunClose,isCloseSun:true});setId('sunClose');} }}>{sunClose.isCloseSun ? sunClose.closeTimeSun : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchMon} onValueChange={()=>setSwitchMon(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchMon ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Lun</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchMon} onValueChange={()=>setSwitchMon(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchMon ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Lun</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchMon){showDatePicker();setMon({...mon,isOpenMon:true});setId('mon');} }}>{mon.isOpenMon ? mon.openTimeMon: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchMon){showDatePicker();setMonClose({...monClose,isCloseMon:true});setId('monClose');} }}>{monClose.isCloseMon ? monClose.closeTimeMon : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchTue} onValueChange={()=>setSwitchTue(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchTue ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Mar</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchTue} onValueChange={()=>setSwitchTue(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchTue ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Mar</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchTue){showDatePicker();setTue({...tue,isOpenTue:true});setId('tue');} }}>{tue.isOpenTue ? tue.openTimeTue: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchTue){showDatePicker();setTueClose({...tueClose,isCloseTue:true});setId('tueClose');} }}>{tueClose.isCloseTue ? tueClose.closeTimeTue : 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchWed} onValueChange={()=>setSwitchWed(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchWed ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Mer</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchWed} onValueChange={()=>setSwitchWed(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchWed ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Mer</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchWed){showDatePicker();setWed({...wed,isOpenWed:true});setId('wed');} }}>{wed.isOpenWed ? wed.openTimeWed: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchWed){showDatePicker();setWedClose({...wedClose,isCloseWed:true});setId('wedClose');} }}>{wedClose.isCloseWed ? wedClose.closeTimeWed: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchThu} onValueChange={()=>setSwitchThu(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchThu ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Jeu</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchThu} onValueChange={()=>setSwitchThu(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchThu ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Jeu</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchThu){showDatePicker();setThu({...thu,isOpenThu:true});setId('thu');} }}>{thu.isOpenThu ? thu.openTimeThu: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchThu){showDatePicker();setThuClose({...thuClose,isCloseThu:true});setId('thuClose');} }}>{thuClose.isCloseThu ? thuClose.closeTimeThu: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         <DataTable.Row>
-          <Switch value={switchFri} onValueChange={()=>setSwitchFri(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchFri ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Ven</Text></DataTable.Cell>
+          <Switch style={switchIOS} value={switchFri} onValueChange={()=>setSwitchFri(prevValue=>!prevValue)} trackColor={{true:'rgba(198,34,37,0.8)'}} thumbColor={switchFri ? Colors.primary: 'white'}/><DataTable.Cell><Text style={titleNoBoldStyle}>Ven</Text></DataTable.Cell>
           <DataTable.Cell numeric><Text style={titleNoBoldStyle} onPress={()=>{ if(switchFri){showDatePicker();setFri({...fri,isOpenFri:true});setId('fri');} }}>{fri.isOpenFri ? fri.openTimeFri: 'Ouvert  -  '}</Text><Text style={titleNoBoldStyle} onPress={()=>{ if(switchFri){showDatePicker();setFriClose({...friClose,isCloseFri:true});setId('friClose');} }}>{friClose.isCloseFri ? friClose.closeTimeFri: 'Fermé'}</Text></DataTable.Cell>
         </DataTable.Row>
         </DataTable>
