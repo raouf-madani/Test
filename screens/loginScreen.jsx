@@ -1,10 +1,38 @@
-import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions} from 'react-native';
+import React,{useReducer,useEffect,useCallback} from 'react';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
+import Input from '../components/Input';
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
+
+//UseReducer Input Management
+const Form_Input_Update = 'Form_Input_Update';
+const formReducer=(state,action) =>{
+    if(action.type === Form_Input_Update){
+        const updatedValues = {
+          ...state.inputValues,
+          [action.inputID]:action.value
+        };
+        const updatedValidities = {
+          ...state.inputValidities,
+          [action.inputID]:action.isValid
+        };
+        let formIsValidUpdated = true;
+        for(const key in updatedValidities){
+          formIsValidUpdated = formIsValidUpdated && updatedValidities[key];
+        }
+        return{
+          inputValues:updatedValues,
+          inputValidities:updatedValidities,
+          formIsValid:formIsValidUpdated
+        };
+    }
+   
+     return state;
+    
+};
 
 const LoginScreen = props =>{
 
@@ -16,8 +44,7 @@ const LoginScreen = props =>{
    let titleStyle = styles.title;
    let iconContainerStyle = styles.iconContainer;
    let signupContainerStyle = styles.signupContainer;
-   let inputsContainerStyle = styles.inputsContainer;
-   let textInputStyle = styles.textInput;
+   let buttonsContainerStyle = styles.buttonsContainer;
    let buttonLabelStyle = styles.buttonLabel;
    let accountTextContainerStyle = styles.accountTextContainer;
    let accountOrTextStyle = styles.accountOrText;
@@ -30,7 +57,7 @@ const LoginScreen = props =>{
     titleStyle = styles.titleSmall;
     iconContainerStyle = styles.iconContainerSmall;
     signupContainerStyle = styles.signupContainerSmall;
-    inputsContainerStyle = styles.inputsContainerSmall;
+    buttonsContainerStyle = styles.buttonsContainerSmall;
     buttonLabelStyle = styles.buttonLabelSmall;
     accountTextContainerStyle = styles.accountTextContainerSmall;
     accountOrTextStyle = styles.accountOrTextSmall;
@@ -41,7 +68,7 @@ const LoginScreen = props =>{
 
    if(screen.height <= 800 && screen.height >=700){
     titleContainerStyle = styles.titleContainerBig;
-    inputsContainerStyle = styles.inputsContainerTall;
+    buttonsContainerStyle = styles.buttonsContainerTall;
     textInputStyle = styles.textInputTall;
     accountTextContainerStyle = styles.accountTextContainerTall;
     iconContainerStyle = styles.iconContainerTall;
@@ -53,7 +80,7 @@ const LoginScreen = props =>{
     iconContainerStyle = styles.iconContainerBig;
     signupContainerStyle = styles.signupContainerBig;
     textInputStyle = styles.textInputBig;
-    inputsContainerStyle = styles.inputsContainerBig;
+    buttonsContainerStyle = styles.buttonsContainerBig;
     buttonLabelStyle = styles.buttonLabelBig;
     accountTextContainerStyle = styles.accountTextContainerBig;
     accountOrTextStyle = styles.accountOrTextBig;
@@ -63,13 +90,28 @@ const LoginScreen = props =>{
    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [phone,setPhone] = useState('');
-  const [password,setPassword] = useState('');
+  
+
+  const[formState,disaptchFormState] = useReducer(formReducer,
+             {inputValues:{
+               phone: '',
+               password:''
+             },
+              inputValidities:{
+                phone:false,
+                password:false
+              },
+              formIsValid:false});
+
+    const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+        
+       disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
+    },[disaptchFormState]);          
 
     return(
       <View style={styles.container}>
       <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
-       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
+       <KeyboardAvoidingView behavior='height'  keyboardVerticalOffset={10} style={styles.overlayBackground}>
            <ScrollView>
              <View style={titleContainerStyle}>
                <Text style={titleStyle}>Bienvenue à</Text>
@@ -78,28 +120,32 @@ const LoginScreen = props =>{
               <Image style={{width:'100%', height:'100%'}} source = {require("../assets/images/5.png")}/>
              </View>
              <View style={signupContainerStyle}>
-               <View style={inputsContainerStyle}>
-                 <TextInput
-                   mode='flat'
-                   label='Téléphone'
-                   placeholder='Votre numéro de téléphone'
-                   value={phone}
-                   onChangeText={prevValue=>setPhone(prevValue)}
-                   theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                   style={textInputStyle}
-                   underlineColor='white'
-                 />
-                 <TextInput
-                   mode='flat'
-                   label='Mot de passe'
-                   placeholder='Rentrez votre mot de passe'
-                   value={password}
-                   onChangeText={prevValue=>setPassword(prevValue)}
-                   theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                   style={textInputStyle}
-                   underlineColor='white'
-                 />
-               </View>
+              <Input
+                id='phone'
+                label='Téléphone'
+                keyboardType="phone-pad"
+                returnKeyType="next"
+                onInputChange={inputChangeHandler}
+                initialValue=''
+                initiallyValid={true}
+                phone
+                required
+                errorText='Veuillez entrer un numéro valide svp!'
+              />
+              <Input
+                id='password'
+                label='Mot de Passe'
+                keyboardType="default"
+                returnKeyType="next"
+                secureTextEntry
+                minLength={6}
+                autoCapitalize='none'
+                onInputChange={inputChangeHandler}
+                initialValue=''
+                initiallyValid={true}
+                required
+                errorText='Veuillez entrer minimum 6 caractères svp!'
+              />
                <View style={styles.buttonsContainer}>
                  <View style={styles.buttonContainer}>
                    <Button
@@ -118,12 +164,16 @@ const LoginScreen = props =>{
                     <Text style={accountOrTextStyle}>Je n'ai pas un compte ?</Text>
                    </View>
                    <View style={styles.loginFacebookContainer}>
-                     <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
+                     <TouchableOpacity>
+                       <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
+                     </TouchableOpacity>
                      <Text style={accountOrTextStyle}>Ou</Text>
-                     <Text style={connectWidthTextStyle}>Se connecter avec</Text>
-                     <View style={styles.facebookIconContainer}>
+                     <TouchableOpacity>
+                       <Text style={connectWidthTextStyle}>Se connecter avec</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.facebookIconContainer}>
                       <Image style={facebookIconStyle} source = {require('../assets/images/facebook.png')} /> 
-                     </View>     
+                     </TouchableOpacity>     
                    </View>
                  </View>
                </View>
@@ -240,33 +290,23 @@ const styles= StyleSheet.create({
   inputsContainer:{
     marginBottom:30
   },
-  inputsContainerSmall:{
-    marginBottom:20
-  },
-  inputsContainerTall:{
-    marginBottom:40
-  },
-  inputsContainerBig:{
-    marginBottom:50
-  },
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  textInput:{
-    backgroundColor:'transparent'
-  },
-  textInputTall:{
-    backgroundColor:'transparent',
-    paddingVertical:18
-  },
-  textInputBig:{
-    backgroundColor:'transparent',
-    fontSize:20,
-    paddingVertical:20
-  },
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   buttonsContainer:{
     alignItems:'center',
-    marginHorizontal:10
+    marginHorizontal:10,
+    marginTop:30
   },
+  buttonsContainerSmall:{
+    marginTop:20
+  },
+  buttonsContainerTall:{
+    marginTop:40
+  },
+  buttonsContainerBig:{
+    marginTop:50
+  },
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   buttonContainer:{
     paddingVertical:5
   },

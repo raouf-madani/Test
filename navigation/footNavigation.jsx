@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
-import {Platform,StyleSheet} from 'react-native';
+import {createAppContainer,createSwitchNavigator} from 'react-navigation';
+import {Platform} from 'react-native';
 import Colors from '../constants/Colors';
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
 
@@ -94,7 +94,6 @@ const FootNavigation = createStackNavigator({
    Stadiums :  stadiumChoiceScreen ,
    StadiumBooking : stadiumBookingScreen ,
    Signup: SignupScreen,
-   Login: LoginScreen,
    SignupOwner:SignupOwnerScreen,
    OwnerService : OwnerServiceScreen,
    EditService: EditServiceScreen,
@@ -113,14 +112,14 @@ const FootNavigation = createStackNavigator({
 );
 
 
- 
+ const AuthNavigation = createStackNavigator({
+  Login: LoginScreen,
+ });
 
-///////////////////////////////////////////////////////////////
-
-const styles= StyleSheet.create({
-  
-
-});
+const MainNavigation = createSwitchNavigator({
+  Auth: AuthNavigation,
+  Main: FootNavigation
+})
 
 
-export default createAppContainer(FootNavigation);
+export default createAppContainer(MainNavigation);
