@@ -37,7 +37,7 @@ const ProfileChoiceScreen = props =>
                 role = "Propriétaire"
                 fonctionA = "Louez votre Stade"
                 fonctionB = "Louez votre Stade"
-                onPress={() =>props.navigation.navigate('Owner')}
+                onPress={() =>props.navigation.navigate('SignupOwner')}
                     />
 
                 <Card 
@@ -45,7 +45,7 @@ const ProfileChoiceScreen = props =>
                 role = "Joueur"
                 fonctionA = "Réservez un créneau"
                 fonctionB = "Trouvez un adversaire"
-                onPress={() =>props.navigation.navigate('Player')}
+                onPress={() =>props.navigation.navigate('Signup')}
                  />
 
 

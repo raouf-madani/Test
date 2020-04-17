@@ -1,10 +1,39 @@
-import React,{useState} from 'react';
+import React,{useReducer,useCallback} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import Input from '../../components/Input';
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
+
+//UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
+const Form_Input_Update = 'Form_Input_Update';
+const formReducer=(state,action) =>{
+    if(action.type === Form_Input_Update){
+        const updatedValues = {
+          ...state.inputValues,
+          [action.inputID]:action.value
+        };
+        const updatedValidities = {
+          ...state.inputValidities,
+          [action.inputID]:action.isValid
+        };
+        let formIsValidUpdated = true;
+        for(const key in updatedValidities){
+          formIsValidUpdated = formIsValidUpdated && updatedValidities[key];
+        }
+        return{
+          inputValues:updatedValues,
+          inputValidities:updatedValidities,
+          formIsValid:formIsValidUpdated
+        };
+    }
+   
+     return state;
+    
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const SignupScreen = props =>{
 
@@ -59,60 +88,85 @@ const SignupScreen = props =>{
    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const [lastName,setLastName] = useState('');
-    const [firstName,setFirstName] = useState('');
-    const [phone,setPhone] = useState('');
-    const [password,setPassword] = useState('');
+    const[formState,disaptchFormState] = useReducer(formReducer,
+      {inputValues:{
+        name:'',
+        surname:'',
+        phone: '',
+        password:''
+      },
+      inputValidities:{
+        name:false,
+        surname:false,
+        phone:false,
+        password:false
+      },
+      formIsValid:false});
+
+    const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+
+    disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
+    },[disaptchFormState]);
 
     return(
       <View style={styles.container}>
        <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
-        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={styles.overlayBackground}>
+        <KeyboardAvoidingView behavior='height' keyboardVerticalOffset={10} style={styles.overlayBackground}>
             <ScrollView>
               <View style={titleContainerStyle}>
                 <Text style={titleStyle}>Inscrivez-Vous</Text>
               </View>
               <View style={signupContainerStyle}>
                 <View style={inputsContainerStyle}>
-                  <TextInput
-                    mode='flat'
-                    label='Nom'
-                    placeholder='Votre nom'
-                    value={lastName}
-                    onChangeText={prevText=>setLastName(prevText)}
-                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={textInputStyle}
-                    underlineColor='white'
-                  />
-                  <TextInput
-                    mode='flat'
-                    label='Prénom'
-                    placeholder='Votre prénom'
-                    value={firstName}
-                    onChangeText={prevText=>setFirstName(prevText)}
-                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={textInputStyle}
-                    underlineColor='white'
-                  />
-                  <TextInput
-                    mode='flat'
+                      <Input
+                      id='name'
+                      label='Nom'
+                      keyboardType="default"
+                      returnKeyType="next"
+                      autoCapitalize='sentences'
+                      onInputChange={inputChangeHandler}
+                      initialValue=''
+                      initiallyValid={true}
+                      required
+                      errorText='Veuillez entrer votre nom svp!'
+                    />
+                    <Input
+                      id='surname'
+                      label='Prénom'
+                      keyboardType="default"
+                      returnKeyType="next"
+                      autoCapitalize='sentences'
+                      onInputChange={inputChangeHandler}
+                      initialValue=''
+                      initiallyValid={true}
+                      required
+                      errorText='Veuillez entrer votre prénom svp!'
+                    />
+                    <Input
+                    id='phone'
                     label='Téléphone'
-                    placeholder='Votre numéro de téléphone'
-                    value={phone}
-                    onChangeText={prevValue=>setPhone(prevValue)}
-                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={textInputStyle}
-                    underlineColor='white'
+                    keyboardType="phone-pad"
+                    returnKeyType="next"
+                    onInputChange={inputChangeHandler}
+                    initialValue=''
+                    initiallyValid={true}
+                    phone
+                    required
+                    errorText='Veuillez entrer un numéro valide svp!'
                   />
-                  <TextInput
-                    mode='flat'
-                    label='Mot de passe'
-                    placeholder='Rentrez votre mot de passe'
-                    value={password}
-                    onChangeText={prevValue=>setPassword(prevValue)}
-                    theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
-                    style={textInputStyle}
-                    underlineColor='white'
+                  <Input
+                    id='password'
+                    label='Mot de Passe'
+                    keyboardType="default"
+                    returnKeyType="next"
+                    secureTextEntry
+                    minLength={6}
+                    autoCapitalize='none'
+                    onInputChange={inputChangeHandler}
+                    initialValue=''
+                    initiallyValid={true}
+                    required
+                    errorText='Veuillez entrer minimum 6 caractères svp!'
                   />
                 </View>
                 <View style={styles.buttonsContainer}>
@@ -280,20 +334,7 @@ const styles= StyleSheet.create({
   buttonContainer:{
     paddingVertical:5
   },
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  textInput:{
-    backgroundColor:'transparent'
-  },
-  textInputTall:{
-    backgroundColor:'transparent',
-    fontSize:18,
-    paddingVertical:15
-  },
-  textInputBig:{
-    backgroundColor:'transparent',
-    fontSize:20,
-    paddingVertical:20
-  },
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   labelSignup:{
     fontSize:16,

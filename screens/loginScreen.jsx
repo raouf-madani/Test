@@ -1,13 +1,13 @@
 import React,{useReducer,useEffect,useCallback} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 
-//UseReducer Input Management
+//UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
 const Form_Input_Update = 'Form_Input_Update';
 const formReducer=(state,action) =>{
     if(action.type === Form_Input_Update){
@@ -33,6 +33,7 @@ const formReducer=(state,action) =>{
      return state;
     
 };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const LoginScreen = props =>{
 
@@ -120,32 +121,32 @@ const LoginScreen = props =>{
               <Image style={{width:'100%', height:'100%'}} source = {require("../assets/images/5.png")}/>
              </View>
              <View style={signupContainerStyle}>
-              <Input
-                id='phone'
-                label='Téléphone'
-                keyboardType="phone-pad"
-                returnKeyType="next"
-                onInputChange={inputChangeHandler}
-                initialValue=''
-                initiallyValid={true}
-                phone
-                required
-                errorText='Veuillez entrer un numéro valide svp!'
-              />
-              <Input
-                id='password'
-                label='Mot de Passe'
-                keyboardType="default"
-                returnKeyType="next"
-                secureTextEntry
-                minLength={6}
-                autoCapitalize='none'
-                onInputChange={inputChangeHandler}
-                initialValue=''
-                initiallyValid={true}
-                required
-                errorText='Veuillez entrer minimum 6 caractères svp!'
-              />
+                <Input
+                  id='phone'
+                  label='Téléphone'
+                  keyboardType="phone-pad"
+                  returnKeyType="next"
+                  onInputChange={inputChangeHandler}
+                  initialValue=''
+                  initiallyValid={true}
+                  phone
+                  required
+                  errorText='Veuillez entrer un numéro valide svp!'
+                />
+                <Input
+                  id='password'
+                  label='Mot de Passe'
+                  keyboardType="default"
+                  returnKeyType="next"
+                  secureTextEntry
+                  minLength={6}
+                  autoCapitalize='none'
+                  onInputChange={inputChangeHandler}
+                  initialValue=''
+                  initiallyValid={true}
+                  required
+                  errorText='Veuillez entrer minimum 6 caractères svp!'
+                />
                <View style={styles.buttonsContainer}>
                  <View style={styles.buttonContainer}>
                    <Button
@@ -164,7 +165,7 @@ const LoginScreen = props =>{
                     <Text style={accountOrTextStyle}>Je n'ai pas un compte ?</Text>
                    </View>
                    <View style={styles.loginFacebookContainer}>
-                     <TouchableOpacity>
+                     <TouchableOpacity onPress={()=>props.navigation.navigate('Role')}>
                        <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
                      </TouchableOpacity>
                      <Text style={accountOrTextStyle}>Ou</Text>
@@ -209,18 +210,19 @@ LoginScreen.navigationOptions= ()=>{
 const styles= StyleSheet.create({
  container:{
     flex: 1,
-    backgroundColor: '#fff',
-    
+    backgroundColor: '#fff'
    },
    bigBackgroundImage:{
     flex:1,
     resizeMode:'cover',
     width:'100%',
-    
+    height:'100%'
   },
   overlayBackground:{
     backgroundColor:"rgba(0, 0, 0, 0.7)", 
     flex:1,
+    height:'100%',
+    width:'100%'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   titleContainer:{
