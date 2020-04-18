@@ -11,6 +11,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const screen = Dimensions.get("window");
 
+
 // 10 next Days and OWN TIME PICKER
 let days = [];
 let hours = [
@@ -112,6 +113,8 @@ stadiumsType.forEach(element => {
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 const StadiumBookingScreen = props =>{
 /////////////////////////////////////////////////////////////////
+
+
 //Responsivity //
 let iconSize = 22 ;
 let nameTextStyle = styles.nameText;
