@@ -7,6 +7,19 @@ import Input from '../../components/Input';
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 
+/*
+const FIREBASE_CONFIG: any = {
+  apiKey: "AIzaSyCeW9gY7grDmAgpl58ompdE8dC6Xh9znSc",
+  authDomain: "footbooking-959a6.firebaseapp.com",
+  databaseURL: "https://footbooking-959a6.firebaseio.com",
+  projectId: "footbooking-959a6",
+  storageBucket: "footbooking-959a6.appspot.com",
+  messagingSenderId: "1047069881183",
+  appId: "1:1047069881183:web:099c10a1e2a1bc14347cea",
+  
+};
+*/
+
 //UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
 const Form_Input_Update = 'Form_Input_Update';
 const formReducer=(state,action) =>{
@@ -43,7 +56,6 @@ const SignupScreen = props =>{
   let titleStyle = styles.title;
   let signupContainerStyle = styles.signupContainer;
   let inputsContainerStyle = styles.inputsContainer;
-  let textInputStyle = styles.textInput;
   let labelSignupStyle= styles.labelSignup;
   let labelLoginStyle = styles.labelLogin;
   let facebookContainerStyle = styles.facebookContainer;
@@ -68,7 +80,6 @@ const SignupScreen = props =>{
    if(screen.height <= 800 && screen.height >=700){
     titleContainerStyle = styles.titleContainerBig;
     inputsContainerStyle = styles.inputsContainerTall;
-    textInputStyle = styles.textInputTall;
     facebookContainerStyle = styles.facebookContainerTall;
    }
 
@@ -78,7 +89,6 @@ const SignupScreen = props =>{
     titleStyle = styles.titleBig;
     signupContainerStyle = styles.signupContainerBig;
     inputsContainerStyle = styles.inputsContainerBig;
-    textInputStyle = styles.textInputBig;
     labelSignupStyle = styles.labelSignupBig;
     labelLoginStyle = styles.labelLoginBig;
     facebookContainerStyle = styles.facebookContainerBig;
@@ -192,7 +202,7 @@ const SignupScreen = props =>{
                     style={{borderRadius:20, backgroundColor:Colors.primary}}
                     icon='login'
                     dark={true}
-                    onPress={() =>props.navigation.navigate('Login')}
+                    onPress={() =>props.navigation.navigate('Player')}
                     >Se connecter 
                     </Button>
                   </View>
