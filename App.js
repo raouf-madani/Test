@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
+import {createStore,combineReducers} from 'redux';
+import {Provider} from 'react-redux';
 import {enableScreens} from 'react-native-screens';
 import FootNavigation from './navigation/footNavigation';
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
 
 enableScreens();
+
+//const rootReducer = combineReducers({
+
+//});
+//const store = createStore(rootReducer);
 
 const fetchFonts = () =>{
   return Font.loadAsync({
@@ -29,7 +36,7 @@ export default function App() {
    }
 
   return (
-    <FootNavigation />
+       <FootNavigation />
   );
 }
 
