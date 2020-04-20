@@ -11,6 +11,21 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const screen = Dimensions.get("window");
 
+// const test = async ()=> {
+//   try {
+    
+//     const arr = await fetch('http://192.168.1.9:3000/owner');
+//     const resData = await arr.json ();
+//     console.log("HELLO WORLD 2");
+//     console.log(resData);
+    
+//   } catch (error) {
+//   console.log("There is an Error");
+//   }
+  
+//   } ;
+  
+// test();
 
 // 10 next Days and OWN TIME PICKER
 let days = [];
@@ -112,7 +127,7 @@ stadiumsType.forEach(element => {
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 const StadiumBookingScreen = props =>{
-/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 
 //Responsivity //
