@@ -17,16 +17,15 @@ let con = mysql.createConnection({
     password: "",
     database: "raoufcvc_footballbooking"
   });
-  
+  con.connect();
   app.get("/owner",(req,res)=> {
 
-    con.connect(function(err) {
-        if (err) throw err;
         con.query("SELECT * FROM service",  (err, result, fields) => {
-          if (err) throw err;
-          console.log(result);
+          if (err) res.send(err);
+          res.send(result);
+         
         });
-      });
+     
 
   })
 
@@ -37,3 +36,4 @@ let con = mysql.createConnection({
 app.listen(3000, () => {
     console.log('Connected');
    });
+
