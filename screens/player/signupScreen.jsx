@@ -1,14 +1,18 @@
-import React,{useReducer,useCallback} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions} from 'react-native';
+import React,{useReducer,useCallback,useRef,useState} from 'react';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TextInput, ActivityIndicator} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import Input from '../../components/Input';
+import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
+import * as firebase from "firebase";
+
+
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 
-/*
-const FIREBASE_CONFIG: any = {
+
+const FIREBASE_CONFIG= {
   apiKey: "AIzaSyCeW9gY7grDmAgpl58ompdE8dC6Xh9znSc",
   authDomain: "footbooking-959a6.firebaseapp.com",
   databaseURL: "https://footbooking-959a6.firebaseio.com",
@@ -18,7 +22,14 @@ const FIREBASE_CONFIG: any = {
   appId: "1:1047069881183:web:099c10a1e2a1bc14347cea",
   
 };
-*/
+try {
+  if (FIREBASE_CONFIG.apiKey) {
+    firebase.initializeApp(FIREBASE_CONFIG);
+  }
+} catch (err) {
+  // ignore app already initialized error on snack
+}
+
 
 //UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
 const Form_Input_Update = 'Form_Input_Update';
@@ -50,6 +61,17 @@ const formReducer=(state,action) =>{
 
 const SignupScreen = props =>{
 
+  const recaptchaVerifier = useRef(null);
+  const verificationCodeTextInput = useRef(null);
+  const [verificationId, setVerificationId] = useState('');
+  const [verifyError, setVerifyError] = useState(false);
+  const [verifyInProgress, setVerifyInProgress] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [confirmError, setConfirmError] = useState(false);
+  const [confirmInProgress, setConfirmInProgress] = useState(false);
+  const isConfigValid = !!FIREBASE_CONFIG.apiKey;
+
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
   let titleContainerStyle= styles.titleContainer;
@@ -97,7 +119,7 @@ const SignupScreen = props =>{
     termsConditionsTextStyle = styles.termsConditionsTextBig;
    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//////Input Management
     const[formState,disaptchFormState] = useReducer(formReducer,
       {inputValues:{
         name:'',
@@ -117,13 +139,60 @@ const SignupScreen = props =>{
 
     disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
     },[disaptchFormState]);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     const signupHandler = async () => {
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      try {
+        setVerifyError(undefined);
+        setVerifyInProgress(true);
+        setVerificationId('');
+        const verificationId = await phoneProvider.verifyPhoneNumber(
+          formState.inputValues.phone,
+          // @ts-ignore
+          recaptchaVerifier.current
+        );
+        setVerifyInProgress(false);
+        setVerificationId(verificationId);
+        verificationCodeTextInput.current?.focus();
+      } catch (err) {
+        setVerifyError(err);
+        setVerifyInProgress(false);
+      }
+    };
+
+    const sendCode = async () => {
+      try {
+        setConfirmError(undefined);
+        setConfirmInProgress(true);
+        const credential = firebase.auth.PhoneAuthProvider.credential(
+          verificationId,
+          verificationCode
+        );
+         await firebase
+          .auth()
+          .signInWithCredential(credential);
+        setConfirmInProgress(false);
+        setVerificationId("");
+        setVerificationCode("");
+        verificationCodeTextInput.current?.clear();
+        Alert.alert("Phone authentication successful!");
+      } catch (err) {
+        setConfirmError(err);
+        setConfirmInProgress(false);
+      }
+    };
 
     return(
       <View style={styles.container}>
        <ImageBackground source={require('../../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
         <KeyboardAvoidingView behavior='height' keyboardVerticalOffset={10} style={styles.overlayBackground}>
             <ScrollView>
+            
               <View style={titleContainerStyle}>
+              <FirebaseRecaptcha.FirebaseRecaptchaVerifierModal
+                ref={recaptchaVerifier}
+                firebaseConfig={FIREBASE_CONFIG}
+              />
                 <Text style={titleStyle}>Inscrivez-Vous</Text>
               </View>
               <View style={signupContainerStyle}>
@@ -181,30 +250,40 @@ const SignupScreen = props =>{
                 </View>
                 <View style={styles.buttonsContainer}>
                   <View style={styles.buttonContainer}>
-                    <Button
+                    {!verificationId ? (<Button
                     theme={{colors: {primary:"white"}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
                     labelStyle={labelSignupStyle}
                     contentStyle={{width:'100%'}}
-                    style={{borderRadius:20,backgroundColor:Colors.secondary}}
+                    style={{borderRadius:20,backgroundColor:Colors.primary}}
                     icon='open-in-app'
                     dark={true}
-                    onPress={() =>props.navigation.navigate('SignupOwner')}
+                    onPress={signupHandler}
                     >S'inscrire
-                    </Button>
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <Button
-                    theme={{colors: {primary:'white'}}} 
+                    </Button>):(<View>
+                      <TextInput
+                       placeholder='123456'
+                       ref={verificationCodeTextInput}
+                       onChangeText={()=>setVerificationCode(verificationCode)}
+                       style={{borderBottomWidth:1,borderBottomColor:'white',marginBottom:5}}
+                      />
+                      <Button
+                    theme={{colors: {primary:"white"}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                    labelStyle={labelLoginStyle}
+                    labelStyle={labelSignupStyle}
                     contentStyle={{width:'100%'}}
-                    style={{borderRadius:20, backgroundColor:Colors.primary}}
-                    icon='login'
+                    style={{borderRadius:20,backgroundColor:Colors.primary}}
+                    icon='open-in-app'
                     dark={true}
-                    onPress={() =>props.navigation.navigate('Player')}
-                    >Se connecter 
+                    onPress={sendCode}
+                    >Send Code
                     </Button>
+                    {confirmError && (
+                      <Text style={styles.error}>{`Error: ${confirmError.message}`}</Text>
+                    )}
+                      </View>)}
+                    
+
                   </View>
                   <View style={facebookContainerStyle}>
                     <View style={styles.facebookTextContainer}>
@@ -456,6 +535,9 @@ const styles= StyleSheet.create({
     fontFamily:'poppins',
     fontSize:13,
     color:'white'
+  },
+  loader: {
+    marginTop: 10,
   }
    
 });
