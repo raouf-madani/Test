@@ -62,7 +62,7 @@ const Input = props =>{
 
         const inputChangeHandler= text=>{
             const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            const phoneRegex = /(^(00213|\+213)[1-9]{9}$)|(^(05|06|07)[1-9]{8}$)/;
+            const phoneRegex = /(^(00213|\+213)[0-9]{9}$)|(^(05|06|07)[0-9]{8}$)/;
             let isValid = true;
             if (props.required && text.trim().length === 0) {
             isValid = false;
