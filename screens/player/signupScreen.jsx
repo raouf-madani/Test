@@ -1,11 +1,11 @@
 import React,{useReducer,useCallback,useRef,useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TextInput, ActivityIndicator} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TextInput, ActivityIndicator,Alert,TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import Input from '../../components/Input';
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
-
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 
 //responsivity (Dimensions get method)
@@ -69,7 +69,6 @@ const SignupScreen = props =>{
   const [verificationCode, setVerificationCode] = useState("");
   const [confirmError, setConfirmError] = useState(false);
   const [confirmInProgress, setConfirmInProgress] = useState(false);
-  const isConfigValid = !!FIREBASE_CONFIG.apiKey;
 
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +78,6 @@ const SignupScreen = props =>{
   let signupContainerStyle = styles.signupContainer;
   let inputsContainerStyle = styles.inputsContainer;
   let labelSignupStyle= styles.labelSignup;
-  let labelLoginStyle = styles.labelLogin;
   let facebookContainerStyle = styles.facebookContainer;
   let facebookTextStyle = styles.facebookText;
   let facebookIconStyle = styles.facebookIcon;
@@ -91,7 +89,6 @@ const SignupScreen = props =>{
     signupContainerStyle = styles.signupContainerSmall;
     inputsContainerStyle = styles.inputsContainerSmall;
     labelSignupStyle = styles.labelSignupSmall;
-    labelLoginStyle = styles.labelLoginSmall;
     facebookContainerStyle = styles.facebookContainerSmall;
     facebookTextStyle = styles.facebookTextSmall;
     facebookIconStyle = styles.facebookIconSmall;
@@ -112,7 +109,6 @@ const SignupScreen = props =>{
     signupContainerStyle = styles.signupContainerBig;
     inputsContainerStyle = styles.inputsContainerBig;
     labelSignupStyle = styles.labelSignupBig;
-    labelLoginStyle = styles.labelLoginBig;
     facebookContainerStyle = styles.facebookContainerBig;
     facebookTextStyle = styles.facebookTextBig;
     facebookIconStyle = styles.facebookIconBig;
@@ -142,22 +138,25 @@ const SignupScreen = props =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      const signupHandler = async () => {
       const phoneProvider = new firebase.auth.PhoneAuthProvider();
-      try {
-        setVerifyError(undefined);
-        setVerifyInProgress(true);
-        setVerificationId('');
-        const verificationId = await phoneProvider.verifyPhoneNumber(
-          formState.inputValues.phone,
-          // @ts-ignore
-          recaptchaVerifier.current
-        );
-        setVerifyInProgress(false);
-        setVerificationId(verificationId);
-        verificationCodeTextInput.current?.focus();
-      } catch (err) {
-        setVerifyError(err);
-        setVerifyInProgress(false);
+      if(formState.formIsValid){
+        try {
+          setVerifyError(undefined);
+          setVerifyInProgress(true);
+          setVerificationId('');
+          const verificationId = await phoneProvider.verifyPhoneNumber(
+            formState.inputValues.phone,
+            // @ts-ignore
+            recaptchaVerifier.current
+          );
+          setVerifyInProgress(false);
+          setVerificationId(verificationId);
+          verificationCodeTextInput.current?.focus();
+        } catch (err) {
+          setVerifyError(err);
+          setVerifyInProgress(false);
+        }
       }
+     
     };
 
     const sendCode = async () => {
@@ -175,7 +174,8 @@ const SignupScreen = props =>{
         setVerificationId("");
         setVerificationCode("");
         verificationCodeTextInput.current?.clear();
-        Alert.alert("Phone authentication successful!");
+        Alert.alert("Bienvenue à FOOT BOOKING!");
+        props.navigation.navigate('Player');
       } catch (err) {
         setConfirmError(err);
         setConfirmInProgress(false);
@@ -200,6 +200,7 @@ const SignupScreen = props =>{
                       <Input
                       id='name'
                       label='Nom'
+                      placeholder='Votre nom'
                       keyboardType="default"
                       returnKeyType="next"
                       autoCapitalize='sentences'
@@ -208,10 +209,13 @@ const SignupScreen = props =>{
                       initiallyValid={true}
                       required
                       errorText='Veuillez entrer votre nom svp!'
+                      editable={!verificationId}
+                      minLength={3}
                     />
                     <Input
                       id='surname'
                       label='Prénom'
+                      placeholder='Votre prénom'
                       keyboardType="default"
                       returnKeyType="next"
                       autoCapitalize='sentences'
@@ -220,10 +224,13 @@ const SignupScreen = props =>{
                       initiallyValid={true}
                       required
                       errorText='Veuillez entrer votre prénom svp!'
+                      editable={!verificationId}
+                      minLength={3}
                     />
                     <Input
                     id='phone'
                     label='Téléphone'
+                    placeholder='Exemple: +213658341876'
                     keyboardType="phone-pad"
                     returnKeyType="next"
                     onInputChange={inputChangeHandler}
@@ -232,10 +239,12 @@ const SignupScreen = props =>{
                     phone
                     required
                     errorText='Veuillez entrer un numéro valide svp!'
+                    editable={!verificationId}
                   />
                   <Input
                     id='password'
                     label='Mot de Passe'
+                    placeholder='Exemple: 96foot*/'
                     keyboardType="default"
                     returnKeyType="next"
                     secureTextEntry
@@ -246,11 +255,13 @@ const SignupScreen = props =>{
                     initiallyValid={true}
                     required
                     errorText='Veuillez entrer minimum 6 caractères svp!'
+                    editable={!verificationId}
                   />
                 </View>
                 <View style={styles.buttonsContainer}>
                   <View style={styles.buttonContainer}>
-                    {!verificationId ? (<Button
+                    {!verificationId ? (<View>
+                    <Button
                     theme={{colors: {primary:"white"}}} 
                     mode={Platform.OS === 'android' ? "contained" : "outlined"}
                     labelStyle={labelSignupStyle}
@@ -260,12 +271,21 @@ const SignupScreen = props =>{
                     dark={true}
                     onPress={signupHandler}
                     >S'inscrire
-                    </Button>):(<View>
+                    </Button>
+                    {verifyError && (
+                      <Text style={{color:Colors.primary,fontSize:13}}>{`Erreur: ${verifyError.message}`}</Text>
+                    )}
+                    {verifyInProgress && <ActivityIndicator style={styles.loader} />}
+                    </View>):
+                    (<View>
                       <TextInput
-                       placeholder='123456'
+                       placeholder='Taper vos 6 chiffres'
                        ref={verificationCodeTextInput}
-                       onChangeText={()=>setVerificationCode(verificationCode)}
-                       style={{borderBottomWidth:1,borderBottomColor:'white',marginBottom:5}}
+                       onChangeText={verificationCode=>setVerificationCode(verificationCode)}
+                       style={{borderBottomWidth:1,borderBottomColor:'white',marginBottom:10,color:'white'}}
+                       keyboardType='number-pad'
+                       autoCapitalize='none'
+                       returnKeyType="next"
                       />
                       <Button
                     theme={{colors: {primary:"white"}}} 
@@ -273,28 +293,34 @@ const SignupScreen = props =>{
                     labelStyle={labelSignupStyle}
                     contentStyle={{width:'100%'}}
                     style={{borderRadius:20,backgroundColor:Colors.primary}}
-                    icon='open-in-app'
+                    icon='check'
                     dark={true}
                     onPress={sendCode}
-                    >Send Code
+                    >Confirmer
                     </Button>
-                    {confirmError && (
-                      <Text style={styles.error}>{`Error: ${confirmError.message}`}</Text>
-                    )}
-                      </View>)}
-                    
-
+                    {confirmError && (<Text style={{color:Colors.primary,fontSize:13}}>{`Erreur: ${confirmError.message}`}</Text>)}
+                    {confirmInProgress ? <ActivityIndicator style={styles.loader} />:<Text style={{color:'green',fontSize:11,paddingTop:5}}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
+                    </View>)}
                   </View>
-                  <View style={facebookContainerStyle}>
+
+                  <TouchableOpacity style={facebookContainerStyle}>
                     <View style={styles.facebookTextContainer}>
                      <Text style={facebookTextStyle}>S'inscrire avec</Text>
                     </View>
                     <Image style={facebookIconStyle}  source = {require('../../assets/images/facebook.png')} />
-                  </View>
-                  <View style={styles.termsConditionsContainer}>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.termsConditionsContainer}>
                      <Text style={termsConditionsTextStyle}>Lisez les termes et conditions avant s'inscrire</Text>
-                  </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={()=>props.navigation.navigate('Role')} style={{alignSelf:'center',marginTop:10}}>
+                     <MaterialCommunityIcons title = "Back" 
+                            name = 'arrow-left-drop-circle-outline'
+                            color={Colors.primary} size={32} />
+                  </TouchableOpacity>
+
                 </View>
+
               </View>
             </ScrollView>
         </KeyboardAvoidingView> 

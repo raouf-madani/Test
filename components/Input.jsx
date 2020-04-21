@@ -62,7 +62,7 @@ const Input = props =>{
 
         const inputChangeHandler= text=>{
             const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            const phoneRegex = /(^(00213|\+213)[0-9]{9}$)|(^(05|06|07)[0-9]{8}$)/;
+            const phoneRegex = /(^(\+213)[5-7]{1}[0-9]{8}$)/;
             let isValid = true;
             if (props.required && text.trim().length === 0) {
             isValid = false;
@@ -98,11 +98,10 @@ const Input = props =>{
                 {...props}
                 mode='flat'
                 label={props.label}
-                placeholder='Votre numéro de téléphone'
                 value={inputState.value}
                 onChangeText={inputChangeHandler}
                 onBlur={lostFocusHandler}
-                theme={{colors: {primary:Colors.primary,text:'white',placeholder:'white'}}}
+                theme={{colors: {primary:inputState.isValid ? Colors.secondary: Colors.primary,text:'white',placeholder:'white'}}}
                 style={textInputStyle}
                 underlineColor='white'
             />
