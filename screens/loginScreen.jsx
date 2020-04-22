@@ -169,7 +169,7 @@ const LoginScreen = props =>{
                        <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
                      </TouchableOpacity>
                      <Text style={accountOrTextStyle}>Ou</Text>
-                     <TouchableOpacity>
+                     <TouchableOpacity  onPress={()=>props.navigation.navigate('Player')}>
                        <Text style={connectWidthTextStyle}>Se connecter avec</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.facebookIconContainer}>

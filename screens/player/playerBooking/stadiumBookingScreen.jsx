@@ -8,42 +8,31 @@ import moment from 'moment';
 import Colors from "../../../constants/Colors";
 import {Ionicons} from "@expo/vector-icons";
 import RNPickerSelect from 'react-native-picker-select';
-
+import { useDispatch, useSelector } from 'react-redux';
+import * as offersActions from "../../../store/actions/offers";
 const screen = Dimensions.get("window");
 
-// const test = async ()=> {
-//   try {
-    
-//     const arr = await fetch('http://192.168.1.9:3000/owner');
-//     const resData = await arr.json ();
-//     console.log("HELLO WORLD 2");
-//     console.log(resData);
-    
-//   } catch (error) {
-//   console.log("There is an Error");
-//   }
-  
-//   } ;
-  
-// test();
+
 
 // 10 next Days and OWN TIME PICKER
 let days = [];
 let hours = [
-{id : "1",time : "01:00"},
-{id : "2",time : "01:30"},
-{id : "3",time : "02:00"},
-{id : "4",time : "02:30"},
-{id : "5",time : "03:00"},
-{id : "6",time : "03:30"},
-{id : "7",time : "04:00"},
-{id : "8",time : "04:30"},
-{id : "9",time : "05:00"},
-{id : "10",time : "06:30"},
-{id : "11",time : "07:00"},
-{id : "12",time : "07:30"},
-{id : "13",time : "08:00"},
-{id : "14",time : "08:30"},
+{id : "1",time : "07:00"},
+{id : "2",time : "07:30"},
+{id : "3",time : "08:00"},
+{id : "4",time : "08:30"},
+{id : "5",time : "09:00"},
+{id : "6",time : "09:30"},
+{id : "7",time : "10:00"},
+{id : "8",time : "10:30"},
+{id : "9",time : "11:00"},
+{id : "10",time : "11:30"},
+{id : "11",time : "12:00"},
+{id : "12",time : "12:30"},
+{id : "13",time : "13:00"},
+{id : "14",time : "13:30"},
+{id : "15",time : "14:00"},
+{id : "16",time : "14:30"}
 ];
 
 for(let i=0 ; i<=10 ; i++){
@@ -60,18 +49,45 @@ for(let i=0 ; i<=10 ; i++){
       );
 
 }
+/////////////////////////////////////////////////////
+// let offers2 = [];
+// let services = [];
+// resData.map(
+//   item =>{ 
+//     if(services.indexOf(item.service_id) <0) 
+//     services.push(item.service_id)
+//   });
 
+
+// services.forEach(service => {
+//   resData.map(item=>{
+//     let offer = {
+//       id:service,
+//       horraires : {},
+//       stadiumsType : "",
+//       matchTimeType : "",
+//       price : "0"
+//     }
+//     if(item.service_id === service){
+        
+        
+
+//     }
+
+//   })
+// });
+
+//////////////////////////////////////////////////////
 //OFFERS
 
 let offers = [
   
      { id : "offer1",
       horraires :
-        {Sat : ["01:00","05:00"],
-         Sun : ["01:00","05:00"],
-         Mon : ["03:00" , "07:00"]
+        {Sat : ["07:00","13:00"],
+         Sun : ["08:00","11:00"],
+         Mon : ["08:00" , "11:00"]
       }
-      
       ,
       stadiumsNumber : 3 ,
       stadiumsType : "5x5",
@@ -82,9 +98,9 @@ let offers = [
   ,
   { id : "offer2",
   horraires :
-    {Sat : ["02:00","05:00"],
-     Sun : ["01:00","05:00"],
-     Mon:["03:00" , "04:00"]
+    {Sat : ["07:00","11:30"],
+    Sun : ["08:00","11:00"],
+    Mon : ["08:00" , "11:00"]
   }
   ,
   stadiumsNumber : 3 ,
@@ -96,9 +112,9 @@ let offers = [
  {
     id : "offer3",
     horraires :
-      {Sat : ["08:00","08:30"],
-       Sun : ["08:00","08:30"],
-       Mon:["05:00","08:30"]
+      {Sat :  ["07:00","11:30"],
+      Sun : ["08:00","11:00"],
+         Mon : ["08:00" , "11:00"]
     }
     ,
     stadiumsNumber : 2 ,
@@ -126,10 +142,48 @@ stadiumsType.forEach(element => {
 );
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-const StadiumBookingScreen = props =>{
+const StadiumBookingScreen =  props =>{
+
 ////////////////////////////////////////////////////////////////
+const dispatch =  useDispatch();
+const [loadingState , setLoading] = useState (false);
+const allOffers = useSelector(state =>state.offers.offers);
+// useEffect(()=>{
+
+// const getOffers = async()=>{ 
+ 
+//   setLoading(true);
+//    await dispatch(offersActions.fetchOffers());
+ 
+//    setLoading(false);
+   
+// }
+// getOffers();
+// }
+
+// ,[dispatch]);
 
 
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+//GET ALL STadiums that exist and avoid duplicated elements
+let allStadiums=[] ;
+let stadiumsType =  allOffers.map((item,index) => {
+    return item.stadiumsType;
+
+});
+
+stadiumsType.forEach(element => {
+  
+      if(allStadiums.indexOf(element) === -1)
+        {allStadiums.push(element);}
+}
+
+);
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //Responsivity //
 let iconSize = 22 ;
 let nameTextStyle = styles.nameText;
