@@ -96,7 +96,6 @@ const Input = props =>{
         <View>
             <TextInput
                 {...props}
-                mode='flat'
                 label={props.label}
                 value={inputState.value}
                 onChangeText={inputChangeHandler}

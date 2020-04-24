@@ -2,6 +2,7 @@ import React,{useReducer,useCallback,useRef,useState} from 'react';
 import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TextInput, ActivityIndicator,Alert,TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import Firebaseconfig from '../../helpers/Firebaseconfig';
 import Input from '../../components/Input';
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
@@ -11,20 +12,10 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 
-
-const FIREBASE_CONFIG= {
-  apiKey: "AIzaSyCeW9gY7grDmAgpl58ompdE8dC6Xh9znSc",
-  authDomain: "footbooking-959a6.firebaseapp.com",
-  databaseURL: "https://footbooking-959a6.firebaseio.com",
-  projectId: "footbooking-959a6",
-  storageBucket: "footbooking-959a6.appspot.com",
-  messagingSenderId: "1047069881183",
-  appId: "1:1047069881183:web:099c10a1e2a1bc14347cea",
-  
-};
+//Firebase config
 try {
-  if (FIREBASE_CONFIG.apiKey) {
-    firebase.initializeApp(FIREBASE_CONFIG);
+  if (Firebaseconfig.apiKey) {
+    firebase.initializeApp(Firebaseconfig);
   }
 } catch (err) {
   // ignore app already initialized error on snack
@@ -62,7 +53,6 @@ const formReducer=(state,action) =>{
 const SignupScreen = props =>{
 
   const recaptchaVerifier = useRef(null);
-  const verificationCodeTextInput = useRef(null);
   const [verificationId, setVerificationId] = useState('');
   const [verifyError, setVerifyError] = useState(false);
   const [verifyInProgress, setVerifyInProgress] = useState(false);
@@ -135,6 +125,7 @@ const SignupScreen = props =>{
 
     disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
     },[disaptchFormState]);
+    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      const signupHandler = async () => {
       const phoneProvider = new firebase.auth.PhoneAuthProvider();
@@ -150,7 +141,6 @@ const SignupScreen = props =>{
           );
           setVerifyInProgress(false);
           setVerificationId(verificationId);
-          verificationCodeTextInput.current?.focus();
         } catch (err) {
           setVerifyError(err);
           setVerifyInProgress(false);
@@ -167,19 +157,29 @@ const SignupScreen = props =>{
           verificationId,
           verificationCode
         );
-         await firebase
-          .auth()
-          .signInWithCredential(credential);
+        
+         await firebase.auth().signInWithCredential(credential);
+           
+          //Retrieve user data
+          const user = firebase.auth().currentUser;
+          const idTokenResult = await user.getIdToken();
+          if (user) {
+          console.log('User Auth Token: ', idTokenResult);  
+          console.log('User phone: ', user.phoneNumber);
+          console.log('User ID :', user.uid);
+           }
+          
         setConfirmInProgress(false);
         setVerificationId("");
         setVerificationCode("");
-        verificationCodeTextInput.current?.clear();
-        Alert.alert("Bienvenue à FOOT BOOKING!");
+        Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
         props.navigation.navigate('Player');
+        
       } catch (err) {
         setConfirmError(err);
         setConfirmInProgress(false);
       }
+      
     };
 
     return(
@@ -191,31 +191,33 @@ const SignupScreen = props =>{
               <View style={titleContainerStyle}>
               <FirebaseRecaptcha.FirebaseRecaptchaVerifierModal
                 ref={recaptchaVerifier}
-                firebaseConfig={FIREBASE_CONFIG}
+                firebaseConfig={Firebaseconfig}
               />
                 <Text style={titleStyle}>Inscrivez-Vous</Text>
               </View>
               <View style={signupContainerStyle}>
                 <View style={inputsContainerStyle}>
-                      <Input
-                      id='name'
-                      label='Nom'
-                      placeholder='Votre nom'
-                      keyboardType="default"
-                      returnKeyType="next"
-                      autoCapitalize='sentences'
-                      onInputChange={inputChangeHandler}
-                      initialValue=''
-                      initiallyValid={true}
-                      required
-                      errorText='Veuillez entrer votre nom svp!'
-                      editable={!verificationId}
-                      minLength={3}
+                     <Input
+                        id='name'
+                        label='Nom'
+                        placeholder='Votre nom'
+                        mode='flat'
+                        keyboardType="default"
+                        returnKeyType="next"
+                        autoCapitalize='sentences'
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                        initiallyValid={true}
+                        required
+                        errorText='Veuillez entrer votre nom svp!'
+                        editable={!verificationId}
+                        minLength={3}
                     />
                     <Input
                       id='surname'
                       label='Prénom'
                       placeholder='Votre prénom'
+                      mode='flat'
                       keyboardType="default"
                       returnKeyType="next"
                       autoCapitalize='sentences'
@@ -228,22 +230,24 @@ const SignupScreen = props =>{
                       minLength={3}
                     />
                     <Input
-                    id='phone'
-                    label='Téléphone'
-                    placeholder='Exemple: +213658341876'
-                    keyboardType="phone-pad"
-                    returnKeyType="next"
-                    onInputChange={inputChangeHandler}
-                    initialValue=''
-                    initiallyValid={true}
-                    phone
-                    required
-                    errorText='Veuillez entrer un numéro valide svp!'
-                    editable={!verificationId}
+                      id='phone'
+                      label='Téléphone *'
+                      mode='flat'
+                      placeholder='Exemple: +213658341876'
+                      keyboardType="phone-pad"
+                      returnKeyType="next"
+                      onInputChange={inputChangeHandler}
+                      initialValue=''
+                      initiallyValid={true}
+                      phone
+                      required
+                      errorText='Veuillez entrer un numéro valide svp!'
+                      editable={!verificationId}
                   />
                   <Input
                     id='password'
-                    label='Mot de Passe'
+                    label='Mot de Passe *'
+                    mode='flat'
                     placeholder='Exemple: 96foot*/'
                     keyboardType="default"
                     returnKeyType="next"
@@ -262,44 +266,43 @@ const SignupScreen = props =>{
                   <View style={styles.buttonContainer}>
                     {!verificationId ? (<View>
                     <Button
-                    theme={{colors: {primary:"white"}}} 
-                    mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                    labelStyle={labelSignupStyle}
-                    contentStyle={{width:'100%'}}
-                    style={{borderRadius:20,backgroundColor:Colors.primary}}
-                    icon='open-in-app'
-                    dark={true}
-                    onPress={signupHandler}
+                      theme={{colors: {primary:"white"}}} 
+                      mode={Platform.OS === 'android' ? "contained" : "outlined"}
+                      labelStyle={labelSignupStyle}
+                      contentStyle={{width:'100%'}}
+                      style={{borderRadius:20,backgroundColor:Colors.primary}}
+                      icon='open-in-app'
+                      dark={true}
+                      onPress={signupHandler}
                     >S'inscrire
                     </Button>
                     {verifyError && (
-                      <Text style={{color:Colors.primary,fontSize:13}}>{`Erreur: ${verifyError.message}`}</Text>
+                      <Text style={styles.confirmErrorText}>{`Erreur: ${verifyError.message}`}</Text>
                     )}
                     {verifyInProgress && <ActivityIndicator style={styles.loader} />}
                     </View>):
                     (<View>
                       <TextInput
                        placeholder='Taper vos 6 chiffres'
-                       ref={verificationCodeTextInput}
                        onChangeText={verificationCode=>setVerificationCode(verificationCode)}
-                       style={{borderBottomWidth:1,borderBottomColor:'white',marginBottom:10,color:'white'}}
+                       style={styles.textInputSendCode}
                        keyboardType='number-pad'
                        autoCapitalize='none'
                        returnKeyType="next"
                       />
                       <Button
-                    theme={{colors: {primary:"white"}}} 
-                    mode={Platform.OS === 'android' ? "contained" : "outlined"}
-                    labelStyle={labelSignupStyle}
-                    contentStyle={{width:'100%'}}
-                    style={{borderRadius:20,backgroundColor:Colors.primary}}
-                    icon='check'
-                    dark={true}
-                    onPress={sendCode}
+                        theme={{colors: {primary:"white"}}} 
+                        mode={Platform.OS === 'android' ? "contained" : "outlined"}
+                        labelStyle={labelSignupStyle}
+                        contentStyle={{width:'100%'}}
+                        style={{borderRadius:20,backgroundColor:Colors.primary}}
+                        icon='check'
+                        dark={true}
+                        onPress={sendCode}
                     >Confirmer
                     </Button>
-                    {confirmError && (<Text style={{color:Colors.primary,fontSize:13}}>{`Erreur: ${confirmError.message}`}</Text>)}
-                    {confirmInProgress ? <ActivityIndicator style={styles.loader} />:<Text style={{color:'green',fontSize:11,paddingTop:5}}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
+                    {confirmError && (<Text style={styles.confirmErrorText}>{`Erreur: ${confirmError.message}`}</Text>)}
+                    {confirmInProgress ? <ActivityIndicator style={styles.loader} />:<Text style={styles.smsText}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
                     </View>)}
                   </View>
 
@@ -313,7 +316,7 @@ const SignupScreen = props =>{
                      <Text style={termsConditionsTextStyle}>Lisez les termes et conditions avant s'inscrire</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={()=>props.navigation.navigate('Role')} style={{alignSelf:'center',marginTop:10}}>
+                  <TouchableOpacity onPress={()=>props.navigation.navigate('Role')} style={styles.backButton}>
                      <MaterialCommunityIcons title = "Back" 
                             name = 'arrow-left-drop-circle-outline'
                             color={Colors.primary} size={32} />
@@ -564,8 +567,28 @@ const styles= StyleSheet.create({
   },
   loader: {
     marginTop: 10,
-  }
-   
+  },
+  confirmErrorText:{
+    color:Colors.primary,
+    fontSize:13,
+    alignSelf:'center'
+  },
+  smsText:{
+    color:'green',
+    fontSize:11,
+    paddingTop:5,
+    alignSelf:'center'
+  },
+   textInputSendCode:{
+     borderBottomWidth:1,
+     borderBottomColor:'white',
+     marginBottom:10,
+     color:'white'
+    },
+    backButton:{
+      alignSelf:'center',
+      marginTop:10
+    }
 });
 
 export default SignupScreen;
