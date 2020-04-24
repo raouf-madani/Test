@@ -1,11 +1,21 @@
-import React from 'react';
+import React ,{ useState, useEffect }  from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
-
+import { useDispatch,useSelector } from 'react-redux';
+import * as offersActions from "../../store/actions/offers";
 
 const screen = Dimensions.get("window");
 const PlayerHomeScreen = props =>{
+const dispatch = useDispatch();
+const allOffers = useSelector(state =>state.offers.offers);
 
+useEffect(()=>{
+
+ dispatch(offersActions.fetchOffers());
+   
+  }
+  
+  ,[dispatch]);
 
 let welcomeTextStyle = styles.welcomeText;
 

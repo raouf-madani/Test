@@ -20,13 +20,12 @@ let con = mysql.createConnection({
   con.connect();
   app.get("/owner",(req,res)=> {
 
-        con.query("SELECT * FROM service",  (err, result, fields) => {
+        con.query("SELECT slot.date , slot.start,slot.service_id,slot.end , service.type_match,service.time_match,service.tarif,service.owner_id FROM slot  INNER JOIN service on slot.service_id = service.id WHERE service.owner_id = 'hareth'",  (err, result, fields) => {
           if (err) res.send(err);
           res.send(result);
          
         });
      
-
   })
 
 
