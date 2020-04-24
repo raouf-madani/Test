@@ -17,22 +17,52 @@ const screen = Dimensions.get("window");
 // 10 next Days and OWN TIME PICKER
 let days = [];
 let hours = [
-{id : "1",time : "07:00"},
-{id : "2",time : "07:30"},
-{id : "3",time : "08:00"},
-{id : "4",time : "08:30"},
-{id : "5",time : "09:00"},
-{id : "6",time : "09:30"},
-{id : "7",time : "10:00"},
-{id : "8",time : "10:30"},
-{id : "9",time : "11:00"},
-{id : "10",time : "11:30"},
-{id : "11",time : "12:00"},
-{id : "12",time : "12:30"},
-{id : "13",time : "13:00"},
-{id : "14",time : "13:30"},
-{id : "15",time : "14:00"},
-{id : "16",time : "14:30"}
+{id : "1",time : "05:00"},
+{id : "2",time : "05:30"},
+{id : "3",time : "06:00"},
+{id : "4",time : "06:30"},
+{id : "5",time : "07:00"},
+{id : "6",time : "07:30"},
+{id : "7",time : "08:00"},
+{id : "8",time : "08:30"},
+{id : "9",time : "09:00"},
+{id : "10",time : "09:30"},
+{id : "11",time : "10:00"},
+{id : "12",time : "10:30"},
+{id : "13",time : "11:00"},
+{id : "14",time : "11:30"},
+{id : "15",time : "12:00"},
+{id : "16",time : "12:30"},
+{id : "17",time : "13:00"},
+{id : "18",time : "13:30"},
+{id : "19",time : "14:00"},
+{id : "20",time : "14:30"},
+{id : "21",time : "15:00"},
+{id : "22",time : "15:30"},
+{id : "23",time : "16:00"},
+{id : "24",time : "16:30"},
+{id : "25",time : "17:00"},
+{id : "26",time : "17:30"},
+{id : "27",time : "18:00"},
+{id : "28",time : "18:30"},
+{id : "29",time : "19:00"},
+{id : "30",time : "19:30"},
+{id : "31",time : "20:00"},
+{id : "32",time : "20:30"},
+{id : "33",time : "21:00"},
+{id : "34",time : "21:30"},
+{id : "35",time : "22:00"},
+{id : "36",time : "22:30"},
+{id : "37",time : "23:00"},
+{id : "38",time : "23:30"},
+{id : "39",time : "00:00"},
+{id : "40",time : "00:30"},
+{id : "41",time : "01:00"},
+{id : "42",time : "01:30"},
+{id : "43",time : "02:00"},
+{id : "44",time : "02:30"},
+{id : "45",time : "03:00"},
+{id : "46",time : "03:30"},
 ];
 
 for(let i=0 ; i<=10 ; i++){
@@ -80,74 +110,79 @@ for(let i=0 ; i<=10 ; i++){
 //////////////////////////////////////////////////////
 //OFFERS
 
-let offers = [
+// let offers = [
   
-     { id : "offer1",
-      horraires :
-        {Sat : ["07:00","13:00"],
-         Sun : ["08:00","11:00"],
-         Mon : ["08:00" , "11:00"]
-      }
-      ,
-      stadiumsNumber : 3 ,
-      stadiumsType : "5x5",
-      matchTimeType : "1h",
-      price : "3000"
+//      { id : "offer1",
+//       horraires :
+//         {Sat : ["07:00","13:00"],
+//          Sun : ["08:00","11:00"],
+//          Mon : ["08:00" , "11:00"]
+//       }
+//       ,
+//       stadiumsNumber : 3 ,
+//       stadiumsType : "5x5",
+//       matchTimeType : "1h",
+//       price : "3000"
     
-    }
-  ,
-  { id : "offer2",
-  horraires :
-    {Sat : ["07:00","11:30"],
-    Sun : ["08:00","11:00"],
-    Mon : ["08:00" , "11:00"]
-  }
-  ,
-  stadiumsNumber : 3 ,
-  stadiumsType : "5x5",
-  matchTimeType : "1h30",
-  price : "3500"
+//     }
+//   ,
+//   { id : "offer2",
+//   horraires :
+//     {Sat : ["07:00","11:30"],
+//     Sun : ["08:00","11:00"],
+//     Mon : ["08:00" , "11:00"]
+//   }
+//   ,
+//   stadiumsNumber : 3 ,
+//   stadiumsType : "5x5",
+//   matchTimeType : "1h30",
+//   price : "3500"
 
-},
- {
-    id : "offer3",
-    horraires :
-      {Sat :  ["07:00","11:30"],
-      Sun : ["08:00","11:00"],
-         Mon : ["08:00" , "11:00"]
-    }
-    ,
-    stadiumsNumber : 2 ,
-    stadiumsType : "7x7",
-    matchTimeType : "1h",
-    price : "4500"
-}
+// },
+//  {
+//     id : "offer3",
+//     horraires :
+//       {Sat :  ["07:00","11:30"],
+//       Sun : ["08:00","11:00"],
+//          Mon : ["08:00" , "11:00"]
+//     }
+//     ,
+//     stadiumsNumber : 2,
+//     stadiumsType : "7x7",
+//     matchTimeType : "1h",
+//     price : "4500"
+// }
 
-];
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// ];
+// //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 //GET ALL STadiums that exist and avoid duplicated elements
-let allStadiums=[] ;
-let stadiumsType = offers.map((item,index) => {
-    return item.stadiumsType;
+// let allStadiums=[] ;
+// let stadiumsType = offers.map((item,index) => {
+//     return item.stadiumsType;
 
-});
+// });
 
-stadiumsType.forEach(element => {
+// stadiumsType.forEach(element => {
   
-      if(allStadiums.indexOf(element) === -1)
-        {allStadiums.push(element);}
-}
+//       if(allStadiums.indexOf(element) === -1)
+//         {allStadiums.push(element);}
+// }
 
-);
+// );
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 const StadiumBookingScreen =  props =>{
 
 ////////////////////////////////////////////////////////////////
 const dispatch =  useDispatch();
 const [loadingState , setLoading] = useState (false);
-const allOffers = useSelector(state =>state.offers.offers);
+const allOffers =  useSelector(state =>state.offers.offers);
+
+
+
 // useEffect(()=>{
 
 // const getOffers = async()=>{ 
@@ -162,9 +197,6 @@ const allOffers = useSelector(state =>state.offers.offers);
 // }
 
 // ,[dispatch]);
-
-
-
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -182,6 +214,7 @@ stadiumsType.forEach(element => {
 }
 
 );
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //Responsivity //
@@ -290,46 +323,52 @@ if(screen.width <= 360) {
  //////////////////////////////////////////////////////////
     //GET ALL matchTime types that exist in our dummy Data and match to the match type 
     let allTimes = [];
-    let timesFiltered = offers.filter(element=>
+    let timesFiltered = allOffers.filter(element=>
                   element.stadiumsType === matchTypeState );
 
     let timesFilteredToShow = timesFiltered.map(e=>e.matchTimeType)
     //////////////////////////////////////////////////////////
     //GET ONLY THE GAME TIMES THAT MATCHES WITH THE SELECTED TYPE AND TIME
-    
+   
       useEffect(()=> {
     
       let daysHours = [];
-      const customOffers = offers.find(element => element.stadiumsType === `${matchTypeState}` && element.matchTimeType ===`${matchTimeState}`);
-      
+     
+      const customOffers = allOffers.find(element => element.stadiumsType === `${matchTypeState}` && element.matchTimeType ===`${matchTimeState}`);
+   
       if(customOffers && selectedDateState) {
        daysHours = customOffers.horraires[selectedDateState.day]; 
+      
        setPrice(customOffers.price);
        
       } else{
-        const timeChange = offers.find(element => element.stadiumsType === `${matchTypeState}`);
+        
+        const timeChange = allOffers.find(element => element.stadiumsType === `${matchTypeState}`);
 
         setMatchTime(timeChange.matchTimeType);
       }
 
 
- let indexes = [];
+let indexes = [];
+
 
 if(daysHours) {
-       
+
        
           hours.map(element => {
-          
+           
           if(element.time === daysHours[0] ||element.time === daysHours[1] ) {
             
                 indexes.push (hours.indexOf(element));
-             
+              
           }
-    
+ 
 });
+
 setHoursState(hours.slice(indexes[0],indexes[1]+1));
 
 } else {
+ 
   setHoursState([]);
 
 }
