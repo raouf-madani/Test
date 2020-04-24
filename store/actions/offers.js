@@ -6,7 +6,7 @@ export const fetchOffers = ()=>{
 return async dispatch =>{
     try {
     
-    const arr = await fetch('http://192.168.1.7:3000/owner');
+    const arr = await fetch('http://192.168.1.12:3000/owner');
     
     let offers2 = [];
         const resData = await arr.json ();
@@ -32,12 +32,12 @@ return async dispatch =>{
        
           newData.map(item=>{
         
-            offer.horraires[item.date] =  item.start.substring(0,5),item.end.substring(0,5) ;
+            offer.horraires[item.date] =[  item.start.substring(0,5),item.end.substring(0,5) ];
               
         
 
           })
-          
+      
           offers2.push(offer);
         });
         
