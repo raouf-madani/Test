@@ -129,6 +129,7 @@ const SignupScreen = props =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      const signupHandler = async () => {
       const phoneProvider = new firebase.auth.PhoneAuthProvider();
+     
       if(formState.formIsValid){
         try {
           setVerifyError(undefined);
@@ -174,7 +175,7 @@ const SignupScreen = props =>{
         setVerificationCode("");
         Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
         props.navigation.navigate('Player');
-        
+         
       } catch (err) {
         setConfirmError(err);
         setConfirmInProgress(false);

@@ -2,13 +2,36 @@
 const mysql =  require("mysql");
 const express = require("express");
 const bodyParser = require("body-parser");
-
 const app = express();
+const admin = require('firebase-admin');
+const serviceAccount = require("./helpers/serviceAccountKey.json");//Firebase NodeJs linking
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://footbooking-959a6.firebaseio.com"
+});
+
+app.get("/phone/:phoneID",(req,res)=>{
+
+  const phoneID = req.params.phoneID;
+  admin.auth().getUserByPhoneNumber(phoneID)
+  .then(function(userRecord) {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully fetched user data:', userRecord.toJSON());
+    res.send(userRecord.toJSON());
+  })
+  .catch(function(error) {
+    console.log('Error fetching user data:', error);
+    res.send(error);
+  });
+
+});
+
 
 
 let con = mysql.createConnection({
@@ -28,7 +51,9 @@ let con = mysql.createConnection({
          
         });
      
-  })
+  });
+
+  
 
 // Starting our server.
 app.listen(3000, () => {

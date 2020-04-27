@@ -1,8 +1,21 @@
 import React,{useReducer,useEffect,useCallback} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity} from 'react-native';
+import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
+import Firebaseconfig from '../helpers/Firebaseconfig';
+import * as firebase from "firebase";
+
+
+
+//Firebase config
+try {
+  if (Firebaseconfig.apiKey) {
+    firebase.initializeApp(Firebaseconfig);
+  }
+} catch (err) {
+  // ignore app already initialized error on snack
+}
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
@@ -104,10 +117,34 @@ const LoginScreen = props =>{
               },
               formIsValid:false});
 
-    const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+  const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+
+    disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
+  },[disaptchFormState]);
+  
+  const login = async ()=>{
+
+    if(formState.formIsValid){
+      try{
+        const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+        const resData= await result.json();
         
-       disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
-    },[disaptchFormState]);          
+        if(resData.phoneNumber === formState.inputValues.phone){
+          props.navigation.navigate('Owner');
+        }
+        console.log(resData);
+      }catch(error){
+        Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
+      }
+    }else{
+      Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
+    } 
+
+  };
+
+             
+
+           
 
     return(
       <View style={styles.container}>
@@ -157,13 +194,14 @@ const LoginScreen = props =>{
                    style={{borderRadius:20, backgroundColor:Colors.primary}}
                    icon='login'
                    dark={true}
+                   onPress={login}
                    >Se connecter 
                    </Button>
                  </View>
                  <View style={styles.facebookContainer}>
-                   <View style={accountTextContainerStyle}>
-                    <Text style={accountOrTextStyle}>Je n'ai pas un compte ?</Text>
-                   </View>
+                   <TouchableOpacity style={accountTextContainerStyle}>
+                    <Text style={accountOrTextStyle}>Mot de passe oublié ?</Text>
+                   </TouchableOpacity>
                    <View style={styles.loginFacebookContainer}>
                      <TouchableOpacity onPress={()=>props.navigation.navigate('Role')}>
                        <Text style={registerNowTextStyle}>S'inscrire Maintenant</Text>
