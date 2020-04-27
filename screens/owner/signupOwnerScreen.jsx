@@ -139,7 +139,7 @@ const SignupOwnerScreen = props =>{
 
     
     //States for complex information textInputs
-    const [complexCity,setComplexCity] = useState('');
+    const [complexCity,setComplexCity] = useState("Alger");
     const citiesA = ["Alger","Blida","Oran"];
     
     //stadium Number Array

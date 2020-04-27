@@ -6,5 +6,6 @@ export default{
   storageBucket: "footbooking-959a6.appspot.com",
   messagingSenderId: "1047069881183",
   appId: "1:1047069881183:web:099c10a1e2a1bc14347cea",
+  measurementId: "G-XCMCTS6M2V"
     
 };

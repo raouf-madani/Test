@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet,View, Picker, Dimensions,Platform} from 'react-native';
+import { StyleSheet,View, Picker,Platform,Text,TouchableOpacity} from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Colors from "../constants/Colors";
-
-const screen = Dimensions.get("window");
 
 
 
@@ -28,11 +26,11 @@ const TypeNumberPitchRow = props =>{
         >
         {props.array.map(el=> <Picker.Item label={el} value={el} key={el} />)}
         </Picker>:
-        (<View onPress={props.onPressStadiumNumberIOS} style={styles.picker}>
+        (<TouchableOpacity onPress={props.onPressStadiumNumberIOS} style={styles.picker}>
           <Text>
                 {props.selectedValue}
           </Text>
-        </View>)} 
+        </TouchableOpacity>)} 
       </View>
 
      );    
