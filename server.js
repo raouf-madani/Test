@@ -18,18 +18,17 @@ let con = mysql.createConnection({
     database: "raoufcvc_footballbooking"
   });
   con.connect();
-  app.get("/owner",(req,res)=> {
+  app.get("/owner/:ownerName",(req,res)=> {
+    const ownerName = req.params.ownerName;
+ 
 
-        con.query("SELECT slot.date , slot.start,slot.service_id,slot.end , service.type_match,service.time_match,service.tarif,service.owner_id FROM slot  INNER JOIN service on slot.service_id = service.id WHERE service.owner_id = 'hareth'",  (err, result, fields) => {
+   con.query("SELECT slot.date , slot.start,slot.service_id,slot.end , service.type_match,service.time_match,service.tarif,service.owner_id FROM slot  INNER JOIN service on slot.service_id = service.id WHERE service.owner_id = ? ",[ownerName],(err, result, fields) => {
           if (err) res.send(err);
           res.send(result);
          
         });
      
   })
-
-
-
 
 // Starting our server.
 app.listen(3000, () => {

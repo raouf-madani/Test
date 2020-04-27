@@ -10,6 +10,9 @@ import {Ionicons} from "@expo/vector-icons";
 import RNPickerSelect from 'react-native-picker-select';
 import { useDispatch, useSelector } from 'react-redux';
 import * as offersActions from "../../../store/actions/offers";
+
+import ConfirmBookingOverlay from "../../../components/ConfirmBookingOverlay";
+
 const screen = Dimensions.get("window");
 
 
@@ -79,99 +82,7 @@ for(let i=0 ; i<=10 ; i++){
       );
 
 }
-/////////////////////////////////////////////////////
-// let offers2 = [];
-// let services = [];
-// resData.map(
-//   item =>{ 
-//     if(services.indexOf(item.service_id) <0) 
-//     services.push(item.service_id)
-//   });
 
-
-// services.forEach(service => {
-//   resData.map(item=>{
-//     let offer = {
-//       id:service,
-//       horraires : {},
-//       stadiumsType : "",
-//       matchTimeType : "",
-//       price : "0"
-//     }
-//     if(item.service_id === service){
-        
-        
-
-//     }
-
-//   })
-// });
-
-//////////////////////////////////////////////////////
-//OFFERS
-
-// let offers = [
-  
-//      { id : "offer1",
-//       horraires :
-//         {Sat : ["07:00","13:00"],
-//          Sun : ["08:00","11:00"],
-//          Mon : ["08:00" , "11:00"]
-//       }
-//       ,
-//       stadiumsNumber : 3 ,
-//       stadiumsType : "5x5",
-//       matchTimeType : "1h",
-//       price : "3000"
-    
-//     }
-//   ,
-//   { id : "offer2",
-//   horraires :
-//     {Sat : ["07:00","11:30"],
-//     Sun : ["08:00","11:00"],
-//     Mon : ["08:00" , "11:00"]
-//   }
-//   ,
-//   stadiumsNumber : 3 ,
-//   stadiumsType : "5x5",
-//   matchTimeType : "1h30",
-//   price : "3500"
-
-// },
-//  {
-//     id : "offer3",
-//     horraires :
-//       {Sat :  ["07:00","11:30"],
-//       Sun : ["08:00","11:00"],
-//          Mon : ["08:00" , "11:00"]
-//     }
-//     ,
-//     stadiumsNumber : 2,
-//     stadiumsType : "7x7",
-//     matchTimeType : "1h",
-//     price : "4500"
-// }
-
-// ];
-// //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-//GET ALL STadiums that exist and avoid duplicated elements
-// let allStadiums=[] ;
-// let stadiumsType = offers.map((item,index) => {
-//     return item.stadiumsType;
-
-// });
-
-// stadiumsType.forEach(element => {
-  
-//       if(allStadiums.indexOf(element) === -1)
-//         {allStadiums.push(element);}
-// }
-
-// );
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 const StadiumBookingScreen =  props =>{
@@ -180,7 +91,6 @@ const StadiumBookingScreen =  props =>{
 const dispatch =  useDispatch();
 const [loadingState , setLoading] = useState (false);
 const allOffers =  useSelector(state =>state.offers.offers);
-
 
 
 // useEffect(()=>{
@@ -265,6 +175,7 @@ if(screen.width <= 360) {
   tempsDuMatchStyle = styles.tempsDuMatchSmall ;
 }
 /////////////////////////////////////////////////////////////////
+    const [overlayState , setOverlayState]=useState(false);
     const [selectedOffer , setSelectedOffer] = useState(false);
     const [priceState , setPrice] = useState(0);
     const [offerHoursState , setOfferHours] = useState([]);
@@ -282,6 +193,7 @@ if(screen.width <= 360) {
 
     });
 
+
     //Selected Playing Hour 
     const [selectedHour , setSelectedHour] = useState();
 
@@ -293,6 +205,12 @@ if(screen.width <= 360) {
               id : 0 ,
               color : ""
     });
+
+    //Overlay Handelr
+    const overlayHandler = ()=>{
+      setOverlayState((previous) => !previous);
+
+    }
 
     //Selected Match type handler (Set the match type)
     const matchTypeHandler = (itemValue, itemIndex) => {
@@ -329,7 +247,7 @@ if(screen.width <= 360) {
     let timesFilteredToShow = timesFiltered.map(e=>e.matchTimeType)
     //////////////////////////////////////////////////////////
     //GET ONLY THE GAME TIMES THAT MATCHES WITH THE SELECTED TYPE AND TIME
-   
+ 
       useEffect(()=> {
     
       let daysHours = [];
@@ -411,7 +329,15 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
       <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
       style ={styles.container} 
       blurRadius = {0.5}>
-   
+      <ConfirmBookingOverlay
+        isVisible = {overlayState}
+        overlayHandler = {overlayHandler}
+        matchTime = {matchTimeState}
+        matchType = {matchTypeState}
+        dateMatch = {selectedDateState.date}
+        hourMatch = {selectedHour}
+       />   
+    
      <ScrollView style = {styles.componentsContainer}>
       
                   <View style = {styles.stadiumCard}>
@@ -573,8 +499,7 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
 
                 return (
                  <View style = {styles.buttonContainer}>
-                   
-                      
+                 
               <Button
                   contentStyle={styles.timeButton}
                   labelStyle = {{color : "black" }}
@@ -621,7 +546,10 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
               <View style = {styles.priceButtonContainer}>
                 <Button 
                 style = {priceButtonStyle} 
-                mode = "contained" color = {Colors.secondary}>
+                mode = "contained" 
+                color = {Colors.secondary}
+                onPress = {()=>overlayHandler()}
+                >
                <Text style = {styles.bookButtonText}>Reserver</Text>
                 </Button>
               </View>

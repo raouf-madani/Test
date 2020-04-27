@@ -6,11 +6,11 @@ export const fetchOffers = ()=>{
 return async dispatch =>{
     try {
     
-    const arr = await fetch('http://192.168.1.12:3000/owner');
+    const arr = await fetch('http://192.168.1.6:3000/owner/hareth');
     
     let offers2 = [];
         const resData = await arr.json ();
-     
+   
         let services = [];
         resData.map(
           item =>{ 

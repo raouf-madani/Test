@@ -27,7 +27,7 @@ const StadiumChoiceScreen = props =>{
         <InfoOverlay 
         isVisible = {overlayState}
         infoHandler = {overlayHandler}
-     
+        
          />
       
         <View style = {styles.componentsContainer}>
