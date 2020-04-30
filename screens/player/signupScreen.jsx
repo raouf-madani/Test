@@ -7,7 +7,8 @@ import Input from '../../components/Input';
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-
+import * as authActions from '../../store/actions/authActions';
+import {useDispatch} from 'react-redux';
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
