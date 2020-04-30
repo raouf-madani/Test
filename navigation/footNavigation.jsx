@@ -27,6 +27,7 @@ import stadiumChoiceScreen from "../screens/player/playerBooking/stadiumChoiceSc
 import stadiumBookingScreen from "../screens/player/playerBooking/stadiumBookingScreen";
 import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerExpiredBookingsScreen';
 import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
+import StartupScreen from "../screens/startupScreen";
 
 
 ///////////////////////////////////////////////////////////////////
@@ -88,13 +89,11 @@ labeled  : true
 
 //Main Stack Navigator
 const FootNavigation = createStackNavigator({
-   Role : ProfileChoiceScreen ,
+   
    Player : PlayerHomeScreen , 
    Owner : OwnerHomeScreen,
    Stadiums :  stadiumChoiceScreen ,
    StadiumBooking : stadiumBookingScreen ,
-   Signup: SignupScreen,
-   SignupOwner:SignupOwnerScreen,
    OwnerService : OwnerServiceScreen,
    EditService: EditServiceScreen,
    OwnerBookings: OwnerBookingsScreen,
@@ -114,9 +113,13 @@ const FootNavigation = createStackNavigator({
 
  const AuthNavigation = createStackNavigator({
   Login: LoginScreen,
+  Role : ProfileChoiceScreen,
+  Signup: SignupScreen,
+  SignupOwner:SignupOwnerScreen,
  });
 
 const MainNavigation = createSwitchNavigator({
+  Startup:StartupScreen,
   Auth: AuthNavigation,
   Main: FootNavigation
 })
