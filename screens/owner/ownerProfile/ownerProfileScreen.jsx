@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions,ActionSheetIOS,Picker} from 'react-native';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions,ActionSheetIOS,Picker,AsyncStorage} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
-
-
+import {useDispatch} from "react-redux";
+import * as authActions from '../../../store/actions/authActions';
 
 
 import * as ImagePicker from 'expo-image-picker';
@@ -39,7 +39,8 @@ const OwnerProfileScreen = props =>{
         labelBtnStyle =styles.labelBtnBig;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
+    const dispatch = useDispatch();
     //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
     const [phone,setPhone] = useState('');
@@ -100,6 +101,12 @@ const OwnerProfileScreen = props =>{
        
        setPickedImage(image.uri);
     };
+
+    const logout = ()=>{
+      dispatch(authActions.logout());
+      AsyncStorage.clear();
+      props.navigation.navigate('Auth');
+    }
 
     return(
     <View style={styles.container}>
@@ -242,6 +249,7 @@ const OwnerProfileScreen = props =>{
                 style={{borderColor:Colors.primary}}
                 icon='exit-to-app'
                 dark={true}
+                onPress={logout}
                 >Se déconnecter 
             </Button>
         </View>

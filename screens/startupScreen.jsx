@@ -24,7 +24,7 @@ const StartupScreen = props =>{
             props.navigation.navigate('Auth');
             return;
            }
-       
+            
            //const expirationTime = expirationDate.getTime() - new Date().getTime();
 
            props.navigation.navigate('Main');

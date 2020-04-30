@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert ,Dimensions} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert ,Dimensions,AsyncStorage} from 'react-native';
+import {TextInput,Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
+import {useDispatch} from "react-redux";
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -17,6 +18,7 @@ let circlesContainerStyle = styles.circlesContainer;
 let circleTwoStyle = styles.circleTwo;
 let textInputStyle = styles.textInput;
 let card2Style = styles.card2;
+let labelBtnStyle = styles.labelBtn;
 
   if (screen.height > 800) {
     cardStyle = styles.cardBig;
@@ -25,9 +27,11 @@ let card2Style = styles.card2;
     circleTwoStyle = styles.circleTwoBig;
     textInputStyle = styles.textInputBig;
     card2Style = styles.card2Big;
+    labelBtnStyle =styles.labelBtnBig;
   }
-//////////////////////////////////////////////////////////////
-  
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const dispatch = useDispatch();
     //States for personal information textInputs 
     const [fullName,setFullName] = useState('');
     const [phone,setPhone] = useState('');
@@ -66,6 +70,12 @@ let card2Style = styles.card2;
        });
        
        setPickedImage(image.uri);
+    };
+
+    const logout = ()=>{
+      dispatch(authActions.logout());
+      AsyncStorage.clear();
+      props.navigation.navigate('Auth');
     };
 
     return(
@@ -156,6 +166,19 @@ let card2Style = styles.card2;
             </View>
         </View>
      </ScrollView>
+     <View style={{width:'100%'}}>
+            <Button
+                theme={{colors: {primary:Colors.primary}}} 
+                mode="contained"
+                labelStyle={labelBtnStyle}
+                contentStyle={{width:'100%'}}
+                style={{borderColor:Colors.primary}}
+                icon='exit-to-app'
+                dark={true}
+                onPress={logout}
+                >Se déconnecter 
+            </Button>
+        </View>
      </ImageBackground>
     </View>
 
@@ -345,11 +368,19 @@ textInputBig : {
 textInput : {
   backgroundColor:'transparent'
 
-}
+},
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+labelBtn:{
+  fontSize:15,
+  fontFamily:'poppins', 
+  color: 'white'
+ },
+ labelBtnBig:{
+  fontSize:20,
+  fontFamily:'poppins', 
+  color: 'white'
+ },
 
-//////////////////////////////////////////////////////
-   
-  
 });
 
 export default PlayerProfileScreen;

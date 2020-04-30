@@ -1,12 +1,10 @@
-import React,{useReducer,useEffect,useCallback,useState} from 'react';
+import React,{useReducer,useCallback,useState} from 'react';
 import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity,ActivityIndicator,AsyncStorage} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
 import Firebaseconfig from '../helpers/Firebaseconfig';
 import * as firebase from "firebase";
-
-
 
 //Firebase config
 try {
@@ -51,7 +49,7 @@ const formReducer=(state,action) =>{
 const LoginScreen = props =>{
 
   
-
+   
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
    let titleContainerStyle= styles.titleContainer;
@@ -137,7 +135,7 @@ const saveDataToStorage = (token,userID,expirationDate) => {
                        );
 
 };
-   
+
   //Press Login Button handling ==> LOGIN
   const login = async ()=>{
 
