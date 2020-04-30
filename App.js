@@ -11,14 +11,17 @@ import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
 
 import offersReducer from "./store/reducers/offers";
+import bookingsReducer from "./store/reducers/bookings";
 
 
 enableScreens();
 
 //Create the store and the combine reducers
 const rootReducer = combineReducers({
-offers : offersReducer
+offers : offersReducer,
+bookings : bookingsReducer
 });
+
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 

@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
+app.use(bodyParser.json());
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://footbooking-959a6.firebaseio.com"
@@ -50,8 +50,27 @@ let con = mysql.createConnection({
           res.send(result);
          
         });
+      });
      
+  app.post("/bookings/addbooking",(req,res)=>{
+    console.log("HELLO");
+      console.log(req.body);
+
+    // con.query("INSERT INTO booking (id,date,date_booking,start,end,player_id,owner_id,service_id)");
+
+      res.send("Succes");
+    
+
   });
+
+
+  
+
+  
+
+
+
+
 
   
 
