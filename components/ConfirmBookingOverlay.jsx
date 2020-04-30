@@ -3,7 +3,32 @@ import { Overlay } from 'react-native-elements';
 import { Text, View, Button,StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Ionicons} from "@expo/vector-icons";
+import { useDispatch, useSelector } from 'react-redux';
+import {addBooking} from "../store/actions/bookings";
 const ConfimBookingOverlay = (props)=>{
+
+const dispatch = useDispatch(); 
+
+
+const sendConfirmation = async ()=>{
+const date = new Date();
+  let booking = {
+    date : date ,
+    bookingDate : props.dateMatch ,
+    start : props.hourMatch ,
+    end : "09:00" ,
+    timeMatch : props.matchTime,
+    typeMatch : props.matchType,
+    playerId : "+213557115451",
+    ownerId : "hareth",
+    serviceId : props.serviceId
+}
+
+await dispatch( addBooking(booking));
+await props.overlayHandler();
+props.navigate();
+
+};
 
     return (
     <Overlay 
@@ -22,7 +47,7 @@ const ConfimBookingOverlay = (props)=>{
         <Text style = {styles.text}>Temps: {props.matchTime}</Text>
         <Text style = {styles.text} >Type: {props.matchType}</Text>
         <Text style = {styles.text} >Date: {props.dateMatch}</Text>
-        <Text style = {styles.text} >Horraire: {props.hourMatch}</Text>
+        <Text style = {styles.text} >Heure: {props.hourMatch}</Text>
 </View>
 
 </View>
@@ -35,7 +60,7 @@ const ConfimBookingOverlay = (props)=>{
             <Ionicons 
             name = "md-checkbox" 
             size = {28}
-            onPress={props.overlayHandler}
+            onPress={()=>sendConfirmation()}
             color = "green"
             />
       </View>
@@ -47,6 +72,7 @@ const ConfimBookingOverlay = (props)=>{
           name = "ios-close-circle" 
           size = {28}
           color ="red"
+         
           onPress={props.overlayHandler}
           />
       </View>

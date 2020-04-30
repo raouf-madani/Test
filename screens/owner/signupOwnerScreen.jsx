@@ -1,5 +1,5 @@
 import React,{useState,useReducer,useCallback,useRef} from 'react';
-import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions,Picker,ActionSheetIOS,ActivityIndicator,TextInput,Alert} from 'react-native';
+import { StyleSheet,View,ImageBackground,KeyboardAvoidingView,Text,Image,Dimensions,Picker,ActionSheetIOS,ActivityIndicator,TextInput,Alert,AsyncStorage} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import { CheckBox } from 'react-native-elements';
 import {Button} from 'react-native-paper';
@@ -57,7 +57,6 @@ const SignupOwnerScreen = props =>{
 
   const recaptchaVerifier = useRef(null);
   const [verificationId, setVerificationId] = useState('');
-  const [verifyError, setVerifyError] = useState(false);
   const [verifyInProgress, setVerifyInProgress] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [confirmError, setConfirmError] = useState(false);
@@ -209,6 +208,19 @@ const SignupOwnerScreen = props =>{
       },[disaptchFormState]);
      
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      const saveDataToStorage = (token,userID,expirationDate) => {
+
+        AsyncStorage.setItem('userData',
+                              JSON.stringify({
+                              token:token,
+                              userID:userID,
+                              expiryDate: expirationDate.toISOString()
+                            }) 
+                            );
+
+      };  
+
       const signupHandler = async () => {
         //When click in Confirm Button in the last step to check Errors
         const isNotChecked = !formState.inputValidities.fullname || !formState.inputValidities.phone || !formState.inputValidities.password || !formState.inputValidities.address;
@@ -219,21 +231,37 @@ const SignupOwnerScreen = props =>{
         const phoneProvider = new firebase.auth.PhoneAuthProvider();
         if(formState.formIsValid){
           try {
-            setVerifyError(undefined);
             setVerifyInProgress(true);
-            setVerificationId('');
-            const verificationId = await phoneProvider.verifyPhoneNumber(
-              formState.inputValues.phone,
-              // @ts-ignore
-              recaptchaVerifier.current
-            );
+            const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+            const resData= await result.json();
             setVerifyInProgress(false);
-            setVerificationId(verificationId);
-          } catch (err) {
-            setVerifyError(err);
+
+            //Check if User Exists
+            if(resData.phoneNumber === formState.inputValues.phone){
+              Alert.alert('Erreur!','Ce Numéro de Téléphone existe déjà!',[{text:"OK"}]);
+            }else{
+              //if User is new (doesnt Exist), Recaptcha starts
+              setVerifyInProgress(true);
+              setVerificationId('');
+              const verificationId = await phoneProvider.verifyPhoneNumber(
+                formState.inputValues.phone,
+                // @ts-ignore
+                recaptchaVerifier.current
+              );
+              setVerifyInProgress(false);
+              setVerificationId(verificationId);
+            }
+
+          }catch(err){
+            Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
             setVerifyInProgress(false);
+            console.log(err);
           }
-        }
+
+        }else{
+          Alert.alert('Erreur!','Veuillez remplir le(s) champ(s) manquants svp!',[{text:"OK"}]);
+       }
+
       };
 
       const sendCode = async () => {
@@ -249,21 +277,20 @@ const SignupOwnerScreen = props =>{
            
            //Retrieve user data
            const user = firebase.auth().currentUser;
-           const idTokenResult = await user.getIdToken();
-           if (user) {
-           console.log('User Auth Token: ', idTokenResult);  
-           console.log('User phone: ', user.phoneNumber);
-           console.log('User ID :', user.uid);
-            }
+           const tokenResult = await user.getIdTokenResult();
+           const expirationDate= new Date(Date.parse(tokenResult.expirationTime));
 
           setConfirmInProgress(false);
           setVerificationId("");
           setVerificationCode("");
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate);
           props.navigation.navigate('Owner');
         } catch (err) {
-          setConfirmError(err);
-          setConfirmInProgress(false);
+              setConfirmError(err);
+              Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
+              console.log(err);
+              setConfirmInProgress(false);
         }
        
       };
@@ -674,9 +701,7 @@ const SignupOwnerScreen = props =>{
                                 editable={!verificationId}
                                 minLength={12}
                             />
-                            {verifyError && (
-                            <Text style={styles.confirmErrorText}>{`Erreur: ${verifyError.message}`}</Text>)}
-                            {verifyInProgress && <ActivityIndicator style={styles.loader} />}
+                            {verifyInProgress && <ActivityIndicator style={styles.loader} color={Colors.primary} />}
                             {verificationId ? (
                             <View style={{marginTop:20,alignItems:'center',justifyContent:'center'}}>
                               <TextInput

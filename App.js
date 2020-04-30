@@ -12,6 +12,7 @@ import * as Font from 'expo-font';
 
 import offersReducer from "./store/reducers/offers";
 import bookingsReducer from "./store/reducers/bookings";
+import authReducer from './store/reducers/auth';
 
 
 enableScreens();
@@ -19,7 +20,8 @@ enableScreens();
 //Create the store and the combine reducers
 const rootReducer = combineReducers({
 offers : offersReducer,
-bookings : bookingsReducer
+bookings : bookingsReducer,
+auth: authReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
@@ -36,7 +38,7 @@ const fetchFonts = () =>{
 
 export default function App() {
    
-   const [fontLoaded, setFontLoaded] = useState(false);
+   const [fontLoaded, setFontLoaded] = useState(false); 
 
    if(!fontLoaded){
      return(

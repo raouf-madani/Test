@@ -1,5 +1,5 @@
-import React,{useReducer,useEffect,useCallback} from 'react';
-import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity} from 'react-native';
+import React,{useReducer,useEffect,useCallback,useState} from 'react';
+import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity,ActivityIndicator,AsyncStorage} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
@@ -104,8 +104,9 @@ const LoginScreen = props =>{
    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  ////Input management
+  const [isLogin,setIsLogin]= useState(false);//ActivityIndicator handling
   
-
   const[formState,disaptchFormState] = useReducer(formReducer,
              {inputValues:{
                phone: '',
@@ -121,20 +122,45 @@ const LoginScreen = props =>{
 
     disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
   },[disaptchFormState]);
-  
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const saveDataToStorage = (token,userID,expirationDate) => {
+
+  AsyncStorage.setItem('userData',
+                        JSON.stringify({
+                        token:token,
+                        userID:userID,
+                        expiryDate: expirationDate.toISOString()
+                       }) 
+                       );
+
+};
+   
+  //Press Login Button handling ==> LOGIN
   const login = async ()=>{
 
     if(formState.formIsValid){
       try{
+        setIsLogin(true);
         const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
-        
-        if(resData.phoneNumber === formState.inputValues.phone){
+        setIsLogin(false);
+
+        if(resData.userRecord.phoneNumber === formState.inputValues.phone){
           props.navigation.navigate('Owner');
+          saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate));
+          Alert.alert('Name and Surname','Content de vous revoir!',[{text:"Merci"}]);
+        }else{
+          Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
         }
-        console.log(resData);
+
       }catch(error){
-        Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
+        console.log(error);
+        Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
+        setIsLogin(false);
+       
       }
     }else{
       Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
@@ -186,7 +212,7 @@ const LoginScreen = props =>{
                 />
                <View style={styles.buttonsContainer}>
                  <View style={styles.buttonContainer}>
-                   <Button
+                   {!isLogin ? <Button
                    theme={{colors: {primary:'white'}}} 
                    mode={Platform.OS === 'android' ? "contained" : "outlined"}
                    labelStyle={buttonLabelStyle}
@@ -196,7 +222,7 @@ const LoginScreen = props =>{
                    dark={true}
                    onPress={login}
                    >Se connecter 
-                   </Button>
+                   </Button>:<ActivityIndicator style={styles.loader} color={Colors.primary} />}
                  </View>
                  <View style={styles.facebookContainer}>
                    <TouchableOpacity style={accountTextContainerStyle}>

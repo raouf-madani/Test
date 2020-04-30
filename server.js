@@ -16,14 +16,31 @@ admin.initializeApp({
   databaseURL: "https://footbooking-959a6.firebaseio.com"
 });
 
-app.get("/phone/:phoneID",(req,res)=>{
+app.get('/phone/:phoneID',(req,res)=>{
 
   const phoneID = req.params.phoneID;
+  
+
   admin.auth().getUserByPhoneNumber(phoneID)
   .then(function(userRecord) {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully fetched user data:', userRecord.toJSON());
-    res.send(userRecord.toJSON());
+    const uid = userRecord.uid;
+    const expiresIn = 3600;
+    
+    if(uid){ 
+      admin.auth().createCustomToken(uid)
+        .then(function(customToken) {
+          // Send token back to client
+          const expirationDate= new Date(new Date().getTime() + expiresIn * 1000);
+          const token= customToken;
+          res.send({userRecord:userRecord.toJSON(),token:token,expirationDate:expirationDate});
+          console.log('Successfully fetched user data:', userRecord.toJSON());
+        })
+        .catch(function(error){
+          console.log('Error creating custom token:', error);
+        });
+    }
+
+    
   })
   .catch(function(error) {
     console.log('Error fetching user data:', error);
@@ -32,8 +49,26 @@ app.get("/phone/:phoneID",(req,res)=>{
 
 });
 
+app.get(`/object`,(req,res)=>{
+const uid ='6665';
+   
+  if(uid){
+    admin.auth().createCustomToken(uid)
+      .then(function(customToken) {
+        // Send token back to client
+        
+        //const expirationDate= new Date(new Date().getTime() + expiresIn * 1000);
+        const object ={token:customToken};
+        res.send(object);
+      })
+      .catch(function(error) {
+        console.log('Error creating custom token:', error);
+      });
+    }
+});
 
 
+//CONNECT THE DATABASE
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -41,6 +76,8 @@ let con = mysql.createConnection({
     database: "raoufcvc_footballbooking"
   });
   con.connect();
+
+//GET THE OWNER'S OFFERS
   app.get("/owner/:ownerName",(req,res)=> {
     const ownerName = req.params.ownerName;
  
@@ -51,28 +88,46 @@ let con = mysql.createConnection({
          
         });
       });
-     
+
+//GET THE BOOKING'S
+
+
+
+//ADD A NEW BOOKING TO THE DATABASE   
   app.post("/bookings/addbooking",(req,res)=>{
     console.log("HELLO");
       console.log(req.body);
 
-    // con.query("INSERT INTO booking (id,date,date_booking,start,end,player_id,owner_id,service_id)");
+   
+          
+   con.query("INSERT INTO booking (date,date_booking, start, end,player_id,owner_id,service_id) VALUES (?, ?, ?, ?, ?, ?,?)"
+   ,[
+    req.body.date,
+    req.body.bookingDate, 
+    req.body.start,
+    req.body.end,
+    req.body.playerId,
+    req.body.ownerId,
+    req.body.serviceId
+  
+  ],
+   
+   (err,result,fields)=>{
+     if (err){
+       console.log("THERE IS An ERROR");
+      res.send(err); }
+      console.log("success");
+      res.send("Success");
+    
+    });
 
-      res.send("Succes");
+     
     
 
   });
 
 
-  
 
-  
-
-
-
-
-
-  
 
 // Starting our server.
 app.listen(3000, () => {
