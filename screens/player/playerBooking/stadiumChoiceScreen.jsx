@@ -7,11 +7,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Colors from "../../../constants/Colors";
 import InfoOverlay from '../../../components/InfoOverlay';
+import { useSelector } from 'react-redux';
+
 
 const StadiumChoiceScreen = props =>{
 
   const [overlayState , setOverlay] = useState (false);
+  // const confirmedBookings = useSelector(state =>state.bookings.confirmedBookings);
 
+  // console.log(confirmedBookings);
   const overlayHandler = ()=> {
 
     setOverlay((previous) => !previous);

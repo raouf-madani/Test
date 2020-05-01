@@ -193,6 +193,9 @@ if(screen.width <= 360) {
 
     });
 
+    
+    //Selected Playing Hour 
+    const [selectedId , setSelectedId] = useState(1);
 
     //Selected Playing Hour 
     const [selectedHour , setSelectedHour] = useState();
@@ -211,6 +214,9 @@ if(screen.width <= 360) {
       setOverlayState((previous) => !previous);
 
     }
+
+    //OVERLAY Navigate 
+    
 
     //Selected Match type handler (Set the match type)
     const matchTypeHandler = (itemValue, itemIndex) => {
@@ -256,8 +262,9 @@ if(screen.width <= 360) {
    
       if(customOffers && selectedDateState) {
        daysHours = customOffers.horraires[selectedDateState.day]; 
-      
+     
        setPrice(customOffers.price);
+       setSelectedId(customOffers.id);
        
       } else{
         
@@ -336,6 +343,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
         matchType = {matchTypeState}
         dateMatch = {selectedDateState.date}
         hourMatch = {selectedHour}
+        serviceId = {selectedId}
+        navigate = {()=>props.navigation.navigate("Player")}
        />   
     
      <ScrollView style = {styles.componentsContainer}>

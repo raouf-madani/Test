@@ -11,6 +11,7 @@ switch(action.type){
    case SET_OFFERS :
        
        return {
+        ...state ,
         offers : action.offers 
        }
 
