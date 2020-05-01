@@ -7,7 +7,7 @@ import Input from '../../components/Input';
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import * as authActions from '../../store/actions/authActions';
+import * as playerActions from '../../store/actions/playerActions';
 import {useDispatch} from 'react-redux';
 
 //responsivity (Dimensions get method)
@@ -59,7 +59,7 @@ const SignupScreen = props =>{
   const [verificationCode, setVerificationCode] = useState("");
   const [confirmError, setConfirmError] = useState(false);
   const [confirmInProgress, setConfirmInProgress] = useState(false);
-
+  const dispatch = useDispatch();
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
@@ -164,6 +164,7 @@ const SignupScreen = props =>{
               // @ts-ignore
               recaptchaVerifier.current
             );
+            
             setVerifyInProgress(false);
             setVerificationId(verificationId);
           }
@@ -189,19 +190,26 @@ const SignupScreen = props =>{
         );
         
          await firebase.auth().signInWithCredential(credential);
-           
+
           //Retrieve user data
           const user = firebase.auth().currentUser;
           const tokenResult = await user.getIdTokenResult();
           const expirationDate= new Date(Date.parse(tokenResult.expirationTime));
-         
-          
+
           setConfirmInProgress(false);
           setVerificationId("");
           setVerificationCode("");
+
+          dispatch(playerActions.createPlayer(formState.inputValues.phone,formState.inputValues.phone,
+            formState.inputValues.password,formState.inputValues.name,
+            formState.inputValues.surname));
+            
+           
           Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate);
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate);                                  
           props.navigation.navigate('Player');
+          
+
       } catch (err) {
             setConfirmError(err);
             Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
@@ -210,6 +218,8 @@ const SignupScreen = props =>{
       }
       
     };
+
+   
 
     return(
       <View style={styles.container}>

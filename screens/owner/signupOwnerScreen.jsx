@@ -10,6 +10,8 @@ import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import Input from '../../components/Input';
 import TypeNumberPitchRow from '../../components/TypeNumberPitchRow';
+import {useDispatch} from 'react-redux';
+import * as ownerActions from '../../store/actions/ownerActions';
 
 
 //responsivity (Dimensions get method)
@@ -54,6 +56,8 @@ const formReducer=(state,action) =>{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const SignupOwnerScreen = props =>{
+
+  const dispatch = useDispatch();
 
   const recaptchaVerifier = useRef(null);
   const [verificationId, setVerificationId] = useState('');
@@ -283,6 +287,8 @@ const SignupOwnerScreen = props =>{
           setConfirmInProgress(false);
           setVerificationId("");
           setVerificationCode("");
+          await dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
+                                            formState.inputValues.password,formState.inputValues.fullname));
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate);
           props.navigation.navigate('Owner');

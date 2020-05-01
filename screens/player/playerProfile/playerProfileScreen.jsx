@@ -6,6 +6,7 @@ import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
 import {useDispatch} from "react-redux";
+import * as authActions from '../../../store/actions/authActions';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';

@@ -13,6 +13,8 @@ import * as Font from 'expo-font';
 import offersReducer from "./store/reducers/offers";
 import bookingsReducer from "./store/reducers/bookings";
 import authReducer from './store/reducers/auth';
+import playersReducer from './store/reducers/player';
+import ownersReducer from './store/reducers/owner';
 
 
 enableScreens();
@@ -20,6 +22,10 @@ enableScreens();
 //Create the store and the combine reducers
 const rootReducer = combineReducers({
 offers : offersReducer,
+
+auth: authReducer,
+players:playersReducer,
+owners:ownersReducer,
 bookings : bookingsReducer,
 auth: authReducer
 });
