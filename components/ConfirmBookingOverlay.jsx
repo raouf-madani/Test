@@ -5,22 +5,38 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Ionicons} from "@expo/vector-icons";
 import { useDispatch, useSelector } from 'react-redux';
 import {addBooking} from "../store/actions/bookings";
+import moment from 'moment';
+
 const ConfimBookingOverlay = (props)=>{
 
 const dispatch = useDispatch(); 
 
+let end  ;
+
+if(props.matchTime === "1h"){
+  end = moment("2020-05-01T"+props.hourMatch).add(60,"m").format("HH:mm");  
+
+}else if (props.matchTime === "1h30"){
+  end = moment("2020-05-01T"+props.hourMatch).add(90,"m").format("HH:mm");  
+
+}else {
+  end = moment("2020-05-01T"+props.hourMatch).add(120,"m").format("HH:mm");  
+
+}
 
 const sendConfirmation = async ()=>{
 const date = new Date();
+
+//console.log(dt);
   let booking = {
     date : date ,
     bookingDate : props.dateMatch ,
     start : props.hourMatch ,
-    end : "09:00" ,
+    end : end ,
     timeMatch : props.matchTime,
     typeMatch : props.matchType,
     playerId : "+213557115451",
-    ownerId : "hareth",
+    ownerId : props.ownerId,
     serviceId : props.serviceId
 }
 
@@ -64,8 +80,7 @@ props.navigate();
             color = "green"
             />
       </View>
-       
-       
+
 
       <View >
           <Ionicons 

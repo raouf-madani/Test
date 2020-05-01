@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 import Input from '../components/Input';
 import Firebaseconfig from '../helpers/Firebaseconfig';
 import * as firebase from "firebase";
+import {useSelector} from 'react-redux';
 
 //Firebase config
 try {
@@ -101,6 +102,11 @@ const LoginScreen = props =>{
     facebookIconStyle = styles.facebookIconBig;
    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const players= useSelector(state=>state.players.players);
+  const owners= useSelector(state=>state.owners.owners);
+  console.log(players);
+  console.log(owners);
 
   ////Input management
   const [isLogin,setIsLogin]= useState(false);//ActivityIndicator handling

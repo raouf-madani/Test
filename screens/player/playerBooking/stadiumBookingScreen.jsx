@@ -16,7 +16,6 @@ import ConfirmBookingOverlay from "../../../components/ConfirmBookingOverlay";
 const screen = Dimensions.get("window");
 
 
-
 // 10 next Days and OWN TIME PICKER
 let days = [];
 let hours = [
@@ -91,7 +90,6 @@ const StadiumBookingScreen =  props =>{
 const dispatch =  useDispatch();
 const [loadingState , setLoading] = useState (false);
 const allOffers =  useSelector(state =>state.offers.offers);
-
 
 // useEffect(()=>{
 
@@ -345,6 +343,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
         hourMatch = {selectedHour}
         serviceId = {selectedId}
         navigate = {()=>props.navigation.navigate("Player")}
+        ownerId = {allOffers[0].ownerId}
+        tarif = {priceState}
        />   
     
      <ScrollView style = {styles.componentsContainer}>

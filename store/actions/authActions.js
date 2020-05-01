@@ -1,6 +1,7 @@
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT ="LOGOUT";
 
+
 export const authenticate = (token,userID)=>{
 
     return{
@@ -16,3 +17,4 @@ export const logout=()=>{
         type:LOGOUT
     };
 };
+

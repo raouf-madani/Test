@@ -1,3 +1,5 @@
+import { SET_OFFERS } from "./offers";
+
 export const ADD_BOOKING = "ADD_BOOKING";
 export const SET_BOOKINGS = "SET_BOOKINGS";
 
@@ -12,7 +14,6 @@ export const addBooking = (booking) => {
             'Content-Type': 'application/json'
           },
         body : JSON.stringify(booking)
-
         }
         
         );
@@ -28,13 +29,23 @@ export const addBooking = (booking) => {
 
 };
 
-export const fetchBookings = ()=>{
+export const fetchBookings = (playerID)=>{
 
     return async (dispatch) =>{
-        
-
-        
+        try {
+            
+        const arr = await fetch('http://192.168.1.6:3000/bookings/getbookings/+213557115451');
+        const resData = await arr.json ();
+        console.log(resData);
+   
+   dispatch({type:SET_BOOKINGS,bookings:[]})
+    } catch (error) {
+            
+    
     }
+   
+
+}
 
 
 }
