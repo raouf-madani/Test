@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(id,phone,password,name,surname,email,address,type){
+    constructor(id,phone,password,name,surname,email,address,gender){
         this.id = id ;
         this.phone = phone ;
         this.password = password;
@@ -8,7 +8,7 @@ class Player {
         this.surname = surname;
         this.email = email;
         this.address=address;
-        this.type=type;
+        this.gender=gender;
     }
     
     

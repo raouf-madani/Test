@@ -100,6 +100,7 @@ let con = mysql.createConnection({
   con.query(`INSERT INTO owner (id,phone,password,fullname,email,address,type) VALUES("${data.id}","${data.phone}","${data.password}","${data.fullname}",null,null,"owner")`,(err,result,fields)=>{
       if(err) console.log('Query error',err);
       console.log('Row affected',result);
+      res.send("success");
   });
 
 }); 

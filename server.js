@@ -9,17 +9,21 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+app.use(bodyParser.json());
 
 
 
 
-/*let con = mysql.createConnection({
+//CONNECT THE DATABASE
+let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "raoufcvc_footballbooking"
   });
   con.connect();
+
+//GET THE OWNER'S OFFERS
   app.get("/owner/:ownerName",(req,res)=> {
     const ownerName = req.params.ownerName;
  
@@ -29,10 +33,47 @@ app.use(express.static("public"));
           res.send(result);
          
         });
-     
-  });*/
+      });
 
+//GET THE BOOKING'S
+
+
+
+//ADD A NEW BOOKING TO THE DATABASE   
+  app.post("/bookings/addbooking",(req,res)=>{
+    console.log("HELLO");
+      console.log(req.body);
+
+   
+          
+   con.query("INSERT INTO booking (date,date_booking, start, end,player_id,owner_id,service_id) VALUES (?, ?, ?, ?, ?, ?,?)"
+   ,[
+    req.body.date,
+    req.body.bookingDate, 
+    req.body.start,
+    req.body.end,
+    req.body.playerId,
+    req.body.ownerId,
+    req.body.serviceId
   
+  ],
+   
+   (err,result,fields)=>{
+     if (err){
+       console.log("THERE IS An ERROR");
+      res.send(err); }
+      console.log("success");
+      res.send("Success");
+    
+    });
+
+     
+    
+
+  });
+
+
+
 
 // Starting our server.
 app.listen(3000, () => {

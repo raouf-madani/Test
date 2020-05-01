@@ -11,6 +11,7 @@ import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
 
 import offersReducer from "./store/reducers/offers";
+import bookingsReducer from "./store/reducers/bookings";
 import authReducer from './store/reducers/auth';
 import playersReducer from './store/reducers/player';
 import ownersReducer from './store/reducers/owner';
@@ -23,8 +24,10 @@ const rootReducer = combineReducers({
 offers : offersReducer,
 auth: authReducer,
 players:playersReducer,
-owners:ownersReducer
+owners:ownersReducer,
+bookings :bookingsReducer,
 });
+
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 

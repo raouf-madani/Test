@@ -10,8 +10,8 @@ export const createPlayer=(id,phone,password,name,surname)=>{
             if(!response.ok){
                 throw new Error('Oups! Une erreur est survenue.');
             }
-
-            dispatch({type:CREATE_PLAYER,id,phone,password,name,surname,email:null,address:null,type:'player'});
+            console.log('sqsqdkmqqsd');
+            dispatch({type:CREATE_PLAYER,id,phone,password,name,surname,email:null,address:null,gender:'player'});
 
         }catch(err){
             console.log(err);
