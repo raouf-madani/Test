@@ -241,7 +241,7 @@ const SignupOwnerScreen = props =>{
             setVerifyInProgress(false);
 
             //Check if User Exists
-            if(resData.phoneNumber === formState.inputValues.phone){
+            if(resData.userRecord.phoneNumber === formState.inputValues.phone){
               Alert.alert('Erreur!','Ce Numéro de Téléphone existe déjà!',[{text:"OK"}]);
             }else{
               //if User is new (doesnt Exist), Recaptcha starts
@@ -287,7 +287,7 @@ const SignupOwnerScreen = props =>{
           setConfirmInProgress(false);
           setVerificationId("");
           setVerificationCode("");
-          await dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
+          dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
                                             formState.inputValues.password,formState.inputValues.fullname));
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate);

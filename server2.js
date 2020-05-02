@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+app.use(bodyParser.json());
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -46,7 +47,7 @@ app.get('/phone/:phoneID',(req,res)=>{
   })
   .catch(function(error) {
     console.log('Error fetching user data:', error);
-    res.send(error);
+    res.send({userRecord:error});
   });
 
 });
@@ -68,41 +69,73 @@ let con = mysql.createConnection({
   /**
    * ************************Player
   */
-  app.get('/player/:id/:phone/:password/:name/:surname',(req,res)=>{
+ /*
+    Add New Player
+ */ 
+  app.post('/player/addPlayer',(req,res)=>{
 
-    const data = {
-        id:req.params.id,
-        phone:req.params.phone,
-        password:req.params.password,
-        name:req.params.name,
-        surname:req.params.surname,
-    };
 
-    con.query(`INSERT INTO player (id,phone,password,name,surname,email,address,type) VALUES("${data.id}","${data.phone}","${data.password}","${data.name}","${data.surname}",null,null,"player")`,(err,result,fields)=>{
+    con.query('INSERT INTO player (id,phone,password,name,surname,email,address,type) VALUES(?,?,?,?,?,?,?,?)',
+    [
+      req.body.id,
+      req.body.phone,
+      req.body.password,
+      req.body.name,
+      req.body.surname,
+      null,
+      null,
+      "player"
+    ]
+    ,
+    (err,result,fields)=>{
         if(err) console.log('Query error',err);
-        console.log('Row affected',result);
+        res.send("success");
     });
 
+  });
+
+/*
+    Fetch All Players
+ */
+  app.get('/player',(req,res)=>{
+     con.query('SELECT * FROM player',(err,result,fields)=>{
+       if(err) console.log('Query error',err);
+      res.send(result);
+     });
   });
   
 /**
    * ************************Owner
   */
- app.get('/owner/:id/:phone/:password/:fullname',(req,res)=>{
+ app.post('/owner/addOwner',(req,res)=>{
 
-  const data = {
-      id:req.params.id,
-      phone:req.params.phone,
-      password:req.params.password,
-      fullname:req.params.fullname,
-  };
 
-  con.query(`INSERT INTO owner (id,phone,password,fullname,email,address,type) VALUES("${data.id}","${data.phone}","${data.password}","${data.fullname}",null,null,"owner")`,(err,result,fields)=>{
+  con.query('INSERT INTO owner (id,phone,password,fullname,email,address,type) VALUES(?,?,?,?,?,?,?)',
+  [
+    req.body.id,
+    req.body.phone,
+    req.body.password,
+    req.body.fullname,
+    null,
+    null,
+    "owner"
+  ],
+  (err,result,fields)=>{
       if(err) console.log('Query error',err);
-      console.log('Row affected',result);
+      res.send('success');
   });
 
 }); 
+
+/*
+    Fetch All oWNERS
+ */
+app.get('/owner',(req,res)=>{
+  con.query('SELECT * FROM owner',(err,result,fields)=>{
+    if(err) console.log('Query error',err);
+   res.send(result);
+  });
+});
 
 // Starting our server.
 app.listen(3000, () => {

@@ -1,4 +1,4 @@
-import {CREATE_OWNER} from '../actions/ownerActions';
+import {CREATE_OWNER,SET_OWNERS} from '../actions/ownerActions';
 import Owner from '../../models/owner';
 
 const initialState={
@@ -9,13 +9,19 @@ const ownersReducer=(state=initialState,action)=>{
 
    switch(action.type){
        case CREATE_OWNER:
-         const newOwner= new Owner(action.id,action.phone,action.password,action.fullname,
-                                  action.email,action.address,action.type);
+         const newOwner= new Owner(action.ownerData.id,action.ownerData.phone,action.ownerData.password,
+                                   action.ownerData.fullname,null,null,'owner');
 
          return{
            ...state,
            owners: state.owners.concat(newOwner)
          };
+
+      case SET_OWNERS:
+      return{
+        ...state,
+        owners:action.allOwners
+      }
 
        default: 
         return state;

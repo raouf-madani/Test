@@ -150,10 +150,11 @@ const SignupScreen = props =>{
           setVerifyInProgress(true);
           const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
           const resData= await result.json();
+          console.log(resData);
           setVerifyInProgress(false);
 
           //Check if User Exists
-          if(resData.phoneNumber === formState.inputValues.phone){
+          if(resData.userRecord.phoneNumber === formState.inputValues.phone){
             Alert.alert('Erreur!','Ce Numéro de Téléphone existe déjà!',[{text:"OK"}]);
           }else{
             //if User is new (doesnt Exist), Recaptcha starts

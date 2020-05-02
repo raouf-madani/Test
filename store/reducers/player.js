@@ -1,4 +1,4 @@
-import {CREATE_PLAYER} from '../actions/playerActions';
+import {CREATE_PLAYER,SET_PLAYERS} from '../actions/playerActions';
 import Player from '../../models/player';
 
 const initialState={
@@ -6,17 +6,22 @@ const initialState={
 };
 
 const playersReducer=(state=initialState,action)=>{
-
+   console.log(action.type);
    switch(action.type){
        case CREATE_PLAYER:
-         const newPlayer= new Player(action.id,action.phone,action.password,action.name,
-                                     action.surname,action.email,action.address,action.type);
-
+         const newPlayer= new Player(action.playerData.id,action.playerData.phone,action.playerData.password,
+                                     action.playerData.name,action.playerData.surname,null,null,'player');
+                                    
          return{
            ...state,
            players: state.players.concat(newPlayer)
          };
 
+       case SET_PLAYERS:
+         return{
+          ...state,
+          players:action.allPlayers
+         }
        default: 
         return state;
    }
