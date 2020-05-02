@@ -25,7 +25,7 @@ offers : offersReducer,
 auth: authReducer,
 players:playersReducer,
 owners:ownersReducer,
-bookings :bookingsReducer,
+bookings : bookingsReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

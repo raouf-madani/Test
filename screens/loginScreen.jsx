@@ -1,11 +1,13 @@
-import React,{useReducer,useCallback,useState} from 'react';
+import React,{useReducer,useCallback,useState,useEffect} from 'react';
 import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,Text,Platform,Image,Dimensions,TouchableOpacity,ActivityIndicator,AsyncStorage} from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
 import Firebaseconfig from '../helpers/Firebaseconfig';
 import * as firebase from "firebase";
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import * as playerActions from '../store/actions/playerActions';
+import * as ownerActions from '../store/actions/ownerActions';
 
 //Firebase config
 try {
@@ -48,16 +50,34 @@ const formReducer=(state,action) =>{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const LoginScreen = props =>{
-
   
-   
+  const dispatch =useDispatch();
+  useEffect(()=>{
+
+ const getPlayers = async()=>{ 
+  try{
+     dispatch(playerActions.setPlayers());
+     }catch(err){
+       console.log(err);
+     }
+ };
+ const getOwners = async()=>{ 
+  try{
+     dispatch(ownerActions.setOwners());
+     }catch(err){
+       console.log(err);
+     }
+ };
+ getPlayers();
+ getOwners();
+},[dispatch])
+ 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */
    let titleContainerStyle= styles.titleContainer;
    let titleStyle = styles.title;
    let iconContainerStyle = styles.iconContainer;
    let signupContainerStyle = styles.signupContainer;
-   let buttonsContainerStyle = styles.buttonsContainer;
    let buttonLabelStyle = styles.buttonLabel;
    let accountTextContainerStyle = styles.accountTextContainer;
    let accountOrTextStyle = styles.accountOrText;
@@ -70,7 +90,6 @@ const LoginScreen = props =>{
     titleStyle = styles.titleSmall;
     iconContainerStyle = styles.iconContainerSmall;
     signupContainerStyle = styles.signupContainerSmall;
-    buttonsContainerStyle = styles.buttonsContainerSmall;
     buttonLabelStyle = styles.buttonLabelSmall;
     accountTextContainerStyle = styles.accountTextContainerSmall;
     accountOrTextStyle = styles.accountOrTextSmall;
@@ -81,7 +100,6 @@ const LoginScreen = props =>{
 
    if(screen.height <= 800 && screen.height >=700){
     titleContainerStyle = styles.titleContainerBig;
-    buttonsContainerStyle = styles.buttonsContainerTall;
     textInputStyle = styles.textInputTall;
     accountTextContainerStyle = styles.accountTextContainerTall;
     iconContainerStyle = styles.iconContainerTall;
@@ -93,7 +111,6 @@ const LoginScreen = props =>{
     iconContainerStyle = styles.iconContainerBig;
     signupContainerStyle = styles.signupContainerBig;
     textInputStyle = styles.textInputBig;
-    buttonsContainerStyle = styles.buttonsContainerBig;
     buttonLabelStyle = styles.buttonLabelBig;
     accountTextContainerStyle = styles.accountTextContainerBig;
     accountOrTextStyle = styles.accountOrTextBig;
@@ -147,13 +164,24 @@ const saveDataToStorage = (token,userID,expirationDate) => {
 
     if(formState.formIsValid){
       try{
+
         setIsLogin(true);
         const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
         setIsLogin(false);
+        const currentPlayer= players.find(item=>item.phone===formState.inputValues.phone && 
+                                                item.password===formState.inputValues.password);
+        const currentOwner= owners.find(item=>item.phone===formState.inputValues.phone && 
+          item.password===formState.inputValues.password);
+                                                
+        if(resData.userRecord.phoneNumber === formState.inputValues.phone &&(currentPlayer || currentOwner)){
 
-        if(resData.userRecord.phoneNumber === formState.inputValues.phone){
-          props.navigation.navigate('Owner');
+          if(currentPlayer){
+            props.navigation.navigate('Player');
+          }else{
+            props.navigation.navigate('Owner');
+          }
+          
           saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate));
           Alert.alert('Name and Surname','Content de vous revoir!',[{text:"Merci"}]);
         }else{

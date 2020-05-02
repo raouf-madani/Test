@@ -10,7 +10,7 @@ return async dispatch =>{
     
     let offers2 = [];
         const resData = await arr.json ();
-   
+  
         let services = [];
         resData.map(
           item =>{ 
@@ -22,25 +22,28 @@ return async dispatch =>{
         services.forEach(service => {
    
           let newData = resData.filter(item => item.service_id === service);
+          
+        
           let offer  = {
             id:service,
             horraires : {},
             stadiumsType : newData[0].type_match,
             matchTimeType :  newData[0].time_match,
-            price :newData[0].tarif
+            price :newData[0].tarif,
+            ownerId : newData[0].owner_id,
+            stadmiumNumber : newData[0].stadiumNum
           }
        
           newData.map(item=>{
         
             offer.horraires[item.date] =[  item.start.substring(0,5),item.end.substring(0,5) ];
-              
-        
+          
 
           })
       
           offers2.push(offer);
         });
-        
+        console.log("*********************************")
         dispatch({type : SET_OFFERS , offers : offers2});
     } catch (error) {
       console.log("There is an Error");

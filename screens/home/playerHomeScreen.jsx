@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'reac
 import SmallCard  from '../../components/SmallCard';
 import { useDispatch,useSelector } from 'react-redux';
 import * as offersActions from "../../store/actions/offers";
+import * as bookingsActions from "../../store/actions/bookings";
 
 const screen = Dimensions.get("window");
 const PlayerHomeScreen = props =>{
@@ -12,6 +13,7 @@ const allOffers = useSelector(state =>state.offers.offers);
 useEffect(()=>{
 
  dispatch(offersActions.fetchOffers());
+ dispatch(bookingsActions.fetchBookings("+213557115451"));
    
   }
   

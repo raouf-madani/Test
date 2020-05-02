@@ -1,13 +1,13 @@
 class Owner {
 
-    constructor(id,phone,password,fullname,email,address,type){
+    constructor(id,phone,password,fullname,email,address,gender){
         this.id = id ;
         this.phone = phone ;
         this.password = password;
         this.fullname = fullname;
         this.email = email;
         this.address=address;
-        this.type=type;
+        this.gender=gender;
     }
     
     
