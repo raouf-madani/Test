@@ -22,12 +22,10 @@ enableScreens();
 //Create the store and the combine reducers
 const rootReducer = combineReducers({
 offers : offersReducer,
-
 auth: authReducer,
 players:playersReducer,
 owners:ownersReducer,
-bookings : bookingsReducer,
-auth: authReducer
+bookings : bookingsReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
