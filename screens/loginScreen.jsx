@@ -3,20 +3,11 @@ import { StyleSheet,Alert,View,ScrollView,ImageBackground,KeyboardAvoidingView,T
 import {Button} from 'react-native-paper';
 import Colors from '../constants/Colors';
 import Input from '../components/Input';
-import Firebaseconfig from '../helpers/Firebaseconfig';
-import * as firebase from "firebase";
 import {useSelector,useDispatch} from 'react-redux';
 import * as playerActions from '../store/actions/playerActions';
 import * as ownerActions from '../store/actions/ownerActions';
 
-//Firebase config
-try {
-  if (Firebaseconfig.apiKey) {
-    firebase.initializeApp(Firebaseconfig);
-  }
-} catch (err) {
-  // ignore app already initialized error on snack
-}
+
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
@@ -51,6 +42,9 @@ const formReducer=(state,action) =>{
 
 const LoginScreen = props =>{
   
+  /*
+   *******Fetch All Players and Owners
+  */
   const dispatch =useDispatch();
   useEffect(()=>{
 
@@ -147,13 +141,14 @@ const LoginScreen = props =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-const saveDataToStorage = (token,userID,expirationDate) => {
+const saveDataToStorage = (token,userID,expirationDate,gender) => {
 
   AsyncStorage.setItem('userData',
                         JSON.stringify({
                         token:token,
                         userID:userID,
-                        expiryDate: expirationDate.toISOString()
+                        expiryDate: expirationDate.toISOString(),
+                        gender:gender
                        }) 
                        );
 
@@ -178,12 +173,15 @@ const saveDataToStorage = (token,userID,expirationDate) => {
 
           if(currentPlayer){
             props.navigation.navigate('Player');
+            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type);
+            Alert.alert(`${currentPlayer.name} ${currentPlayer.surname}`,'Contents de vous revoir!',[{text:"Merci"}]); 
           }else{
             props.navigation.navigate('Owner');
+            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type);
+            Alert.alert(`${currentOwner.fullname}`,'Contents de vous revoir!',[{text:"Merci"}]);
           }
           
-          saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate));
-          Alert.alert('Name and Surname','Content de vous revoir!',[{text:"Merci"}]);
+          
         }else{
           Alert.alert('Erreur!','Numéro de téléphone ou mot de passe invalide.',[{text:"OK"}]);
         }
@@ -254,10 +252,10 @@ const saveDataToStorage = (token,userID,expirationDate) => {
                    dark={true}
                    onPress={login}
                    >Se connecter 
-                   </Button>:<ActivityIndicator style={styles.loader} color={Colors.primary} />}
+                   </Button>:<ActivityIndicator color={Colors.primary} />}
                  </View>
                  <View style={styles.facebookContainer}>
-                   <TouchableOpacity style={accountTextContainerStyle}>
+                   <TouchableOpacity style={accountTextContainerStyle} onPress={()=>props.navigation.navigate('ForgotPassword')}>
                     <Text style={accountOrTextStyle}>Mot de passe oublié ?</Text>
                    </TouchableOpacity>
                    <View style={styles.loginFacebookContainer}>
@@ -301,7 +299,7 @@ LoginScreen.navigationOptions= ()=>{
       
       />
     )};
-}
+};
 
 const styles= StyleSheet.create({
  container:{

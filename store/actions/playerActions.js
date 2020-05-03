@@ -1,5 +1,6 @@
 export const CREATE_PLAYER = "CREATE_PLAYER";
 export const SET_PLAYERS= "SET_PLAYERS";
+export const UPDATE_PLAYER_PASSWORD ="UPDATE_PLAYER_PASSWORD";
 
 export const createPlayer=(id,phone,password,name,surname)=>{
   
@@ -53,5 +54,30 @@ export const setPlayers= ()=>{
     };
 
 
+
+};
+
+export const updatePlayerPassword= (id,password) => {
+
+    return async dispatch => {
+
+         try{
+           const response = await fetch(`http://192.168.1.37:3000/player/updatePassword/${id}`,{
+              method:'PATCH',
+              headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify({password})
+           });
+           if(!response.ok){
+               throw new Error('Oups! Une erreur est survenue in ur fetch.');
+           }
+           
+           dispatch({type:UPDATE_PLAYER_PASSWORD,id,playerData:{password}});
+           
+         }catch(err){
+             console.log(err);
+         }
+    };
 
 };

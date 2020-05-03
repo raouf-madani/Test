@@ -103,6 +103,22 @@ let con = mysql.createConnection({
       res.send(result);
      });
   });
+
+/*
+    Update player password
+ */ 
+  app.patch('/player/updatePassword/:id',(req,res)=>{
+    
+    con.query('UPDATE player SET password = ? WHERE id= ?',
+    [
+      req.body.password,
+      req.params.id
+    ],
+    (err,result,fields)=>{
+      if(err) console.log('Query error',err);
+      res.send("success");
+    });
+  });
   
 /**
    * ************************Owner
@@ -134,6 +150,23 @@ app.get('/owner',(req,res)=>{
   con.query('SELECT * FROM owner',(err,result,fields)=>{
     if(err) console.log('Query error',err);
    res.send(result);
+  });
+});
+
+/*
+    Update owner password
+ */
+
+app.patch('/owner/updatePassword/:id',(req,res)=>{
+    
+  con.query(`UPDATE owner SET password = ? WHERE id= ?`,
+  [
+    req.body.password,
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
   });
 });
 

@@ -17,7 +17,7 @@ const StartupScreen = props =>{
                return;
            }
            const transformedData = JSON.parse(userData); // transform string to Javascript Object or Array
-           const {token,userID,expiryDate} = transformedData;
+           const {token,userID,expiryDate,gender} = transformedData;
            const expirationDate = new Date(expiryDate);
            
            if(!token || !userID || expirationDate <= new Date()){
@@ -25,9 +25,11 @@ const StartupScreen = props =>{
             return;
            }
             
-           //const expirationTime = expirationDate.getTime() - new Date().getTime();
-
-           props.navigation.navigate('Main');
+           if(gender==="player"){
+            props.navigation.navigate('Player');
+           }else if(gender==="owner"){
+            props.navigation.navigate('Owner');
+           }
            dispatch(authActions.authenticate(token,userID));
        }
        tryLogin();

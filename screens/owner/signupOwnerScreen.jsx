@@ -213,13 +213,14 @@ const SignupOwnerScreen = props =>{
      
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      const saveDataToStorage = (token,userID,expirationDate) => {
+      const saveDataToStorage = (token,userID,expirationDate,gender) => {
 
         AsyncStorage.setItem('userData',
                               JSON.stringify({
                               token:token,
                               userID:userID,
-                              expiryDate: expirationDate.toISOString()
+                              expiryDate: expirationDate.toISOString(),
+                              gender:gender
                             }) 
                             );
 
@@ -290,7 +291,7 @@ const SignupOwnerScreen = props =>{
           dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
                                             formState.inputValues.password,formState.inputValues.fullname));
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate);
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"owner");
           props.navigation.navigate('Owner');
         } catch (err) {
               setConfirmError(err);
