@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import {useSelector,useDispatch} from 'react-redux';
 import * as playerActions from '../store/actions/playerActions';
 import * as ownerActions from '../store/actions/ownerActions';
+import * as Crypto from 'expo-crypto'; 
 
 
 //responsivity (Dimensions get method)
@@ -130,11 +131,11 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
 
  const verifyNumber = async ()=>{
 
-  if(formState.inputValidities.phone){
+  if(formState.inputValidities.phone && formState.inputValues.phone){
     try{
       
       setIsLogin(true);
-      const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+      const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
       const resData= await result.json();
       setIsLogin(false);
       
@@ -159,24 +160,30 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
 
    const login = async()=>{
 
-    if(formState.formIsValid){
+    if(formState.formIsValid && formState.inputValues.password){
      try{
-     
+        const hashedPassword = await Crypto.digestStringAsync(
+          Crypto.CryptoDigestAlgorithm.SHA512,
+          formState.inputValues.password
+        );
+
         setIsLogin(true);
-        const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+        const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
         setIsLogin(false);
   
         const currentPlayer= players.find(item=>item.phone===formState.inputValues.phone);
         const currentOwner= owners.find(item=>item.phone===formState.inputValues.phone);
-        console.log(currentOwner);
+
+        
         if(currentPlayer){
-            dispatch(playerActions.updatePlayerPassword(formState.inputValues.phone,formState.inputValues.password));
+            
+            dispatch(playerActions.updatePlayerPassword(formState.inputValues.phone,hashedPassword));
             Alert.alert(`${currentPlayer.name} ${currentPlayer.surname}`,'Contents de vous revoir!',[{text:"Merci"}]);
             props.navigation.navigate('Player');
             saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type);
         }else if(currentOwner){
-          dispatch(ownerActions.updateOwnerPassword(formState.inputValues.phone,formState.inputValues.password));
+          dispatch(ownerActions.updateOwnerPassword(formState.inputValues.phone,hashedPassword));
           Alert.alert(`${currentOwner.fullname}`,'Contents de vous revoir!',[{text:"Merci"}]);
           props.navigation.navigate('Owner');
           saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type);

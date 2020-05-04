@@ -9,6 +9,7 @@ import * as firebase from "firebase";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as playerActions from '../../store/actions/playerActions';
 import {useDispatch} from 'react-redux';
+import * as Crypto from 'expo-crypto'; 
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
@@ -149,7 +150,7 @@ const SignupScreen = props =>{
         try {
 
           setVerifyInProgress(true);
-          const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+          const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
           const resData= await result.json();
           console.log(resData);
           setVerifyInProgress(false);
@@ -202,8 +203,13 @@ const SignupScreen = props =>{
           setVerificationId("");
           setVerificationCode("");
 
+          const hashedPassword = await Crypto.digestStringAsync(
+            Crypto.CryptoDigestAlgorithm.SHA512,
+            formState.inputValues.password
+          );
+
           dispatch(playerActions.createPlayer(formState.inputValues.phone,formState.inputValues.phone,
-            formState.inputValues.password,formState.inputValues.name,
+            hashedPassword,formState.inputValues.name,
             formState.inputValues.surname));
             
            

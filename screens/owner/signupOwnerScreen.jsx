@@ -12,6 +12,7 @@ import Input from '../../components/Input';
 import TypeNumberPitchRow from '../../components/TypeNumberPitchRow';
 import {useDispatch} from 'react-redux';
 import * as ownerActions from '../../store/actions/ownerActions';
+import * as Crypto from 'expo-crypto'; 
 
 
 //responsivity (Dimensions get method)
@@ -237,7 +238,7 @@ const SignupOwnerScreen = props =>{
         if(formState.formIsValid){
           try {
             setVerifyInProgress(true);
-            const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+            const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
             const resData= await result.json();
             setVerifyInProgress(false);
 
@@ -288,8 +289,14 @@ const SignupOwnerScreen = props =>{
           setConfirmInProgress(false);
           setVerificationId("");
           setVerificationCode("");
+
+          const hashedPassword = await Crypto.digestStringAsync(
+            Crypto.CryptoDigestAlgorithm.SHA512,
+            formState.inputValues.password
+          );
+
           dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
-                                            formState.inputValues.password,formState.inputValues.fullname));
+                                            hashedPassword,formState.inputValues.fullname));
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate,"owner");
           props.navigation.navigate('Owner');

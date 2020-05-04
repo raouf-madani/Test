@@ -9,7 +9,7 @@ export const createPlayer=(id,phone,password,name,surname)=>{
         const playerData={id:id,phone:phone,password:password,name:name,surname:surname};
 
         try{
-            const response= await fetch('http://192.168.1.37:3000/player/addPlayer',{
+            const response= await fetch('http://192.168.1.36:3000/player/addPlayer',{
                 method : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export const setPlayers= ()=>{
     return async dispatch =>{
 
       try{
-           const response= await fetch('http://192.168.1.37:3000/player');
+           const response= await fetch('http://192.168.1.36:3000/player');
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
@@ -62,7 +62,7 @@ export const updatePlayerPassword= (id,password) => {
     return async dispatch => {
 
          try{
-           const response = await fetch(`http://192.168.1.37:3000/player/updatePassword/${id}`,{
+           const response = await fetch(`http://192.168.1.36:3000/player/updatePassword/${id}`,{
               method:'PATCH',
               headers: {
                 'Content-Type': 'application/json'

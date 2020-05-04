@@ -6,7 +6,7 @@ import Input from '../components/Input';
 import {useSelector,useDispatch} from 'react-redux';
 import * as playerActions from '../store/actions/playerActions';
 import * as ownerActions from '../store/actions/ownerActions';
-
+import * as Crypto from 'expo-crypto'; 
 
 
 //responsivity (Dimensions get method)
@@ -159,15 +159,19 @@ const saveDataToStorage = (token,userID,expirationDate,gender) => {
 
     if(formState.formIsValid){
       try{
-
+        const hashedPassword = await Crypto.digestStringAsync(
+          Crypto.CryptoDigestAlgorithm.SHA512,
+          formState.inputValues.password
+        );
+        
         setIsLogin(true);
-        const result = await fetch(`http://192.168.1.37:3000/phone/${formState.inputValues.phone}`);
+        const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
         setIsLogin(false);
         const currentPlayer= players.find(item=>item.phone===formState.inputValues.phone && 
-                                                item.password===formState.inputValues.password);
+                                                item.password===hashedPassword);
         const currentOwner= owners.find(item=>item.phone===formState.inputValues.phone && 
-          item.password===formState.inputValues.password);
+          item.password===hashedPassword);
                                                 
         if(resData.userRecord.phoneNumber === formState.inputValues.phone &&(currentPlayer || currentOwner)){
 

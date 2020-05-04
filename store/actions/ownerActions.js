@@ -8,7 +8,7 @@ export const createOwner=(id,phone,password,fullname)=>{
         const ownerData={id:id,phone:phone,password:password,fullname:fullname};
 
         try{
-            const response= await fetch('http://192.168.1.37:3000/owner/addOwner',{
+            const response= await fetch('http://192.168.1.36:3000/owner/addOwner',{
                 method : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export const setOwners= ()=>{
     return async dispatch =>{
 
       try{
-           const response= await fetch('http://192.168.1.37:3000/owner');
+           const response= await fetch('http://192.168.1.36:3000/owner');
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
@@ -58,7 +58,7 @@ export const updateOwnerPassword= (id,password) => {
     return async dispatch => {
 
          try{
-           const response = await fetch(`http://192.168.1.37:3000/owner/updatePassword/${id}`,{
+           const response = await fetch(`http://192.168.1.36:3000/owner/updatePassword/${id}`,{
               method:'PATCH',
               headers: {
                 'Content-Type': 'application/json'
