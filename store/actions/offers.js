@@ -37,8 +37,7 @@ return async dispatch =>{
           newData.map(item=>{
         
             offer.horraires[item.date] =[  item.start.substring(0,5),item.end.substring(0,5) ];
-              
-        
+          
 
           })
       
