@@ -1,4 +1,4 @@
-import {CREATE_PLAYER,SET_PLAYERS} from '../actions/playerActions';
+import {CREATE_PLAYER,SET_PLAYERS,UPDATE_PLAYER_PASSWORD} from '../actions/playerActions';
 import Player from '../../models/player';
 
 const initialState={
@@ -22,6 +22,29 @@ const playersReducer=(state=initialState,action)=>{
           ...state,
           players:action.allPlayers
          }
+
+       case UPDATE_PLAYER_PASSWORD:
+         
+        const playerIndex = state.players.findIndex(player => player.id === action.id);
+        const updatedPlayer = new Player(
+          action.id,
+          state.players[playerIndex].phone,
+          action.playerData.password,
+          state.players[playerIndex].name,
+          state.players[playerIndex].surname,
+          state.players[playerIndex].email,
+          state.players[playerIndex].address,
+          state.players[playerIndex].gender
+        );   
+
+        const updatedPlayers=[...state.players];
+        updatedPlayers[playerIndex]=updatedPlayer;
+
+        return{
+          ...state,
+          players:updatedPlayers
+        };
+
        default: 
         return state;
    }
