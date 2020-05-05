@@ -27,6 +27,7 @@ import stadiumChoiceScreen from "../screens/player/playerBooking/stadiumChoiceSc
 import stadiumBookingScreen from "../screens/player/playerBooking/stadiumBookingScreen";
 import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerExpiredBookingsScreen';
 import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
+import ForgotPasswordScreen from "../screens/forgotPasswordScreen";
 import StartupScreen from "../screens/startupScreen";
 
 
@@ -116,6 +117,7 @@ const FootNavigation = createStackNavigator({
   Role : ProfileChoiceScreen,
   Signup: SignupScreen,
   SignupOwner:SignupOwnerScreen,
+  ForgotPassword:ForgotPasswordScreen
  });
 
 const MainNavigation = createSwitchNavigator({
