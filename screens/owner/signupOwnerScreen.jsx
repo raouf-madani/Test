@@ -12,6 +12,7 @@ import Input from '../../components/Input';
 import TypeNumberPitchRow from '../../components/TypeNumberPitchRow';
 import {useDispatch} from 'react-redux';
 import * as ownerActions from '../../store/actions/ownerActions';
+import * as propertyActions from '../../store/actions/propertyActions';
 import * as Crypto from 'expo-crypto'; 
 
 
@@ -140,6 +141,14 @@ const SignupOwnerScreen = props =>{
     const [isChecked11x11, setIsChecked11x11] = useState(false);
     const [stadiumNum11x11, setStadiumNum11x11] = useState('0');
 
+    let type5x5;
+    let type6x6;
+    let type7x7;
+    let type8x8;
+    let type9x9;
+    let type10x10;
+    let type11x11;
+
 
     
     //States for complex information textInputs
@@ -167,7 +176,7 @@ const SignupOwnerScreen = props =>{
       );  
   }
   //picker only iOS function for staduim Number 
-  const onPressStadiumNumberIOS = () =>{
+  /*const onPressStadiumNumberIOS = () =>{
     const stadiumNumber = ['0','1','2','3','4','5','6','7','8','9','10'];  
     ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -182,7 +191,7 @@ const SignupOwnerScreen = props =>{
         } 
       }
     );  
-  }
+  }*/
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////Input Management
@@ -194,7 +203,7 @@ const SignupOwnerScreen = props =>{
         address:'',
         propertyName:'',
         propertyAddress:'',
-        stadiumNum:''
+        propertyRegion:''
       },
       inputValidities:{
         fullname:false,
@@ -203,7 +212,7 @@ const SignupOwnerScreen = props =>{
         address:false,
         propertyName:false,
         propertyAddress:false,
-        stadiumNum:false
+        propertyRegion:false
       },
       formIsValid:false});
       
@@ -225,7 +234,8 @@ const SignupOwnerScreen = props =>{
                             }) 
                             );
 
-      };  
+      };
+      
 
       const signupHandler = async () => {
         //When click in Confirm Button in the last step to check Errors
@@ -271,6 +281,15 @@ const SignupOwnerScreen = props =>{
       };
 
       const sendCode = async () => {
+
+        if(isChecked5x5){ type5x5 = '5x5';}else{type5x5='';}
+        if(isChecked6x6){ type6x6 = '6x6';}else{type6x6='';}
+        if(isChecked7x7){ type7x7 = '7x7';}else{type7x7='';}
+        if(isChecked8x8){ type8x8 = '8x8';}else{type8x8='';}
+        if(isChecked9x9){ type9x9 = '9x9';}else{type9x9='';}
+        if(isChecked10x10){ type10x10 = '10x10';}else{type10x10='';}
+        if(isChecked11x11){ type11x11 = '11x11';}else{type11x11='';}
+
         try {
           setConfirmError(undefined);
           setConfirmInProgress(true);
@@ -294,12 +313,22 @@ const SignupOwnerScreen = props =>{
             Crypto.CryptoDigestAlgorithm.SHA512,
             formState.inputValues.password
           );
-
+          
+          
           dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
                                             hashedPassword,formState.inputValues.fullname));
+
+          dispatch(propertyActions.createProperty(formState.inputValues.propertyName,formState.inputValues.propertyName,formState.inputValues.propertyAddress,
+                                                  formState.inputValues.propertyRegion,complexCity,isCheckedBall,
+                                                  isCheckedShower,isCheckedBib,isCheckedCloackroom,isCheckedCover,
+                                                  isCheckedRef,formState.inputValues.phone));
+
+          dispatch(propertyActions.createPropertyStadiums(stadiumNum5x5,stadiumNum6x6,stadiumNum7x7,
+          stadiumNum8x8,stadiumNum9x9,stadiumNum10x10,stadiumNum11x11,type5x5,type6x6,type7x7,type8x8,
+          type9x9,type10x10,type11x11,formState.inputValues.propertyName)); 
+          props.navigation.navigate('Owner'); 
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"owner");
-          props.navigation.navigate('Owner');
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Owner"); 
         } catch (err) {
               setConfirmError(err);
               Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
@@ -312,7 +341,7 @@ const SignupOwnerScreen = props =>{
       //When click in Next Button in the first step
       const nextStep1 = ()=>{
         const isNotValid = !formState.inputValidities.propertyName || !formState.inputValidities.propertyAddress || 
-        !formState.inputValidities.stadiumNum;
+        !formState.inputValidities.propertyRegion;
 
         if(isNotValid){
         Alert.alert('Erreur!','Veuillez remplir les champs manquants s\'il vous plait!',[{text:"OK"}]);
@@ -371,7 +400,7 @@ const SignupOwnerScreen = props =>{
                         nextBtnTextStyle={previousNextBtnStyle}
                         nextBtnText='Suivant'
                         onNext={nextStep1}
-                        errors={!formState.inputValidities.propertyName || !formState.inputValidities.propertyAddress || !formState.inputValidities.stadiumNum  ? true : false}
+                        errors={!formState.inputValidities.propertyName || !formState.inputValidities.propertyAddress || !formState.inputValidities.propertyRegion  ? true : false}
                     >
                      <View style={inputsContainerStyle}>
                         <Input
@@ -389,6 +418,7 @@ const SignupOwnerScreen = props =>{
                             errorText='Veuillez entrer le nom de votre complexe svp!'
                             editable={!verificationId}
                             minLength={3}
+                            maxLength={16}
                         />
                         <Input
                             id="propertyAddress"
@@ -407,20 +437,20 @@ const SignupOwnerScreen = props =>{
                             minLength={12}
                         />
                         <Input
-                            id="stadiumNum"
+                            id="propertyRegion"
                             mode='flat'
-                            label='Nombre des stades *'
-                            placeholder="Entrez le nombre de vos stades"
-                            keyboardType="number-pad"
+                            label='Région du complexe *'
+                            placeholder="Tapez la région du votre complexe"
+                            keyboardType="default"
                             returnKeyType="next"
                             autoCapitalize='sentences'
                             onInputChange={inputChangeHandler}
                             initialValue=''
                             initiallyValid={true}
                             required
-                            errorText='Veuillez nous indiquer le nombre exacte svp!'
+                            errorText='Veuillez entrer la région du complexe svp!'
                             editable={!verificationId}
-                            minLength={1}
+                            minLength={3}
                         />
                         <View style={pickerContainerStyle}>
                               {Platform.OS === 'android' ? 
@@ -504,7 +534,7 @@ const SignupOwnerScreen = props =>{
                                 >
                                     <View style={{flexDirection:'row',alignItems:'center'}}>
                                       <Text style={checkBoxLabelStyle}>Couvert</Text>
-                                      <RadioButton.Android uncheckedColor='grey' color={Colors.primary} checked={true} value="Couvert"/>
+                                      <RadioButton.Android uncheckedColor='grey' color={Colors.primary} value="Couvert"/>
                                     </View>
                                     <View style={{flexDirection:'row',alignItems:'center'}}>
                                       <Text style={checkBoxLabelStyle}>Non Couvert</Text>
@@ -563,7 +593,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum5x5}
                                    onValueChange={itemValue => setStadiumNum5x5(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="6x6"
@@ -575,7 +605,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum6x6}
                                    onValueChange={itemValue => setStadiumNum6x6(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="7x7"
@@ -587,7 +617,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum7x7}
                                    onValueChange={itemValue => setStadiumNum7x7(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="8x8"
@@ -599,7 +629,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum8x8}
                                    onValueChange={itemValue => setStadiumNum8x8(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="9x9"
@@ -611,7 +641,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum9x9}
                                    onValueChange={itemValue => setStadiumNum9x9(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="10x10"
@@ -623,7 +653,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum10x10}
                                    onValueChange={itemValue => setStadiumNum10x10(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                                 <TypeNumberPitchRow
                                    title="11x11"
@@ -635,7 +665,7 @@ const SignupOwnerScreen = props =>{
                                    selectedValue={stadiumNum11x11}
                                    onValueChange={itemValue => setStadiumNum11x11(itemValue)}
                                    array={stadiumNumber}
-                                   onPressStadiumNumberIOS={onPressStadiumNumberIOS}
+                                   //onPressStadiumNumberIOS={onPressStadiumNumberIOS}
                                 />
                             </View>
                         </View>
@@ -666,6 +696,22 @@ const SignupOwnerScreen = props =>{
                                 errorText='Veuillez entrer votre nom et prénom svp!'
                                 editable={!verificationId}
                                 minLength={3}
+                            />
+                            <Input
+                                id="address"
+                                mode='flat'
+                                label='Adresse *'
+                                placeholder='Tapez votre propre adresse personnelle'
+                                keyboardType="default"
+                                returnKeyType="next"
+                                autoCapitalize='sentences'
+                                onInputChange={inputChangeHandler}
+                                initialValue=''
+                                initiallyValid={true}
+                                required
+                                errorText='Veuillez entrer votre adresse exacte svp!'
+                                editable={!verificationId}
+                                minLength={12}
                             />
                             <Input
                                 id='phone'
@@ -699,22 +745,7 @@ const SignupOwnerScreen = props =>{
                                errorText='Veuillez entrer minimum 6 caractères svp!'
                                editable={!verificationId}
                             />
-                            <Input
-                                id="address"
-                                mode='flat'
-                                label='Adresse *'
-                                placeholder='Tapez votre propre adresse personnelle'
-                                keyboardType="default"
-                                returnKeyType="next"
-                                autoCapitalize='sentences'
-                                onInputChange={inputChangeHandler}
-                                initialValue=''
-                                initiallyValid={true}
-                                required
-                                errorText='Veuillez entrer votre adresse exacte svp!'
-                                editable={!verificationId}
-                                minLength={12}
-                            />
+                            
                             {verifyInProgress && <ActivityIndicator style={styles.loader} color={Colors.primary} />}
                             {verificationId ? (
                             <View style={{marginTop:20,alignItems:'center',justifyContent:'center'}}>

@@ -15,7 +15,7 @@ import bookingsReducer from "./store/reducers/bookings";
 import authReducer from './store/reducers/auth';
 import playersReducer from './store/reducers/player';
 import ownersReducer from './store/reducers/owner';
-
+import propertiesReducer from './store/reducers/property'; 
 
 enableScreens();
 
@@ -26,6 +26,7 @@ auth: authReducer,
 players:playersReducer,
 owners:ownersReducer,
 bookings : bookingsReducer,
+properties:propertiesReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

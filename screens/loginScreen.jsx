@@ -268,10 +268,12 @@ const saveDataToStorage = (token,userID,expirationDate,gender) => {
                      </TouchableOpacity>
                      <Text style={accountOrTextStyle}>Ou</Text>
                      <TouchableOpacity  onPress={()=>props.navigation.navigate('Player')}>
-                       <Text style={connectWidthTextStyle}>Se connecter avec</Text>
+                       <Text style={connectWidthTextStyle}>Suivez-nous sur</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.facebookIconContainer}>
-                      <Image style={facebookIconStyle} source = {require('../assets/images/facebook.png')} /> 
+                      <Image style={facebookIconStyle} source = {require('../assets/images/facebook.png')} />
+                      <Image style={facebookIconStyle} source = {require('../assets/images/instagram.png')} />
+                      <Image style={facebookIconStyle} source = {require('../assets/images/linkedin.png')} /> 
                      </TouchableOpacity>     
                    </View>
                  </View>
@@ -499,20 +501,24 @@ const styles= StyleSheet.create({
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookIconContainer:{
-    paddingVertical:5
+    paddingVertical:5,
+    flexDirection:'row'
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   facebookIcon:{
     width:24,
-    height:24
+    height:24,
+    marginHorizontal:5
   },
   facebookIconSmall:{
     width:20,
-    height:20
+    height:20,
+    marginHorizontal:5
   },
   facebookIconBig:{
     width:32,
-    height:32
+    height:32,
+    marginHorizontal:5
   }
   
 });

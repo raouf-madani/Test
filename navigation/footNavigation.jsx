@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer,createSwitchNavigator} from 'react-navigation';
-import {Platform} from 'react-native';
+import {Platform,AsyncStorage} from 'react-native';
 import Colors from '../constants/Colors';
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
 
@@ -84,7 +84,26 @@ labeled  : true
 } ) ;
 
 
-
+/*const gender=async()=>{
+  const userData= await AsyncStorage.getItem('userData');
+ 
+  if(!userData){
+      return;
+  }
+  const transformedData = JSON.parse(userData); // transform string to Javascript Object or Array
+  const {token,userID,expiryDate,gender} = transformedData;
+  const expirationDate = new Date(expiryDate);
+  
+  if(!token || !userID || expirationDate <= new Date()){
+   return;
+  }
+   
+  if(gender==="Player"){
+   return PlayerHomeScreen;
+  }else if(gender==="Owner"){
+   return OwnerHomeScreen;
+  }
+};*/
 
 ///////////////////////////////////////////////////////////////////
 

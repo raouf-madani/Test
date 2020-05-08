@@ -84,7 +84,7 @@ let con = mysql.createConnection({
       req.body.surname,
       null,
       null,
-      "player"
+      "Player"
     ]
     ,
     (err,result,fields)=>{
@@ -119,6 +119,42 @@ let con = mysql.createConnection({
       res.send("success");
     });
   });
+
+  /*
+    Update player
+ */ 
+app.patch('/player/updatePlayer/:id',(req,res)=>{
+    
+  con.query('UPDATE player SET phone=?, name=?, surname=?, email=?, address=? WHERE id= ?',
+  [
+    req.body.phone,
+    req.body.name,
+    req.body.surname,
+    req.body.email,
+    req.body.address,
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+});
+
+/*
+    Delete player
+ */
+ app.delete('/player/deletePlayer/:id',(req,res)=>{
+ 
+  con.query('DELETE FROM player WHERE id=?',
+  [
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+
+ });
   
 /**
    * ************************Owner
@@ -134,7 +170,7 @@ let con = mysql.createConnection({
     req.body.fullname,
     null,
     null,
-    "owner"
+    "Owner"
   ],
   (err,result,fields)=>{
       if(err) console.log('Query error',err);
@@ -144,12 +180,31 @@ let con = mysql.createConnection({
 }); 
 
 /*
-    Fetch All oWNERS
+    Fetch All Owners
  */
 app.get('/owner',(req,res)=>{
   con.query('SELECT * FROM owner',(err,result,fields)=>{
     if(err) console.log('Query error',err);
    res.send(result);
+  });
+});
+
+  /*
+    Update owner
+ */ 
+app.patch('/owner/updateOwner/:id',(req,res)=>{
+    
+  con.query('UPDATE owner SET phone=?, fullname=?, email=?, address=? WHERE id= ?',
+  [
+    req.body.phone,
+    req.body.fullname,
+    req.body.email,
+    req.body.address,
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
   });
 });
 
@@ -170,8 +225,163 @@ app.patch('/owner/updatePassword/:id',(req,res)=>{
   });
 });
 
+/*
+    Delete Owner
+ */
+app.delete('/owner/deleteOwner/:id',(req,res)=>{
+ 
+  con.query('DELETE FROM owner WHERE id=?',
+  [
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+
+ });
+
+ /**
+   * ************************Property
+  */
+  /*
+    Add New Property
+ */ 
+app.post('/property/addProperty',(req,res)=>{
+
+
+  con.query('INSERT INTO property (id,name,address,region,wilaya,balls,showers,bibs,rooms,roof,referee,owner_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+  [
+    req.body.id,
+    req.body.name,
+    req.body.address,
+    req.body.region,
+    req.body.wilaya,
+    req.body.balls,
+    req.body.showers,
+    req.body.bibs,
+    req.body.rooms,
+    req.body.roof,
+    req.body.referee,
+    req.body.owner_id
+  ]
+  ,
+  (err,result,fields)=>{
+      if(err) console.log('Query error',err);
+      res.send("success");
+  });
+
+});
+
+/*
+    Fetch All Properties
+ */
+app.get('/property',(req,res)=>{
+  con.query('SELECT * FROM property',(err,result,fields)=>{
+    if(err) console.log('Query error',err);
+   res.send(result);
+  });
+});
+
+
+/*
+    Add New Property Stadium
+ */ 
+app.post('/property/addStadium/:numStadium',(req,res)=>{
+
+  let values = [];
+  const numStadium = JSON.parse(req.params.numStadium);
+
+ 
+     if(numStadium.numStadium5x5 === 0){
+       return;
+     }else{
+      for(let type5=0; type5<numStadium.numStadium5x5; type5++){
+        values.push([req.body.type5x5,req.body.property_id]);
+      }
+     }
+    
+     if(numStadium.numStadium6x6 === 0){
+      return;
+    }else{
+     for(let type6=0; type6<numStadium.numStadium6x6; type6++){
+       values.push([req.body.type6x6,req.body.property_id]);
+     }
+    }
+
+    if(numStadium.numStadium7x7 === 0){
+      return;
+    }else{
+     for(let type7=0; type7<numStadium.numStadium7x7; type7++){
+       values.push([req.body.type7x7,req.body.property_id]);
+     }
+    }
+
+    if(numStadium.numStadium8x8 === 0){
+      return;
+    }else{
+     for(let type8=0; type8<numStadium.numStadium8x8; type8++){
+       values.push([req.body.type8x8,req.body.property_id]);
+     }
+    }
+
+    if(numStadium.numStadium9x9 === 0){
+      return;
+    }else{
+     for(let type9=0; type9<numStadium.numStadium9x9; type9++){
+       values.push([req.body.type9x9,req.body.property_id]);
+     }
+    }
+
+    if(numStadium.numStadium10x10 === 0){
+      return;
+    }else{
+     for(let type10=0; type10<numStadium.numStadium10x10; type10++){
+       values.push([req.body.type10x10,req.body.property_id]);
+     }
+    }
+
+    if(numStadium.numStadium11x11 === 0){
+      return;
+    }else{
+     for(let type11=0; type11<numStadium.numStadium11x11; type11++){
+       values.push([req.body.type11x11,req.body.property_id]);
+     }
+    }
+     
+  
+
+  con.query('INSERT INTO stadium (type,property_id) VALUES ?',
+  [values]
+  ,
+  (err,result,fields)=>{
+      if(err) console.log('Query error',err);
+      res.send("success");
+  });
+
+});
+
+/*
+    Fetch All Stadiums
+ */
+app.get('/stadium',(req,res)=>{
+  con.query('SELECT * FROM stadium',(err,result,fields)=>{
+    if(err) console.log('Query error',err);
+   res.send(result);
+  });
+});
+
+/*
+    Fetch All property Stadiums
+*/
+app.get('/propertyStadiums',(req,res)=>{
+  con.query('SELECT * FROM property P INNER JOIN stadium S ON P.id = S.property_id',(err,result,fields)=>{
+    if(err) console.log('Query error',err);
+   res.send(result);
+  });
+});
+
 // Starting our server.
 app.listen(3000, () => {
     console.log('Connected');
    });
-
