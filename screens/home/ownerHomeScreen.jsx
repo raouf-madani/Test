@@ -1,8 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
+import {useDispatch,useSelector} from 'react-redux';
+import * as propertyActions from '../../store/actions/propertyActions';
 
 const OwnerHomeScreen = props =>{
+      /*
+   *******Fetch All Players and Owners
+  */
+ const dispatch =useDispatch();
+ useEffect(()=>{
+
+ const getProperties = async()=>{ 
+ try{
+     dispatch(propertyActions.setPropertyStadiums());
+     }catch(err){
+       console.log(err);
+     }
+ };
+ 
+ getProperties();
+ 
+ },[dispatch]);
+ 
+
+ const properties= useSelector(state=>state.properties.propertyStadiums);
+ console.log(properties);
+
     return(
       <View style ={styles.container}>
         <ImageBackground source = {require("../../assets/images/profileBack5.jpg")}  style = {styles.backgroudnImage}>
@@ -55,6 +79,8 @@ const OwnerHomeScreen = props =>{
 };
 
 OwnerHomeScreen.navigationOptions= ()=>{
+  
+
   return {
     headerTransparent : true ,
     headerStyle:{

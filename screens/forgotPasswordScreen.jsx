@@ -282,7 +282,6 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
             <View style={styles.thirdContainer}>
                 <Text style={{color:!isVerified ?Colors.secondary:'#A8A8A8',fontFamily:'poppins',fontSize:14}}>1- Vérifier votre numéro de téléphone.</Text>
                 <Text style={{color:isVerified?Colors.secondary:'white',fontFamily:'poppins',fontSize:14}}>2- Réinitialiser votre mot de passe.</Text>
-                <Text style={{color:'white',fontFamily:'poppins',fontSize:14}}>3- Récupérer votre compte.</Text>
             </View>
             </ScrollView>
         </KeyboardAvoidingView> 

@@ -16,9 +16,11 @@ const StartupScreen = props =>{
                props.navigation.navigate('Auth');
                return;
            }
+           //AsyncStorage.clear();
            const transformedData = JSON.parse(userData); // transform string to Javascript Object or Array
            const {token,userID,expiryDate,gender} = transformedData;
            const expirationDate = new Date(expiryDate);
+
            
            if(!token || !userID || expirationDate <= new Date()){
             props.navigation.navigate('Auth');
@@ -53,25 +55,6 @@ const StartupScreen = props =>{
      );    
 };
 
-/*ProfileChoiceScreen.navigationOptions= ()=>{
-  return {
-    headerTransparent : true ,
-    headerStyle:{
-        backgroundColor: 'white'
-    },
-    headerBackTitle : " ",
-    headerTitle: () => (
-      <Image 
-      resizeMode="cover"
-      style={{
-        width:150,
-        height:40,
-        resizeMode:'contain',
-        alignSelf: 'center'}}
-      
-      />
-    )};
-}*/
 
 
 const styles= StyleSheet.create({

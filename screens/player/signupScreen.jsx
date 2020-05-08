@@ -214,7 +214,7 @@ const SignupScreen = props =>{
             
            
           Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"player");                                  
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Player");                                  
           props.navigation.navigate('Player');
           
 
@@ -349,13 +349,7 @@ const SignupScreen = props =>{
                     {confirmInProgress ? <ActivityIndicator color={Colors.primary} style={styles.loader} />:<Text style={styles.smsText}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
                     </View>)}
                   </View>
-
-                  <TouchableOpacity style={facebookContainerStyle}>
-                    <View style={styles.facebookTextContainer}>
-                     <Text style={facebookTextStyle}>S'inscrire avec</Text>
-                    </View>
-                    <Image style={facebookIconStyle}  source = {require('../../assets/images/facebook.png')} />
-                  </TouchableOpacity>
+                 
                   <TouchableOpacity style={styles.termsConditionsContainer}>
                      <Text style={termsConditionsTextStyle}>Lisez les termes et conditions avant s'inscrire</Text>
                   </TouchableOpacity>
@@ -591,7 +585,8 @@ const styles= StyleSheet.create({
     borderBottomColor:'white',
     borderBottomWidth:1,
     alignItems:'center',
-    alignSelf:'center'
+    alignSelf:'center',
+    marginTop:15
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   termsConditionsText:{
