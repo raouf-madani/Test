@@ -3,8 +3,7 @@ const mysql =  require("mysql");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const admin = require('firebase-admin');
-const serviceAccount = require("./helpers/serviceAccountKey.json");//Firebase NodeJs linking
+
 
 app.set('view engine', 'ejs');
 
@@ -34,11 +33,11 @@ let con = mysql.createConnection({
       });
 
 //GET THE BOOKING'S
-app.get("/bookings/getbookings/:playerId",(req,res)=>{
+app.get("/bookings/playerbookings/:playerId",(req,res)=>{
 
 const playerId = req.params.playerId;
 
-const query = "SELECT booking.date,booking.date_booking,booking.start,booking.end,booking.player_id,booking.owner_id,booking.service_id,service.type_match,service.time_match,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.player_id = ? "
+const query = "SELECT booking.date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.player_id = ? "
 
 
 con.query(query,[playerId],(err,result,fields)=>{
@@ -53,6 +52,25 @@ con.query(query,[playerId],(err,result,fields)=>{
 });
 
 
+//GET THE OWNER BOOKING'S
+app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
+
+  const ownerId = req.params.ownerId;
+  
+  const query = "SELECT booking.date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.owner_id = ? "
+  
+  
+  con.query(query,[ownerId],(err,result,fields)=>{
+      if(err) res.send(err);
+  
+      res.send(result);
+  
+  });
+  
+  
+  
+  });
+  
 
 //ADD A NEW BOOKING TO THE DATABASE   
   app.post("/bookings/addbooking",(req,res)=>{

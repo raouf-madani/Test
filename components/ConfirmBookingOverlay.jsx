@@ -23,21 +23,23 @@ if(props.matchTime === "1h"){
   end = moment("2020-05-01T"+props.hourMatch).add(120,"m").format("HH:mm");  
 
 }
-
 const sendConfirmation = async ()=>{
 const date = new Date();
 
-//console.log(dt);
+
   let booking = {
-    date : date ,
     bookingDate : props.dateMatch ,
-    start : props.hourMatch ,
+    date : date ,
     end : end ,
+    ownerId : props.ownerId,
+    playerId : "+213557115451",
+    serviceId : props.serviceId,
+    start : props.hourMatch ,
+    tarif : props.tarif ,
     timeMatch : props.matchTime,
     typeMatch : props.matchType,
-    playerId : "+213557115451",
-    ownerId : props.ownerId,
-    serviceId : props.serviceId
+    
+   
 }
 
 await dispatch( addBooking(booking));
@@ -45,6 +47,7 @@ await props.overlayHandler();
 props.navigate();
 
 };
+
 
     return (
     <Overlay 
