@@ -354,6 +354,7 @@ if(daysHours) {
 
 let availableSlots = hours.slice(indexes[0],indexes[1]-2);
 let availableSlotsTimes =[];
+let uncutedSlotsTimes = hours.map(element=>element.time);
 //All start and end of the selected days
 let startEnd = existingBookings.map(element=>{
 return {start : element.start , end : element.end}
@@ -361,36 +362,74 @@ return {start : element.start , end : element.end}
   
 ) ;
 
+
 //Remove the existing bookings from our available slots 
 startEnd.forEach(element=>
 
  { 
    
 availableSlotsTimes = availableSlots.map(element=>element.time);
-
-  //Remove the Taken Bookings
-  if(matchTimeState === "1h"){
-        if(availableSlotsTimes.indexOf(element.start)=== 0){
-            if(availableSlotsTimes.indexOf(element.end) < 0 ) {availableSlots.splice(0
-              ,2);}
-          availableSlots.splice(0
-          ,availableSlotsTimes.indexOf(element.end));
-
-        }
-        else {
-    availableSlots.splice(availableSlotsTimes.indexOf(element.start)-1
-    ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);}
-  
-  }
-      else if(matchTimeState === "1h30"){
-        
-        
-
-        availableSlots.splice(availableSlotsTimes.indexOf(element.start)-2
-        ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+2);
-
-      }
  
+// if (availableSlotsTimes.indexOf(element.end) >=0)
+//  { //Remove the Taken Bookings when it's 1h
+ 
+//   if(matchTimeState === "1h"){
+    
+//     if(availableSlotsTimes.indexOf(element.start) === 0){
+//       availableSlots.splice(availableSlotsTimes.indexOf(element.start)
+//       ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);
+
+//     }
+//     else{
+//     availableSlots.splice(availableSlotsTimes.indexOf(element.start)-1
+//     ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);}}
+  
+
+//     //Remove the taken bookings leaving the posibilty to book 1h30
+//       else if(matchTimeState === "1h30"){
+      
+//         if(availableSlotsTimes.indexOf(element.start)-2 == -1  ){
+//           availableSlots.splice(availableSlotsTimes.indexOf(element.start)-1
+//           ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);
+           
+//         } else if (availableSlotsTimes.indexOf(element.start)===0){
+         
+//           availableSlots.splice(availableSlotsTimes.indexOf(element.start)
+//           ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+2);
+//         }
+//         else{
+      
+//         availableSlots.splice(availableSlotsTimes.indexOf(element.start)-2
+//         ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+2);}
+        
+//       }}
+
+//   //if we try to book a slot that it's end is hidden
+//  else {
+    let test = [];
+ 
+    if(matchTimeState ==="1h"){
+     
+     test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-1,uncutedSlotsTimes.indexOf(element.end));
+  
+    }
+    else if (matchTimeState ==="1h30"){
+      test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-2,uncutedSlotsTimes.indexOf(element.end));
+    }
+    test.forEach(slot => {
+   
+      if(availableSlotsTimes.indexOf(slot)>=0 ){
+            
+      availableSlots.splice(availableSlotsTimes.indexOf(slot),1);
+   
+
+        availableSlotsTimes.splice(availableSlotsTimes.indexOf(slot),1);}
+      
+      
+    });
+
+
+//  }
 
 } );
   

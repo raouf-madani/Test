@@ -29,8 +29,8 @@ const date = new Date();
 
   let booking = {
     bookingDate : props.dateMatch ,
-    date : date ,
-    end : end ,
+    date : date,
+    end : end,
     ownerId : props.ownerId,
     playerId : "+213557115451",
     serviceId : props.serviceId,

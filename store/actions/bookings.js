@@ -23,7 +23,7 @@ export const addBooking = (booking) => {
      
     const resData = await response.json;
 
-
+console.log(resData);
 
         dispatch( {type : ADD_BOOKING , booking : booking});
     };

@@ -43,7 +43,7 @@ return async dispatch =>{
       
           offers2.push(offer);
         });
-        console.log("*********************************")
+        
         dispatch({type : SET_OFFERS , offers : offers2});
     } catch (error) {
       console.log("There is an Error");

@@ -10,7 +10,7 @@ const PlayerHomeScreen = props =>{
 const dispatch = useDispatch();
 const allOffers = useSelector(state =>state.offers.offers);
 const allBookings = useSelector(state =>state.bookings.playerBookings);
-// console.log(allBookings);
+//console.log(allBookings);
 
 
 useEffect(()=>{
