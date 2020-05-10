@@ -1,10 +1,9 @@
-import { ADD_BOOKING } from "../actions/bookings";
+import { ADD_BOOKING , SET_PLAYER_BOOKINGS, SET_OWNER_BOOKINGS} from "../actions/bookings";
 
 
 const initialState = {
-    confirmedBookings :[],
-    expiredBookings : [],
-    canceledBookings :[]
+    playerBookings :[],
+    ownerBookings : []
 };
 
 
@@ -13,12 +12,18 @@ const bookingReducer=(state=initialState,action)=>{
 switch(action.type){
 
     case ADD_BOOKING : 
-{
+
     let bookings = [];
     bookings.push(action.booking);
 
-    return{ ...state , confirmedBookings :[...state.confirmedBookings , ...bookings]} ;
-}
+    return{ ...state , playerBookings :[...state.confirmedBookings , ...bookings]} ;
+
+     case SET_PLAYER_BOOKINGS : 
+     return {...state , playerBookings : action.bookings};
+
+
+     case SET_OWNER_BOOKINGS : 
+     return {...state ,ownerBookings : action.bookings};
     default : 
    
     return state;

@@ -67,6 +67,58 @@ let hours = [
 {id : "46",time : "03:30"},
 ];
 
+
+
+// let hours2 = [
+//    "05:00",
+//  "05:30",
+//   "06:00",
+// "06:30",
+//   "07:00",
+//    "07:30",
+//   "08:00",
+// "08:30",
+// "09:00",
+//   "09:30",
+//   "10:00",
+//   "10:30",
+//   "11:00",
+//   "11:30",
+//   "12:00",
+//   "12:30",
+// "13:00",
+//   "13:30",
+//   "14:00",
+//   "14:30",
+//   "15:00",
+//   "15:30",
+//   "16:00",
+//  "16:30",
+//   "17:00",
+//  "17:30",
+//   "18:00",
+//   "18:30",
+//   "19:00",
+//   "19:30",
+//   "20:00",
+// "20:30",
+//   "21:00",
+//   "21:30",
+// "22:00",
+//  "22:30",
+//   "23:00",
+// "23:30",
+//   "00:00",
+//   "00:30",
+//   "01:00",
+//   "01:30",
+//  "02:00",
+// "02:30",
+//   "03:00",
+//   "03:30",
+//   ];
+  
+
 for(let i=0 ; i<=10 ; i++){
     days.push(
       {
@@ -90,7 +142,8 @@ const StadiumBookingScreen =  props =>{
 const dispatch =  useDispatch();
 const [loadingState , setLoading] = useState (false);
 const allOffers =  useSelector(state =>state.offers.offers);
-
+const ownerBookings = useSelector(state => state.bookings.ownerBookings);
+//console.log(ownerBookings);
 // useEffect(()=>{
 
 // const getOffers = async()=>{ 
@@ -209,6 +262,7 @@ if(screen.width <= 360) {
 
     //Overlay Handelr
     const overlayHandler = ()=>{
+     
       setOverlayState((previous) => !previous);
 
     }
@@ -255,15 +309,22 @@ if(screen.width <= 360) {
       useEffect(()=> {
     
       let daysHours = [];
-     
+      let  existingBookings = [];
       const customOffers = allOffers.find(element => element.stadiumsType === `${matchTypeState}` && element.matchTimeType ===`${matchTimeState}`);
-   
+  
       if(customOffers && selectedDateState) {
        daysHours = customOffers.horraires[selectedDateState.day]; 
-     
+      
        setPrice(customOffers.price);
        setSelectedId(customOffers.id);
+
        
+      existingBookings = ownerBookings.filter(element => 
+       element.bookingDate === selectedDateState.date && element.typeMatch === matchTypeState 
+      
+      );
+
+
       } else{
         
         const timeChange = allOffers.find(element => element.stadiumsType === `${matchTypeState}`);
@@ -277,7 +338,6 @@ let indexes = [];
 
 if(daysHours) {
 
-       
           hours.map(element => {
            
           if(element.time === daysHours[0] ||element.time === daysHours[1] ) {
@@ -285,23 +345,110 @@ if(daysHours) {
                 indexes.push (hours.indexOf(element));
               
           }
+        
  
 });
 
-setHoursState(hours.slice(indexes[0],indexes[1]+1));
+
+
+
+let availableSlots = hours.slice(indexes[0],indexes[1]-2);
+let availableSlotsTimes =[];
+let uncutedSlotsTimes = hours.map(element=>element.time);
+//All start and end of the selected days
+let startEnd = existingBookings.map(element=>{
+return {start : element.start , end : element.end}
+}
+  
+) ;
+
+
+//Remove the existing bookings from our available slots 
+startEnd.forEach(element=>
+
+ { 
+   
+availableSlotsTimes = availableSlots.map(element=>element.time);
+ 
+// if (availableSlotsTimes.indexOf(element.end) >=0)
+//  { //Remove the Taken Bookings when it's 1h
+ 
+//   if(matchTimeState === "1h"){
+    
+//     if(availableSlotsTimes.indexOf(element.start) === 0){
+//       availableSlots.splice(availableSlotsTimes.indexOf(element.start)
+//       ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);
+
+//     }
+//     else{
+//     availableSlots.splice(availableSlotsTimes.indexOf(element.start)-1
+//     ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);}}
+  
+
+//     //Remove the taken bookings leaving the posibilty to book 1h30
+//       else if(matchTimeState === "1h30"){
+      
+//         if(availableSlotsTimes.indexOf(element.start)-2 == -1  ){
+//           availableSlots.splice(availableSlotsTimes.indexOf(element.start)-1
+//           ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+1);
+           
+//         } else if (availableSlotsTimes.indexOf(element.start)===0){
+         
+//           availableSlots.splice(availableSlotsTimes.indexOf(element.start)
+//           ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+2);
+//         }
+//         else{
+      
+//         availableSlots.splice(availableSlotsTimes.indexOf(element.start)-2
+//         ,availableSlotsTimes.indexOf(element.end)-availableSlotsTimes.indexOf(element.start)+2);}
+        
+//       }}
+
+//   //if we try to book a slot that it's end is hidden
+//  else {
+    let test = [];
+ 
+    if(matchTimeState ==="1h"){
+     
+     test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-1,uncutedSlotsTimes.indexOf(element.end));
+  
+    }
+    else if (matchTimeState ==="1h30"){
+      test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-2,uncutedSlotsTimes.indexOf(element.end));
+    }
+    test.forEach(slot => {
+   
+      if(availableSlotsTimes.indexOf(slot)>=0 ){
+            
+      availableSlots.splice(availableSlotsTimes.indexOf(slot),1);
+   
+
+        availableSlotsTimes.splice(availableSlotsTimes.indexOf(slot),1);}
+      
+      
+    });
+
+
+//  }
+
+} );
+  
+setHoursState(availableSlots);
 
 } else {
  
   setHoursState([]);
 
 }
+//offer Hours (start-end of the offer)
 let offerHours = [];
 hours.slice(indexes[0],indexes[1]+1).map(element => {
       offerHours.push(element.time);
 
 })
 
-setOfferHours(offerHours);
+//A Enlever 
+//setOfferHours(offerHours);
 
 if(offerHours.indexOf(buttonState.id) === -1) {
   setSelectedOffer(false);
@@ -329,6 +476,8 @@ if(selectedHour && offerHours.indexOf(buttonState.id) !== -1 ) {
   );
 
  };
+
+
     return(
       
       <ImageBackground source = {require ("../../../assets/images/android.jpg")} 
