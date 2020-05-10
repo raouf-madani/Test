@@ -129,14 +129,15 @@ const SignupScreen = props =>{
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      const saveDataToStorage = (token,userID,expirationDate,gender) => {
+      const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
 
         AsyncStorage.setItem('userData',
                               JSON.stringify({
                               token:token,
                               userID:userID,
                               expiryDate: expirationDate.toISOString(),
-                              gender:gender
+                              gender:gender,
+                              id:id
                             }) 
                             );
 
@@ -212,11 +213,10 @@ const SignupScreen = props =>{
             hashedPassword,formState.inputValues.name,
             formState.inputValues.surname));
             
-           
+          props.navigation.navigate('Player',{playerID:formState.inputValues.phone}); 
           Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Player");                                  
-          props.navigation.navigate('Player');
-          
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Player",formState.inputValues.phone);                                  
+   
 
       } catch (err) {
             setConfirmError(err);
@@ -345,7 +345,7 @@ const SignupScreen = props =>{
                         onPress={sendCode}
                     >Confirmer
                     </Button>
-                    {confirmError && (<Text style={styles.confirmErrorText}>{`Erreur: ${confirmError.message}`}</Text>)}
+                    {confirmError && (<Text style={styles.confirmErrorText}>Erreur: code erroné!</Text>)}
                     {confirmInProgress ? <ActivityIndicator color={Colors.primary} style={styles.loader} />:<Text style={styles.smsText}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
                     </View>)}
                   </View>

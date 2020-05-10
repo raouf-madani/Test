@@ -3,11 +3,12 @@ export const SET_OWNERS= "SET_OWNERS";
 export const UPDATE_OWNER_PASSWORD ="UPDATE_OWNER_PASSWORD";
 export const UPDATE_OWNER = "UPDATE_OWNER";
 export const DELETE_OWNER = "DELETE_OWNER";
+export const SET_OWNER_PROPERTY = "SET_OWNER_PROPERTY";
 
-export const createOwner=(id,phone,password,fullname)=>{
+export const createOwner=(id,phone,password,fullname,address)=>{
   
     return async dispatch =>{
-        const ownerData={id:id,phone:phone,password:password,fullname:fullname};
+        const ownerData={id,phone,password,fullname,address};
 
         try{
             const response= await fetch('http://192.168.1.36:3000/owner/addOwner',{
@@ -80,7 +81,7 @@ export const updateOwnerPassword= (id,password) => {
 
 };
 
-export const updateOwner= (id,phone,fullname,email,address) => {
+export const updateOwner= (id,fullname,email,address) => {
 
     return async dispatch => {
 
@@ -90,13 +91,13 @@ export const updateOwner= (id,phone,fullname,email,address) => {
               headers: {
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({phone,fullname,email,address})
+            body : JSON.stringify({fullname,email,address})
            });
            if(!response.ok){
                throw new Error('Oups! Une erreur est survenue.');
            }
            
-           dispatch({type:UPDATE_OWNER,id,ownerData:{phone,fullname,email,address}});
+           dispatch({type:UPDATE_OWNER,id,ownerData:{fullname,email,address}});
            
          }catch(err){
              console.log(err);
@@ -124,4 +125,26 @@ export const deleteOwner = id => {
           }
  
     };
+};
+
+export const setOwnerProperty= id=>{
+
+    return async (dispatch,getState) =>{
+      
+      try{
+           const response= await fetch(`http://192.168.1.36:3000/owner/property/${id}`);
+           if(!response.ok){
+            throw new Error('Oups! Une erreur est survenue.');
+            }
+
+           const resData= await response.json();
+           
+           dispatch({type:SET_OWNER_PROPERTY,ownerProperty:resData});
+           
+      }catch(err){
+          console.log(err);
+      }
+
+    };
+
 };

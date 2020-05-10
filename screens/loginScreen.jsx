@@ -141,14 +141,15 @@ const LoginScreen = props =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-const saveDataToStorage = (token,userID,expirationDate,gender) => {
+const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
 
   AsyncStorage.setItem('userData',
                         JSON.stringify({
                         token:token,
                         userID:userID,
                         expiryDate: expirationDate.toISOString(),
-                        gender:gender
+                        gender:gender,
+                        id:id
                        }) 
                        );
 
@@ -176,12 +177,12 @@ const saveDataToStorage = (token,userID,expirationDate,gender) => {
         if(resData.userRecord.phoneNumber === formState.inputValues.phone &&(currentPlayer || currentOwner)){
 
           if(currentPlayer){
-            props.navigation.navigate('Player');
-            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type);
+            props.navigation.navigate('Player',{playerID:currentPlayer.id});
+            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type,currentPlayer.id);
             Alert.alert(`${currentPlayer.name} ${currentPlayer.surname}`,'Contents de vous revoir!',[{text:"Merci"}]); 
           }else{
-            props.navigation.navigate('Owner');
-            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type);
+            props.navigation.navigate('Owner',{ownerID:currentOwner.id});
+            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type,currentOwner.id);
             Alert.alert(`${currentOwner.fullname}`,'Contents de vous revoir!',[{text:"Merci"}]);
           }
           

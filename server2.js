@@ -105,6 +105,21 @@ let con = mysql.createConnection({
   });
 
 /*
+  Fetch one player according to his id
+*/  
+app.get('/player/:id',(req,res)=>{
+  con.query('SELECT * FROM player WHERE id= ?',
+  [
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send(result);
+  });
+});
+
+
+/*
     Update player password
  */ 
   app.patch('/player/updatePassword/:id',(req,res)=>{
@@ -125,9 +140,8 @@ let con = mysql.createConnection({
  */ 
 app.patch('/player/updatePlayer/:id',(req,res)=>{
     
-  con.query('UPDATE player SET phone=?, name=?, surname=?, email=?, address=? WHERE id= ?',
+  con.query('UPDATE player SET name=?, surname=?, email=?, address=? WHERE id= ?',
   [
-    req.body.phone,
     req.body.name,
     req.body.surname,
     req.body.email,
@@ -189,14 +203,25 @@ app.get('/owner',(req,res)=>{
   });
 });
 
+/*
+    Fetch owner's property
+ */
+app.get('/owner/property/:id',(req,res)=>{
+  con.query('SELECT * FROM owner O INNER JOIN property P ON O.id = P.owner_id WHERE O.id = ?',
+  [req.params.id],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send(result);
+  });
+});
+
   /*
     Update owner
  */ 
 app.patch('/owner/updateOwner/:id',(req,res)=>{
     
-  con.query('UPDATE owner SET phone=?, fullname=?, email=?, address=? WHERE id= ?',
+  con.query('UPDATE owner SET  fullname=?, email=?, address=? WHERE id= ?',
   [
-    req.body.phone,
     req.body.fullname,
     req.body.email,
     req.body.address,
@@ -250,7 +275,7 @@ app.delete('/owner/deleteOwner/:id',(req,res)=>{
 app.post('/property/addProperty',(req,res)=>{
 
 
-  con.query('INSERT INTO property (id,name,address,region,wilaya,balls,showers,bibs,rooms,roof,referee,owner_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+  con.query('INSERT INTO property (id,name,addressP,region,wilaya,balls,showers,bibs,rooms,roof,referee,owner_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
   [
     req.body.id,
     req.body.name,
@@ -280,6 +305,27 @@ app.get('/property',(req,res)=>{
   con.query('SELECT * FROM property',(err,result,fields)=>{
     if(err) console.log('Query error',err);
    res.send(result);
+  });
+});
+
+/*
+    Update property
+ */
+
+app.patch('/property/updateProperty/:ownerid',(req,res)=>{
+    
+  con.query('UPDATE property SET id=?, name=?, addressP=?, region=?, wilaya=? WHERE owner_id= ?',
+  [
+    req.body.id,
+    req.body.name,
+    req.body.addressP,
+    req.body.region,
+    req.body.wilaya,
+    req.params.ownerid
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
   });
 });
 

@@ -3,6 +3,7 @@ export const SET_PLAYERS= "SET_PLAYERS";
 export const UPDATE_PLAYER= "UPDATE_PLAYER";
 export const UPDATE_PLAYER_PASSWORD ="UPDATE_PLAYER_PASSWORD";
 export const DELETE_PLAYER = "DELETE_PLAYER";
+export const SET_PLAYER = "SET_PLAYER";
 
 export const createPlayer=(id,phone,password,name,surname)=>{
   
@@ -55,9 +56,29 @@ export const setPlayers= ()=>{
 
     };
 
+};
 
+export const setPlayer= id => {
+    return async dispatch=>{
+        try{
+            const response= await fetch(`http://192.168.1.36:3000/player/${id}`);
+            if(!response.ok){
+             throw new Error('Oups! Une erreur est survenue.');
+             }
+ 
+            const resData= await response.json();
+            
+            dispatch({type:SET_PLAYER,playerData:resData});
+            
+       }catch(err){
+           console.log(err);
+       }
+
+    };
 
 };
+
+
 
 export const updatePlayerPassword= (id,password) => {
 
@@ -84,7 +105,7 @@ export const updatePlayerPassword= (id,password) => {
 
 };
 
-export const updatePlayer= (id,phone,name,surname,email,address) => {
+export const updatePlayer= (id,name,surname,email,address) => {
 
     return async dispatch => {
 
@@ -94,13 +115,13 @@ export const updatePlayer= (id,phone,name,surname,email,address) => {
               headers: {
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({phone,name,surname,email,address})
+            body : JSON.stringify({name,surname,email,address})
            });
            if(!response.ok){
                throw new Error('Oups! Une erreur est survenue.');
            }
            
-           dispatch({type:UPDATE_PLAYER,id,playerData:{phone,name,surname,email,address}});
+           dispatch({type:UPDATE_PLAYER,id,playerData:{name,surname,email,address}});
            
          }catch(err){
              console.log(err);

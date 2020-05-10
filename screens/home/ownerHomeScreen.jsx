@@ -1,31 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useCallback} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
 import {useDispatch,useSelector} from 'react-redux';
+import * as ownerActions from '../../store/actions/ownerActions';
 import * as propertyActions from '../../store/actions/propertyActions';
 
 const OwnerHomeScreen = props =>{
-      /*
-   *******Fetch All Players and Owners
+  
+  const ownerID= props.navigation.getParam('ownerID');
+   
+  /*
+   *******Fetch Owner's property
   */
- const dispatch =useDispatch();
- useEffect(()=>{
+  const dispatch =useDispatch();
+  const getOwnerProperty=useCallback(async()=>{
+    try{
+      dispatch(ownerActions.setOwnerProperty(ownerID));
+      dispatch(propertyActions.setProperties());
+      }catch(err){
+        console.log(err);
+      }
+  },[dispatch]);
 
- const getProperties = async()=>{ 
- try{
-     dispatch(propertyActions.setPropertyStadiums());
-     }catch(err){
-       console.log(err);
-     }
- };
- 
- getProperties();
- 
- },[dispatch]);
- 
+  useEffect(()=>{
+  getOwnerProperty();
+  },[dispatch,getOwnerProperty]);
 
- const properties= useSelector(state=>state.properties.propertyStadiums);
- console.log(properties);
+  useEffect(()=>{
+    const willFocusSub= props.navigation.addListener('willFocus',getOwnerProperty);
+    return ()=>{
+      willFocusSub.remove();
+    };
+  },[getOwnerProperty]);
 
     return(
       <View style ={styles.container}>
@@ -41,7 +47,7 @@ const OwnerHomeScreen = props =>{
                   <SmallCard 
                   image ={require("../../assets/logo/user.png")} 
                   screen = "Profile"
-                  onPress = {() =>props.navigation.navigate('OwnerProfile')}
+                  onPress = {() =>props.navigation.navigate('OwnerProfile',{ownerID:ownerID})}
                   />
                   
                   <SmallCard
