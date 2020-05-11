@@ -10,20 +10,19 @@ const PlayerHomeScreen = props =>{
 const dispatch = useDispatch();
 const allOffers = useSelector(state =>state.offers.offers);
 const allBookings = useSelector(state =>state.bookings.playerBookings);
-//console.log(allBookings);
+// console.log(allBookings);
 
 
 useEffect(()=>{
 
  dispatch(offersActions.fetchOffers());
  dispatch(bookingsActions.fetchPlayerBookings("+213557115451"));
- dispatch(bookingsActions.fetchOwnerBookings("hareth"));
- 
+
   }
   
   ,[dispatch]);
 
-  
+dispatch(bookingsActions.fetchOwnerBookings("hareth"));
 let welcomeTextStyle = styles.welcomeText;
 
   if(screen.width < 350) {
