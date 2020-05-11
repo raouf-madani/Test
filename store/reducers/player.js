@@ -1,16 +1,17 @@
-import {CREATE_PLAYER,SET_PLAYERS,UPDATE_PLAYER_PASSWORD,UPDATE_PLAYER,DELETE_PLAYER} from '../actions/playerActions';
+import {CREATE_PLAYER,SET_PLAYERS,UPDATE_PLAYER_PASSWORD,UPDATE_PLAYER,DELETE_PLAYER,SET_PLAYER} from '../actions/playerActions';
 import Player from '../../models/player';
 
 const initialState={
-    players:[]
+    players:[],
+    player:[]
 };
 
 const playersReducer=(state=initialState,action)=>{
-   console.log(state.players);
+   
    switch(action.type){
        case CREATE_PLAYER:
          const newPlayer= new Player(action.playerData.id,action.playerData.phone,action.playerData.password,
-                                     action.playerData.name,action.playerData.surname,null,null,'player');                      
+                                     action.playerData.name,action.playerData.surname,null,null,'Player');                      
          return{
            ...state,
            players: state.players.concat(newPlayer)
@@ -22,24 +23,30 @@ const playersReducer=(state=initialState,action)=>{
           players:action.allPlayers
          }
 
+      case SET_PLAYER:
+      return{
+        ...state,
+        player:action.playerData
+      }  
+
        case UPDATE_PLAYER:
 
-        const playerID = state.players.findIndex(player => player.id === action.id);
+        const playerindex = state.player.findIndex(player => player.id === action.id);
         const updatedPlayerData= new Player(
           action.id,
-          action.playerData.phone,
-          state.players[playerID].password,
+          state.player[playerindex].phone,
+          state.player[playerindex].password,
           action.playerData.name,
           action.playerData.surname,
           action.playerData.email,
           action.playerData.address,
-          state.players[playerID].type
+          state.player[playerindex].type
         );
-        const updatedPlayersData=[...state.players];
-        updatedPlayersData[playerID]= updatedPlayerData;
+        const updatedPlayersData=[...state.player];
+        updatedPlayersData[playerindex]= updatedPlayerData;
         return{
           ...state,
-          players:updatedPlayersData
+          player:updatedPlayersData
         };
 
         case DELETE_PLAYER:

@@ -1,21 +1,55 @@
-import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert,KeyboardAvoidingView,Dimensions,ActionSheetIOS,Picker,AsyncStorage} from 'react-native';
-import {TextInput,Button} from 'react-native-paper';
+import React,{useState,useEffect,useCallback,useReducer} from 'react';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,KeyboardAvoidingView,Dimensions,ActionSheetIOS,Picker,AsyncStorage,Alert,ActivityIndicator} from 'react-native';
+import {Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import * as authActions from '../../../store/actions/authActions';
-
+import * as ownerActions from '../../../store/actions/ownerActions';
+import * as propertyActions from '../../../store/actions/propertyActions';
+import Input from '../../../components/Input';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+
+//UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
+const Form_Input_Update = 'Form_Input_Update';
+const formReducer=(state,action) =>{
+    if(action.type === Form_Input_Update){
+        const updatedValues = {
+          ...state.inputValues,
+          [action.inputID]:action.value
+        };
+        const updatedValidities = {
+          ...state.inputValidities,
+          [action.inputID]:action.isValid
+        };
+        let formIsValidUpdated = true;
+        for(const key in updatedValidities){
+          formIsValidUpdated = formIsValidUpdated && updatedValidities[key];
+        }
+        return{
+          inputValues:updatedValues,
+          inputValidities:updatedValidities,
+          formIsValid:formIsValidUpdated
+        };
+    }
+   
+     return state;
+    
+};
 
 //responsivity (Dimensions get method)
 const screen = Dimensions.get('window');
 
 const OwnerProfileScreen = props =>{
+   
+  //get the owner's data and his property data
+  const ownerProperty= useSelector(state=>state.owners.ownerProperties);
+  //use Dispatch to dispatch our action
+  const dispatch= useDispatch();
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /*Responsivity */ 
@@ -39,23 +73,14 @@ const OwnerProfileScreen = props =>{
         labelBtnStyle =styles.labelBtnBig;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    const dispatch = useDispatch();
-    //States for personal information textInputs 
-    const [fullName,setFullName] = useState('');
-    const [phone,setPhone] = useState('');
-    const [email,setEmail] = useState('');
-    const [address,setAddress] = useState('');
+    //State for update loading 
+    const [isLoading,setIsLoading]=useState(false);
 
-
-    //States for complex information textInputs
-    const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState('');
-    const [complexAddress,setComplexAddress] = useState('');
-    const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
+    //State for property's wilaya textInput
+    const [complexCity,setComplexCity] = useState(ownerProperty[0]?ownerProperty[0].wilaya:'');
     const citiesA = ["Alger","Blida","Oran"];    
 
-    //picker only iOS function 
+    //picker only iOS for property's wilaya
     const onPress = () =>{
     const cities = ["Annuler", "Alger","Blida","Oran"];    
     ActionSheetIOS.showActionSheetWithOptions(
@@ -102,16 +127,74 @@ const OwnerProfileScreen = props =>{
        setPickedImage(image.uri);
     };
 
+
+    //logout handler
     const logout = ()=>{
       dispatch(authActions.logout());
       AsyncStorage.clear();
       props.navigation.navigate('Auth');
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////Input Management
+  const[formState,disaptchFormState] = useReducer(formReducer,
+    {inputValues:{
+      fullname:ownerProperty[0]?ownerProperty[0].fullname:'',
+      email:ownerProperty[0]?ownerProperty[0].email:'',
+      address:ownerProperty[0]?ownerProperty[0].address:'',
+      propertyName:ownerProperty[0]?ownerProperty[0].name:'',
+      propertyAddress:ownerProperty[0]?ownerProperty[0].addressP:'',
+      propertyRegion:ownerProperty[0]?ownerProperty[0].region:''
+    },
+    inputValidities:{
+      fullname:true,
+      email:true,
+      address:true,
+      propertyName:true,
+      propertyAddress:true,
+      propertyRegion:true
+    },
+    formIsValid:true});
+  
+  const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+  disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
+  
+  },[disaptchFormState]);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //Update owner's data and his property Data Management after pressing in Check icon
+  const saveHandler = useCallback(async()=>{
+    if(formState.formIsValid){
+    try{
+        setIsLoading(true);
+        dispatch(ownerActions.updateOwner(ownerProperty[0].owner_id,formState.inputValues.fullname,
+                                          formState.inputValues.email,formState.inputValues.address));
+        dispatch(propertyActions.updateProperty(formState.inputValues.propertyName,formState.inputValues.propertyName,
+                                                formState.inputValues.propertyAddress,formState.inputValues.propertyRegion,
+                                                complexCity,ownerProperty[0].owner_id));
+        setIsLoading(false);                        
+        Alert.alert('Félicitation!','Vos données ont été changées avec succès!',[{text:"OK"}]);
+  
+    }catch(err){
+      console.log(err);
+      Alert.alert('Oups!','Une erreur est survenue!',[{text:"OK"}]);
+    }
+    
+    }else{
+      Alert.alert('Erreur!','Veuillez remplir le(s) champ(s) manquants svp!',[{text:"OK"}]);
+    }
+  
+  },[dispatch,ownerProperty[0].owner_id,formState]);
+
+   useEffect(()=>{
+     props.navigation.setParams({load:isLoading});
+     props.navigation.setParams({save:saveHandler});
+   },[saveHandler,isLoading]);
+
     return(
     <View style={styles.container}>
      <ImageBackground source = {require("../../../assets/images/android.jpg")}  style={styles.backgroundImage}>
-     <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={10} style={{flex:1}}>
+     <KeyboardAvoidingView behavior='height'  style={{flex:1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.cardContainer}>
                     <View style={cardStyle}>
@@ -140,101 +223,125 @@ const OwnerProfileScreen = props =>{
                     <View style={card2Style}>
                         <View style={styles.textInputsContainer}>  
                         <View style={textInputContainerStyle}>
-                                <TextInput
-                                    mode='outlined'
-                                    label='Nom et Prénom *'
-                                    placeholder='Tapez votre nom et prénom'
-                                    value={fullName}
-                                    onChangeText={prevText=>setFullName(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
+                            <Input
+                                id="fullname"
+                                mode='flat'
+                                label='Nom et Prénom *'
+                                placeholder='Tapez votre nom et prénom'
+                                keyboardType="default"
+                                returnKeyType="next"
+                                autoCapitalize='sentences'
+                                onInputChange={inputChangeHandler}
+                                initialValue={ownerProperty[0]?ownerProperty[0].fullname:''}
+                                initiallyValid={true}
+                                required
+                                errorText='Veuillez entrer votre nom et prénom svp!'
+                                minLength={3}
+                              />
                             </View>
-                            <View style={textInputContainerStyle}> 
-                                <TextInput
-                                    mode='outlined'
-                                    label='Téléphone *'
-                                    placeholder='Tapez votre numéro de téléphone'
-                                    value={phone}
-                                    onChangeText={prevText=>setPhone(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
+                            <View style={textInputContainerStyle}>
+                              <Input
+                                id='email'
+                                label='Email'
+                                mode='flat'
+                                placeholder='Exemple: owner@gmail.com'
+                                keyboardType="default"
+                                returnKeyType="next"
+                                onInputChange={inputChangeHandler}
+                                initialValue={ownerProperty[0]?ownerProperty[0].email:''}
+                                initiallyValid={true}
+                                email
+                                errorText='Veuillez entrer un email valide svp!'
+                                minLength={6}
                                 />
                             </View>
                             <View style={textInputContainerStyle}>
-                                <TextInput
-                                    mode='outlined'
-                                    label='Email *'
-                                    placeholder='Tapez votre adresse email'
-                                    value={email}
-                                    onChangeText={prevText=>setEmail(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
+                              <Input
+                                  id="address"
+                                  mode='flat'
+                                  label='Adresse *'
+                                  placeholder='Tapez votre propre adresse personnelle'
+                                  keyboardType="default"
+                                  returnKeyType="next"
+                                  autoCapitalize='sentences'
+                                  onInputChange={inputChangeHandler}
+                                  initialValue={ownerProperty[0]?ownerProperty[0].address:''}
+                                  initiallyValid={true}
+                                  required
+                                  errorText='Veuillez entrer votre adresse exacte svp!'
+                                  minLength={12}
+                              />
                             </View>
                             <View style={textInputContainerStyle}>
-                                <TextInput
-                                    mode='outlined'
-                                    label='Adresse *'
-                                    placeholder='Tapez votre propre adresse'
-                                    value={address}
-                                    onChangeText={prevText=>setAddress(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
+                                <Input
+                                  id="propertyName"
+                                  mode='flat'
+                                  label='Nom du complexe *'
+                                  placeholder='Tapez le nom du votre complexe'
+                                  keyboardType="default"
+                                  returnKeyType="next"
+                                  autoCapitalize='sentences'
+                                  onInputChange={inputChangeHandler}
+                                  initialValue={ownerProperty[0]?ownerProperty[0].name:''}
+                                  initiallyValid={true}
+                                  required
+                                  errorText='Veuillez entrer le nom de votre complexe svp!'
+                                  minLength={3}
+                                  maxLength={16}
+                               />
                             </View>
                             <View style={textInputContainerStyle}>
-                                <TextInput
-                                    mode='outlined'
-                                    label='Nom du complexe *'
-                                    placeholder="Tapez le nom du votre complexe"
-                                    value={complexName}
-                                    onChangeText={prevText=>setComplexName(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
+                              <Input
+                                id="propertyAddress"
+                                mode='flat'
+                                label='Adresse du complexe *'
+                                placeholder="Tapez l'adresse du votre complexe"
+                                keyboardType="default"
+                                returnKeyType="next"
+                                autoCapitalize='sentences'
+                                onInputChange={inputChangeHandler}
+                                initialValue={ownerProperty[0]?ownerProperty[0].addressP:''}
+                                initiallyValid={true}
+                                required
+                                errorText='Veuillez entrer une adresse exacte svp!'
+                                minLength={12}
+                              />
                             </View>
                             <View style={textInputContainerStyle}>
-                            <TextInput
-                                    mode='outlined'
-                                    label='Adresse du complexe *'
-                                    placeholder="Tapez l'adresse du votre complexe"
-                                    value={complexAddress}
-                                    onChangeText={prevText=>setComplexAddress(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
-                            </View>
-                            <View style={textInputContainerStyle}>
-                            <TextInput
-                                    mode='outlined'
-                                    label='Nombre des stades *'
-                                    placeholder="Entrez le nombre de vos stades"
-                                    value={complexStadiumNumber}
-                                    onChangeText={prevText=>setComplexStadiumNumber(prevText)}
-                                    theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                                    style={textInputStyle}
-                                    underlineColor='#9399a1'
-                                />
+                              <Input
+                                id="propertyRegion"
+                                mode='flat'
+                                label='Région du complexe *'
+                                placeholder="Tapez la région du votre complexe"
+                                keyboardType="default"
+                                returnKeyType="next"
+                                autoCapitalize='sentences'
+                                onInputChange={inputChangeHandler}
+                                initialValue={ownerProperty[0]?ownerProperty[0].region:''}
+                                initiallyValid={true}
+                                required
+                                errorText='Veuillez entrer la région du complexe svp!'
+                                minLength={3}
+                              />
                             </View>
                             <View  style={styles.pickerContainer}>
                               {Platform.OS === 'android' ? 
+                              <View>
+                              <Text style={{fontFamily:'poppins',fontSize:11,color:'white',paddingLeft:10,marginBottom:-10}}>Wilaya *</Text>  
                               <Picker
-                                selectedValue={complexCity}
-                                onValueChange={itemValue => setComplexCity(itemValue)}
+                                selectedValue={ownerProperty[0].wilaya}
+                                onValueChange={prevValue => setComplexCity(prevValue)}
                                 style={textInputStyle}
                               >
                               {citiesA.map(el=> <Picker.Item label={el} value={el} key={el} />)}
-                              </Picker> :
+                              </Picker>
+                              </View> :
+                              <View>
+                              <Text style={{fontFamily:'poppins',fontSize:11,color:'white',paddingLeft:10,marginBottom:-10}}>Wilaya *</Text>
                               <Text onPress={onPress}style={textInputStyle}>
-                                  {complexCity ? complexCity : 'Ville du complexe *'}
-                              </Text>}
+                                  {ownerProperty[0].wilaya}
+                              </Text>
+                              </View>}
                             </View>
                         </View> 
                     </View>
@@ -261,13 +368,17 @@ const OwnerProfileScreen = props =>{
 };
 
 
-OwnerProfileScreen.navigationOptions = () => {
-
+OwnerProfileScreen.navigationOptions = navData => {
+    const saveFunction=navData.navigation.getParam('save');
+    const load=navData.navigation.getParam('load');
+    console.log('loading',load);
     return {
-        headerRight : ()=>  (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
+        headerRight : ()=>  (load ? <ActivityIndicator color={Colors.secondary} />:
+        <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
           <Item title = "save" 
             iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
             color={Platform.OS === 'android' ? 'white' : Colors.background}
+            onPress={saveFunction}
           />
         </HeaderButtons>
       ),
@@ -426,12 +537,12 @@ const styles= StyleSheet.create({
      backgroundColor:'transparent',
      fontFamily:'poppins',
      fontSize:16,
-     color:'#9399a1'
+     color:'white'
    },
    textInputBig:{
     backgroundColor:'transparent',
     fontSize:20,
-    color:'#9399a1',
+    color:'white',
     fontFamily:'poppins'
    },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -447,10 +558,10 @@ const styles= StyleSheet.create({
    },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    pickerContainer:{
-    borderWidth:1,
+    borderBottomWidth:1,
     borderRadius:5,
-    borderColor:'#9399a1',
-    padding:Platform.OS === 'android' ? 5 : 15,
+    borderBottomColor:'white',
+    paddingLeft:Platform.OS === 'android' ? 5 : 15,
     marginTop:12
    }
   

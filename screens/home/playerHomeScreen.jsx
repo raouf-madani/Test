@@ -1,12 +1,16 @@
-import React ,{ useState, useEffect }  from 'react';
+import React ,{ useState, useEffect,useCallback }  from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
 import { useDispatch,useSelector } from 'react-redux';
 import * as offersActions from "../../store/actions/offers";
 import * as bookingsActions from "../../store/actions/bookings";
+import * as playerActions from '../../store/actions/playerActions';
 
 const screen = Dimensions.get("window");
 const PlayerHomeScreen = props =>{
+
+const playerID= props.navigation.getParam('playerID');  //get Player ID
+
 const dispatch = useDispatch();
 const allOffers = useSelector(state =>state.offers.offers);
 const allBookings = useSelector(state =>state.bookings.playerBookings);
@@ -19,7 +23,6 @@ useEffect(()=>{
  dispatch(bookingsActions.fetchPlayerBookings("+213557115451"));
 
   }
-  
   ,[dispatch]);
 
 dispatch(bookingsActions.fetchOwnerBookings("hareth"));
@@ -33,6 +36,30 @@ let welcomeTextStyle = styles.welcomeText;
     welcomeTextStyle = styles.welcomeTextBig;
     
   }
+//***************************************************************************
+
+  /*
+   *******Fetch One player DATA
+  */
+  const getPlayer=useCallback(async()=>{
+    try{
+      dispatch(playerActions.setPlayer(playerID));
+      }catch(err){
+        console.log(err);
+      }
+  },[dispatch]);
+
+  useEffect(()=>{
+   getPlayer();
+  },[dispatch,getPlayer]);
+
+  useEffect(()=>{
+    const willFocusSub= props.navigation.addListener('willFocus',getPlayer);
+    return ()=>{
+      willFocusSub.remove();
+    };
+  },[getPlayer]);
+
 
     return(
       <View style ={styles.container}>

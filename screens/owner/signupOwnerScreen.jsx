@@ -223,14 +223,15 @@ const SignupOwnerScreen = props =>{
      
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      const saveDataToStorage = (token,userID,expirationDate,gender) => {
+      const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
 
         AsyncStorage.setItem('userData',
                               JSON.stringify({
                               token:token,
                               userID:userID,
                               expiryDate: expirationDate.toISOString(),
-                              gender:gender
+                              gender:gender,
+                              id:id
                             }) 
                             );
 
@@ -316,7 +317,7 @@ const SignupOwnerScreen = props =>{
           
           
           dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
-                                            hashedPassword,formState.inputValues.fullname));
+                                            hashedPassword,formState.inputValues.fullname,formState.inputValues.address));
 
           dispatch(propertyActions.createProperty(formState.inputValues.propertyName,formState.inputValues.propertyName,formState.inputValues.propertyAddress,
                                                   formState.inputValues.propertyRegion,complexCity,isCheckedBall,
@@ -326,9 +327,9 @@ const SignupOwnerScreen = props =>{
           dispatch(propertyActions.createPropertyStadiums(stadiumNum5x5,stadiumNum6x6,stadiumNum7x7,
           stadiumNum8x8,stadiumNum9x9,stadiumNum10x10,stadiumNum11x11,type5x5,type6x6,type7x7,type8x8,
           type9x9,type10x10,type11x11,formState.inputValues.propertyName)); 
-          props.navigation.navigate('Owner'); 
+          props.navigation.navigate('Owner',{ownerID:formState.inputValues.phone}); 
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
-          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Owner"); 
+          saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Owner",formState.inputValues.phone); 
         } catch (err) {
               setConfirmError(err);
               Alert.alert('Oups!','Une erreur est survenue.',[{text:"OK"}]);
@@ -745,12 +746,11 @@ const SignupOwnerScreen = props =>{
                                errorText='Veuillez entrer minimum 6 caractères svp!'
                                editable={!verificationId}
                             />
-                            
                             {verifyInProgress && <ActivityIndicator style={styles.loader} color={Colors.primary} />}
                             {verificationId ? (
                             <View style={{marginTop:20,alignItems:'center',justifyContent:'center'}}>
                               <TextInput
-                              placeholder='Taper vos 6 chiffres'
+                              placeholder='Entrer les 6 chiffres'
                               onChangeText={verificationCode=>setVerificationCode(verificationCode)}
                               style={styles.textInputSendCode}
                               keyboardType='number-pad'
@@ -768,7 +768,7 @@ const SignupOwnerScreen = props =>{
                               onPress={sendCode}>
                                 Confirmer
                             </Button>
-                            {confirmError && (<Text style={styles.confirmErrorText}>{`Erreur: ${confirmError.message}`}</Text>)}
+                            {confirmError && (<Text style={styles.confirmErrorText}>Erreur: code erroné!</Text>)}
                             {confirmInProgress ? <ActivityIndicator style={styles.loader} />:<Text style={styles.smsText}>Un code de 6 chiffres a été envoyé sur votre SMS</Text>}
                           </View>): undefined}
                         </View>

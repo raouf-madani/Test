@@ -1,4 +1,4 @@
-import {CREATE_PROPERTY,SET_PROPERTY,CREATE_PROPERTY_STADIUMS,SET_STADIUM,SET_PROPERTY_STADIUMS} from '../actions/propertyActions';
+import {CREATE_PROPERTY,SET_PROPERTY,CREATE_PROPERTY_STADIUMS,SET_STADIUM,SET_PROPERTY_STADIUMS,UPDATE_PROPERTY} from '../actions/propertyActions';
 import Property from '../../models/property';
 import Stadium from '../../models/stadium';
 
@@ -28,6 +28,26 @@ const propertiesReducer=(state=initialState,action)=>{
             ...state,
             properties:action.allProperties
           };
+
+          case UPDATE_PROPERTY:
+         
+            const propertyIndex = state.properties.findIndex(property => property.owner_id === action.ownerid);
+            console.log('property object',state.properties);
+            console.log('ownerid',action.ownerid);
+            const updatedPropertyData= new Property(
+              action.propertyData.id,
+              action.propertyData.name,
+              action.propertyData.addressP,
+              action.propertyData.region,
+              action.propertyData.wilaya,
+              state.properties[propertyIndex].owner_id
+            );
+            const updatedPropertiesData=[...state.properties];
+            updatedPropertiesData[propertyIndex]= updatedPropertyData;
+            return{
+              ...state,
+              properties:updatedPropertiesData
+            };  
 
         case CREATE_PROPERTY_STADIUMS:
            if(action.numStadium.numStadium5x5 >0){
@@ -94,7 +114,7 @@ const propertiesReducer=(state=initialState,action)=>{
           return{
             ...state,
             propertyStadiums:action.allPropertyStadiums
-          }  
+          };  
 
         default:
             return state;

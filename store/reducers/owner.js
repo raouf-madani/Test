@@ -1,8 +1,9 @@
-import {CREATE_OWNER,SET_OWNERS,UPDATE_OWNER_PASSWORD,UPDATE_OWNER,DELETE_OWNER} from '../actions/ownerActions';
+import {CREATE_OWNER,SET_OWNERS,UPDATE_OWNER_PASSWORD,UPDATE_OWNER,DELETE_OWNER,SET_OWNER_PROPERTY} from '../actions/ownerActions';
 import Owner from '../../models/owner';
 
 const initialState={
-    owners:[]
+    owners:[],
+    ownerProperties:[]
 };
 
 const ownersReducer=(state=initialState,action)=>{
@@ -10,7 +11,7 @@ const ownersReducer=(state=initialState,action)=>{
    switch(action.type){
        case CREATE_OWNER:
          const newOwner= new Owner(action.ownerData.id,action.ownerData.phone,action.ownerData.password,
-                                   action.ownerData.fullname,null,null,'owner');
+                                   action.ownerData.fullname,null,action.ownerData.address,'Owner');
          return{
            ...state,
            owners: state.owners.concat(newOwner)
@@ -24,21 +25,22 @@ const ownersReducer=(state=initialState,action)=>{
 
       case UPDATE_OWNER:
          
-        const ownerID = state.owners.findIndex(owner => owner.id === action.id);
+        const ownerindex= state.ownerProperties.findIndex(owner => owner.owner_id === action.id);
+        
         const updatedOwnerData= new Owner(
           action.id,
-          action.ownerData.phone,
-          state.owners[ownerID].password,
+          state.ownerProperties[ownerindex].phone,
+          state.ownerProperties[ownerindex].password,
           action.ownerData.fullname,
           action.ownerData.email,
           action.ownerData.address,
-          state.players[ownerID].type
+          state.ownerProperties[ownerindex].type
         );
-        const updatedOwnersData=[...state.owners];
-        updatedOwnersData[ownerID]= updatedOwnerData;
+        const updatedOwnersData=[...state.ownerProperties];
+        updatedOwnersData[ownerindex]= updatedOwnerData;
         return{
           ...state,
-          owners:updatedOwnersData
+          ownerProperties:updatedOwnersData
         };
 
       case DELETE_OWNER:
@@ -65,7 +67,13 @@ const ownersReducer=(state=initialState,action)=>{
         return{
           ...state,
           owners:updatedOwners
-        };  
+        };
+        
+        case SET_OWNER_PROPERTY:
+          return{
+            ...state,
+            ownerProperties:action.ownerProperty
+          };
 
        default: 
         return state;
