@@ -18,21 +18,23 @@ const StartupScreen = props =>{
            }
            //AsyncStorage.clear();
            const transformedData = JSON.parse(userData); // transform string to Javascript Object or Array
-           const {token,userID,expiryDate,gender} = transformedData;
+           const {token,userID,expiryDate,gender,id} = transformedData;
            const expirationDate = new Date(expiryDate);
-
            
-           if(!token || !userID || expirationDate <= new Date()){
+           
+           if(!token || !userID || !id || expirationDate <= new Date()){
             props.navigation.navigate('Auth');
             return;
            }
+
+           const expirationTime = expirationDate.getTime() - new Date().getTime();
             
-           if(gender==="player"){
-            props.navigation.navigate('Player');
-           }else if(gender==="owner"){
-            props.navigation.navigate('Owner');
+           if(gender==="Player"){
+            props.navigation.navigate('Player',{playerID:id});
+           }else if(gender==="Owner"){
+            props.navigation.navigate('Owner',{ownerID:id});
            }
-           dispatch(authActions.authenticate(token,userID));
+           dispatch(authActions.authenticate(token,userID,expirationTime));
        }
        tryLogin();
     },[dispatch]);

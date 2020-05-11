@@ -1,18 +1,58 @@
-import React,{useState} from 'react';
-import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert ,Dimensions,AsyncStorage} from 'react-native';
-import {TextInput,Button} from 'react-native-paper';
+import React,{useState,useEffect,useCallback,useReducer} from 'react';
+import { StyleSheet,View,ScrollView,ImageBackground,TouchableHighlight,Text,Image,Alert ,Dimensions,AsyncStorage,ActivityIndicator} from 'react-native';
+import {Button} from 'react-native-paper';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/HeaderButton";
 import Colors from '../../../constants/Colors';
 import {Ionicons} from "@expo/vector-icons";
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import * as authActions from '../../../store/actions/authActions';
+import * as playerActions from '../../../store/actions/playerActions';
+import Input from '../../../components/Input'
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 const screen = Dimensions.get("window");
+
+
+//UseReducer Input Management//////////////////////////////////////////////////////////////////////////////////
+const Form_Input_Update = 'Form_Input_Update';
+const formReducer=(state,action) =>{
+    if(action.type === Form_Input_Update){
+        const updatedValues = {
+          ...state.inputValues,
+          [action.inputID]:action.value
+        };
+        const updatedValidities = {
+          ...state.inputValidities,
+          [action.inputID]:action.isValid
+        };
+        let formIsValidUpdated = true;
+        for(const key in updatedValidities){
+          formIsValidUpdated = formIsValidUpdated && updatedValidities[key];
+        }
+        return{
+          inputValues:updatedValues,
+          inputValidities:updatedValidities,
+          formIsValid:formIsValidUpdated
+        };
+    }
+   
+     return state;
+    
+};
+
 const PlayerProfileScreen = props =>{
+
+  //get the player's data
+  const playerData= useSelector(state=>state.players.player);
+  console.log(playerData[0]);
+  //use Dispatch to dispatch our action
+  const dispatch= useDispatch();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Responsivity  
 let cardStyle = styles.card;
 let circleOneStyle = styles.circleOne ;
 let circlesContainerStyle = styles.circlesContainer;
@@ -32,18 +72,8 @@ let labelBtnStyle = styles.labelBtn;
   }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const dispatch = useDispatch();
-    //States for personal information textInputs 
-    const [fullName,setFullName] = useState('');
-    const [phone,setPhone] = useState('');
-    const [email,setEmail] = useState('');
-    const [address,setAddress] = useState('');
-
-    //States for complex information textInputs
-    const [complexName,setComplexName] = useState('');
-    const [complexCity,setComplexCity] = useState('');
-    const [complexAddress,setComplexAddress] = useState('');
-    const [complexStadiumNumber,setComplexStadiumNumber] = useState('');
+    //State for update loading 
+    const [isLoading,setIsLoading]=useState(false);
 
     //state for image
     const [pickedImage,setPickedImage]= useState();
@@ -72,12 +102,62 @@ let labelBtnStyle = styles.labelBtn;
        
        setPickedImage(image.uri);
     };
-
+    
+    // logout handler
     const logout = ()=>{
       dispatch(authActions.logout());
       AsyncStorage.clear();
       props.navigation.navigate('Auth');
     };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////Input Management
+  const[formState,disaptchFormState] = useReducer(formReducer,
+    {inputValues:{
+      name:playerData[0]?playerData[0].name:'',
+      surname:playerData[0]?playerData[0].surname:'',
+      email:playerData[0]?playerData[0].email:'',
+      address:playerData[0]?playerData[0].address:''
+    },
+    inputValidities:{
+      name:true,
+      surname:true,
+      email:true,
+      address:true,
+    },
+    formIsValid:true});
+  
+  const inputChangeHandler = useCallback((inputIdentifier, inputValue,inputValidity) =>{
+  disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity,inputID:inputIdentifier});
+  
+  },[disaptchFormState]);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //Update player's data Management after pressing in Check icon
+  const saveHandler = useCallback(async()=>{
+    if(formState.formIsValid){
+    try{
+        setIsLoading(true);
+        dispatch(playerActions.updatePlayer(playerData[0].id,formState.inputValues.name,formState.inputValues.surname,
+                                          formState.inputValues.email,formState.inputValues.address));
+        setIsLoading(false);                        
+        Alert.alert('Félicitation!','Vos données ont été changées avec succès!',[{text:"OK"}]);
+  
+    }catch(err){
+      console.log(err);
+      Alert.alert('Oups!','Une erreur est survenue!',[{text:"OK"}]);
+    }
+    
+    }else{
+      Alert.alert('Erreur!','Veuillez remplir le(s) champ(s) manquants svp!',[{text:"OK"}]);
+    }
+  
+  },[dispatch,playerData[0].id,formState]);
+
+   useEffect(()=>{
+     props.navigation.setParams({load:isLoading});
+     props.navigation.setParams({save:saveHandler});
+   },[saveHandler,isLoading]);
 
     return(
     <View style={styles.container}>
@@ -115,51 +195,69 @@ let labelBtnStyle = styles.labelBtn;
             <View style={card2Style}>
                 <View style={styles.textInputsContainer}>  
                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Nom et Prénom *'
-                            placeholder='Tapez votre nom et prénom'
-                            value={fullName}
-                            onChangeText={prevText=>setFullName(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={textInputStyle}
-                            underlineColor='#9399a1'
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}> 
-                        <TextInput
-                            mode='outlined'
-                            label='Téléphone *'
-                            placeholder='Tapez votre numéro de téléphone'
-                            value={phone}
-                            onChangeText={prevText=>setPhone(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={textInputStyle}
-                            underlineColor='#9399a1'
+                        <Input
+                          id="name"
+                          mode='flat'
+                          label='Nom *'
+                          placeholder='Tapez votre nom'
+                          keyboardType="default"
+                          returnKeyType="next"
+                          autoCapitalize='sentences'
+                          onInputChange={inputChangeHandler}
+                          initialValue={playerData[0]?playerData[0].name:''}
+                          initiallyValid={true}
+                          required
+                          errorText='Veuillez entrer votre nom svp!'
+                          minLength={3}
                         />
                     </View>
                     <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Email *'
-                            placeholder='Tapez votre adresse email'
-                            value={email}
-                            onChangeText={prevText=>setEmail(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={textInputStyle}
-                            underlineColor='#9399a1'
+                       <Input
+                          id="surname"
+                          mode='flat'
+                          label='Prénom *'
+                          placeholder='Tapez votre prénom'
+                          keyboardType="default"
+                          returnKeyType="next"
+                          autoCapitalize='sentences'
+                          onInputChange={inputChangeHandler}
+                          initialValue={playerData[0]?playerData[0].surname:''}
+                          initiallyValid={true}
+                          required
+                          errorText='Veuillez entrer votre nom svp!'
+                          minLength={3}
                         />
                     </View>
                     <View style={styles.textInputContainer}>
-                        <TextInput
-                            mode='outlined'
-                            label='Adresse *'
-                            placeholder='Tapez votre propre adresse'
-                            value={address}
-                            onChangeText={prevText=>setAddress(prevText)}
-                            theme={{colors: {primary:'#456383',text:'#9399a1',placeholder:'#9399a1'}}}
-                            style={textInputStyle}
-                            underlineColor='#9399a1'
+                        <Input
+                          id='email'
+                          label='Email'
+                          mode='flat'
+                          placeholder='Exemple: player@gmail.com'
+                          keyboardType="default"
+                          returnKeyType="next"
+                          onInputChange={inputChangeHandler}
+                          initialValue={playerData[0]?playerData[0].email:''}
+                          initiallyValid={true}
+                          email
+                          errorText='Veuillez entrer un email valide svp!'
+                          minLength={6}
+                        />
+                    </View>
+                    <View style={styles.textInputContainer}>
+                        <Input
+                          id="address"
+                          mode='flat'
+                          label='Adresse'
+                          placeholder='Tapez votre propre adresse'
+                          keyboardType="default"
+                          returnKeyType="next"
+                          autoCapitalize='sentences'
+                          onInputChange={inputChangeHandler}
+                          initialValue={playerData[0]?playerData[0].address:''}
+                          initiallyValid={true}
+                          errorText='Veuillez entrer votre adresse exacte svp!'
+                          minLength={12}
                         />
                     </View>
                    
@@ -187,27 +285,27 @@ let labelBtnStyle = styles.labelBtn;
 };
 
 PlayerProfileScreen.navigationOptions= navData => {
-    
+  const saveFunction=navData.navigation.getParam('save');
+  const load=navData.navigation.getParam('load');
      return {
        title : "Mon Profile" , 
        headerTitleStyle:{
            fontFamily:'poppins',
            color:Platform.OS === 'android' ? 'white' : Colors.background
-         },
-         headerStyle:{
-             backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
-         },
-         headerBackTitle:" ",
-          headerTintColor:Platform.OS === 'android' ? 'white' :Colors.background ,
-         headerRight : ()=>  
-               (<HeaderButtons HeaderButtonComponent = {HeaderButton}> 
-                 <Item title = "save" 
-                   iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
-                   color={Platform.OS === 'android' ? 'white' : Colors.background}
-                 />
-               </HeaderButtons>
-               
-             )
+      },
+      headerStyle:{
+          backgroundColor:Platform.OS === 'android' ? Colors.background : 'white'
+      },
+      headerBackTitle:" ",
+      headerTintColor:Platform.OS === 'android' ? 'white' :Colors.background,
+      headerRight : ()=> (load ? <ActivityIndicator color={Colors.secondary} />:
+      <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
+        <Item title = "save" 
+          iconName = {Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'}
+          color={Platform.OS === 'android' ? 'white' : Colors.background}
+          onPress={saveFunction}
+        />
+      </HeaderButtons>)
      
      };
  

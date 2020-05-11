@@ -2,7 +2,7 @@ export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT ="LOGOUT";
 
 
-export const authenticate = (token,userID)=>{
+export const authenticate = (token,userID,expiryTime)=>{
 
     return{
         type:AUTHENTICATE,
