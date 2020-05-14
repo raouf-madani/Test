@@ -16,6 +16,8 @@ import OwnerBookingsDetailScreen from '../screens/owner/ownerBooking/ownerBookin
 import OwnerSupportScreen from '../screens/owner/ownerProfile/ownerSupportScreen';
 import OwnerProfileScreen from '../screens/owner/ownerProfile/ownerProfileScreen';
 import OwnerGaleryScreen from '../screens/owner/ownerProfile/ownerGaleryScreen';
+import OwnerProfileChoiceScreen from '../screens/home/ownerProfileChoiceScreen';
+import OwnerSettingsScreen from '../screens/owner/ownerProfile/ownerSettingsScreen';
 
 import PlayerBookingsScreen from "../screens/player/playerBooking/playerBookingsScreen";
 
@@ -28,6 +30,8 @@ import stadiumBookingScreen from "../screens/player/playerBooking/stadiumBooking
 import PlayerExpiredBookingsScreen from '../screens/player/playerBooking/playerExpiredBookingsScreen';
 import PlayerProfileScreen from "../screens/player/playerProfile/playerProfileScreen";
 import ForgotPasswordScreen from "../screens/forgotPasswordScreen";
+import PlayerProfileChoiceScreen from '../screens/home/playerProfileChoiceScreen';
+import PlayerSettingsScreen from '../screens/player/playerProfile/playerSettingsScreen';
 import StartupScreen from "../screens/startupScreen";
 
 
@@ -126,7 +130,11 @@ const FootNavigation = createStackNavigator({
     },
    OwnerSupport: OwnerSupportScreen,
    PlayerProfileScreen: PlayerProfileScreen,
-   OwnerGalery: OwnerGaleryScreen
+   OwnerGalery: OwnerGaleryScreen,
+   OwnerProfileChoice: OwnerProfileChoiceScreen,
+   PlayerProfileChoice: PlayerProfileChoiceScreen,
+   OwnerSettings:OwnerSettingsScreen,
+   PlayerSettings:PlayerSettingsScreen
 },
 );
 

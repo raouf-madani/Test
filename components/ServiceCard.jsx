@@ -89,15 +89,15 @@ if(screen.height > 800){
 
         <View style={styles.buttonsContainer}>
             <View style={styles.buttonWidth}>
-            <Button
-            theme={{colors: {primary:Colors.primary}}} 
-            mode="contained"
-            labelStyle={labelBtnStyle}
-            contentStyle={{width:'100%'}}
-            style={{borderColor:Colors.primary}}
-            dark={true}
-            >Supprimer
-        </Button>
+                <Button
+                theme={{colors: {primary:Colors.primary}}} 
+                mode="contained"
+                labelStyle={labelBtnStyle}
+                contentStyle={{width:'100%'}}
+                style={{borderColor:Colors.primary}}
+                dark={true}
+                >Supprimer
+                </Button>
             </View>
         </View>
 

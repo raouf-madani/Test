@@ -19,6 +19,7 @@ admin.initializeApp({
   databaseURL: "https://footbooking-959a6.firebaseio.com"
 });
 
+//Check if the user exists in firebase and if exists we create a custom token
 app.get('/phone/:phoneID',(req,res)=>{
 
   const phoneID = req.params.phoneID;
@@ -52,6 +53,33 @@ app.get('/phone/:phoneID',(req,res)=>{
 
 });
 
+//Update firebase phone of an existing user
+
+app.patch('/phoneUpdate/:uid',(req,res)=>{
+admin.auth().updateUser(req.params.uid, {
+  phoneNumber: req.body.phoneNumber,
+})
+  .then(function(userRecord) {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully updated user', userRecord.toJSON());
+  })
+  .catch(function(error) {
+    console.log('Error updating user:', error);
+  });
+
+});
+
+//Delete firebase user
+app.delete('/userDelete/:uid',(req,res)=>{
+
+  admin.auth().deleteUser(req.params.uid)
+  .then(function() {
+    console.log('Successfully deleted user');
+  })
+  .catch(function(error) {
+    console.log('Error deleting user:', error);
+  });
+});
 
 let con = mysql.createConnection({
     host: 'localhost',
@@ -136,6 +164,24 @@ app.get('/player/:id',(req,res)=>{
   });
 
   /*
+    Update Player phone
+ */
+
+app.patch('/player/updatePhone/:playerid',(req,res)=>{
+    
+  con.query(`UPDATE player SET id=?,phone=? WHERE id= ?`,
+  [
+    req.body.id,
+    req.body.phone,
+    req.params.playerid
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+});
+
+  /*
     Update player
  */ 
 app.patch('/player/updatePlayer/:id',(req,res)=>{
@@ -183,7 +229,7 @@ app.patch('/player/updatePlayer/:id',(req,res)=>{
     req.body.password,
     req.body.fullname,
     null,
-    null,
+    req.body.address,
     "Owner"
   ],
   (err,result,fields)=>{
@@ -249,6 +295,25 @@ app.patch('/owner/updatePassword/:id',(req,res)=>{
     res.send("success");
   });
 });
+
+/*
+    Update owner phone
+ */
+
+app.patch('/owner/updatePhone/:ownerid',(req,res)=>{
+    
+  con.query(`UPDATE owner SET id=?,phone=? WHERE id= ?`,
+  [
+    req.body.id,
+    req.body.phone,
+    req.params.ownerid
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+});
+
 
 /*
     Delete Owner
