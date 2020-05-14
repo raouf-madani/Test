@@ -32,8 +32,7 @@ const propertiesReducer=(state=initialState,action)=>{
           case UPDATE_PROPERTY:
          
             const propertyIndex = state.properties.findIndex(property => property.owner_id === action.ownerid);
-            console.log('property object',state.properties);
-            console.log('ownerid',action.ownerid);
+           
             const updatedPropertyData= new Property(
               action.propertyData.id,
               action.propertyData.name,

@@ -1,6 +1,7 @@
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT ="LOGOUT";
 export const UPDATE_USER_PHONE_FRB="UPDATE_OWNER_PHONE_FRB";
+export const DELETE_USER_FRB="DELETE_USER_FRB";
 
 export const authenticate = (token,userID,expiryTime)=>{
 
@@ -42,4 +43,24 @@ export const updateUserPhoneFRB= (phoneNumber,uid) => {
          }
     };
 
+};
+
+export const deleteUser = uid => {
+
+    return async dispatch => {
+    
+        try{
+            const response = await fetch(`http://192.168.1.34:3000/userDelete/${uid}`,{
+               method:'DELETE'});
+
+            if(!response.ok){
+                throw new Error('Oups! Une erreur est survenue.');
+            }
+
+            
+          }catch(err){
+              console.log(err);
+          }
+ 
+    };
 };

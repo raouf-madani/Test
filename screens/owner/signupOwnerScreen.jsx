@@ -318,15 +318,20 @@ const SignupOwnerScreen = props =>{
           
           dispatch(ownerActions.createOwner(formState.inputValues.phone,formState.inputValues.phone,
                                             hashedPassword,formState.inputValues.fullname,formState.inputValues.address));
-
-          dispatch(propertyActions.createProperty(formState.inputValues.propertyName,formState.inputValues.propertyName,formState.inputValues.propertyAddress,
-                                                  formState.inputValues.propertyRegion,complexCity,isCheckedBall,
-                                                  isCheckedShower,isCheckedBib,isCheckedCloackroom,isCheckedCover,
-                                                  isCheckedRef,formState.inputValues.phone));
-
+          if(formState.inputValues.phone){
+            dispatch(propertyActions.createProperty(formState.inputValues.propertyName,formState.inputValues.propertyName,
+              formState.inputValues.propertyAddress,
+              formState.inputValues.propertyRegion,complexCity,isCheckedBall,
+              isCheckedShower,isCheckedBib,isCheckedCloackroom,isCheckedCover,
+              isCheckedRef,formState.inputValues.phone));
+          }
+          
+          if(formState.inputValues.propertyName){
           dispatch(propertyActions.createPropertyStadiums(stadiumNum5x5,stadiumNum6x6,stadiumNum7x7,
           stadiumNum8x8,stadiumNum9x9,stadiumNum10x10,stadiumNum11x11,type5x5,type6x6,type7x7,type8x8,
-          type9x9,type10x10,type11x11,formState.inputValues.propertyName)); 
+          type9x9,type10x10,type11x11,formState.inputValues.propertyName));
+          } 
+
           props.navigation.navigate('Owner',{ownerID:formState.inputValues.phone,ownerUID:user.uid}); 
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Owner",formState.inputValues.phone); 

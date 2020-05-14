@@ -16,11 +16,11 @@ const StartupScreen = props =>{
                props.navigation.navigate('Auth');
                return;
            }
-           //AsyncStorage.clear();
+           
            const transformedData = JSON.parse(userData); // transform string to Javascript Object or Array
            const {token,userID,expiryDate,gender,id} = transformedData;
            const expirationDate = new Date(expiryDate);
-           
+           //AsyncStorage.clear();
            
            if(!token || !userID || !id || expirationDate <= new Date()){
             props.navigation.navigate('Auth');

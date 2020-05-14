@@ -145,6 +145,29 @@ const PlayerSettingsScreen = props =>{
         }
 
   }; 
+
+  const deleteAccount= async()=>{
+     try{
+
+        dispatch(playerActions.deletePlayer(player[0].id));
+        dispatch(authActions.deleteUser(playerUID)); 
+        dispatch(authActions.logout());
+        AsyncStorage.clear();
+        props.navigation.navigate('Auth');
+     }catch(err){
+      console.log(err);
+      Alert.alert('Oups!','Une erreur est survenue!',[{text:"OK"}]);
+     }
+  };
+
+  const alertDelete = ()=>{
+     Alert.alert(
+      'Attention!',
+      'Voulez-vous vraiment supprimer votre compte?',
+      [{text:'Oui', style:'destructive', onPress:deleteAccount},
+       {text:'Non', style:'cancel'}]);
+       return;
+  };
     return(
     <KeyboardAvoidingView behavior='height' style={styles.safeArea}>
       <View style={styles.container}>
@@ -199,6 +222,7 @@ const PlayerSettingsScreen = props =>{
                       style={{borderColor:Colors.primary}}
                       icon='delete'
                       dark={true}
+                      onPress={alertDelete}
                       >Supprimer mon compte
                   </Button>
               </View>

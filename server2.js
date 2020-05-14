@@ -69,6 +69,17 @@ admin.auth().updateUser(req.params.uid, {
 
 });
 
+//Delete firebase user
+app.delete('/userDelete/:uid',(req,res)=>{
+
+  admin.auth().deleteUser(req.params.uid)
+  .then(function() {
+    console.log('Successfully deleted user');
+  })
+  .catch(function(error) {
+    console.log('Error deleting user:', error);
+  });
+});
 
 let con = mysql.createConnection({
     host: 'localhost',
@@ -218,7 +229,7 @@ app.patch('/player/updatePlayer/:id',(req,res)=>{
     req.body.password,
     req.body.fullname,
     null,
-    null,
+    req.body.address,
     "Owner"
   ],
   (err,result,fields)=>{

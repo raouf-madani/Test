@@ -46,7 +46,8 @@ const ownersReducer=(state=initialState,action)=>{
       case DELETE_OWNER:
         return{
           ...state,
-          owners:state.owners.filter(owner=>owner.id != action.id)
+          owners:state.owners.filter(owner=>owner.id != action.id),
+          ownerProperties:state.ownerProperties.filter(owner=>owner.id != action.id)
         };  
 
       case UPDATE_OWNER_PASSWORD:

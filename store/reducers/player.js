@@ -52,7 +52,8 @@ const playersReducer=(state=initialState,action)=>{
         case DELETE_PLAYER:
           return{
             ...state,
-            players:state.players.filter(player=>player.id != action.id)
+            players:state.players.filter(player=>player.id != action.id),
+            player:state.player.filter(player=>player.id != action.id)
           }
 
        case UPDATE_PLAYER_PASSWORD:
