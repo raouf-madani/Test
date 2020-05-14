@@ -1,15 +1,15 @@
-import React ,{ useState, useEffect,useCallback }  from 'react';
+import React ,{useEffect}  from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
 import { useDispatch,useSelector } from 'react-redux';
 import * as offersActions from "../../store/actions/offers";
 import * as bookingsActions from "../../store/actions/bookings";
-import * as playerActions from '../../store/actions/playerActions';
 
 const screen = Dimensions.get("window");
 const PlayerHomeScreen = props =>{
 
 const playerID= props.navigation.getParam('playerID');  //get Player ID
+const playerUID= props.navigation.getParam('playerUID'); 
 
 const dispatch = useDispatch();
 const allOffers = useSelector(state =>state.offers.offers);
@@ -26,7 +26,8 @@ useEffect(()=>{
   }
   ,[dispatch]);
 
-  
+ //*************************************************************************** 
+ //Responsivty
 let welcomeTextStyle = styles.welcomeText;
 
   if(screen.width < 350) {
@@ -38,29 +39,6 @@ let welcomeTextStyle = styles.welcomeText;
     
   }
 //***************************************************************************
-
-  /*
-   *******Fetch One player DATA
-  */
-  const getPlayer=useCallback(async()=>{
-    try{
-      dispatch(playerActions.setPlayer(playerID));
-      }catch(err){
-        console.log(err);
-      }
-  },[dispatch]);
-
-  useEffect(()=>{
-   getPlayer();
-  },[dispatch,getPlayer]);
-
-  useEffect(()=>{
-    const willFocusSub= props.navigation.addListener('willFocus',getPlayer);
-    return ()=>{
-      willFocusSub.remove();
-    };
-  },[getPlayer]);
-
 
     return(
       <View style ={styles.container}>
@@ -76,7 +54,7 @@ let welcomeTextStyle = styles.welcomeText;
                   <SmallCard 
                   image ={require("../../assets/logo/user.png")} 
                   screen = "Profile"
-                  onPress = {() =>props.navigation.navigate('PlayerProfileScreen')}
+                  onPress = {() =>props.navigation.navigate('PlayerProfileChoice',{playerID:playerID,playerUID:playerUID})}
                   />
                   
                   <SmallCard
@@ -177,21 +155,21 @@ const styles= StyleSheet.create({
 /////////////////////////////////////////////////////////////
     welcomeText : {
         fontFamily : "poppins-bold",
-        fontSize : 45,
+        fontSize : 40,
         color : "white",
         letterSpacing : 5,
 
     },
     welcomeTextSmall : {
       fontFamily : "poppins-bold",
-      fontSize : 28,
+      fontSize : 24,
       color : "white",
       letterSpacing : 4,
 
     },
     welcomeTextBig : {
       fontFamily : "poppins-bold",
-      fontSize : 55,
+      fontSize : 50,
       color : "white",
       letterSpacing : 5,
     }

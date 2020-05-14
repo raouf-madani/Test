@@ -48,6 +48,7 @@ const OwnerProfileScreen = props =>{
    
   //get the owner's data and his property data
   const ownerProperty= useSelector(state=>state.owners.ownerProperties);
+  console.log(ownerProperty);
   //use Dispatch to dispatch our action
   const dispatch= useDispatch();
     
@@ -371,7 +372,7 @@ const OwnerProfileScreen = props =>{
 OwnerProfileScreen.navigationOptions = navData => {
     const saveFunction=navData.navigation.getParam('save');
     const load=navData.navigation.getParam('load');
-    console.log('loading',load);
+    
     return {
         headerRight : ()=>  (load ? <ActivityIndicator color={Colors.secondary} />:
         <HeaderButtons HeaderButtonComponent = {HeaderButton}> 
@@ -506,7 +507,7 @@ const styles= StyleSheet.create({
    },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    card2:{
-    height:650,
+    height:600,
     width:'90%',
     backgroundColor:Colors.background,
     borderRadius:10,
@@ -514,7 +515,7 @@ const styles= StyleSheet.create({
     paddingVertical:20
    },
    card2Big:{
-    height:800,
+    height:750,
     width:'90%',
     backgroundColor:Colors.background,
     borderRadius:10,

@@ -1,4 +1,4 @@
-import {CREATE_PLAYER,SET_PLAYERS,UPDATE_PLAYER_PASSWORD,UPDATE_PLAYER,DELETE_PLAYER,SET_PLAYER} from '../actions/playerActions';
+import {CREATE_PLAYER,SET_PLAYERS,UPDATE_PLAYER_PASSWORD,UPDATE_PLAYER,DELETE_PLAYER,SET_PLAYER,UPDATE_PLAYER_PHONE} from '../actions/playerActions';
 import Player from '../../models/player';
 
 const initialState={
@@ -52,7 +52,8 @@ const playersReducer=(state=initialState,action)=>{
         case DELETE_PLAYER:
           return{
             ...state,
-            players:state.players.filter(player=>player.id != action.id)
+            players:state.players.filter(player=>player.id != action.id),
+            player:state.player.filter(player=>player.id != action.id)
           }
 
        case UPDATE_PLAYER_PASSWORD:
@@ -75,6 +76,27 @@ const playersReducer=(state=initialState,action)=>{
           ...state,
           players:updatedPlayers
         };
+
+        case UPDATE_PLAYER_PHONE:
+          const indexPlayer = state.player.findIndex(player => player.id === action.playerid);
+          console.log('This is the index of player',indexPlayer);
+          const updatedPlayerPhone = new Player(
+            action.playerData.id,
+            action.playerData.phone,
+            state.player[indexPlayer].password,
+            state.player[indexPlayer].name,
+            state.player[indexPlayer].surname,
+            state.player[indexPlayer].email,
+            state.player[indexPlayer].address,
+            state.player[indexPlayer].type
+          );   
+
+          const updatedAllPlayers=[...state.player];
+          updatedAllPlayers[indexPlayer]=updatedPlayerPhone;
+          return{
+            ...state,
+            player:updatedAllPlayers
+          };  
 
        default: 
         return state;

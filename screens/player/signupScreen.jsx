@@ -151,7 +151,7 @@ const SignupScreen = props =>{
         try {
 
           setVerifyInProgress(true);
-          const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
+          const result = await fetch(`http://192.168.1.34:3000/phone/${formState.inputValues.phone}`);
           const resData= await result.json();
           console.log(resData);
           setVerifyInProgress(false);
@@ -213,7 +213,7 @@ const SignupScreen = props =>{
             hashedPassword,formState.inputValues.name,
             formState.inputValues.surname));
             
-          props.navigation.navigate('Player',{playerID:formState.inputValues.phone}); 
+          props.navigation.navigate('Player',{playerID:formState.inputValues.phone,playerUID:user.uid}); 
           Alert.alert(`${formState.inputValues.name} ${formState.inputValues.surname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Player",formState.inputValues.phone);                                  
    

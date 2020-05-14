@@ -116,9 +116,8 @@ const LoginScreen = props =>{
 
   const players= useSelector(state=>state.players.players);
   const owners= useSelector(state=>state.owners.owners);
-  console.log(players);
   console.log(owners);
-
+  console.log(players);
   ////Input management
   const [isLogin,setIsLogin]= useState(false);//ActivityIndicator handling
   
@@ -166,7 +165,7 @@ const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
         );
         
         setIsLogin(true);
-        const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
+        const result = await fetch(`http://192.168.1.34:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
         setIsLogin(false);
         const currentPlayer= players.find(item=>item.phone===formState.inputValues.phone && 
@@ -177,11 +176,11 @@ const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
         if(resData.userRecord.phoneNumber === formState.inputValues.phone &&(currentPlayer || currentOwner)){
 
           if(currentPlayer){
-            props.navigation.navigate('Player',{playerID:currentPlayer.id});
+            props.navigation.navigate('Player',{playerID:currentPlayer.id,playerUID:resData.userRecord.uid});
             saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type,currentPlayer.id);
             Alert.alert(`${currentPlayer.name} ${currentPlayer.surname}`,'Contents de vous revoir!',[{text:"Merci"}]); 
           }else{
-            props.navigation.navigate('Owner',{ownerID:currentOwner.id});
+            props.navigation.navigate('Owner',{ownerID:currentOwner.id,ownerUID:resData.userRecord.uid});
             saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type,currentOwner.id);
             Alert.alert(`${currentOwner.fullname}`,'Contents de vous revoir!',[{text:"Merci"}]);
           }
@@ -211,7 +210,7 @@ const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
       <View style={styles.container}>
       <ImageBackground source={require('../assets/images/player.jpg')} style={styles.bigBackgroundImage}>
        <KeyboardAvoidingView behavior='height'  keyboardVerticalOffset={10} style={styles.overlayBackground}>
-           <ScrollView>
+           <ScrollView showsVerticalScrollIndicator={false}>
              <View style={titleContainerStyle}>
                <Text style={titleStyle}>Bienvenue à</Text>
              </View>
@@ -223,6 +222,7 @@ const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
                   id='phone'
                   label='Téléphone'
                   keyboardType="phone-pad"
+                  placeholder='Exemple: +213658341876'
                   returnKeyType="next"
                   onInputChange={inputChangeHandler}
                   initialValue=''

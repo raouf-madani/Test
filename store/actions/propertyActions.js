@@ -12,7 +12,7 @@ export const createProperty= (id,name,address,region,wilaya,balls,showers,bibs,r
         const propertyData={id,name,address,region,wilaya,balls,showers,bibs,rooms,roof,referee,owner_id};
 
         try{
-            const response= await fetch('http://192.168.1.36:3000/property/addProperty',{
+            const response= await fetch('http://192.168.1.34:3000/property/addProperty',{
                 method : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,9 +23,9 @@ export const createProperty= (id,name,address,region,wilaya,balls,showers,bibs,r
                 throw new Error('Oups! Une erreur est survenue.');
             }
            
-
+            console.log('begin property action');
             dispatch({type:CREATE_PROPERTY,propertyData});
-            
+            console.log('begin property action');
 
         }catch(err){
             console.log(err);
@@ -41,7 +41,7 @@ export const setProperties= ()=>{
     return async dispatch =>{
 
       try{
-           const response= await fetch('http://192.168.1.36:3000/property');
+           const response= await fetch('http://192.168.1.34:3000/property');
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
@@ -67,7 +67,7 @@ export const createPropertyStadiums = (numStadium5x5,numStadium6x6,numStadium7x7
         const typeStadium={type5x5,type6x6,type7x7,type8x8,type9x9,type10x10,type11x11,property_id};                  
 
         try{
-            const response= await fetch(`http://192.168.1.36:3000/property/addStadium/${numStadiumString}`,{
+            const response= await fetch(`http://192.168.1.34:3000/property/addStadium/${numStadiumString}`,{
                 method : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -78,9 +78,9 @@ export const createPropertyStadiums = (numStadium5x5,numStadium6x6,numStadium7x7
                 throw new Error('Oups! Une erreur est survenue.');
             }
             
-
+            console.log('begin stadium action');
             dispatch({type:CREATE_PROPERTY_STADIUMS,typeStadium,numStadium});
-            
+            console.log('finish stadium action');
 
         }catch(err){
             console.log(err);
@@ -94,7 +94,7 @@ export const setStadiums= ()=>{
     return async dispatch =>{
 
       try{
-           const response= await fetch('http://192.168.1.36:3000/stadium');
+           const response= await fetch('http://192.168.1.34:3000/stadium');
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
@@ -115,7 +115,7 @@ export const setPropertyStadiums = ()=>{
     return async dispatch =>{
 
         try{
-             const response= await fetch('http://192.168.1.36:3000/propertyStadiums');
+             const response= await fetch('http://192.168.1.34:3000/propertyStadiums');
              if(!response.ok){
               throw new Error('Oups! Une erreur est survenue.');
               }
@@ -137,7 +137,7 @@ export const updateProperty= (id,name,addressP,region,wilaya,ownerid) => {
     return async dispatch => {
   
          try{
-           const response = await fetch(`http://192.168.1.36:3000/property/updateProperty/${ownerid}`,{
+           const response = await fetch(`http://192.168.1.34:3000/property/updateProperty/${ownerid}`,{
               method:'PATCH',
               headers: {
                 'Content-Type': 'application/json'

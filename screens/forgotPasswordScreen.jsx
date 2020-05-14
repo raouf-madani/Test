@@ -115,14 +115,15 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
  const [isVerified,setIsVerified]= useState(false);
  const [isLogin,setIsLogin]= useState(false);
 
- const saveDataToStorage = (token,userID,expirationDate,gender) => {
+ const saveDataToStorage = (token,userID,expirationDate,gender,id) => {
 
   AsyncStorage.setItem('userData',
                         JSON.stringify({
                         token:token,
                         userID:userID,
                         expiryDate: expirationDate.toISOString(),
-                        gender:gender
+                        gender:gender,
+                        id:id
                        }) 
                        );
 
@@ -135,7 +136,7 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
     try{
       
       setIsLogin(true);
-      const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
+      const result = await fetch(`http://192.168.1.34:3000/phone/${formState.inputValues.phone}`);
       const resData= await result.json();
       setIsLogin(false);
       
@@ -167,8 +168,17 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
           formState.inputValues.password
         );
 
+        const currentPlayerObject= players.find(item=> item.phone===formState.inputValues.phone && item.password===hashedPassword);
+        const currentOwnerObject= owners.find(item=>item.phone===formState.inputValues.phone && item.password===hashedPassword);
+        if(currentPlayerObject){
+          Alert.alert('Erreur!','Votre nouveau mot de passe doit être différent d\'ancien mot de passe.',[{text:"Réessayer"}]);
+          return;
+        }else if(currentOwnerObject){
+          Alert.alert('Erreur!','Votre nouveau mot de passe doit être différent d\'ancien mot de passe.',[{text:"Réessayer"}]);
+          return;
+        }
         setIsLogin(true);
-        const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
+        const result = await fetch(`http://192.168.1.34:3000/phone/${formState.inputValues.phone}`);
         const resData= await result.json();
         setIsLogin(false);
   
@@ -180,13 +190,13 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
             
             dispatch(playerActions.updatePlayerPassword(formState.inputValues.phone,hashedPassword));
             Alert.alert(`${currentPlayer.name} ${currentPlayer.surname}`,'Contents de vous revoir!',[{text:"Merci"}]);
-            props.navigation.navigate('Player');
-            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type);
+            props.navigation.navigate('Player',{playerID:currentPlayer.id,playerUID:resData.userRecord.uid});
+            saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentPlayer.type,currentplayer.id);
         }else if(currentOwner){
           dispatch(ownerActions.updateOwnerPassword(formState.inputValues.phone,hashedPassword));
           Alert.alert(`${currentOwner.fullname}`,'Contents de vous revoir!',[{text:"Merci"}]);
-          props.navigation.navigate('Owner');
-          saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type);
+          props.navigation.navigate('Owner',{ownerID:currentOwner.id,ownerUID:resData.userRecord.uid});
+          saveDataToStorage(resData.token,resData.userRecord.uid,new Date(resData.expirationDate),currentOwner.type,currentOwner.id);
         }
         
         
@@ -223,6 +233,7 @@ disaptchFormState({type:Form_Input_Update,value:inputValue,isValid:inputValidity
                 <Input
                     id='phone'
                     label='Téléphone'
+                    placeholder='Exemple: +213658341876'
                     keyboardType="phone-pad"
                     returnKeyType="next"
                     onInputChange={inputChangeHandler}
