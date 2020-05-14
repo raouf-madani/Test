@@ -30,9 +30,9 @@ const StartupScreen = props =>{
            const expirationTime = expirationDate.getTime() - new Date().getTime();
             
            if(gender==="Player"){
-            props.navigation.navigate('Player',{playerID:id});
+            props.navigation.navigate('Player',{playerID:id,playerUID:userID});
            }else if(gender==="Owner"){
-            props.navigation.navigate('Owner',{ownerID:id});
+            props.navigation.navigate('Owner',{ownerID:id,ownerUID:userID});
            }
            dispatch(authActions.authenticate(token,userID,expirationTime));
        }

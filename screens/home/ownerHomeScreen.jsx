@@ -1,44 +1,32 @@
-import React, {useEffect,useCallback} from 'react';
-import { StyleSheet, Text, View, ImageBackground , Image} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, ImageBackground , Image,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
-import {useDispatch,useSelector} from 'react-redux';
-import * as ownerActions from '../../store/actions/ownerActions';
-import * as propertyActions from '../../store/actions/propertyActions';
 
+const screen = Dimensions.get("window");
 const OwnerHomeScreen = props =>{
   
   const ownerID= props.navigation.getParam('ownerID');
-   
-  /*
-   *******Fetch Owner's property
-  */
-  const dispatch =useDispatch();
-  const getOwnerProperty=useCallback(async()=>{
-    try{
-      dispatch(ownerActions.setOwnerProperty(ownerID));
-      dispatch(propertyActions.setProperties());
-      }catch(err){
-        console.log(err);
-      }
-  },[dispatch]);
+  const ownerUID= props.navigation.getParam('ownerUID'); 
 
-  useEffect(()=>{
-  getOwnerProperty();
-  },[dispatch,getOwnerProperty]);
+//***************************************************************************
+//Responsivity
+  let welcomeTextStyle = styles.welcomeText;
 
-  useEffect(()=>{
-    const willFocusSub= props.navigation.addListener('willFocus',getOwnerProperty);
-    return ()=>{
-      willFocusSub.remove();
-    };
-  },[getOwnerProperty]);
+  if(screen.width < 350) {
+    welcomeTextStyle = styles.welcomeTextSmall;
+  }
 
+  if (screen.height > 800) {
+    welcomeTextStyle = styles.welcomeTextBig;
+    
+  }
+//***************************************************************************
     return(
       <View style ={styles.container}>
         <ImageBackground source = {require("../../assets/images/profileBack5.jpg")}  style = {styles.backgroudnImage}>
          
          <View style = {styles.textContainer}>
-            <Text style = {styles.welcomeText}>BIENVENUE</Text>
+            <Text style = {welcomeTextStyle}>BIENVENUE</Text>
 
          </View>
 
@@ -47,7 +35,7 @@ const OwnerHomeScreen = props =>{
                   <SmallCard 
                   image ={require("../../assets/logo/user.png")} 
                   screen = "Profile"
-                  onPress = {() =>props.navigation.navigate('OwnerProfile',{ownerID:ownerID})}
+                  onPress = {() =>props.navigation.navigate('OwnerProfileChoice',{ownerID:ownerID,ownerUID:ownerUID})}
                   />
                   
                   <SmallCard
@@ -146,13 +134,28 @@ const styles= StyleSheet.create({
             alignSelf : "center",
 
     },
-    welcomeText : {
-        fontFamily : "poppins-bold",
-        fontSize : 45,
-        color : "white",
-        letterSpacing : 5,
+   /////////////////////////////////////////////////////////////
+   welcomeText : {
+    fontFamily : "poppins-bold",
+    fontSize : 40,
+    color : "white",
+    letterSpacing : 5,
 
-    }
+},
+welcomeTextSmall : {
+  fontFamily : "poppins-bold",
+  fontSize : 24,
+  color : "white",
+  letterSpacing : 4,
+
+},
+welcomeTextBig : {
+  fontFamily : "poppins-bold",
+  fontSize : 50,
+  color : "white",
+  letterSpacing : 5,
+}
+/////////////////////////////////////////////////////////////
 
    
 

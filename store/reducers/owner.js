@@ -1,4 +1,4 @@
-import {CREATE_OWNER,SET_OWNERS,UPDATE_OWNER_PASSWORD,UPDATE_OWNER,DELETE_OWNER,SET_OWNER_PROPERTY} from '../actions/ownerActions';
+import {CREATE_OWNER,SET_OWNERS,UPDATE_OWNER_PASSWORD,UPDATE_OWNER,DELETE_OWNER,SET_OWNER_PROPERTY,UPDATE_OWNER_PHONE} from '../actions/ownerActions';
 import Owner from '../../models/owner';
 
 const initialState={
@@ -51,23 +51,43 @@ const ownersReducer=(state=initialState,action)=>{
 
       case UPDATE_OWNER_PASSWORD:
          
-        const ownerIndex = state.owners.findIndex(owner => owner.id === action.id);
+        const ownerIndex = state.ownerProperties.findIndex(owner => owner.owner_id === action.id);
         const updatedOwner = new Owner(
           action.id,
-          state.owners[ownerIndex].phone,
+          state.ownerProperties[ownerIndex].phone,
           action.ownerData.password,
-          state.owners[ownerIndex].fullname,
-          state.owners[ownerIndex].email,
-          state.owners[ownerIndex].address,
-          state.owners[ownerIndex].type
+          state.ownerProperties[ownerIndex].fullname,
+          state.ownerProperties[ownerIndex].email,
+          state.ownerProperties[ownerIndex].address,
+          state.ownerProperties[ownerIndex].type
         );   
 
-        const updatedOwners=[...state.owners];
+        const updatedOwners=[...state.ownerProperties];
         updatedOwners[ownerIndex]=updatedOwner;
         return{
           ...state,
-          owners:updatedOwners
+          ownerProperties:updatedOwners
         };
+
+        case UPDATE_OWNER_PHONE:
+          const indexOwner = state.ownerProperties.findIndex(owner => owner.owner_id === action.ownerid);
+         
+          const updatedOwnerPhone = new Owner(
+            action.ownerData.id,
+            action.ownerData.phone,
+            state.ownerProperties[indexOwner].password,
+            state.ownerProperties[indexOwner].fullname,
+            state.ownerProperties[indexOwner].email,
+            state.ownerProperties[indexOwner].address,
+            state.ownerProperties[indexOwner].type
+          );   
+
+          const updatedAllOwners=[...state.ownerProperties];
+          updatedAllOwners[indexOwner]=updatedOwnerPhone;
+          return{
+            ...state,
+            ownerProperties:updatedAllOwners
+          };
         
         case SET_OWNER_PROPERTY:
           return{

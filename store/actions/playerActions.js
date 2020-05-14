@@ -2,6 +2,7 @@ export const CREATE_PLAYER = "CREATE_PLAYER";
 export const SET_PLAYERS= "SET_PLAYERS";
 export const UPDATE_PLAYER= "UPDATE_PLAYER";
 export const UPDATE_PLAYER_PASSWORD ="UPDATE_PLAYER_PASSWORD";
+export const UPDATE_PLAYER_PHONE ="UPDATE_PLAYER_PHONE";
 export const DELETE_PLAYER = "DELETE_PLAYER";
 export const SET_PLAYER = "SET_PLAYER";
 
@@ -12,7 +13,7 @@ export const createPlayer=(id,phone,password,name,surname)=>{
         const playerData={id:id,phone:phone,password:password,name:name,surname:surname};
 
         try{
-            const response= await fetch('http://192.168.1.36:3000/player/addPlayer',{
+            const response= await fetch('http://192.168.1.34:3000/player/addPlayer',{
                 method : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,7 +42,7 @@ export const setPlayers= ()=>{
     return async dispatch =>{
 
       try{
-           const response= await fetch('http://192.168.1.36:3000/player');
+           const response= await fetch('http://192.168.1.34:3000/player');
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
@@ -61,7 +62,7 @@ export const setPlayers= ()=>{
 export const setPlayer= id => {
     return async dispatch=>{
         try{
-            const response= await fetch(`http://192.168.1.36:3000/player/${id}`);
+            const response= await fetch(`http://192.168.1.34:3000/player/${id}`);
             if(!response.ok){
              throw new Error('Oups! Une erreur est survenue.');
              }
@@ -85,7 +86,7 @@ export const updatePlayerPassword= (id,password) => {
     return async dispatch => {
 
          try{
-           const response = await fetch(`http://192.168.1.36:3000/player/updatePassword/${id}`,{
+           const response = await fetch(`http://192.168.1.34:3000/player/updatePassword/${id}`,{
               method:'PATCH',
               headers: {
                 'Content-Type': 'application/json'
@@ -93,10 +94,35 @@ export const updatePlayerPassword= (id,password) => {
             body : JSON.stringify({password})
            });
            if(!response.ok){
-               throw new Error('Oups! Une erreur est survenue in ur fetch.');
+               throw new Error('Oups! Une erreur est survenue.');
            }
            
            dispatch({type:UPDATE_PLAYER_PASSWORD,id,playerData:{password}});
+           
+         }catch(err){
+             console.log(err);
+         }
+    };
+
+};
+
+export const updatePlayerPhone= (id,phone,playerid) => {
+
+    return async dispatch => {
+
+         try{
+           const response = await fetch(`http://192.168.1.34:3000/player/updatePhone/${playerid}`,{
+              method:'PATCH',
+              headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify({id,phone})
+           });
+           if(!response.ok){
+               throw new Error('Oups! Une erreur est survenue.');
+           }
+           
+           dispatch({type:UPDATE_PLAYER_PHONE,playerid,playerData:{id,phone}});
            
          }catch(err){
              console.log(err);
@@ -110,7 +136,7 @@ export const updatePlayer= (id,name,surname,email,address) => {
     return async dispatch => {
 
          try{
-           const response = await fetch(`http://192.168.1.36:3000/player/updatePlayer/${id}`,{
+           const response = await fetch(`http://192.168.1.34:3000/player/updatePlayer/${id}`,{
               method:'PATCH',
               headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +161,7 @@ export const deletePlayer = id => {
     return async dispatch => {
     
         try{
-            const response = await fetch(`http://192.168.1.36:3000/player/deletePlayer/${id}`,{
+            const response = await fetch(`http://192.168.1.34:3000/player/deletePlayer/${id}`,{
                method:'DELETE'});
 
             if(!response.ok){

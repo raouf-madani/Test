@@ -249,7 +249,7 @@ const SignupOwnerScreen = props =>{
         if(formState.formIsValid){
           try {
             setVerifyInProgress(true);
-            const result = await fetch(`http://192.168.1.36:3000/phone/${formState.inputValues.phone}`);
+            const result = await fetch(`http://192.168.1.34:3000/phone/${formState.inputValues.phone}`);
             const resData= await result.json();
             setVerifyInProgress(false);
 
@@ -327,7 +327,7 @@ const SignupOwnerScreen = props =>{
           dispatch(propertyActions.createPropertyStadiums(stadiumNum5x5,stadiumNum6x6,stadiumNum7x7,
           stadiumNum8x8,stadiumNum9x9,stadiumNum10x10,stadiumNum11x11,type5x5,type6x6,type7x7,type8x8,
           type9x9,type10x10,type11x11,formState.inputValues.propertyName)); 
-          props.navigation.navigate('Owner',{ownerID:formState.inputValues.phone}); 
+          props.navigation.navigate('Owner',{ownerID:formState.inputValues.phone,ownerUID:user.uid}); 
           Alert.alert(`${formState.inputValues.fullname}`,'Bienvenue à FootBooking :-)',[{text:"Merci"}]);
           saveDataToStorage(tokenResult.token,user.uid,expirationDate,"Owner",formState.inputValues.phone); 
         } catch (err) {
