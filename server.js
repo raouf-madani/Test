@@ -89,10 +89,15 @@ app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
    
    (err,result,fields)=>{
      if (err){
-       console.log("THERE IS An ERROR");
-      res.send(err); }
+       console.log(err);
+        res.send(err);
+    
+    }else { 
       console.log("success");
       res.send("Success");
+
+     }
+      
     });
 
      

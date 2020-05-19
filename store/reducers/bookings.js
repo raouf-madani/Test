@@ -16,7 +16,7 @@ switch(action.type){
     let bookings = [];
     bookings.push(action.booking);
 
-    return{ ...state , playerBookings :[...state.confirmedBookings , ...bookings]} ;
+    return{ ...state , playerBookings :[...state.ownerBookings , ...bookings]} ;
 
      case SET_PLAYER_BOOKINGS : 
      return {...state , playerBookings : action.bookings};

@@ -9,7 +9,7 @@ export const addBooking = (booking) => {
 
   
     return async dispatch => {
-        const response =  await fetch('http://192.168.1.3:3000/bookings/addbooking',
+        const response =  await fetch('http://192.168.1.5:3000/bookings/addbooking',
         {
          method : "POST",
          headers: {
@@ -22,8 +22,7 @@ export const addBooking = (booking) => {
 
      
     const resData = await response.json;
-
-console.log(resData);
+;
 
         dispatch( {type : ADD_BOOKING , booking : booking});
     };
@@ -36,7 +35,7 @@ export const fetchPlayerBookings = (playerID)=>{
     return async (dispatch) =>{
         try {
             
-        const arr = await fetch('http://192.168.1.3:3000/bookings/playerbookings/+213557115451');
+        const arr = await fetch('http://192.168.1.5:3000/bookings/playerbookings/+213557115451');
         const resData = await arr.json ();
 
 
@@ -58,7 +57,7 @@ export const fetchOwnerBookings = (ownerId)=>{
     return async (dispatch) =>{
         try {
             
-        const arr = await fetch('http://192.168.1.3:3000/bookings/ownerbookings/hareth');
+        const arr = await fetch('http://192.168.1.5:3000/bookings/ownerbookings/hareth');
         const resData = await arr.json ();
 
 

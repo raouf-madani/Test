@@ -25,12 +25,7 @@ useEffect(()=>{
   }
   ,[dispatch]);
 
-<<<<<<< HEAD
 dispatch(bookingsActions.fetchOwnerBookings("hareth"));
-=======
- //*************************************************************************** 
- //Responsivty
->>>>>>> 84005a40096dbeb29e28ae92f50e2cea68457181
 let welcomeTextStyle = styles.welcomeText;
 
   if(screen.width < 350) {
