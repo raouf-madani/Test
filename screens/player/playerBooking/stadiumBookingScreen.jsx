@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StyleSheet, Text, View , Picker,ImageBackground, Dimensions , StatusBar, Platform,ActionSheetIOS} from 'react-native';
 import { RadioButton , Button} from 'react-native-paper';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
@@ -178,6 +178,23 @@ stadiumsType.forEach(element => {
 
 );
 
+/////////////////////////////////////////////////////
+//GET ALL matchTime types that exist in our dummy Data and match to the match type without duplicates
+let allTimes = [];
+let timesFilteredToShow=[];
+let timesFiltered = allOffers.filter(element=>
+
+              element.stadiumsType );
+
+timesFiltered.forEach(e=>{
+ 
+  if(timesFilteredToShow.indexOf(e.matchTimeType)<0){
+  
+    timesFilteredToShow.push(e.matchTimeType)
+  
+  }}
+  
+  );
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //Responsivity //
@@ -236,7 +253,7 @@ if(screen.width <= 360) {
     //Match Type State 5x5 6x6 7x7 ....
     const [matchTypeState , setMatchType] = useState(`${allStadiums[0]}`);
     //Match Time State 1h 1h30 2h 
-    const [matchTimeState , setMatchTime] = useState();
+    const [matchTimeState , setMatchTime] = useState(timesFilteredToShow[0]);
 
     //Selected Date State with the full date and the day 
     const [selectedDateState , setSelectedDate] = useState({
@@ -251,7 +268,7 @@ if(screen.width <= 360) {
     const [selectedId , setSelectedId] = useState(1);
 
     //Selected Playing Hour 
-    const [selectedHour , setSelectedHour] = useState();
+    const [selectedHour , setSelectedHour] = useState("0");
 
     //Created day's hours 
     const [hoursState , setHoursState] = useState ([]);
@@ -272,13 +289,19 @@ if(screen.width <= 360) {
 
     }
 
+
     //Selected Match type handler (Set the match type)
     const matchTypeHandler = (itemValue, itemIndex) => {
         setMatchType(itemValue);
         if(myFlat.current !=null ){
           myFlat.current.scrollToIndex({animated: true, index :0})
-          setButtonState(0);
-          setSelectedOffer(false);
+          setButtonState({
+            id : 0 ,
+            color : ""
+  });
+          // setSelectedOffer(false);
+          setPrice(0);
+          setSelectedHour("0");
 
         }
         
@@ -290,8 +313,14 @@ if(screen.width <= 360) {
 
         if(myFlat.current !=null ){
           myFlat.current.scrollToIndex({animated: true, index :0})
-          setButtonState(0);
-          setSelectedOffer(false);
+          setButtonState({
+            id : 0 ,
+            color : ""
+  });
+          // setSelectedOffer(false);
+          setPrice(0);
+          setSelectedHour("0");
+
         }
       
 
@@ -308,8 +337,13 @@ if(screen.width <= 360) {
        if(myFlat.current !=null ){
 
         myFlat.current.scrollToIndex({animated: true, index :0})
-        setButtonState(0);
-        setSelectedOffer(false);
+        setButtonState({
+          id : 0 ,
+          color : ""
+          });
+        // setSelectedOffer(false);
+        setPrice(0);
+        setSelectedHour("0");
 
           }
   
@@ -337,26 +371,43 @@ if(screen.width <= 360) {
   };
 
  //////////////////////////////////////////////////////////
-    //GET ALL matchTime types that exist in our dummy Data and match to the match type without duplicates
-    let allTimes = [];
-    let timesFilteredToShow=[];
-    let timesFiltered = allOffers.filter(element=>
-   
-                  element.stadiumsType === matchTypeState );
+    
+  //PUT THE SLOTS AND THE OFFERS THAT WE ALREADY CALCULATED
+   const [aTest,setATest]=useState([]);
 
-   timesFiltered.forEach(e=>{
-     
-      if(timesFilteredToShow.indexOf(e.matchTimeType)<0){
-      
-        timesFilteredToShow.push(e.matchTimeType)
-      
-      }}
-      
-      );
-   
+   const aTestHandler= (v)=>{
+  //   let myArray = aTest.map(e=>e.day);
+  //   let types = aTest.map(e=>e.type);
+  //   let times = aTest.map(e=>e.time);
+    
+  //   console.log(v.time);
+  //    if(v.day !=0 && myArray.indexOf(v.day)===-1 && v.slots.length !=0 && times.indexOf(v.time)===-1 && types.indexOf(v.type)===-1  )
+  //  {
+  //   console.log("gg");
+    setATest(previous=>[...previous,v])
+    
+  // }
+
+
+    
+   };
+////////////////////////////////////////////////////
+   const countElement = (array,element) =>{
+     let count = 0 ;
+        array.forEach(e=>{
+          if(e === element) {
+              count ++ ;
+          
+          }
+
+
+        })
+return count ;
+   };
+
 
     //////////////////////////////////////////////////////////
-    //GET ONLY THE GAME TIMES THAT MATCHES WITH THE SELECTED TYPE AND TIME
+    //GET ONLY THE GAME TIMES THAT MATCHES WITH THE SELECTED TYPE AND TIME AND REMOVE THE EXISTING BOOKINGS
 /******************************************************** */
       useEffect(()=> {
 
@@ -366,15 +417,21 @@ if(screen.width <= 360) {
       let a= [] ;
       let b = [];
       let customOffers = [];
-      
+      let existingOffer = [];
+    
       if(selectedDateState.day !=0) {
       
 
        customOffers = allOffers.filter(element => element.stadiumsType === `${matchTypeState}` && element.matchTimeType ===`${matchTimeState}` && element.offerDays.indexOf(selectedDateState.day) > -1);
- 
-      
+
+       //////////////////////////////////////////
+     //let  existingOfferDays = aTest.map(e=>e.day);
+
+     existingOffer = aTest.filter(element => element.type === `${matchTypeState}` && element.time ===`${matchTimeState}` && element.day === selectedDateState.date);
+
      if(customOffers.length >0 )
        {
+        
        const customOffersHours = customOffers.map(element =>element.horraires);
        customOffersHours.forEach(e=>e.forEach(element=>a.push(element)));
        
@@ -382,29 +439,37 @@ if(screen.width <= 360) {
        b = a.filter(e=>e.day === selectedDateState.day);
        setCustomOffer(b);
        b.map(e=>hoursDay.push(e.horraires));
-       
+      //  console.log(customOffers[0].stadmiumNumber);
       
      
       existingBookings = ownerBookings.filter(element => 
        element.bookingDate === selectedDateState.date && element.typeMatch === matchTypeState  );
-      
+  
        //get The stars so we won't overBook
-      let allStarts = existingBookings.map(e=>e.start);
+     
+      
     }
 
-      } else{
+      } 
+      // else{
       
-        const timeChange = allOffers.find(element => element.stadiumsType === `${matchTypeState}`);
+      //   const timeChange = allOffers.find(element => element.stadiumsType === `${matchTypeState}`);
 
-        setMatchTime(timeChange.matchTimeType);
-      }
+      //   //setMatchTime(timeChange.matchTimeType);
+      // }
+let allStarts = existingBookings.map(e=>e.start); 
+if(existingOffer.length === 0) {
 
-if(hoursDay) {
-  let availableSlots = []
-  let availableSlotsTimes = []
-  hoursDay.forEach(daysHours => {
+
+if(hoursDay.length != 0) {
 
   
+  let availableSlots = []
+  let availableSlotsTimes = []
+  let z = [];
+  hoursDay.forEach(daysHours => {
+
+
 if(matchTimeState === "1h"){ 
   
   availableSlots = hours.slice(hoursNoId.indexOf(daysHours[0] ),hoursNoId.indexOf(daysHours[1])-1);
@@ -421,23 +486,29 @@ availableSlotsTimes =availableSlots.map(element=>element.time);
 let uncutedSlotsTimes = hours.map(element=>element.time);
 //All start and end of the selected days
 let startEnd = existingBookings.map(element=>{
-return {start : element.start , end : element.end}
+return {start : element.start , end : element.end , time :element.timeMatch,index : hoursNoId.indexOf(element.end)}
 }
-
   
 ) ;
 
 
+
+
 //Remove the existing bookings from our available slots 
 startEnd.forEach(element=>
+{ 
+let filt = startEnd.filter(startend=> startend.start === element.start) ;
 
- { 
-   
 availableSlotsTimes = availableSlots.map(element=>element.time);
 
 
+if(filt.length===customOffers[0].stadmiumNumber ) {
+  let endIndexes = filt.map(e=>e.index);
+
+  if(element.index === Math.min.apply(null,endIndexes)){
+  console.log(element.end);
     let test = [];
-   
+
     if(matchTimeState ==="1h"){
     
      test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-1,uncutedSlotsTimes.indexOf(element.end));
@@ -447,6 +518,7 @@ availableSlotsTimes = availableSlots.map(element=>element.time);
     
       test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-2,uncutedSlotsTimes.indexOf(element.end));
     }
+  
     test.forEach(slot => {
    
       if(availableSlotsTimes.indexOf(slot)>=0 ){
@@ -460,50 +532,62 @@ availableSlotsTimes = availableSlots.map(element=>element.time);
     });
 
 
+   
+  }
+}
 
 } );
 
+z = [...z,...availableSlots];
 
 setHoursStateHandler(availableSlots);
 setHoursTimeStateHandler(availableSlotsTimes);
 
 });
 
-// if(availableSlotsTimes.indexOf(buttonState.id) === -1) {
- 
-//   setSelectedOffer(false);
- 
-// }
+aTestHandler({time : matchTimeState, type : matchTypeState ,day : selectedDateState.date,slots :z});
 
-
+//  setSelectedOffer(true);
   
-    setSelectedOffer(true);
-  
- 
 } 
 
 //if there is no slots for the selected day
 else {
-  setSelectedOffer(false);
+  // setSelectedOffer(false);
   setHoursState([]);
 
 }
-/******************************************************** */
+}
+
+else {
+
+
+  // let choosen = aTest.filter(e=>e.day === selectedDateState.day);
+
+ 
+  setHoursStateHandler(existingOffer[0].slots);
+  // setSelectedOffer(true);
+}
 
 
  },[matchTypeState,matchTimeState,selectedDateState]);
+/******************************************************** */
+/******************************************************** */
+
 
 //CALL THIS ONLY WHEN THE HOUR HAS CHANGED
- useEffect(()=>{
-   
-   if(selectedHour){
-      let hoursTime = hours.map(e=>e.time);
+ useMemo(()=>{ 
+
+   if(selectedHour != "0"){
+      
+    let availableSlots = [];
+    
     customOffer.forEach(e=>{
       
-      let availableSlots = hoursTime.slice(hoursTime.indexOf(e.horraires[0] ),hoursTime.indexOf(e.horraires[1])+1);
-      
+       availableSlots = hoursNoId.slice(hoursNoId.indexOf(e.horraires[0] ),hoursNoId.indexOf(e.horraires[1])+1);
+     
       if(availableSlots.indexOf(selectedHour) != -1) {
-
+         
         setPrice(e.price);
         setSelectedId(e.serviceId);
        
@@ -517,9 +601,38 @@ else {
 
  },[selectedHour]);
 
+//Selected Days  slots to display 
+const mylist = (itemData)=>{
+ 
+  return(
+  <View style = {styles.buttonContainer}>
+              
+             
+  <Button
+  contentStyle={styles.timeButton}
+  labelStyle = {{color : "black" }}
+  style={{borderColor:Colors.secondary , 
+  borderWidth : 0.5 , 
+  backgroundColor : buttonState.id ===itemData.item.time ? buttonState.color : "white",
+  borderRadius : 20,
+  marginHorizontal : 5,
+  marginVertical : 5
+  }} 
+  
+  onPress ={()=>{
+    setSelectedHour(itemData.item.time);
+    buttonsHandler(itemData.item.time);
 
-
-
+    }}
+  >
+    <Text 
+    style = {partyTimeStyle}>
+    {itemData.item.time }
+    </Text> 
+      </Button>
+</View>
+  )
+}
 
 /******************************************************** */
 
@@ -719,37 +832,7 @@ else {
                 extraData = {selectedDateState.date}
                 style = {styles.hoursList}
                 ref = {myFlat}
-                renderItem = {(itemData )=>{
-              
-                return (
-                 <View style = {styles.buttonContainer}>
-              
-             
-                  <Button
-                  contentStyle={styles.timeButton}
-                  labelStyle = {{color : "black" }}
-                  style={{borderColor:Colors.secondary , 
-                  borderWidth : 0.5 , 
-                  backgroundColor : buttonState.id ===itemData.item.time ? buttonState.color : "white",
-                  borderRadius : 20,
-                  marginHorizontal : 5,
-                  marginVertical : 5
-                  }} 
-                  
-                  onPress ={()=>{
-                    buttonsHandler(itemData.item.time)
-                    setSelectedHour(itemData.item.time);
-                    }}
-                  >
-                    <Text 
-                    style = {partyTimeStyle}>
-                    {itemData.item.time }
-                    </Text> 
-                      </Button>
-              </View>
-                           
-                )
-                }}
+                renderItem = {mylist}
                 
                  />
                  }
@@ -757,7 +840,7 @@ else {
                </View>
  
 
-        {selectedOffer  && hoursStateTime.indexOf(buttonState.id) != -1 && selectedHour && priceState != 0 &&
+        { priceState != 0 &&
         <View style= {styles.priceContainer}>
 
               <View style = {styles.priceTextContainer}>
