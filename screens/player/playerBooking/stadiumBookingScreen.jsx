@@ -493,7 +493,7 @@ return {start : element.start , end : element.end , time :element.timeMatch,inde
 
 
 
-
+let allTies=[];
 //Remove the existing bookings from our available slots 
 startEnd.forEach(element=>
 { 
@@ -502,25 +502,28 @@ let filt = startEnd.filter(startend=> startend.start === element.start) ;
 availableSlotsTimes = availableSlots.map(element=>element.time);
 
 
-if(filt.length===customOffers[0].stadmiumNumber ) {
-  let endIndexes = filt.map(e=>e.index);
+// if(filt.length===customOffers[0].stadmiumNumber ) {
+//   let endIndexes = filt.map(e=>e.index);
 
-  if(element.index === Math.min.apply(null,endIndexes)){
-  console.log(element.end);
+//   if(element.index === Math.min.apply(null,endIndexes)){
     let test = [];
 
     if(matchTimeState ==="1h"){
     
-     test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-1,uncutedSlotsTimes.indexOf(element.end));
+     test = hoursNoId.slice(hoursNoId.indexOf(element.start)-1,hoursNoId.indexOf(element.end));
      
     }
     else if (matchTimeState ==="1h30"){
     
-      test = uncutedSlotsTimes.slice(uncutedSlotsTimes.indexOf(element.start)-2,uncutedSlotsTimes.indexOf(element.end));
+      test = hoursNoId.slice(hoursNoId.indexOf(element.start)-2,hoursNoId.indexOf(element.end));
     }
-  
+
     test.forEach(slot => {
-   
+      allTies.push(slot);
+      if(countElement(allTies,slot)=== customOffers[0].stadmiumNumber) {
+
+
+    
       if(availableSlotsTimes.indexOf(slot)>=0 ){
    
       availableSlots.splice(availableSlotsTimes.indexOf(slot),1);
@@ -528,16 +531,16 @@ if(filt.length===customOffers[0].stadmiumNumber ) {
 
         availableSlotsTimes.splice(availableSlotsTimes.indexOf(slot),1);}
       
-   
+      }
     });
 
 
    
-  }
-}
+//   }
+// }
 
 } );
-
+// console.log(allTies);
 z = [...z,...availableSlots];
 
 setHoursStateHandler(availableSlots);

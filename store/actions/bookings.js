@@ -9,7 +9,7 @@ export const addBooking = (booking) => {
 
   
     return async dispatch => {
-        const response =  await fetch('http://192.168.1.14:3000/bookings/addbooking',
+        const response =  await fetch('http://192.168.1.7:3000/bookings/addbooking',
         {
          method : "POST",
          headers: {
@@ -35,7 +35,7 @@ export const fetchPlayerBookings = (playerID)=>{
     return async (dispatch) =>{
         try {
             
-        const arr = await fetch('http://192.168.1.14:3000/bookings/playerbookings/+213557115451');
+        const arr = await fetch('http://192.168.1.7:3000/bookings/playerbookings/+213557115451');
         const resData = await arr.json ();
 
 
@@ -57,7 +57,7 @@ export const fetchOwnerBookings = (ownerId)=>{
     return async (dispatch) =>{
         try {
             
-        const arr = await fetch('http://192.168.1.14:3000/bookings/ownerbookings/hareth');
+        const arr = await fetch('http://192.168.1.7:3000/bookings/ownerbookings/hareth');
         const resData = await arr.json ();
 
 
