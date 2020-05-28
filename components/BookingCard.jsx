@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Dimensions} from 'react-native';
 import { Avatar ,Badge } from 'react-native-elements';
 import Colors from '../constants/Colors';
+import {Ionicons} from "@expo/vector-icons";
+import BookingDetail from './BookingDetail';
 
 const screen = Dimensions.get("window");
 const BookingCard = props =>{
@@ -33,8 +35,19 @@ let badgeStyle = styles.badgeStyle;
         smallTextStyle =styles.smallTextSmall;
   }
 
+/////////////////////////////////////////////////////////////
+const [visible , setVisible] = useState(false);
     return(
+      
+<View>
+              <BookingDetail 
+                    isVisible = {visible}
+                
+              />
+
         <View style ={cardContainerStyle}>
+
+    
         <View style = {styles.left}>
              <View style = {avatarContainerStyle}>
                  <Avatar 
@@ -43,6 +56,7 @@ let badgeStyle = styles.badgeStyle;
                  overlayContainerStyle={{backgroundColor: Colors.background,marginTop : 2}}
                  />
                  <Badge
+                      
                        status={props.status}
                        value = {props.value}
                        containerStyle={badgeStyle}
@@ -55,7 +69,7 @@ let badgeStyle = styles.badgeStyle;
              <View style = {styles.infosContainer}>
                  <Text 
                  style = {stadiumNameStyle}>
-                 FootFive
+                 {props.stade}
                  </Text>
 
                  <View style={styles.matchContainer}>
@@ -88,10 +102,23 @@ let badgeStyle = styles.badgeStyle;
              </Text>
 
          </View>
+
+         <View style = {styles.bookingDetail}>
+                <View >
+
+                  <Ionicons 
+                  name = "ios-arrow-forward" 
+                  size = {28}
+                  onPress={()=>setVisible(true)}
+                  color = "white"
+                  />
+                </View> 
+
+         </View>
    </View>
 
 </View>
-
+</View>
      );    
 };
 
@@ -197,15 +224,28 @@ const styles= StyleSheet.create({
     },
     
     right : {
-      width : "20%",
-      justifyContent : "center"
+      width : "25%",
+      justifyContent : "center",
+      flexDirection : "row",
+      overflow : "hidden",
+     
+   
       
     },
     date : {
         alignItems : "center",
         justifyContent : "center",
+        width : "60%",
        
     },
+    bookingDetail:{
+    width : "50%",
+    borderLeftWidth : 1 ,
+    alignItems : "center",
+    justifyContent : "center",
+    
+    borderColor : "white"
+  },
 ////////////////////////////////////////////////////////////
     bigText : {
       

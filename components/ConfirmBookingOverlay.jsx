@@ -40,16 +40,17 @@ const date = new Date();
     playerId : "+213557115451",
     serviceId : props.serviceId,
     start : props.hourMatch ,
+    status : "confirmée",
     tarif : props.tarif ,
     timeMatch : props.matchTime,
     typeMatch : props.matchType,
     
+    
    
 }
-console.log(booking);
-await dispatch( addBooking(booking));
-await props.overlayHandler();
-props.navigate();
+ props.overlayHandler();
+ dispatch( addBooking(booking));
+ props.navigate();
 
 };
 

@@ -540,7 +540,6 @@ availableSlotsTimes = availableSlots.map(element=>element.time);
 // }
 
 } );
-// console.log(allTies);
 z = [...z,...availableSlots];
 
 setHoursStateHandler(availableSlots);
