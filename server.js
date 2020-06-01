@@ -57,7 +57,7 @@ app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
 
   const ownerId = req.params.ownerId;
   
-  const query = "SELECT CAST(booking.date AS char) as date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId  ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.owner_id = ? "
+  const query = "SELECT CAST(booking.date AS char) as date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId,booking.status  ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.owner_id = ? "
   
   
   con.query(query,[ownerId],(err,result,fields)=>{

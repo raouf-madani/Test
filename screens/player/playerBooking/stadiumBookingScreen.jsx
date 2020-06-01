@@ -394,7 +394,6 @@ return count ;
      
       existingBookings = ownerBookings.filter(element => 
        element.bookingDate === selectedDateState.date && element.typeMatch === matchTypeState && element.status === "confirmée");
-  
        //get The stars so we won't overBook
      
       
