@@ -119,7 +119,9 @@ const overlayHandler = ()=>{
 
          </View>
 
-         <View style = {styles.bookingDetail}>
+    {   props.detail && 
+      
+       <View style = {styles.bookingDetail}>
                 <View >
 
                   <Ionicons 
@@ -130,7 +132,7 @@ const overlayHandler = ()=>{
                   />
                 </View> 
 
-         </View>
+         </View>}
    </View>
 
 </View>

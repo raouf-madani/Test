@@ -36,6 +36,7 @@ const confirmedBookings = useSelector(state =>state.bookings.playerBookings.filt
                         year = {e.bookingDate.slice(0,4)}
                         date = {e.date}
                         playerId = {e.playerId}
+                        detail ={true}
                     />)}
                          )}
                 
