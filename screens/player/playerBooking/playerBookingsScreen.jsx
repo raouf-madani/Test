@@ -10,9 +10,8 @@ const months = ['Nothing','Janvier', 'Février', 'Mars','Avril','Mai','Juin', 'J
 
 const PlayerBookingsScreen = props =>{
 
-const confirmedBookings = useSelector(state =>state.bookings.playerBookings) ;
 
-
+const confirmedBookings = useSelector(state =>state.bookings.playerBookings.filter(e=>e.status === "confirmée")) ;
     return(
       <View style = {styles.container}>
      
@@ -35,6 +34,8 @@ const confirmedBookings = useSelector(state =>state.bookings.playerBookings) ;
                         day = {e.bookingDate.slice(8,10)}
                         month = {months[month]}
                         year = {e.bookingDate.slice(0,4)}
+                        date = {e.date}
+                        playerId = {e.playerId}
                     />)}
                          )}
                 

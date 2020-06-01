@@ -6,6 +6,9 @@ import {Ionicons} from "@expo/vector-icons";
 import BookingDetail from './BookingDetail';
 
 const screen = Dimensions.get("window");
+
+
+
 const BookingCard = props =>{
 let avatarContainerStyle = styles.avatarContainer;
 let cardContainerStyle = styles.cardContainer;
@@ -37,12 +40,25 @@ let badgeStyle = styles.badgeStyle;
 
 /////////////////////////////////////////////////////////////
 const [visible , setVisible] = useState(false);
+
+const overlayHandler = ()=>{
+
+      setVisible(previous => !previous )
+
+}
     return(
       
 <View>
               <BookingDetail 
                     isVisible = {visible}
-                
+                    overlayHandler= {()=>overlayHandler()}
+                    time= {props.time}
+                    owner = {props.stade}
+                    stadium = {props.stadium}
+                    hours = {props.hours}
+                    date = {props.date}
+                    bookingDate = {props.day + "-" + props.month + "-" + props.year}
+                    playerId = {props.playerId}
               />
 
         <View style ={cardContainerStyle}>

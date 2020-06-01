@@ -37,7 +37,7 @@ app.get("/bookings/playerbookings/:playerId",(req,res)=>{
 
 const playerId = req.params.playerId;
 
-const query = "SELECT booking.date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId,booking.status ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.player_id = ? "
+const query = "SELECT CAST(booking.date AS char) as date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId,booking.status ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.player_id = ? "
 
 
 con.query(query,[playerId],(err,result,fields)=>{
@@ -57,12 +57,11 @@ app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
 
   const ownerId = req.params.ownerId;
   
-  const query = "SELECT booking.date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId  ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.owner_id = ? "
+  const query = "SELECT CAST(booking.date AS char) as date,SUBSTRING(booking.date_booking,1,10) as bookingDate,SUBSTRING(booking.start,1,5) as start,SUBSTRING(booking.end,1,5)as end,booking.player_id as playerId,booking.owner_id as ownerId,booking.service_id as serviceId  ,service.type_match as typeMatch,service.time_match as timeMatch,service.tarif from booking INNER JOIN service on booking.service_id = service.id WHERE booking.owner_id = ? "
   
   
   con.query(query,[ownerId],(err,result,fields)=>{
       if(err) res.send(err);
-  
       res.send(result);
   
   });
@@ -74,8 +73,8 @@ app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
 
 //ADD A NEW BOOKING TO THE DATABASE   
   app.post("/bookings/addbooking",(req,res)=>{
-    console.log("HELLO");
-    console.log(req.body);
+
+    
    con.query("INSERT INTO booking (date,date_booking, start,status,end,player_id,owner_id,service_id) VALUES (?,?, ?, ?, ?, ?, ?,?)"
    ,[
     req.body.date,
@@ -106,9 +105,26 @@ app.get("/bookings/ownerbookings/:ownerId",(req,res)=>{
 
   });
 
+///////////////////////////////////////////////////////////
+//Delete Booking
 
+app.patch("/bookings/cancelbooking",(req,res)=>{
+  let date = req.body.bookingDate.replace("T"," ");
+  
+  date = date.replace("Z","")+"000"
 
+  con.query("UPDATE booking SET status = 'annulée' WHERE   booking.player_id = ? AND booking.date = ?",[req.body.playerId,date],
+  (err,result,fields)=>{ 
 
+  if (err) {
+    res.send(err);
+  } else {
+    res.send("Success");
+  }
+  
+});
+
+});
 // Starting our server.
 app.listen(3000, () => {
     console.log('Connected');
