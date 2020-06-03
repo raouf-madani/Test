@@ -4,66 +4,45 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Avatar ,Badge } from 'react-native-elements';
 import Colors from "../../../constants/Colors";
 import BookingCard from '../../../components/BookingCard';
+import { useSelector } from 'react-redux';
 
+const months = ['Nothing','Janvier', 'Février', 'Mars','Avril','Mai','Juin', 'Juillet', 'Août','Septembre','Octobre','Novembre', 'Décembre' ];
 
 const PlayerExpiredBookingsScreen = props =>{
+
+  const canceledBookings = useSelector(state =>state.bookings.playerBookings.filter(e=>e.status === "annulée")) ;
   return(
     <View style = {styles.container}>
-      {/* <View style={styles.titleContainer}>
-
-      <Text style = {{fontFamily : "poppins-bold" , fontSize : 18 , color : "white"}}>
-      Historique 
-      </Text>
-
-      </View> */}
-
-
-   
             <ScrollView style = {styles.componentContainer}>
-             
-            <BookingCard 
-                        status = "error"
-                        value = "expirée"
-                        stade = "FootFive"
-                        time = "1h"
-                        stadium = "5x5"
-                        hours = "11:00 - 12:00"
-                        day = "7"
-                        month = "Mars"
-                        year = "2020"
-
-                    />
-
-                 <BookingCard 
-                        status = "warning"
-                        value = "annulée"
-                        stade = "FootFive"
-                        time = "1h"
-                        stadium = "5x5"
-                        hours = "11:00 - 12:00"
-                        day = "7"
-                        month = "Mars"
-                        year = "2020"
-
-                    />
-
-                  <BookingCard 
-                        status = "error"
-                        value = "expirée"
-                        stade = "FootFive"
-                        time = "1h"
-                        stadium = "5x5"
-                        hours = "11:00 - 12:00"
-                        day = "7"
-                        month = "Mars"
-                        year = "2020"
-
-                    />
+           {canceledBookings.map((e,index)=>{
+             let month = "0";
+             if(e.bookingDate.slice(5, 6)==="0"){
+              month=e.bookingDate.slice(6, 7)
+             } else{
+               month =e.bookingDate.slice(5, 7)
+             }
+             return ( <BookingCard 
+                      key={index}
+                      status = "warning"
+                      value = "Annulée"
+                      stade = {e.ownerId}
+                      time = {e.timeMatch}
+                      stadium = {e.typeMatch}
+                      hours = {e.start + "-" + e.end}
+                      day = {e.bookingDate.slice(8,10)}
+                      month = {months[month]}
+                      year = {e.bookingDate.slice(0,4)}
+                      date = {e.date}
+                      playerId = {e.playerId}
+                      
+                  />)}
+                       )}
+              
 
             </ScrollView>
     </View>
 
-   );    
+   );   
 };
 
 

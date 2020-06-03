@@ -13,20 +13,25 @@ const dispatch = useDispatch();
 
 let end  ;
 
+
 if(props.matchTime === "1h"){
-  end = moment("2020-05-01T"+props.hourMatch).add(60,"m").format("HH:mm");  
+
+end = moment.utc("2020-05-01T"+props.hourMatch).add(60,"m").format("HH:mm");  
 
 }else if (props.matchTime === "1h30"){
-  end = moment("2020-05-01T"+props.hourMatch).add(90,"m").format("HH:mm");  
+end = moment.utc("2020-05-01T"+props.hourMatch).add(90,"m").format("HH:mm");  
 
 }else {
-  end = moment("2020-05-01T"+props.hourMatch).add(120,"m").format("HH:mm");  
+end = moment.utc("2020-05-01T"+props.hourMatch).add(120,"m").format("HH:mm");  
 
 }
+
+
+
 const sendConfirmation = async ()=>{
+ 
+
 const date = new Date();
-
-
   let booking = {
     bookingDate : props.dateMatch ,
     date : date,
@@ -35,16 +40,17 @@ const date = new Date();
     playerId : "+213557115451",
     serviceId : props.serviceId,
     start : props.hourMatch ,
+    status : "confirmée",
     tarif : props.tarif ,
     timeMatch : props.matchTime,
     typeMatch : props.matchType,
     
+    
    
 }
-
-await dispatch( addBooking(booking));
-await props.overlayHandler();
-props.navigate();
+ props.overlayHandler();
+ dispatch( addBooking(booking));
+ props.navigate();
 
 };
 
@@ -67,6 +73,7 @@ props.navigate();
         <Text style = {styles.text} >Type: {props.matchType}</Text>
         <Text style = {styles.text} >Date: {props.dateMatch}</Text>
         <Text style = {styles.text} >Heure: {props.hourMatch}</Text>
+        <Text style = {styles.text} >Fin: {end}</Text>
 </View>
 
 </View>

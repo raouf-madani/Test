@@ -6,11 +6,11 @@ export const fetchOffers = ()=>{
 return async dispatch =>{
     try {
     
-    const arr = await fetch('http://192.168.1.3:3000/owner/hareth');
+    const arr = await fetch('http://192.168.1.6:3000/owner/hareth');
     
     let offers2 = [];
         const resData = await arr.json ();
-  
+ 
         let services = [];
         resData.map(
           item =>{ 
@@ -22,28 +22,39 @@ return async dispatch =>{
         services.forEach(service => {
    
           let newData = resData.filter(item => item.service_id === service);
-          
-        
-          let offer  = {
+         
+          let offer  = { 
             id:service,
-            horraires : {},
+            horraires : [],
             stadiumsType : newData[0].type_match,
             matchTimeType :  newData[0].time_match,
             price :newData[0].tarif,
             ownerId : newData[0].owner_id,
-            stadmiumNumber : newData[0].stadiumNum
+            stadmiumNumber : newData[0].stadiumNum,
+            offerDays : []
           }
        
           newData.map(item=>{
-        
-            offer.horraires[item.date] =[  item.start.substring(0,5),item.end.substring(0,5) ];
+            
+            const a = {
+              day : item.date ,
+              horraires : [  item.start.substring(0,5),item.end.substring(0,5) ] ,
+              
+            price : item.tarif,
+            serviceId : service
+            
+            
+            } 
+            offer.offerDays.push(item.date);
+            offer.horraires.push(a);
+             
           
 
           })
       
           offers2.push(offer);
         });
-        
+
         dispatch({type : SET_OFFERS , offers : offers2});
     } catch (error) {
       console.log("There is an Error");
