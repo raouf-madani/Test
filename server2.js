@@ -103,7 +103,7 @@ let con = mysql.createConnection({
   app.post('/player/addPlayer',(req,res)=>{
 
 
-    con.query('INSERT INTO player (id,phone,password,name,surname,email,address,type) VALUES(?,?,?,?,?,?,?,?)',
+    con.query('INSERT INTO player (id,phone,password,name,surname,email,address,type,image) VALUES(?,?,?,?,?,?,?,?,?)',
     [
       req.body.id,
       req.body.phone,
@@ -112,7 +112,8 @@ let con = mysql.createConnection({
       req.body.surname,
       null,
       null,
-      "Player"
+      "Player",
+      null
     ]
     ,
     (err,result,fields)=>{
@@ -186,12 +187,13 @@ app.patch('/player/updatePhone/:playerid',(req,res)=>{
  */ 
 app.patch('/player/updatePlayer/:id',(req,res)=>{
     
-  con.query('UPDATE player SET name=?, surname=?, email=?, address=? WHERE id= ?',
+  con.query('UPDATE player SET name=?, surname=?, email=?, address=?, image=? WHERE id= ?',
   [
     req.body.name,
     req.body.surname,
     req.body.email,
     req.body.address,
+    req.body.image,
     req.params.id
   ],
   (err,result,fields)=>{
@@ -332,7 +334,7 @@ app.delete('/owner/deleteOwner/:id',(req,res)=>{
  });
 
  /**
-   * ************************Property
+   * **************************************************Property
   */
   /*
     Add New Property
@@ -487,6 +489,18 @@ app.get('/stadium',(req,res)=>{
 */
 app.get('/propertyStadiums',(req,res)=>{
   con.query('SELECT * FROM property P INNER JOIN stadium S ON P.id = S.property_id',(err,result,fields)=>{
+    if(err) console.log('Query error',err);
+   res.send(result);
+  });
+});
+
+/**
+   * **************************************************Service
+  */
+ app.get('/ownerservices/:owner_id',(req,res)=>{
+  con.query('SELECT * FROM service WHERE owner_id = ?',
+   [req.params.owner_id],
+  (err,result,fields)=>{
     if(err) console.log('Query error',err);
    res.send(result);
   });

@@ -68,9 +68,9 @@ export const setPlayer= id => {
              }
  
             const resData= await response.json();
-            
+        
             dispatch({type:SET_PLAYER,playerData:resData});
-            
+      
        }catch(err){
            console.log(err);
        }
@@ -131,7 +131,7 @@ export const updatePlayerPhone= (id,phone,playerid) => {
 
 };
 
-export const updatePlayer= (id,name,surname,email,address) => {
+export const updatePlayer= (id,name,surname,email,address,image) => {
 
     return async dispatch => {
 
@@ -141,14 +141,13 @@ export const updatePlayer= (id,name,surname,email,address) => {
               headers: {
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({name,surname,email,address})
+            body : JSON.stringify({name,surname,email,address,image})
            });
            if(!response.ok){
                throw new Error('Oups! Une erreur est survenue.');
            }
-           
-           dispatch({type:UPDATE_PLAYER,id,playerData:{name,surname,email,address}});
-           
+   
+           dispatch({type:UPDATE_PLAYER,id,playerData:{name,surname,email,address,image}});
          }catch(err){
              console.log(err);
          }

@@ -68,17 +68,17 @@ if(screen.height > 800){
                 </View>
                 <View style={styles.typeTimeMatchContainer}>
                     <Ionicons name={Platform.OS === 'android' ? 'md-hourglass' : 'ios-hourglass'} size={size} color={Colors.primary}/>
-                    <Text style={typeMatchStyle}> {props.durationMatch} heure</Text>
+                    <Text style={typeMatchStyle}> {props.durationMatch}</Text>
                 </View>
             </View>
             <View style={styles.infoMatchDateContainerRight}>
                 <View style={styles.typeTimeMatchContainer}> 
                     <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={size} color={Colors.primary}/>
-                    <Text style={editStyle}> modifier </Text>
+                    <Text style={editStyle}> Afficher </Text>
                 </View>
                 <View style={styles.typeTimeMatchContainer}>
                     <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={size} color={Colors.primary}/>
-                    <Text style={editStyle}> modifier </Text>
+                    <Text style={editStyle}> Afficher </Text>
                 </View>
             </View>
         </View>
@@ -88,6 +88,17 @@ if(screen.height > 800){
         </View>
 
         <View style={styles.buttonsContainer}>
+           <View style={styles.buttonWidth}>
+                <Button
+                theme={{colors: {primary:Colors.secondary}}} 
+                mode="contained"
+                labelStyle={labelBtnStyle}
+                contentStyle={{width:'100%'}}
+                style={{borderColor:Colors.secondary}}
+                dark={true}
+                >Modifier
+                </Button>
+            </View>
             <View style={styles.buttonWidth}>
                 <Button
                 theme={{colors: {primary:Colors.primary}}} 
@@ -264,14 +275,14 @@ algerianDinarBig:{
 },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  buttonsContainer:{
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height:'20%',
     paddingHorizontal: 20,
-    
+    flexDirection:'row'
  },
  buttonWidth:{
-    width:'60%',
+    width:'45%',
     borderRadius:20,
     overflow:'hidden'
  },

@@ -47,7 +47,7 @@ const PlayerProfileScreen = props =>{
 
   //get the player's data
   const playerData= useSelector(state=>state.players.player);
-  console.log(playerData[0]);
+  
   //use Dispatch to dispatch our action
   const dispatch= useDispatch();
 
@@ -76,7 +76,7 @@ let labelBtnStyle = styles.labelBtn;
     const [isLoading,setIsLoading]=useState(false);
 
     //state for image
-    const [pickedImage,setPickedImage]= useState();
+    const [pickedImage,setPickedImage]= useState(playerData[0]?playerData[0].image : '');
 
     const verifyPermissions= async ()=>{
         const result= await Permissions.askAsync(Permissions.CAMERA,Permissions.CAMERA_ROLL);
@@ -99,9 +99,14 @@ let labelBtnStyle = styles.labelBtn;
            aspect:[60,60],
            quality:0.7
        });
-       
+       console.log(image);
        setPickedImage(image.uri);
     };
+
+    useEffect(()=>{
+      console.log(pickedImage);
+    },[pickedImage])
+    
     
     // logout handler
     const logout = ()=>{
@@ -139,7 +144,7 @@ let labelBtnStyle = styles.labelBtn;
     try{
         setIsLoading(true);
         dispatch(playerActions.updatePlayer(playerData[0].id,formState.inputValues.name,formState.inputValues.surname,
-                                          formState.inputValues.email,formState.inputValues.address));
+                                          formState.inputValues.email,formState.inputValues.address,pickedImage));
         setIsLoading(false);                        
         Alert.alert('Félicitation!','Vos données ont été changées avec succès!',[{text:"OK"}]);
   
@@ -157,6 +162,7 @@ let labelBtnStyle = styles.labelBtn;
    useEffect(()=>{
      props.navigation.setParams({load:isLoading});
      props.navigation.setParams({save:saveHandler});
+     
    },[saveHandler,isLoading]);
 
     return(
@@ -175,15 +181,15 @@ let labelBtnStyle = styles.labelBtn;
          
             <View style={circlesContainerStyle}>
                 <TouchableHighlight style={circleOneStyle} onPress={takeImageHandler}>
-                  <Ionicons title = "save" 
+                  <Ionicons title = "add" 
                    name = {Platform.OS === 'android' ? 'md-camera' : 'ios-camera'}
                    color='white' size={24} />
                 </TouchableHighlight>
                 <TouchableHighlight 
                 style={circleTwoStyle}
-                onPress={()=>setPickedImage(false)}
+                onPress={()=>setPickedImage(null)}
                 >
-                <Ionicons title = "save" 
+                <Ionicons title = "delete" 
                    name = {Platform.OS === 'android' ? 'md-remove' : 'ios-remove'}
                    color='white' size={24} />
                 </TouchableHighlight>

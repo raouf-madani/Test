@@ -7,11 +7,11 @@ const initialState={
 };
 
 const playersReducer=(state=initialState,action)=>{
-   
+  console.log(action.type);
    switch(action.type){
        case CREATE_PLAYER:
          const newPlayer= new Player(action.playerData.id,action.playerData.phone,action.playerData.password,
-                                     action.playerData.name,action.playerData.surname,null,null,'Player');                      
+                                     action.playerData.name,action.playerData.surname,null,null,'Player',null);                      
          return{
            ...state,
            players: state.players.concat(newPlayer)
@@ -32,6 +32,7 @@ const playersReducer=(state=initialState,action)=>{
        case UPDATE_PLAYER:
 
         const playerindex = state.player.findIndex(player => player.id === action.id);
+       
         const updatedPlayerData= new Player(
           action.id,
           state.player[playerindex].phone,
@@ -40,7 +41,8 @@ const playersReducer=(state=initialState,action)=>{
           action.playerData.surname,
           action.playerData.email,
           action.playerData.address,
-          state.player[playerindex].type
+          state.player[playerindex].type,
+          action.playerData.image
         );
         const updatedPlayersData=[...state.player];
         updatedPlayersData[playerindex]= updatedPlayerData;
@@ -67,7 +69,8 @@ const playersReducer=(state=initialState,action)=>{
           state.players[playerIndex].surname,
           state.players[playerIndex].email,
           state.players[playerIndex].address,
-          state.players[playerIndex].type
+          state.players[playerIndex].type,
+          state.players[playerIndex].image
         );   
 
         const updatedPlayers=[...state.players];
@@ -79,7 +82,7 @@ const playersReducer=(state=initialState,action)=>{
 
         case UPDATE_PLAYER_PHONE:
           const indexPlayer = state.player.findIndex(player => player.id === action.playerid);
-          console.log('This is the index of player',indexPlayer);
+          
           const updatedPlayerPhone = new Player(
             action.playerData.id,
             action.playerData.phone,
@@ -88,7 +91,8 @@ const playersReducer=(state=initialState,action)=>{
             state.player[indexPlayer].surname,
             state.player[indexPlayer].email,
             state.player[indexPlayer].address,
-            state.player[indexPlayer].type
+            state.player[indexPlayer].type,
+            state.players[playerIndex].image
           );   
 
           const updatedAllPlayers=[...state.player];

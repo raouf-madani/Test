@@ -1,56 +1,93 @@
-import React from 'react';
-import { StyleSheet,View,ImageBackground, ScrollView,Platform} from 'react-native';
+import React,{useState,useEffect,useCallback} from 'react';
+import { StyleSheet,View,ImageBackground,Platform,FlatList,ActivityIndicator,Text} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import Colors from '../../../constants/Colors';
-
+import {useDispatch,useSelector} from "react-redux";
 
 import ServiceCard from '../../../components/ServiceCard';
 import HeaderButton from "../../../components/HeaderButton";
-
+import serviceActions from '../../../store/actions/serviceActions';
 
 
 
 const OwnerServiceScreen = props =>{
 
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState();
+const dispatch = useDispatch();
+const ownerID= props.navigation.getParam('ownerID');
+const services = useSelector(state => state.services.ownerServices); //Bring all OwnerServices from our serviceReducer
 
+    const renderProductItem = itemData=>{
+    return( 
+        <ServiceCard 
+        serviceNumber={itemData.item.id}
+        typeMatch={itemData.item.type_match}
+        durationMatch={itemData.item.time_match}
+        price={itemData.item.tarif}
+       />
+    );
+    };
+
+    //Render ownerServices from our DB  function
+    const loadOwnerServices = useCallback (async () => {
+      setError(null);
+      setIsLoading(true);
+      try{
+        await dispatch(serviceActions.setOwnerServices(ownerID));
+      } catch(err){
+        setError(err.message);
+        console.log(err);
+      }
+      setIsLoading(false);
+      },[dispatch,setIsLoading, setError]);
+
+    //Render data (initially) from our DB useEffect
+    useEffect(() => {
+      loadOwnerServices();
+   },[dispatch, loadOwnerServices]);
+
+   //ReRender between navigations 
+   useEffect(()=>{
+    const willFocusSub= props.navigation.addListener('willFocus',loadOwnerServices);
+    return ()=>{
+      willFocusSub.remove();
+    };
+  },[loadOwnerServices]);
+
+    if(isLoading){
+        return <View style={styles.activityIndicatorContainer} >
+                <ActivityIndicator size='large' color={Colors.primary} />
+               </View>
+     }
+ 
+     if(!isLoading && services.length === 0){
+        return <View style={styles.activityIndicatorContainer}>
+                <Text style={{fontFamily:'poppins',color:'white'}}>No services found. Maybe start  adding some!</Text>
+               </View>
+     }
+
+     if(error){
+      return <View style={styles.activityIndicatorContainer}>
+                <Text style={{fontFamily:'poppins',color:'white'}}>Une erreur est survenue!</Text>
+                <View style={styles.buttonWidth}>
+                  <Button
+                  theme={{colors: {primary:Colors.primary}}} 
+                  mode="contained"
+                  labelStyle={labelBtnStyle}
+                  contentStyle={{width:'100%'}}
+                  style={{borderColor:Colors.primary}}
+                  dark={true}
+                  >Réessayer
+                  </Button>
+                </View>
+             </View>
+    }
    
     return(
         <View style={styles.container}> 
             <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.stadiumImageBackground}>
-                <ScrollView>
-                    <ServiceCard 
-                        serviceNumber={1}
-                        typeMatch='5 x 5'
-                        durationMatch={1}
-                        daysMatch='Sam - Ven'
-                        timeMatch='9h - 22h'
-                        price={3500}
-                    />
-                    <ServiceCard 
-                        serviceNumber={2}
-                        typeMatch='11 x 11'
-                        durationMatch={1}
-                        daysMatch='Sam - Ven'
-                        timeMatch='9h - 22h'
-                        price={3500}
-                    />
-                    <ServiceCard 
-                        serviceNumber={3}
-                        typeMatch='5 x 5'
-                        durationMatch={2}
-                        daysMatch='Sam - Mar'
-                        timeMatch='18h - 22h'
-                        price={3500}
-                    />
-                    <ServiceCard 
-                        serviceNumber={4}
-                        typeMatch='10 x 10'
-                        durationMatch={2}
-                        daysMatch='Sam - Ven'
-                        timeMatch='9h - 18h'
-                        price={3500}
-                    />
-                </ScrollView>
+               <FlatList data={services} keyExtractor={item=>item.id} renderItem={renderProductItem}  />
             </ImageBackground>
         </View>    
          
@@ -93,6 +130,40 @@ const styles= StyleSheet.create({
         resizeMode:'cover',
         justifyContent:'center',
         alignItems:'center'
+    },
+    activityIndicatorContainer:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+     },
+     buttonWidth:{
+      width:'45%',
+      borderRadius:20,
+      overflow:'hidden'
+     },
+     labelBtn:{
+      fontSize:15,
+      fontFamily:'poppins', 
+      color: 'white',
+      marginTop:10
+     },
+    labelBtnSmall:{
+        fontSize:13,
+        fontFamily:'poppins', 
+        color: 'white',
+        marginTop:10
+    },
+    labelBtnTall:{
+        fontSize:16,
+        fontFamily:'poppins', 
+        color: 'white',
+        marginTop:10
+    },
+    labelBtnBig:{
+        fontSize:22,
+        fontFamily:'poppins', 
+        color: 'white',
+        marginTop:10
     }
 });
 

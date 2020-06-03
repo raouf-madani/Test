@@ -1,15 +1,17 @@
 import React ,{useEffect,useCallback }  from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image ,Dimensions} from 'react-native';
 import SmallCard  from '../../components/SmallCard';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import * as playerActions from '../../store/actions/playerActions';
 
 const screen = Dimensions.get("window");
 const PlayerProfileChoiceScreen = props =>{
 
 const playerID= props.navigation.getParam('playerID');  //get Player ID
+
 const playerUID= props.navigation.getParam('playerUID');  //get Player UID firebase
 const dispatch = useDispatch();
+//get the player's data
 
   
 let welcomeTextStyle = styles.welcomeText;
