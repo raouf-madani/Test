@@ -6,7 +6,7 @@ import {useDispatch,useSelector} from "react-redux";
 
 import ServiceCard from '../../../components/ServiceCard';
 import HeaderButton from "../../../components/HeaderButton";
-import serviceActions from '../../../store/actions/serviceActions';
+import * as serviceActions from '../../../store/actions/serviceActions';
 
 
 
@@ -57,18 +57,23 @@ const services = useSelector(state => state.services.ownerServices); //Bring all
 
     if(isLoading){
         return <View style={styles.activityIndicatorContainer} >
-                <ActivityIndicator size='large' color={Colors.primary} />
+                 <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.activityIndicatorBackContainer}>
+                  <ActivityIndicator size='large' color={Colors.primary} />
+                </ImageBackground>
                </View>
      }
  
      if(!isLoading && services.length === 0){
         return <View style={styles.activityIndicatorContainer}>
-                <Text style={{fontFamily:'poppins',color:'white'}}>No services found. Maybe start  adding some!</Text>
+                <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.activityIndicatorBackContainer}>
+                 <Text style={{fontFamily:'poppins',color:'white'}}>Aucun service trouvé. Peut-être vous commencez à en ajouter!</Text>
+                </ImageBackground>
                </View>
      }
 
      if(error){
       return <View style={styles.activityIndicatorContainer}>
+              <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.activityIndicatorBackContainer}>
                 <Text style={{fontFamily:'poppins',color:'white'}}>Une erreur est survenue!</Text>
                 <View style={styles.buttonWidth}>
                   <Button
@@ -81,13 +86,14 @@ const services = useSelector(state => state.services.ownerServices); //Bring all
                   >Réessayer
                   </Button>
                 </View>
+              </ImageBackground>
              </View>
     }
    
     return(
         <View style={styles.container}> 
             <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.stadiumImageBackground}>
-               <FlatList data={services} keyExtractor={item=>item.id} renderItem={renderProductItem}  />
+               <FlatList data={services} keyExtractor={item=>item.id.toString()} renderItem={renderProductItem}  />
             </ImageBackground>
         </View>    
          
@@ -132,6 +138,9 @@ const styles= StyleSheet.create({
         alignItems:'center'
     },
     activityIndicatorContainer:{
+        flex:1
+     },
+     activityIndicatorBackContainer:{
         flex:1,
         alignItems:'center',
         justifyContent:'center'
