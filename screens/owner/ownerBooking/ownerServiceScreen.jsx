@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useCallback} from 'react';
-import { StyleSheet,View,ImageBackground,Platform,FlatList,ActivityIndicator,Text} from 'react-native';
+import { StyleSheet,View,ImageBackground,Platform,FlatList,ActivityIndicator,Text,Alert} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
 import Colors from '../../../constants/Colors';
 import {useDispatch,useSelector} from "react-redux";
@@ -8,7 +8,10 @@ import ServiceCard from '../../../components/ServiceCard';
 import HeaderButton from "../../../components/HeaderButton";
 import * as serviceActions from '../../../store/actions/serviceActions';
 
-
+/*
+INSERT INTO service(id,type_match,time_match,tarif,owner_id,stadiumNum) VALUES(2,'6x6','1h30',3700,'+213557115451',1)
+INSERT INTO slot(id,day,debut,finish,service_id) VALUES(4,'Dim','10:00','23:00',2)
+*/
 
 const OwnerServiceScreen = props =>{
 
@@ -18,6 +21,17 @@ const dispatch = useDispatch();
 const ownerID= props.navigation.getParam('ownerID');
 const services = useSelector(state => state.services.ownerServices); //Bring all OwnerServices from our serviceReducer
 
+    const deleteService= id=>{
+      Alert.alert(
+        'Attention!',
+        'Voulez-vous vraiment supprimer ce service?',
+        [{text:'Oui', style:'destructive', onPress:async()=>{
+          dispatch(serviceActions.deleteOwnerService(id));
+          loadOwnerServices();  
+        }},
+         {text:'Non', style:'default'}]);  
+    }
+
     const renderProductItem = itemData=>{
     return( 
         <ServiceCard 
@@ -25,6 +39,7 @@ const services = useSelector(state => state.services.ownerServices); //Bring all
         typeMatch={itemData.item.type_match}
         durationMatch={itemData.item.time_match}
         price={itemData.item.tarif}
+        onPressDelete={deleteService.bind(this,itemData.item.id)}
        />
     );
     };

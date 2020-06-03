@@ -506,6 +506,22 @@ app.get('/propertyStadiums',(req,res)=>{
   });
 });
 
+/*
+    Delete owner service
+ */
+app.delete('/deleteservice/:id',(req,res)=>{
+ 
+  con.query('DELETE FROM service WHERE id=?',
+  [
+    req.params.id
+  ],
+  (err,result,fields)=>{
+    if(err) console.log('Query error',err);
+    res.send("success");
+  });
+
+ });
+
 // Starting our server.
 app.listen(3000, () => {
     console.log('Connected');

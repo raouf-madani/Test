@@ -107,6 +107,7 @@ if(screen.height > 800){
                 contentStyle={{width:'100%'}}
                 style={{borderColor:Colors.primary}}
                 dark={true}
+                onPress={props.onPressDelete}
                 >Supprimer
                 </Button>
             </View>

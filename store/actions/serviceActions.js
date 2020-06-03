@@ -1,4 +1,5 @@
 export const SET_OWNER_SERVICES = 'SET_OWNER_SERVICES';
+export const DELETE_SERVICE = 'DELETE_SERVICE';
 
 export const setOwnerServices= owner_id=>{
 
@@ -9,16 +10,35 @@ export const setOwnerServices= owner_id=>{
            if(!response.ok){
             throw new Error('Oups! Une erreur est survenue.');
             }
-            console.log('hey');
            
            const resData= await response.json();
-           console.log('begin');
+           
            dispatch({type:SET_OWNER_SERVICES,ownerServicesData:resData});
-           console.log('finish');
+        
       }catch(err){
           console.log(err);
       }
 
     };
+
+};
+
+export const deleteOwnerService = id =>{
+
+   return async dispatch =>{
+     try{
+         const response = await fetch(`http://192.168.1.39:3000/deleteservice/${id}`,{
+           method:'DELETE'});
+
+         if(!response.ok){
+           throw new Error('Oups! Une erreur est survenue');
+         }
+
+         dispatch({type:DELETE_SERVICE,id});
+
+     }catch(err){
+        console.log(err);
+     }
+   };
 
 };

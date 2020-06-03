@@ -1,4 +1,4 @@
-import {SET_OWNER_SERVICES} from '../actions/serviceActions';
+import {SET_OWNER_SERVICES,DELETE_SERVICE} from '../actions/serviceActions';
 import Service from '../../models/service';
 
 const initialState={
@@ -13,7 +13,13 @@ const servicesReducer=(state=initialState,action)=>{
             return{
             ...state,
             ownerServices:action.ownerServicesData
-            }
+            };
+        
+        case DELETE_SERVICE:
+          return{
+            ...state,
+            ownerServices:state.ownerServices.filter(service=>service.id===action.id)
+          }
             
         default: 
         return state;
