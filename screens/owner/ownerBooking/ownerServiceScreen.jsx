@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useCallback} from 'react';
 import { StyleSheet,View,ImageBackground,Platform,FlatList,ActivityIndicator,Text,Alert} from 'react-native';
 import {HeaderButtons,Item} from "react-navigation-header-buttons";
+import SlotDetail from "../../../components/SlotDetail";
 import Colors from '../../../constants/Colors';
 import {useDispatch,useSelector} from "react-redux";
 
@@ -17,6 +18,7 @@ const OwnerServiceScreen = props =>{
 
 const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState();
+const [visible,setVisible]=useState(false);
 const dispatch = useDispatch();
 const ownerID= props.navigation.getParam('ownerID');
 const services = useSelector(state => state.services.ownerServices); //Bring all OwnerServices from our serviceReducer
@@ -32,14 +34,22 @@ const services = useSelector(state => state.services.ownerServices); //Bring all
          {text:'Non', style:'default'}]);  
     }
 
+    const overlayHandler= ()=>{
+      setVisible(previous=>!previous);
+    };
+
+    
+
     const renderProductItem = itemData=>{
-    return( 
+    return(
+        
         <ServiceCard 
         serviceNumber={itemData.item.id}
         typeMatch={itemData.item.type_match}
         durationMatch={itemData.item.time_match}
         price={itemData.item.tarif}
         onPressDelete={deleteService.bind(this,itemData.item.id)}
+        onDisplay={overlayHandler}
        />
     );
     };
@@ -108,6 +118,12 @@ const services = useSelector(state => state.services.ownerServices); //Bring all
     return(
         <View style={styles.container}> 
             <ImageBackground source={require('../../../assets/images/android.jpg')} style={styles.stadiumImageBackground}>
+               {visible && <SlotDetail 
+                            isVisible={visible}
+                            day="Sam"
+                            debut="09:00"
+                            end="22:00"
+                           />}
                <FlatList data={services} keyExtractor={item=>item.id.toString()} renderItem={renderProductItem}  />
             </ImageBackground>
         </View>    

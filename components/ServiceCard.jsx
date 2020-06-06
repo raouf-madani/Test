@@ -74,11 +74,11 @@ if(screen.height > 800){
             <View style={styles.infoMatchDateContainerRight}>
                 <View style={styles.typeTimeMatchContainer}> 
                     <Ionicons name={Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar'} size={size} color={Colors.primary}/>
-                    <Text style={editStyle}> Afficher </Text>
+                    <Text style={editStyle} onPress={props.onDisplay}> Afficher </Text>
                 </View>
                 <View style={styles.typeTimeMatchContainer}>
                     <Ionicons name={Platform.OS === 'android' ? 'md-time' : 'ios-time'} size={size} color={Colors.primary}/>
-                    <Text style={editStyle}> Afficher </Text>
+                    <Text style={editStyle} onPress={props.onDisplay}> Afficher </Text>
                 </View>
             </View>
         </View>
